@@ -1,0 +1,473 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CC7059ED2477B81100462251 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7059EC2477B81100462251 /* AppDelegate.swift */; };
+		CC7059EF2477B81100462251 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7059EE2477B81100462251 /* SceneDelegate.swift */; };
+		CC7059F12477B81100462251 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7059F02477B81100462251 /* ViewController.swift */; };
+		CC7059F42477B81100462251 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC7059F22477B81100462251 /* Main.storyboard */; };
+		CC7059F62477B81200462251 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC7059F52477B81200462251 /* Assets.xcassets */; };
+		CC7059F92477B81200462251 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC7059F72477B81200462251 /* LaunchScreen.storyboard */; };
+		CC705A022477BBAB00462251 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = CC705A012477BBAB00462251 /* .swiftlint.yml */; };
+		CC705A0B2477D28800462251 /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A0A2477D28800462251 /* UserListViewController.swift */; };
+		CC705A0D2477D2BA00462251 /* MannaListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A0C2477D2BA00462251 /* MannaListViewController.swift */; };
+		CC705A0F2477D2D200462251 /* NotiListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A0E2477D2D200462251 /* NotiListViewController.swift */; };
+		CC705A112477D2E000462251 /* SetListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A102477D2E000462251 /* SetListViewController.swift */; };
+		F69ED73508E16B9556FF55D3 /* Pods_Manna_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5434F4B54E67CE37DCF01314 /* Pods_Manna_iOS.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4DFAEF44CF70735D62CB19F6 /* Pods-Manna-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manna-iOS.release.xcconfig"; path = "Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		5434F4B54E67CE37DCF01314 /* Pods_Manna_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Manna_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC7059E92477B81100462251 /* Manna-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Manna-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC7059EC2477B81100462251 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CC7059EE2477B81100462251 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		CC7059F02477B81100462251 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CC7059F32477B81100462251 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CC7059F52477B81200462251 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CC7059F82477B81200462251 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CC7059FA2477B81200462251 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC705A012477BBAB00462251 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		CC705A0A2477D28800462251 /* UserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
+		CC705A0C2477D2BA00462251 /* MannaListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaListViewController.swift; sourceTree = "<group>"; };
+		CC705A0E2477D2D200462251 /* NotiListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiListViewController.swift; sourceTree = "<group>"; };
+		CC705A102477D2E000462251 /* SetListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetListViewController.swift; sourceTree = "<group>"; };
+		F1D0975FD460DE1097C65D92 /* Pods-Manna-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manna-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CC7059E62477B81100462251 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F69ED73508E16B9556FF55D3 /* Pods_Manna_iOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		39CE59F776059BD51289978C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F1D0975FD460DE1097C65D92 /* Pods-Manna-iOS.debug.xcconfig */,
+				4DFAEF44CF70735D62CB19F6 /* Pods-Manna-iOS.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		C983464E3A053C4E49BD787A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5434F4B54E67CE37DCF01314 /* Pods_Manna_iOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC7059E02477B81100462251 = {
+			isa = PBXGroup;
+			children = (
+				CC705A012477BBAB00462251 /* .swiftlint.yml */,
+				CC7059EB2477B81100462251 /* Manna-iOS */,
+				CC7059EA2477B81100462251 /* Products */,
+				39CE59F776059BD51289978C /* Pods */,
+				C983464E3A053C4E49BD787A /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		CC7059EA2477B81100462251 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC7059E92477B81100462251 /* Manna-iOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC7059EB2477B81100462251 /* Manna-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CC705A032477CEAA00462251 /* Presentation */,
+				CC7059EC2477B81100462251 /* AppDelegate.swift */,
+				CC7059EE2477B81100462251 /* SceneDelegate.swift */,
+				CC7059F22477B81100462251 /* Main.storyboard */,
+				CC7059F52477B81200462251 /* Assets.xcassets */,
+				CC7059F72477B81200462251 /* LaunchScreen.storyboard */,
+				CC7059FA2477B81200462251 /* Info.plist */,
+			);
+			path = "Manna-iOS";
+			sourceTree = "<group>";
+		};
+		CC705A032477CEAA00462251 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				CC705A042477CECF00462251 /* User List */,
+				CC705A052477CEF900462251 /* Manna List */,
+				CC705A062477D18100462251 /* Noti List */,
+				CC705A072477D1E600462251 /* Set List */,
+				CC7059F02477B81100462251 /* ViewController.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		CC705A042477CECF00462251 /* User List */ = {
+			isa = PBXGroup;
+			children = (
+				CC705A0A2477D28800462251 /* UserListViewController.swift */,
+			);
+			path = "User List";
+			sourceTree = "<group>";
+		};
+		CC705A052477CEF900462251 /* Manna List */ = {
+			isa = PBXGroup;
+			children = (
+				CC705A0C2477D2BA00462251 /* MannaListViewController.swift */,
+			);
+			path = "Manna List";
+			sourceTree = "<group>";
+		};
+		CC705A062477D18100462251 /* Noti List */ = {
+			isa = PBXGroup;
+			children = (
+				CC705A0E2477D2D200462251 /* NotiListViewController.swift */,
+			);
+			path = "Noti List";
+			sourceTree = "<group>";
+		};
+		CC705A072477D1E600462251 /* Set List */ = {
+			isa = PBXGroup;
+			children = (
+				CC705A102477D2E000462251 /* SetListViewController.swift */,
+			);
+			path = "Set List";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CC7059E82477B81100462251 /* Manna-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC7059FD2477B81200462251 /* Build configuration list for PBXNativeTarget "Manna-iOS" */;
+			buildPhases = (
+				7D1391115A22FCA960986AD4 /* [CP] Check Pods Manifest.lock */,
+				CC7059E52477B81100462251 /* Sources */,
+				CC7059E62477B81100462251 /* Frameworks */,
+				CC7059E72477B81100462251 /* Resources */,
+				CC705A002477B97B00462251 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Manna-iOS";
+			productName = "Manna-iOS";
+			productReference = CC7059E92477B81100462251 /* Manna-iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CC7059E12477B81100462251 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1140;
+				LastUpgradeCheck = 1140;
+				ORGANIZATIONNAME = "정재인";
+				TargetAttributes = {
+					CC7059E82477B81100462251 = {
+						CreatedOnToolsVersion = 11.4;
+					};
+				};
+			};
+			buildConfigurationList = CC7059E42477B81100462251 /* Build configuration list for PBXProject "Manna-iOS" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CC7059E02477B81100462251;
+			productRefGroup = CC7059EA2477B81100462251 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CC7059E82477B81100462251 /* Manna-iOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CC7059E72477B81100462251 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC705A022477BBAB00462251 /* .swiftlint.yml in Resources */,
+				CC7059F92477B81200462251 /* LaunchScreen.storyboard in Resources */,
+				CC7059F62477B81200462251 /* Assets.xcassets in Resources */,
+				CC7059F42477B81100462251 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7D1391115A22FCA960986AD4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Manna-iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CC705A002477B97B00462251 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n${PODS_ROOT}/SwiftLint/swiftlint\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CC7059E52477B81100462251 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC705A0D2477D2BA00462251 /* MannaListViewController.swift in Sources */,
+				CC705A112477D2E000462251 /* SetListViewController.swift in Sources */,
+				CC7059F12477B81100462251 /* ViewController.swift in Sources */,
+				CC705A0F2477D2D200462251 /* NotiListViewController.swift in Sources */,
+				CC705A0B2477D28800462251 /* UserListViewController.swift in Sources */,
+				CC7059ED2477B81100462251 /* AppDelegate.swift in Sources */,
+				CC7059EF2477B81100462251 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		CC7059F22477B81100462251 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC7059F32477B81100462251 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CC7059F72477B81200462251 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC7059F82477B81200462251 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CC7059FB2477B81200462251 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CC7059FC2477B81200462251 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CC7059FE2477B81200462251 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F1D0975FD460DE1097C65D92 /* Pods-Manna-iOS.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DH7PS64634;
+				INFOPLIST_FILE = "Manna-iOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Manna-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CC7059FF2477B81200462251 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DFAEF44CF70735D62CB19F6 /* Pods-Manna-iOS.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DH7PS64634;
+				INFOPLIST_FILE = "Manna-iOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Manna-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CC7059E42477B81100462251 /* Build configuration list for PBXProject "Manna-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC7059FB2477B81200462251 /* Debug */,
+				CC7059FC2477B81200462251 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC7059FD2477B81200462251 /* Build configuration list for PBXNativeTarget "Manna-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC7059FE2477B81200462251 /* Debug */,
+				CC7059FF2477B81200462251 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CC7059E12477B81100462251 /* Project object */;
+}

@@ -1,0 +1,6 @@
+framework module Pods_Manna_iOS {
+  umbrella header "Pods-Manna-iOS-umbrella.h"
+
+  export *
+  module * { export * }
+}
