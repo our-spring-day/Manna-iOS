@@ -5,7 +5,9 @@ target 'Manna-iOS' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
   pod 'SwiftLint'
-
+  pod 'RxSwift'
+  pod 'RxCocoa'
+  pod 'Then'
   # Pods for Manna-iOS
 
 end
