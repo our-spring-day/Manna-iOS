@@ -8,20 +8,27 @@
 
 import UIKit
 import SnapKit
-
+import Then
 class MannaListCell: UITableViewCell{
+    //title
     let title = UILabel()
+    
+    //title
     let place = UILabel()
     let pin = UIImageView()
+    
+    //appointmentTime
     let appointmentTime = UILabel()
     let clock = UIImageView()
+    
+    //numberPeople
     let numberPeople = UILabel()
     let user = UIImageView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        
+        layout()
+        attribute()
     }
     
     required init?(coder: NSCoder) {
@@ -33,6 +40,39 @@ class MannaListCell: UITableViewCell{
     }
     
     func attribute(){
+        title.do{
+            $0.numberOfLines = 0
+            $0.adjustsFontSizeToFitWidth = true
+        }
+        
+        place.do{
+            $0.numberOfLines = 0
+            $0.adjustsFontSizeToFitWidth = true
+        }
+        
+        appointmentTime.do{
+            $0.numberOfLines = 0
+            $0.adjustsFontSizeToFitWidth = true
+        }
+        
+        numberPeople.do{
+            $0.numberOfLines = 0
+            $0.adjustsFontSizeToFitWidth = true
+        }
+        
+        pin.do {
+            $0.image = UIImage(named: "Image")
+            $0.contentMode = .scaleAspectFit
+        }
+
+        clock.do {
+            $0.image = UIImage(named: "Image-1")
+            $0.contentMode = .scaleAspectFit
+        }
+        user.do {
+            $0.image = UIImage(named: "Image-2")
+            $0.contentMode = .scaleAspectFit
+        }
         
     }
     
