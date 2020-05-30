@@ -1,0 +1,91 @@
+//
+//  MannaListCell.swift
+//  Manna-iOS
+//
+//  Created by once on 2020/05/30.
+//  Copyright © 2020 정재인. All rights reserved.
+//
+
+import UIKit
+import SnapKit
+
+class MannaListCell: UITableViewCell{
+    let title = UILabel()
+    let place = UILabel()
+    let pin = UIImageView()
+    let appointmentTime = UILabel()
+    let clock = UIImageView()
+    let numberPeople = UILabel()
+    let user = UIImageView()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setData(){
+        
+    }
+    
+    func attribute(){
+        
+    }
+    
+    func layout(){
+        addSubview(title)
+        addSubview(pin)             //핀
+        addSubview(place)
+        addSubview(clock)           //시계
+        addSubview(appointmentTime)
+        addSubview(user)
+        addSubview(numberPeople)    //사람
+        
+        
+        title.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(5)
+            $0.bottom.equalTo(pin.snp.top).offset(-5)
+            $0.left.equalToSuperview().offset(10)
+        }
+        
+        pin.snp.makeConstraints {
+            $0.left.equalTo(title)
+            $0.centerY.equalToSuperview()
+        }
+        
+        place.snp.makeConstraints {
+            $0.leading.equalTo(pin.snp.trailing).offset(10)
+            $0.centerY.equalToSuperview()
+        }
+        
+        clock.snp.makeConstraints {
+            $0.top.equalTo(pin.snp.bottom).offset(10)
+            $0.bottom.equalToSuperview().offset(10)
+            $0.left.equalTo(title)
+        }
+        
+        appointmentTime.snp.makeConstraints {
+            $0.top.equalTo(pin.snp.bottom).offset(10)
+            $0.bottom.equalToSuperview().offset(10)
+            $0.left.equalTo(clock.snp.right).offset(-10)
+        }
+        
+        user.snp.makeConstraints {
+            $0.top.equalTo(pin.snp.bottom).offset(10)
+            $0.bottom.equalToSuperview().offset(10)
+            $0.left.equalTo(appointmentTime.snp.right).offset(-10)
+        }
+        
+        numberPeople.snp.makeConstraints {
+            $0.top.equalTo(pin.snp.bottom).offset(10)
+            $0.bottom.equalToSuperview().offset(10)
+            $0.left.equalTo(user.snp.right).offset(-10)
+        }
+    }
+    
+}
+

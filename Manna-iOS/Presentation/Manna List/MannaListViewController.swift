@@ -7,11 +7,35 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import SnapKit
 
 class MannaListViewController: UIViewController {
+    var disposeBag = DisposeBag()
+    
+    let mannaList = UITableView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .darkGray
+        
+        attribute()
+        layout()
     }
+    
+    func attribute(){
+        title = "맥주리스트"
+        view.backgroundColor = .white
+        navigationController?.navigationBar.prefersLargeTitles = true
+
+    }
+    
+    func layout() {
+        view.addSubview(mannaList)
+        
+        mannaList.snp.makeConstraints{
+            $0.edges.equalToSuperview()
+        }
+    }
+
 }
