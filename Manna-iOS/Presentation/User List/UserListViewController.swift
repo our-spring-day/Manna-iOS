@@ -14,14 +14,12 @@ import SnapKit
 class UserListViewController: UIViewController {
     // MARK: - Property
     let screensize: CGRect = UIScreen.main.bounds
-    let addFriendsButton = UIButton()
     let addFriendButtonItem = UIBarButtonItem(image: UIImage(named: "searchimage"), style: .done, target: nil, action: #selector(done))
-    // tableView 생성
-    private let tableView: UITableView = {
+    let searchController = UISearchController(searchResultsController: nil)
+    let tableView: UITableView = {
         let tableview = UITableView()
         return tableview
     }()
-    let searchController = UISearchController(searchResultsController: nil)
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -65,9 +63,11 @@ class UserListViewController: UIViewController {
     }
 }
 extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
+    //set cell height
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return screensize.height/13
     }
+    //numberOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 30
     }
