@@ -13,6 +13,9 @@ import SnapKit
 
 class UserListViewController: UIViewController {
     // MARK: - Property
+    let screensize: CGRect = UIScreen.main.bounds
+    let addFriendsButton = UIButton()
+    let addFriendButtonItem = UIBarButtonItem(image: UIImage(named: "searchimage"), style: .done, target: nil, action: #selector(done))
     // tableView 생성
     private let tableView: UITableView = {
         let tableview = UITableView()
@@ -25,25 +28,10 @@ class UserListViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(UserListTableViewCell.self, forCellReuseIdentifier: "UserListTableViewCell")
         setConstraint()
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = UITableView.automaticDimension
-        searchController.searchBar.setImage(UIImage(named: "user.png"), for: .search, state: .normal)
-        searchController.searchResultsUpdater = self
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.sizeToFit()
-        // 4. 검색 컨트롤러는 테이블의 Header에 위치시킨다
-        //        self.myTableView.tableHeaderView = ""
-        //여기 "" 부분에 내 프로필 넣으면 될듯
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "친구 검색"
-        navigationItem.titleView = searchController.searchBar
-        navigationController?.hidesBarsOnSwipe = true
-        navigationItem.title = "test"
-        self.definesPresentationContext = true
+        createSearchBar()
+        setNavigationBar()
     }
-    // MARK: - Private
-    private func setConstraint() {
+    func setConstraint() {
         self.view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -53,10 +41,35 @@ class UserListViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
     }
+    func createSearchBar() {
+        view.addSubview(searchController.searchBar)
+        searchController.searchBar.setImage(UIImage(named: "user.png"), for: .search, state: .normal)
+        searchController.searchResultsUpdater = self
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.sizeToFit()
+        //        self.myTableView.tableHeaderView = "내 프로필 정보" 추후 추가 예정
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "친구 검색"
+    }
+    //navigationtitle 아래에 searchbar가 위치할 수 있게 해줌
+    func setNavigationBar(){
+        navigationController?.navigationBar.isTranslucent = false
+        navigationItem.title = "친구"
+        navigationItem.rightBarButtonItem = addFriendButtonItem
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.hidesBarsOnSwipe = true//이거 검색창까지 완벽하게 안없어짐 해결 해야됨
+    }
+    @objc func done() {
+        dismiss(animated: true, completion: nil)
+    }
 }
 extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return screensize.height/13
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 11
+        return 30
     }
     //cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -70,15 +83,15 @@ extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
 }
 extension UserListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-//        if(searchController.searchBar.text?.count)!>0{
-//            searchResults.removeAll(keepingCapacity: false)
-//            searchResults = items.filter { $0.name.localizedCaseInsensitiveContains(searchController.searchBar.text!) }//이건ts이런식으로 쳐도 test가 나옴
-//            //searchResults = items.filter { $0.name.localizedStandardContains(searchController.searchBar.text!) }//이건 순서대로 쳐야 나옴 뭘로할지는 고민고민
-//            myTableView.reloadData()
-//        }else{
-//            searchResults.removeAll(keepingCapacity: false)
-//            searchResults = items
-//            myTableView.reloadData()
-//        }
+        //        if(searchController.searchBar.text?.count)!>0{
+        //            searchResults.removeAll(keepingCapacity: false)
+        //            searchResults = items.filter { $0.name.localizedCaseInsensitiveContains(searchController.searchBar.text!) }//이건ts이런식으로 쳐도 test가 나옴
+        //            //searchResults = items.filter { $0.name.localizedStandardContains(searchController.searchBar.text!) }//이건 순서대로 쳐야 나옴 뭘로할지는 고민고민
+        //            myTableView.reloadData()
+        //        }else{
+        //            searchResults.removeAll(keepingCapacity: false)
+        //            searchResults = items
+        //            myTableView.reloadData()
+        //        }
     }
 }
