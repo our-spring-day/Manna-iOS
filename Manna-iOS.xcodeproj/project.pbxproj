@@ -10,6 +10,7 @@
 		CC384C0C24852AD0005F34AE /* UserListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C0B24852AD0005F34AE /* UserListViewModel.swift */; };
 		CC384C0E24852ADB005F34AE /* UserListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C0D24852ADB005F34AE /* UserListModel.swift */; };
 		CC384C1124862613005F34AE /* UserListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C1024862613005F34AE /* UserListTableViewCell.swift */; };
+		CC6E7D5C2487AB070050D774 /* AddUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */; };
 		CC7059ED2477B81100462251 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7059EC2477B81100462251 /* AppDelegate.swift */; };
 		CC7059EF2477B81100462251 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7059EE2477B81100462251 /* SceneDelegate.swift */; };
 		CC7059F12477B81100462251 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7059F02477B81100462251 /* ViewController.swift */; };
@@ -30,6 +31,7 @@
 		CC384C0B24852AD0005F34AE /* UserListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewModel.swift; sourceTree = "<group>"; };
 		CC384C0D24852ADB005F34AE /* UserListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListModel.swift; sourceTree = "<group>"; };
 		CC384C1024862613005F34AE /* UserListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListTableViewCell.swift; sourceTree = "<group>"; };
+		CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserViewController.swift; sourceTree = "<group>"; };
 		CC7059E92477B81100462251 /* Manna-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Manna-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC7059EC2477B81100462251 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC7059EE2477B81100462251 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +85,14 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		CC6E7D5A2487AA7E0050D774 /* AddUser */ = {
+			isa = PBXGroup;
+			children = (
+				CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */,
+			);
+			path = AddUser;
+			sourceTree = "<group>";
+		};
 		CC7059E02477B81100462251 = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +141,7 @@
 		CC705A042477CECF00462251 /* User List */ = {
 			isa = PBXGroup;
 			children = (
+				CC6E7D5A2487AA7E0050D774 /* AddUser */,
 				CC705A0A2477D28800462251 /* UserListViewController.swift */,
 				CC384C0B24852AD0005F34AE /* UserListViewModel.swift */,
 				CC384C0D24852ADB005F34AE /* UserListModel.swift */,
@@ -297,6 +308,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC6E7D5C2487AB070050D774 /* AddUserViewController.swift in Sources */,
 				CC384C1124862613005F34AE /* UserListTableViewCell.swift in Sources */,
 				CC705A0D2477D2BA00462251 /* MannaListViewController.swift in Sources */,
 				CC384C0C24852AD0005F34AE /* UserListViewModel.swift in Sources */,

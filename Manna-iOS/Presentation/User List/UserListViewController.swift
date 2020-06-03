@@ -59,7 +59,6 @@ class UserListViewController: UIViewController {
         userListNavigationTitleLabel.textAlignment = .left
         navigationItem.titleView = userListNavigationTitleLabel
         if let navigationBar = navigationController?.navigationBar {
-
             userListNavigationTitleLabel.widthAnchor.constraint(equalTo: navigationBar.widthAnchor, constant: -100).isActive = true
         }
         navigationController?.navigationBar.isTranslucent = false
@@ -69,15 +68,15 @@ class UserListViewController: UIViewController {
         
     }
     @objc func done() {
-        dismiss(animated: true, completion: nil)
+        print("test")
     }
 }
 extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
-    //set cell height
+    //set cell height(다른 메신져 앱을 참고했습니다.)
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return screensize.height/13
     }
-    //numberOfRowsInSection
+    //numberOfRowsInSection(현재는 예시로 30명만 후에 수정될 부분)
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 30
     }
@@ -89,6 +88,15 @@ extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
     //didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //프로필 디테일 뷰 띄워주면 됨
+        self.definesPresentationContext = true
+    }
+    //trailingSwipeActions
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title:  "삭제", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            success(true)
+        })
+        //            return UISwipeActionsConfiguration(actions:[deleteAction,shareAction])
+        return UISwipeActionsConfiguration(actions:[deleteAction])
     }
 }
 extension UserListViewController: UISearchResultsUpdating {
