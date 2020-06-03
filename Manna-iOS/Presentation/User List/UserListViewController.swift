@@ -52,11 +52,21 @@ class UserListViewController: UIViewController {
     }
     //navigationtitle 아래에 searchbar가 위치할 수 있게 해줌
     func setNavigationBar(){
+        //네비게이션바의 타이틀이 왼쪽에 위치하게끔 String이 아닌 Label로 대체(바뀔 수 있음 계획한 디자인대로 한 것)
+        let userListNavigationTitleLabel = UILabel()
+        userListNavigationTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        userListNavigationTitleLabel.text = "친구"
+        userListNavigationTitleLabel.textAlignment = .left
+        navigationItem.titleView = userListNavigationTitleLabel
+        if let navigationBar = navigationController?.navigationBar {
+
+            userListNavigationTitleLabel.widthAnchor.constraint(equalTo: navigationBar.widthAnchor, constant: -100).isActive = true
+        }
         navigationController?.navigationBar.isTranslucent = false
-        navigationItem.title = "친구"
         navigationItem.rightBarButtonItem = addFriendButtonItem
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.hidesBarsOnSwipe = true//이거 검색창까지 완벽하게 안없어짐 해결 해야됨
+        
     }
     @objc func done() {
         dismiss(animated: true, completion: nil)
@@ -83,6 +93,7 @@ extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
 }
 extension UserListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
+        //이부분에 대한 코드는 일단 보류 삭제x
         //        if(searchController.searchBar.text?.count)!>0{
         //            searchResults.removeAll(keepingCapacity: false)
         //            searchResults = items.filter { $0.name.localizedCaseInsensitiveContains(searchController.searchBar.text!) }//이건ts이런식으로 쳐도 test가 나옴
