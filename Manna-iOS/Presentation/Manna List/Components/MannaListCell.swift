@@ -124,25 +124,25 @@ class MannaListCell: UITableViewCell {
         
         clock.snp.makeConstraints {
             $0.top.equalTo(pin.snp.bottom).offset(10)
-            $0.bottom.equalToSuperview().offset(10)
+            $0.bottom.equalToSuperview().offset(-5)
             $0.left.equalTo(title)
         }
         
         appointmentTime.snp.makeConstraints {
-            $0.top.equalTo(pin.snp.bottom).offset(10)
-            $0.bottom.equalToSuperview().offset(10)
+            $0.top.equalTo(clock)
+            $0.bottom.equalTo(clock)
             $0.leading.equalTo(clock.snp.trailing).offset(10)
         }
         
         user.snp.makeConstraints {
-            $0.top.equalTo(pin.snp.bottom).offset(10)
-            $0.bottom.equalToSuperview().offset(10)
+            $0.top.equalTo(clock)
+            $0.bottom.equalTo(clock)
             $0.leading.equalTo(appointmentTime.snp.trailing).offset(10)
         }
         
         numberPeople.snp.makeConstraints {
-            $0.top.equalTo(pin.snp.bottom).offset(10)
-            $0.bottom.equalToSuperview().offset(10)
+            $0.top.equalTo(clock)
+            $0.bottom.equalTo(clock)
             $0.leading.equalTo(user.snp.trailing).offset(10)
         }
     }
