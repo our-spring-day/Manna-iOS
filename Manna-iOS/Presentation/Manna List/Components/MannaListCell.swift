@@ -9,7 +9,13 @@
 import UIKit
 import SnapKit
 import Then
-class MannaListCell: UITableViewCell{
+class MannaListCell: UITableViewCell {
+//    var mannaList = [
+//        MannaListModel(title: "스터디", place: "홍대입구", appointmentTime: "11시", numberPeople: "3명")
+//    ]
+    
+//    typealias MannaList = (title: String, place: String, appointmentTime: String, numberPeople: String)
+    
     //title
     let title = UILabel()
     
@@ -35,27 +41,41 @@ class MannaListCell: UITableViewCell{
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setData(){
-        
-    }
+//    func setData(mannaList: MannaList) {
+//        title.do {
+//            $0.text = mannaList.title
+//        }
+//        
+//        place.do {
+//            $0.text = mannaList.place
+//        }
+//        
+//        appointmentTime.do {
+//            $0.text = mannaList.appointmentTime
+//        }
+//        
+//        numberPeople.do {
+//            $0.text = mannaList.numberPeople
+//        }
+//    }
     
-    func attribute(){
-        title.do{
+    func attribute() {
+        title.do {
             $0.numberOfLines = 0
             $0.adjustsFontSizeToFitWidth = true
         }
         
-        place.do{
+        place.do {
             $0.numberOfLines = 0
             $0.adjustsFontSizeToFitWidth = true
         }
         
-        appointmentTime.do{
+        appointmentTime.do {
             $0.numberOfLines = 0
             $0.adjustsFontSizeToFitWidth = true
         }
         
-        numberPeople.do{
+        numberPeople.do {
             $0.numberOfLines = 0
             $0.adjustsFontSizeToFitWidth = true
         }
@@ -76,7 +96,7 @@ class MannaListCell: UITableViewCell{
         
     }
     
-    func layout(){
+    func layout() {
         addSubview(title)
         addSubview(pin)             //핀
         addSubview(place)
@@ -111,21 +131,19 @@ class MannaListCell: UITableViewCell{
         appointmentTime.snp.makeConstraints {
             $0.top.equalTo(pin.snp.bottom).offset(10)
             $0.bottom.equalToSuperview().offset(10)
-            $0.left.equalTo(clock.snp.right).offset(-10)
+            $0.leading.equalTo(clock.snp.trailing).offset(10)
         }
         
         user.snp.makeConstraints {
             $0.top.equalTo(pin.snp.bottom).offset(10)
             $0.bottom.equalToSuperview().offset(10)
-            $0.left.equalTo(appointmentTime.snp.right).offset(-10)
+            $0.leading.equalTo(appointmentTime.snp.trailing).offset(10)
         }
         
         numberPeople.snp.makeConstraints {
             $0.top.equalTo(pin.snp.bottom).offset(10)
             $0.bottom.equalToSuperview().offset(10)
-            $0.left.equalTo(user.snp.right).offset(-10)
+            $0.leading.equalTo(user.snp.trailing).offset(10)
         }
     }
-    
 }
-

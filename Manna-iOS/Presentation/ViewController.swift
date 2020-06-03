@@ -14,7 +14,7 @@ class ViewController: UITabBarController {
     let notiListViewController = NotiListViewController()
     let setListViewController = SetListViewController()
     
-    enum Tab: Int{
+    enum Tab: Int {
         case userList
         case mannaList
         case notiList
@@ -23,22 +23,22 @@ class ViewController: UITabBarController {
     
     let tabBarItems: [Tab: UITabBarItem] = [
         .userList: UITabBarItem(
-            title: "친구",
+            title: nil,
             image: #imageLiteral(resourceName: "userlistimage"),
             selectedImage: #imageLiteral(resourceName: "userlistimage")
         ),
         .mannaList: UITabBarItem(
-            title: "만나",
+            title: nil,
             image: #imageLiteral(resourceName: "mannalistimage"),
             selectedImage: #imageLiteral(resourceName: "mannalistimage")
         ),
         .notiList: UITabBarItem(
-            title: "알림",
+            title: nil,
             image: #imageLiteral(resourceName: "notilistimage"),
             selectedImage: #imageLiteral(resourceName: "notilistimage")
         ),
         .setList: UITabBarItem(
-            title: "설정",
+            title: nil,
             image: #imageLiteral(resourceName: "setlistimage"),
             selectedImage: #imageLiteral(resourceName: "setlistimage")
         )
@@ -49,7 +49,7 @@ class ViewController: UITabBarController {
         attribute()
     }
     
-    func attribute(){
+    func attribute() {
         userListViewController.tabBarItem = tabBarItems[.userList]
         mannaListViewController.tabBarItem = tabBarItems[.mannaList]
         notiListViewController.tabBarItem = tabBarItems[.notiList]
