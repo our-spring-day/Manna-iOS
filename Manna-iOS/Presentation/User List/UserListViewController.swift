@@ -14,7 +14,6 @@ import SnapKit
 class UserListViewController: UIViewController {
     // MARK: - Property
     let screensize: CGRect = UIScreen.main.bounds
-    let addFriendButtonItem = UIBarButtonItem(image: UIImage(named: "searchimage"), style: .done, target: nil, action: #selector(done))
     let searchController = UISearchController(searchResultsController: nil)
     let tableView: UITableView = {
         let tableview = UITableView()
@@ -41,6 +40,7 @@ class UserListViewController: UIViewController {
     }
     func createSearchBar() {
         view.addSubview(searchController.searchBar)
+        //        navigationItem.titleView = searchController.searchBar
         searchController.searchBar.setImage(UIImage(named: "user.png"), for: .search, state: .normal)
         searchController.searchResultsUpdater = self
         searchController.hidesNavigationBarDuringPresentation = false
@@ -61,14 +61,16 @@ class UserListViewController: UIViewController {
         if let navigationBar = navigationController?.navigationBar {
             userListNavigationTitleLabel.widthAnchor.constraint(equalTo: navigationBar.widthAnchor, constant: -100).isActive = true
         }
+        let addFriendButtonItem = UIBarButtonItem(image: UIImage(named: "searchimage"), style: .plain, target: self, action: #selector(done))
         navigationController?.navigationBar.isTranslucent = false
         navigationItem.rightBarButtonItem = addFriendButtonItem
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.hidesBarsOnSwipe = true//이거 검색창까지 완벽하게 안없어짐 해결 해야됨
-        
     }
     @objc func done() {
-        print("test")
+        print("entered done method")
+        let addUserViewController = AddUserViewController()
+        self.navigationController?.pushViewController(addUserViewController, animated: true)
     }
 }
 extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -83,12 +85,12 @@ extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
     //cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserListTableViewCell", for: indexPath) as? UserListTableViewCell else { return UITableViewCell() }
+        
         return cell
     }
     //didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //프로필 디테일 뷰 띄워주면 됨
-        self.definesPresentationContext = true
     }
     //trailingSwipeActions
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -96,7 +98,7 @@ extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
             success(true)
         })
         //            return UISwipeActionsConfiguration(actions:[deleteAction,shareAction])
-        return UISwipeActionsConfiguration(actions:[deleteAction])
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
 extension UserListViewController: UISearchResultsUpdating {

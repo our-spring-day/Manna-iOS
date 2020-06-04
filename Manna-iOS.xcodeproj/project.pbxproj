@@ -141,10 +141,10 @@
 		CC705A042477CECF00462251 /* User List */ = {
 			isa = PBXGroup;
 			children = (
-				CC6E7D5A2487AA7E0050D774 /* AddUser */,
 				CC705A0A2477D28800462251 /* UserListViewController.swift */,
 				CC384C0B24852AD0005F34AE /* UserListViewModel.swift */,
 				CC384C0D24852ADB005F34AE /* UserListModel.swift */,
+				CC6E7D5A2487AA7E0050D774 /* AddUser */,
 				CC384C0F248625EC005F34AE /* Components */,
 			);
 			path = "User List";

@@ -8,9 +8,12 @@
 
 import UIKit
 
+//새로운 친구를 찾으려 검색할 때 view
 class AddUserViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .blue
+//        view.alpha = 0.5
     }
 }
