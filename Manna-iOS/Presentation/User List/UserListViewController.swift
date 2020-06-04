@@ -13,23 +13,21 @@ import SnapKit
 
 class UserListViewController: UIViewController {
     // MARK: - Property
+    var disposBag = DisposeBag()
     let screensize: CGRect = UIScreen.main.bounds
     let searchController = UISearchController(searchResultsController: nil)
     let tableView: UITableView = {
         let tableview = UITableView()
         return tableview
     }()
-    var disposBag = DisposeBag()
+    var friends : [String] = ["고영찬","김건년","곽하민","고마워","방구끼","고도망","가야디"]
+    var filteredFriends :[String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         setConstraint()
         createSearchBar()
         setNavigationBar()
-        searchController.searchBar.rx.text.orEmpty
-            .subscribe(onNext: {text in
-                print(text)
-            })
-        .disposed(by: disposBag)
+        bind()
     }
     func setConstraint() {
         self.view.addSubview(tableView)
@@ -71,6 +69,9 @@ class UserListViewController: UIViewController {
         let addUserViewController = AddUserViewController()
         self.navigationController?.pushViewController(addUserViewController, animated: true)
     }
+    func bind() {
+        
+    }
 }
 extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
     //set cell height(다른 메신져 앱을 참고했습니다.)
@@ -79,11 +80,19 @@ extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     //numberOfRowsInSection(현재는 예시로 30명만 후에 수정될 부분)
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return friends.count
     }
     //cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserListTableViewCell", for: indexPath) as? UserListTableViewCell else { return UITableViewCell() }
+        cell.label.text = friends[indexPath.row]
+        searchController.searchBar.rx.text.orEmpty
+            .subscribe(onNext: {searchText in
+                if self.friends.contains(searchText){
+                    print("contains!")
+                }
+            })
+        
         return cell
     }
     //didSelectRowAt

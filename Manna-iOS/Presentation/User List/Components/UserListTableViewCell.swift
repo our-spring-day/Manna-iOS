@@ -12,13 +12,13 @@ class UserListTableViewCell: UITableViewCell {
     // MARK: - Property
     // imageView 생성
     let screensize: CGRect = UIScreen.main.bounds
-    private let img: UIImageView = {
+    let img: UIImageView = {
         let imgView = UIImageView()
         imgView.image = UIImage(named: "notilistimage")
         return imgView
     }()
     // label 생성
-    private let label: UILabel = {
+    let label: UILabel = {
         let label = UILabel()
         label.text = "이름"
         label.textColor = UIColor.gray
