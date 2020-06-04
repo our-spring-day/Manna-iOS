@@ -19,40 +19,40 @@ class UserListViewController: UIViewController {
         let tableview = UITableView()
         return tableview
     }()
+    var disposBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UserListTableViewCell.self, forCellReuseIdentifier: "UserListTableViewCell")
         setConstraint()
         createSearchBar()
         setNavigationBar()
+        searchController.searchBar.rx.text.orEmpty
+            .subscribe(onNext: {text in
+                print(text)
+            })
+        .disposed(by: disposBag)
     }
     func setConstraint() {
         self.view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
-        ])
+        tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UserListTableViewCell.self, forCellReuseIdentifier: "UserListTableViewCell")
     }
     func createSearchBar() {
         view.addSubview(searchController.searchBar)
-        //        navigationItem.titleView = searchController.searchBar
         searchController.searchBar.setImage(UIImage(named: "user.png"), for: .search, state: .normal)
         searchController.searchResultsUpdater = self
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.sizeToFit()
-        //        self.myTableView.tableHeaderView = "내 프로필 정보" 추후 추가 예정
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "친구 검색"
     }
-    //navigationtitle 아래에 searchbar가 위치할 수 있게 해줌
     func setNavigationBar(){
-        //네비게이션바의 타이틀이 왼쪽에 위치하게끔 String이 아닌 Label로 대체(바뀔 수 있음 계획한 디자인대로 한 것)
         let userListNavigationTitleLabel = UILabel()
         userListNavigationTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         userListNavigationTitleLabel.text = "친구"
@@ -68,7 +68,6 @@ class UserListViewController: UIViewController {
         navigationController?.hidesBarsOnSwipe = true//이거 검색창까지 완벽하게 안없어짐 해결 해야됨
     }
     @objc func done() {
-        print("entered done method")
         let addUserViewController = AddUserViewController()
         self.navigationController?.pushViewController(addUserViewController, animated: true)
     }
@@ -85,7 +84,6 @@ extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
     //cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserListTableViewCell", for: indexPath) as? UserListTableViewCell else { return UITableViewCell() }
-        
         return cell
     }
     //didSelectRowAt
