@@ -20,7 +20,7 @@ class UserListTableViewCell: UITableViewCell {
     // label 생성
     let label: UILabel = {
         let label = UILabel()
-        label.text = "이름"
+        label.text = ""
         label.textColor = UIColor.gray
         return label
     }()

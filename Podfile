@@ -8,6 +8,9 @@ target 'Manna-iOS' do
   pod "RxSwift"
   pod "RxCocoa"
   pod 'SnapKit'
+  pod 'Toaster'
+  pod 'RxAppState'
+  pod 'Then'
   # Pods for Manna-iOS
 
 end
