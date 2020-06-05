@@ -70,7 +70,6 @@ class UserListViewController: UIViewController {
         self.navigationController?.pushViewController(addUserViewController, animated: true)
     }
     func bind() {
-        
     }
 }
 extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -83,16 +82,11 @@ extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
         return friends.count
     }
     //cellForRowAt
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserListTableViewCell", for: indexPath) as? UserListTableViewCell else { return UITableViewCell() }
         cell.label.text = friends[indexPath.row]
-        searchController.searchBar.rx.text.orEmpty
-            .subscribe(onNext: {searchText in
-                if self.friends.contains(searchText){
-                    print("contains!")
-                }
-            })
-        
         return cell
     }
     //didSelectRowAt
@@ -110,16 +104,21 @@ extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
 }
 extension UserListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        //이부분에 대한 코드는 일단 보류 삭제x
-        //        if(searchController.searchBar.text?.count)!>0{
-        //            searchResults.removeAll(keepingCapacity: false)
-        //            searchResults = items.filter { $0.name.localizedCaseInsensitiveContains(searchController.searchBar.text!) }//이건ts이런식으로 쳐도 test가 나옴
-        //            //searchResults = items.filter { $0.name.localizedStandardContains(searchController.searchBar.text!) }//이건 순서대로 쳐야 나옴 뭘로할지는 고민고민
-        //            myTableView.reloadData()
-        //        }else{
-        //            searchResults.removeAll(keepingCapacity: false)
-        //            searchResults = items
-        //            myTableView.reloadData()
-        //        }
+        //searchResults = items.filter { $0.name.localizedCaseInsensitiveContains(searchController.searchBar.text!) }/
+        searchController.searchBar.rx.text.orEmpty
+            .subscribe(onNext: {searchText in
+                print(self.friends.filter { $0.localizedCaseInsensitiveContains(searchText)})
+            })
+        .disposed(by: disposBag)
+//        if(searchController.searchBar.text?.count)!>0{
+//            searchResults.removeAll(keepingCapacity: false)
+//            searchResults = items.filter { $0.name.localizedCaseInsensitiveContains(searchController.searchBar.text!) }//이건ts이런식으로 쳐도 test가 나옴
+//            //searchResults = items.filter { $0.name.localizedStandardContains(searchController.searchBar.text!) }//이건 순서대로 쳐야 나옴 뭘로할지는 고민고민
+//            myTableView.reloadData()
+//        }else{
+//            searchResults.removeAll(keepingCapacity: false)
+//            searchResults = items
+//            myTableView.reloadData()
+//        }
     }
 }
