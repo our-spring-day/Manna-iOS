@@ -9,7 +9,6 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import RxAppState
 import SnapKit
 import Toaster
 import Then
@@ -19,7 +18,7 @@ class UserListViewController: UIViewController{
     let searchController = UISearchController(searchResultsController: nil)
     let tableView = UITableView()
     var friends : [String] = ["고영찬","김건년","곽하민","고마워","방구끼","고도망","가야디","콜드","길구","봉구","은하수","1960","블랙","컨테이너","체크남방","휴지조각","넘어로","커피","빨대","핸드폰","케이블"]
-        var filteredFriends :[String] = []
+    var filteredFriends :[String] = []
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -28,36 +27,51 @@ class UserListViewController: UIViewController{
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        createSearchBar()
         attribute()
         layout()
-        createSearchBar()
         setNavigationBar()
         let friends = Observable.just(
             (1...20).map { "\($0)" }
         )
-        friends
-            .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (row, element, cell) in
-                cell.textLabel?.text = "\(element)"
-            }
-            .disposed(by: disposeBag)
+        
 
-        // 셀을 클릭했을 때 데이터 값을 출력한다.
-        tableView.rx
-            .modelSelected(String.self)
-            .subscribe(onNext:  { item in
-                print("\(item)")
-            })
-            .disposed(by: disposeBag)
+        
+        //        friends
+        //            .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: UITableViewCell.self)) { (row, element, cell) in
+        //                cell.textLabel?.text = "\(element)"
+        //            }
+        //            .disposed(by: disposeBag)
+        //
+        //        // 셀을 클릭했을 때 데이터 값을 출력한다.
+        //        tableView.rx
+        //            .modelSelected(String.self)
+        //            .subscribe(onNext:  { item in
+        //                print("\(item)")
+        //            })
+        //            .disposed(by: disposeBag)
     }
     func attribute() {
-//        navigationController?.navigationBar.prefersLargeTitles = true
+        //        navigationController?.navigationBar.prefersLargeTitles = true
         tableView.do {
+            
             $0.backgroundView = UIView()
             $0.backgroundView?.isHidden = true
+            //            view.addSubview($0)
             $0.register(UserListTableViewCell.self, forCellReuseIdentifier: "UserListTableViewCell")
             $0.separatorStyle = .singleLine
             $0.rowHeight = UITableView.automaticDimension
             $0.estimatedRowHeight = 160
+            //            $0.translatesAutoresizingMaskIntoConstraints = false
+            //            $0.topAnchor.constraint(equalTo: self.searchController.searchBar.bottomAnchor, constant: 0).isActive = true
+            
+            //        self.view.addSubview(tableView)
+            //        tableView.translatesAutoresizingMaskIntoConstraints = false
+            //        tableView.topAnchor.constraint(equalTo: searchController.searchBar.bottomAnchor).isActive = true
+            //        tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+            //        tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+            //        tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         }
     }
     func createSearchBar() {
@@ -89,7 +103,7 @@ class UserListViewController: UIViewController{
                 $0.widthAnchor.constraint(equalTo: navigationBar.widthAnchor, constant: -100).isActive = true
             }
         }
-//        let addFriendButtonItem = UIBarButtonItem(image: UIImage(named: "searchimage"), style: .plain, target: self, action: #selector(done))
+        //        let addFriendButtonItem = UIBarButtonItem(image: UIImage(named: "searchimage"), style: .plain, target: self, action: #selector(done))
         let addFriendButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(done))
         navigationItem.rightBarButtonItem = addFriendButtonItem
         navigationController?.navigationBar.isTranslucent = false
@@ -100,27 +114,34 @@ class UserListViewController: UIViewController{
         let addUserViewController = AddUserViewController()
         self.navigationController?.pushViewController(addUserViewController, animated: true)
     }
-//    func bind() {
-//            searchController.searchBar.rx.text.orEmpty
-//                //        .debounce(0.5, scheduler: MainScheduler.instance) // 0.5초 기다림. 안 줄 경우, 모든 입력을 받음. (API의 과도한 호출을 방지)
-//                //        .distinctUntilChanged() // 새로운 값이 이전과 같은지 체크 (O -> Oc -> O 값이 이전과 같으므로 다음으로 안넘어감)
-//                .filter({ !$0.isEmpty })
-//                .subscribe(onNext: { query in
-//                    if query == ""{
-//                        self.filteredFriends = self.friends
-//                    }
-//                    else{
-//                        self.filteredFriends = self.friends.filter({ $0.hasPrefix(query) })
-//                        self.tableView.reloadData()
-//    //                    print(self.filteredFriends)
-//
-//                    }
-//                })
-//        }
+    //    func bind() {
+    //            searchController.searchBar.rx.text.orEmpty
+    //                //        .debounce(0.5, scheduler: MainScheduler.instance) // 0.5초 기다림. 안 줄 경우, 모든 입력을 받음. (API의 과도한 호출을 방지)
+    //                //        .distinctUntilChanged() // 새로운 값이 이전과 같은지 체크 (O -> Oc -> O 값이 이전과 같으므로 다음으로 안넘어감)
+    //                .filter({ !$0.isEmpty })
+    //                .subscribe(onNext: { query in
+    //                    if query == ""{
+    //                        self.filteredFriends = self.friends
+    //                    }
+    //                    else{
+    //                        self.filteredFriends = self.friends.filter({ $0.hasPrefix(query) })
+    //                        self.tableView.reloadData()
+    //    //                    print(self.filteredFriends)
+    //
+    //                    }
+    //                })
+    //        }
 }
 extension UserListViewController: UISearchResultsUpdating{
     func updateSearchResults(for searchController: UISearchController) {
         //후에 추가
+    }
+}
+extension UserListViewController: UIScrollViewDelegate{
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.rx
+        .setDelegate(self)
+        .disposed(by: disposeBag)
     }
 }
 
