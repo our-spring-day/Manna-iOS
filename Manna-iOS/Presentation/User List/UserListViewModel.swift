@@ -23,7 +23,7 @@ protocol Type {
     var inputs: Input { get }
     var outputs: Output { get }
 }
-struct UserListViewModel: Type, Input, Output{
+struct UserListViewModel: Type, Input, Output {
     var friendsId: Observable<[String]>
     func searchFriends() {
         print("searchFriedns")

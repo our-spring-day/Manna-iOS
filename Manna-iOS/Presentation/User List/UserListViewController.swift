@@ -17,7 +17,7 @@ class UserListViewController: UIViewController{
     // MARK: - Property
     var disposeBag = DisposeBag()
     let tableView = UITableView()
-    var userListViewModel: UserListViewModel!
+    var userListViewModel = UserListViewModel()
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -26,11 +26,9 @@ class UserListViewController: UIViewController{
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        userListViewModel = UserListViewModel()
         attribute()
         layout()
         bind()
-        
     }
     func attribute() {
         navigationItem.title = "친구"
@@ -38,7 +36,7 @@ class UserListViewController: UIViewController{
         tableView.do {
             $0.backgroundView = UIView()
             $0.backgroundView?.isHidden = true
-            $0.register(UserListCell.self, forCellReuseIdentifier: String(describing: UserListCell.self))
+            $0.register(UserListCell.self, forCellReuseIdentifier: "UserListCell")
             $0.separatorStyle = .singleLine
             $0.rowHeight = UITableView.automaticDimension
             $0.estimatedRowHeight = 160
@@ -51,17 +49,22 @@ class UserListViewController: UIViewController{
         }
     }
     func bind() {
-//                userListViewModel.outputs.friendsId
-//                    .bind(to: tableView.rx.items(cellIdentifier: "UserListCell",cellType: UITableViewCell.self)){ (row, element, cell) in
-//                        cell.textLabel?.text = "\(element)"
-//                        print(element)
-//                }
-//                .disposed(by: disposeBag)
-        print("func bind : before subscribe")
         userListViewModel.outputs.friendsId
-            .subscribe(onNext: {test in
-                print(test)
-            })
+            //                    .bind(to: tableView.rx.items(cellIdentifier: "UserListCell",cellType: UITableViewCell.self)) { (row, element, cell) in
+//            .bind(to: tableView.rx.items(cellIdentifier: "UserListCell")) { row, element, cell in
+//                print(cell)
+//        }
+//        .disposed(by: disposeBag)
+            .bind(to: tableView.rx.items) {(tv, row, item) -> UITableViewCell in
+                let cell = tv.dequeueReusableCell(withIdentifier: "UserListCell", for: IndexPath.init(row: row, section: 0)) as! UserListCell
+                cell.idLabel.text = item
+                return cell
+        }
+        print("func bind : before subscribe")
+        //        userListViewModel.outputs.friendsId
+        //            .subscribe(onNext: {test in
+        //                print(test)
+        //            })
         print("func bind : after subscribe")
     }
 }
