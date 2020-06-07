@@ -13,91 +13,179 @@ import SnapKit
 import Toaster
 import Then
 
+protocol UserListViewBindable {
+    //View -> ViewModel
+    var viewWillAppear: PublishSubject<Void> { get }
+    var willDisplayCell: PublishRelay<IndexPath> { get }
+    
+    //ViewModel -> View
+    var cellData: Driver<[UserListCell]> { get }
+    var reloadList: Signal<Void> { get }
+    var errorMessage: Signal<String> { get }
+}
 class UserListViewController: UIViewController{
-
-    
     // MARK: - Property
-    var disposBag = DisposeBag()
+    var disposeBag = DisposeBag()
     
-    let screensize: CGRect = UIScreen.main.bounds
+    let tableView = UITableView()
     
-    let searchController = UISearchController(searchResultsController: nil)
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
     
-    let tableView: UITableView = {
-        let tableview = UITableView()
-        return tableview
-    }()
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
-    var friends : [String] = ["고영찬","김건년","곽하민","고마워","방구끼","고도망","가야디","콜드","길구","봉구","은하수","1960","블랙","컨테이너","체크남방","휴지조각","넘어로","커피","빨대","핸드폰","케이블"]
-    
-    var filteredFriends :[String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        friends = friends.sorted()
-        filteredFriends = friends
-        createSearchBar()
-        setConstraint()
-        setNavigationBar()
-//        bind()
+        attribute()
+        layout()
     }
-    func setConstraint() {
-        self.view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: searchController.searchBar.bottomAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UserListTableViewCell.self, forCellReuseIdentifier: "UserListTableViewCell")
-    }
-    func createSearchBar() {
-        view.addSubview(searchController.searchBar)
-        searchController.searchBar.setImage(UIImage(named: "user.png"), for: .search, state: .normal)
-        searchController.searchResultsUpdater = self
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.sizeToFit()
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "친구 검색"
-    }
-    func setNavigationBar(){
-        let userListNavigationTitleLabel = UILabel()
-        userListNavigationTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        userListNavigationTitleLabel.text = "친구"
-        userListNavigationTitleLabel.textAlignment = .left
-        navigationItem.titleView = userListNavigationTitleLabel
-        if let navigationBar = navigationController?.navigationBar {
-            userListNavigationTitleLabel.widthAnchor.constraint(equalTo: navigationBar.widthAnchor, constant: -100).isActive = true
+    func attribute() {
+        title = "친구"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        tableView.do {
+            $0.backgroundView = UIView()
+            $0.backgroundView?.isHidden = true
+            $0.register(UserListCell.self, forCellReuseIdentifier: String(describing: UserListCell.self))
+            $0.separatorStyle = .singleLine
+            $0.rowHeight = UITableView.automaticDimension
+            $0.estimatedRowHeight = 160
         }
-        let addFriendButtonItem = UIBarButtonItem(image: UIImage(named: "searchimage"), style: .plain, target: self, action: #selector(done))
-        navigationController?.navigationBar.isTranslucent = false
-        navigationItem.rightBarButtonItem = addFriendButtonItem
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.hidesBarsOnSwipe = true//이거 검색창까지 완벽하게 안없어짐 해결 해야됨
     }
-    @objc func done() {
-        let addUserViewController = AddUserViewController()
-        self.navigationController?.pushViewController(addUserViewController, animated: true)
-    }
-    func bind() {
-        searchController.searchBar.rx.text.orEmpty
-            //        .debounce(0.5, scheduler: MainScheduler.instance) // 0.5초 기다림. 안 줄 경우, 모든 입력을 받음. (API의 과도한 호출을 방지)
-            //        .distinctUntilChanged() // 새로운 값이 이전과 같은지 체크 (O -> Oc -> O 값이 이전과 같으므로 다음으로 안넘어감)
-            .filter({ !$0.isEmpty })
-            .subscribe(onNext: { query in
-                if query == ""{
-                    self.filteredFriends = self.friends
-                }
-                else{
-                    self.filteredFriends = self.friends.filter({ $0.hasPrefix(query) })
-                    self.tableView.reloadData()
-                    //                    print(self.filteredFriends)
-                    self.tableView.reloadData()
-                }
-            })
+    func layout() {
+        view.addSubview(tableView)
+        
+        tableView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//
+//    // MARK: - Property
+//    var disposBag = DisposeBag()
+//
+//    let screensize: CGRect = UIScreen.main.bounds
+//
+//    let searchController = UISearchController(searchResultsController: nil)
+//
+//    let tableView: UITableView = {
+//        let tableview = UITableView()
+//        return tableview
+//    }()
+//
+//    var friends : [String] = ["고영찬","김건년","곽하민","고마워","방구끼","고도망","가야디","콜드","길구","봉구","은하수","1960","블랙","컨테이너","체크남방","휴지조각","넘어로","커피","빨대","핸드폰","케이블"]
+//
+//    var filteredFriends :[String] = []
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        friends = friends.sorted()
+//        filteredFriends = friends
+//        createSearchBar()
+//        setConstraint()
+//        setNavigationBar()
+////        bind()
+//    }
+//    func setConstraint() {
+//        self.view.addSubview(tableView)
+//        tableView.translatesAutoresizingMaskIntoConstraints = false
+//        tableView.topAnchor.constraint(equalTo: searchController.searchBar.bottomAnchor).isActive = true
+//        tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+//        tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+//        tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+//        tableView.delegate = self
+//        tableView.dataSource = self
+//        tableView.register(UserListTableViewCell.self, forCellReuseIdentifier: "UserListTableViewCell")
+//    }
+//    func createSearchBar() {
+//        view.addSubview(searchController.searchBar)
+//        searchController.searchBar.setImage(UIImage(named: "user.png"), for: .search, state: .normal)
+//        searchController.searchResultsUpdater = self
+//        searchController.hidesNavigationBarDuringPresentation = false
+//        searchController.searchBar.sizeToFit()
+//        searchController.searchResultsUpdater = self
+//        searchController.obscuresBackgroundDuringPresentation = false
+//        searchController.searchBar.placeholder = "친구 검색"
+//    }
+//    func setNavigationBar(){
+//        let userListNavigationTitleLabel = UILabel()
+//        userListNavigationTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+//        userListNavigationTitleLabel.text = "친구"
+//        userListNavigationTitleLabel.textAlignment = .left
+//        navigationItem.titleView = userListNavigationTitleLabel
+//        if let navigationBar = navigationController?.navigationBar {
+//            userListNavigationTitleLabel.widthAnchor.constraint(equalTo: navigationBar.widthAnchor, constant: -100).isActive = true
+//        }
+//        let addFriendButtonItem = UIBarButtonItem(image: UIImage(named: "searchimage"), style: .plain, target: self, action: #selector(done))
+//        navigationController?.navigationBar.isTranslucent = false
+//        navigationItem.rightBarButtonItem = addFriendButtonItem
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        navigationController?.hidesBarsOnSwipe = true//이거 검색창까지 완벽하게 안없어짐 해결 해야됨
+//    }
+//    @objc func done() {
+//        let addUserViewController = AddUserViewController()
+//        self.navigationController?.pushViewController(addUserViewController, animated: true)
+//    }
+//    func bind() {
+//        searchController.searchBar.rx.text.orEmpty
+//            //        .debounce(0.5, scheduler: MainScheduler.instance) // 0.5초 기다림. 안 줄 경우, 모든 입력을 받음. (API의 과도한 호출을 방지)
+//            //        .distinctUntilChanged() // 새로운 값이 이전과 같은지 체크 (O -> Oc -> O 값이 이전과 같으므로 다음으로 안넘어감)
+//            .filter({ !$0.isEmpty })
+//            .subscribe(onNext: { query in
+//                if query == ""{
+//                    self.filteredFriends = self.friends
+//                }
+//                else{
+//                    self.filteredFriends = self.friends.filter({ $0.hasPrefix(query) })
+//                    self.tableView.reloadData()
+//                    //                    print(self.filteredFriends)
+//                    self.tableView.reloadData()
+//                }
+//            })
+//    }
+
 //    var disposeBag = DisposeBag()
 //    let searchController = UISearchController(searchResultsController: nil)
 //    let tableView = UITableView()
