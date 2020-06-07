@@ -7,52 +7,44 @@
 //
 
 import UIKit
+import SnapKit
 
-class UserListTableViewCell: UITableViewCell {
-    // MARK: - Property
-    // imageView 생성
-    let screensize: CGRect = UIScreen.main.bounds
-    let img: UIImageView = {
-        let imgView = UIImageView()
-        imgView.image = UIImage(named: "notilistimage")
-        return imgView
-    }()
-    // label 생성
-    let label: UILabel = {
-        let label = UILabel()
-        label.text = ""
-        label.textColor = UIColor.gray
-        return label
-    }()
-    //init for UI create programatically
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+class UserListCell: UITableViewCell {
+    let idLable = UILabel()
+    let userImageView = UIImageView()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setConstraint()
     }
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    // MARK: - Private
-    private func setConstraint() {
-        contentView.addSubview(label)
-        contentView.addSubview(img)
-        img.translatesAutoresizingMaskIntoConstraints = false
-        label.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            img.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            img.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            img.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            img.widthAnchor.constraint(equalToConstant: 64),
-            img.heightAnchor.constraint(equalToConstant: 64),
-            label.leadingAnchor.constraint(equalTo: img.trailingAnchor, constant: 15),
-            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 16),
-            label.centerYAnchor.constraint(equalTo: img.centerYAnchor)
-        ])
+    func attribute() {
+        idLable.do {
+            $0.font = .systemFont(ofSize: 14, weight: .light)
+            $0.textColor = .black
+        }
+        
+        userImageView.do {
+            //clipsToBounds??
+            $0.clipsToBounds = true
+            $0.contentMode = .scaleAspectFit
+        }
     }
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    func layout(){
+        addSubview(idLable)
+        addSubview(userImageView)
+        
+        userImageView.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview().inset(16)
+            $0.left.equalToSuperview()
+            $0.width.height.equalTo(120)
+        }
+        
+        idLable.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(16)
+            $0.left.equalTo(userImageView.snp.right).offset(8)
+            $0.right.equalToSuperview().offset(-8)
+        }
     }
 }
