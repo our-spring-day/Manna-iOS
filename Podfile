@@ -11,6 +11,7 @@ target 'Manna-iOS' do
   pod 'Toaster'
   pod 'RxAppState'
   pod 'Then'
+  pod 'RxOptional'
   # Pods for Manna-iOS
 
 end
