@@ -18,12 +18,14 @@ protocol Input {
 }
 protocol Output {
     var friendsId: Observable<[String]> { get }
+    var testArr: [String] { get }
 }
 protocol Type {
     var inputs: Input { get }
     var outputs: Output { get }
 }
 struct UserListViewModel: Type, Input, Output {
+    let testArr: [String]
     var friendsId: Observable<[String]>
     func searchFriends() {
         print("searchFriedns")
@@ -37,8 +39,9 @@ struct UserListViewModel: Type, Input, Output {
     let userListModel: UserListModel
     init() {
         print("UserListViewModel Pass")
-        userListModel = UserListModel() 
-        self.friendsId = Observable.of(userListModel.friends)
+        userListModel = UserListModel()
+        testArr = userListModel.friends.sorted()
+        self.friendsId = Observable.of(testArr)
     }
     var inputs: Input { return self }
     var outputs: Output { return self }

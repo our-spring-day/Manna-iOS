@@ -12,15 +12,13 @@ import RxSwift
 
 //새로운 친구를 찾으려 검색할 때 view
 class AddUserViewController: UIViewController{
-   
-    
+
     let tableView: UITableView = {
         let tableview = UITableView()
         return tableview
     }()
     var disposeBag = DisposeBag()
     let items = ["1", "2", "3", "4", "5"]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setConstraint()
@@ -52,7 +50,6 @@ class AddUserViewController: UIViewController{
 //        tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
 //        tableView.register(UserListTableViewCell.self, forCellReuseIdentifier: "UserListTableViewCell")
     }
-    
 //        var disposeBag = DisposeBag()
 //        let searchController = UISearchController(searchResultsController: nil)
 //            override func viewDidLoad() {
