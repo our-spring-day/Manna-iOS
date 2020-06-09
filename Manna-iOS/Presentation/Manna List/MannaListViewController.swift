@@ -12,10 +12,15 @@ import RxCocoa
 import SnapKit
 
 protocol MannaListBindable {
+    //input
     
+    
+    //output
+    var mannaObservable : BehaviorSubject<[Manna]> { get }
 }
 
 class MannaListViewController: UIViewController {
+    
     var disposeBag = DisposeBag()
     
     let mannaList = UITableView()
@@ -32,19 +37,21 @@ class MannaListViewController: UIViewController {
     func bind() {
         mannaListViewModel.mannaObservable
             .bind(to: mannaList.rx.items(cellIdentifier: "cell", cellType: MannaListCell.self)) {
-                index, item, cell in
+                _, item, cell in
                 cell.title.text = item.title
                 cell.place.text = item.place
                 cell.appointmentTime.text = item.appointmentTime
                 cell.numberPeople.text = item.numberPeople
+                print("celllllllll")
         }
         .disposed(by: disposeBag)
     }
     
     func attribute() {
-        self.navigationItem.title = "만나리스트"
+        let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVC))
+        self.navigationItem.rightBarButtonItem = add
+        self.navigationItem.title = "약속목록"
         view.backgroundColor = .white
-//        navigationController?.navigationBar.prefersLargeTitles = true
 
         mannaList.do {
             $0.backgroundView?.isHidden = true
@@ -60,4 +67,18 @@ class MannaListViewController: UIViewController {
             $0.edges.equalToSuperview()
         }
     }
+    
+    @objc func addVC() {
+        let vc = AddMannaViewController()
+        present(vc, animated: true, completion: nil)
+        mannaListViewModel.mannaObservable.onNext([Manna(title: "name.text!",
+        place: "place.text!",
+        appointmentTime: "appointmentTime.text!",
+        numberPeople: "numberPeople.text!")])
+    }
+//    func addManna() -> Observable<Manna>{
+//        let vc = AddMannaViewController()
+//        present(vc, animated: true, completion: nil)
+//        return vc
+//    }
 }

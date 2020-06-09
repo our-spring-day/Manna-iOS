@@ -49,35 +49,37 @@ class ViewController: UITabBarController {
         attribute()
     }
     
-    func attribute() {
-        userListViewController.tabBarItem = tabBarItems[.userList]
-        mannaListViewController.tabBarItem = tabBarItems[.mannaList]
-        notiListViewController.tabBarItem = tabBarItems[.notiList]
-        setListViewController.tabBarItem = tabBarItems[.setList]
-        
-        self.viewControllers = [
-            UINavigationController(rootViewController: userListViewController),
-            UINavigationController(rootViewController: mannaListViewController),
-            UINavigationController(rootViewController: notiListViewController),
-            UINavigationController(rootViewController: setListViewController)
-        ]
-    }
-//
 //    func attribute() {
-//        self.do {
-//            beerListViewController.tabBarItem = tabBarItems[.beerList]
-//            singleBeerViewController.tabBarItem = tabBarItems[.singleBeer]
-//            randomBeerViewController.tabBarItem = tabBarItems[.randomBeer]
-//            $0.viewControllers = [
-//                UINavigationController(rootViewController: beerListViewController),
-//                UINavigationController(rootViewController: singleBeerViewController),
-//                UINavigationController(rootViewController: randomBeerViewController)
-//            ]
-//        }
+//        userListViewController.tabBarItem = tabBarItems[.userList]
+//        mannaListViewController.tabBarItem = tabBarItems[.mannaList]
+//        notiListViewController.tabBarItem = tabBarItems[.notiList]
+//        setListViewController.tabBarItem = tabBarItems[.setList]
 //
-//        view.do {
-//            $0.backgroundColor = .white
-//        }
+//        self.viewControllers = [
+//            UINavigationController(rootViewController: userListViewController),
+//            UINavigationController(rootViewController: mannaListViewController),
+//            UINavigationController(rootViewController: notiListViewController),
+//            UINavigationController(rootViewController: setListViewController)
+//        ]
 //    }
-    
+
+    func attribute() {
+        self.do {
+            userListViewController.tabBarItem = tabBarItems[.userList]
+            mannaListViewController.tabBarItem = tabBarItems[.mannaList]
+            notiListViewController.tabBarItem = tabBarItems[.notiList]
+            setListViewController.tabBarItem = tabBarItems[.setList]
+            
+            $0.viewControllers = [
+                UINavigationController(rootViewController: userListViewController),
+                UINavigationController(rootViewController: mannaListViewController),
+                UINavigationController(rootViewController: notiListViewController),
+                UINavigationController(rootViewController: setListViewController),
+            ]
+        }
+
+        view.do {
+            $0.backgroundColor = .white
+        }
+    }
 }

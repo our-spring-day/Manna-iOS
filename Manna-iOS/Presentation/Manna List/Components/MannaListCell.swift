@@ -93,7 +93,6 @@ class MannaListCell: UITableViewCell {
             $0.image = UIImage(named: "Image-2")
             $0.contentMode = .scaleAspectFit
         }
-        
     }
     
     func layout() {
