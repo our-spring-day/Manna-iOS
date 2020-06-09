@@ -13,13 +13,14 @@ import SnapKit
 import Toaster
 import Then
 
-class UserListViewController: UIViewController{
+class UserListViewController: UIViewController {
     // MARK: - Property
     var disposeBag = DisposeBag()
     let tableView = UITableView()
     let searchController = UISearchController(searchResultsController: nil)
     var userListViewModel = UserListViewModel()
     var filteredFriends = [String]()
+    //    var friendsOb: Observable<[String]>
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -28,6 +29,7 @@ class UserListViewController: UIViewController{
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        //        friendsOb = Observable.of(filteredFriends)
         layout()
         tableViewAttribute()
         bind()
@@ -42,7 +44,7 @@ class UserListViewController: UIViewController{
         definesPresentationContext = true
     }
     func tableViewAttribute() {
-//        navigationController?.navigationBar.hidesBarsOnSwipe = true
+        //        navigationController?.navigationBar.hidesBarsOnSwipe = true
         navigationItem.title = "친구"
         navigationController?.navigationBar.prefersLargeTitles = true
         tableView.do {
@@ -66,30 +68,29 @@ class UserListViewController: UIViewController{
             .bind(to: tableView.rx.items) {(tableView, row, item) -> UITableViewCell in
                 let cell = (tableView.dequeueReusableCell(withIdentifier: "UserListCell", for: IndexPath.init(row: row, section: 0)) as? UserListCell)!
                 cell.textLabel!.text = item
-                print(item)
+                //                print(item)
                 return cell
         }
         .disposed(by: disposeBag)
-        //검색기능
+        //검색기능]
         searchController.searchBar.rx.text
-            .subscribe(onNext: {text in
-                print(self.userListViewModel.outputs.testArr.filter{ $0.contains(text!) })
-            })
+            .orEmpty
+            .distinctUntilChanged()
+            .debug()
+            .bind(to: userListViewModel.outputs.filteredFriendsId)
+            .disposed(by: disposeBag)
+        //        searchController.searchBar.rx.text
+        //            .orEmpty
+        //            .subscribe(onNext: {text in
+        //                self.filteredFriends = self.userListViewModel.outputs.testArr.filter { $0.contains(text) }
+        //                print(self.filteredFriends)
+        //                self.tableView.reloadData()
+        //            })
+        //            .disposed(by: disposeBag)
         
-//        searchController.searchBar.rx.text
-//            .subscribe(onNext: {text in
-//                self.userListViewModel.outputs.friendsId.filter { $0.contains(text!)}
-//            })
-//        .disposed(by: disposeBag)
-//
-//        searchController.searchBar.rx.text
-//           .orEmpty // 옵셔널이 아니게 만듦 (Transforms control property of type String? into control property of type String.)
-//           .subscribe(onNext: { [unowned self] query in // subscribe
-//             print("query: \(query)")
-//             self.filteredFriends = self.allCities.filter({ $0.hasPrefix(query) })
-//             self.tableView.reloadData()
-//           })
-//           .disposed(by: disposeBag)
+        
+        
+        
     }
 }
 extension UserListViewController: UISearchResultsUpdating {

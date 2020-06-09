@@ -18,15 +18,18 @@ protocol Input {
 }
 protocol Output {
     var friendsId: Observable<[String]> { get }
-    var testArr: [String] { get }
+    var filteredFriendsId: Variable<String> { get }
 }
 protocol Type {
     var inputs: Input { get }
     var outputs: Output { get }
 }
 struct UserListViewModel: Type, Input, Output {
+    let disposeBag = DisposeBag()
+    var filteredFriendsId: Variable<String> = Variable("")
     let testArr: [String]
     var friendsId: Observable<[String]>
+    lazy var filteredFridensIdObservable: Observable<String> = self.filteredFriendsId.asObservable()
     func searchFriends() {
         print("searchFriedns")
     }
@@ -42,6 +45,15 @@ struct UserListViewModel: Type, Input, Output {
         userListModel = UserListModel()
         testArr = userListModel.friends.sorted()
         self.friendsId = Observable.of(testArr)
+        filteredFridensIdObservable.subscribe(onNext: {value in
+            print("Search value received = \(value)'")
+            
+            self.friendsId.map({ $0.filter({
+                if value.isEmpty {return true}
+                return ($0.lowercased().contains(value.lowercased()))
+            })
+            })
+            }).disposed(by: disposeBag)
     }
     var inputs: Input { return self }
     var outputs: Output { return self }
