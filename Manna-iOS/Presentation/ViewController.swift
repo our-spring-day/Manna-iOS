@@ -74,7 +74,7 @@ class ViewController: UITabBarController {
                 UINavigationController(rootViewController: userListViewController),
                 UINavigationController(rootViewController: mannaListViewController),
                 UINavigationController(rootViewController: notiListViewController),
-                UINavigationController(rootViewController: setListViewController),
+                UINavigationController(rootViewController: setListViewController)
             ]
         }
 

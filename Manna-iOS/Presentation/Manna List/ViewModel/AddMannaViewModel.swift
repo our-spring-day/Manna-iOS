@@ -16,12 +16,12 @@ protocol AddMannaViewModelOutput {
 }
 
 protocol AddMannaViewModelType {
-    var inputs: MannaListViewModelInput { get }
-    var outputs: MannaListViewModelOutput { get }
+    var inputs: AddMannaViewModelInput { get }
+    var outputs: AddMannaViewModelOutput { get }
 }
 
 class AddMannaViewModel: AddMannaViewModelInput, AddMannaViewModelOutput, AddMannaViewModelType {
     
-    var inputs: MannaListViewModelInput { return self }
-    var outputs: MannaListViewModelOutput { return self }
+    var inputs: AddMannaViewModelInput { return self }
+    var outputs: AddMannaViewModelOutput { return self }
 }
