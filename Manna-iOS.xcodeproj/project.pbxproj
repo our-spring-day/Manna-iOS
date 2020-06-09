@@ -87,6 +87,32 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
+		A55A80BC24900CF600EDFA99 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A585F8392482961A00A60530 /* MannaListViewModel.swift */,
+				A55A80BA248FD76200EDFA99 /* AddMannaViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A55A80BD24900D1500EDFA99 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CC705A0C2477D2BA00462251 /* MannaListViewController.swift */,
+				A5EAE114248A622100BA4E39 /* AddMannaViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A55A80BE24900D2E00EDFA99 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A585F83B2482962600A60530 /* MannaListModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		A585F834248295BD00A60530 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,12 +194,10 @@
 		CC705A052477CEF900462251 /* Manna List */ = {
 			isa = PBXGroup;
 			children = (
+				A55A80BE24900D2E00EDFA99 /* Model */,
+				A55A80BD24900D1500EDFA99 /* View */,
+				A55A80BC24900CF600EDFA99 /* ViewModel */,
 				A585F83D2482962B00A60530 /* Components */,
-				CC705A0C2477D2BA00462251 /* MannaListViewController.swift */,
-				A585F8392482961A00A60530 /* MannaListViewModel.swift */,
-				A585F83B2482962600A60530 /* MannaListModel.swift */,
-				A5EAE114248A622100BA4E39 /* AddMannaViewController.swift */,
-				A55A80BA248FD76200EDFA99 /* AddMannaViewModel.swift */,
 			);
 			path = "Manna List";
 			sourceTree = "<group>";

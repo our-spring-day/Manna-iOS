@@ -11,14 +11,6 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-protocol MannaListBindable {
-    //input
-    
-    
-    //output
-    var mannaObservable : BehaviorSubject<[Manna]> { get }
-}
-
 class MannaListViewController: UIViewController {
     
     var disposeBag = DisposeBag()
@@ -76,9 +68,4 @@ class MannaListViewController: UIViewController {
         appointmentTime: "appointmentTime.text!",
         numberPeople: "numberPeople.text!")])
     }
-//    func addManna() -> Observable<Manna>{
-//        let vc = AddMannaViewController()
-//        present(vc, animated: true, completion: nil)
-//        return vc
-//    }
 }
