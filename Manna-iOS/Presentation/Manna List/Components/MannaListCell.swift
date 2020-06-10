@@ -7,19 +7,17 @@
 //
 
 import UIKit
+import RxSwift
 import SnapKit
 import Then
+
 class MannaListCell: UITableViewCell {
-//    var mannaList = [
-//        MannaListModel(title: "스터디", place: "홍대입구", appointmentTime: "11시", numberPeople: "3명")
-//    ]
-    
-//    typealias MannaList = (title: String, place: String, appointmentTime: String, numberPeople: String)
+    static let identifier = "MannaListCell"
     
     //title
     let title = UILabel()
     
-    //title
+    //place
     let place = UILabel()
     let pin = UIImageView()
     
@@ -31,34 +29,36 @@ class MannaListCell: UITableViewCell {
     let numberPeople = UILabel()
     let user = UIImageView()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    private let cellDisposeBag = DisposeBag()
+    
+    var disposeBag = DisposeBag()
+    let onData: AnyObserver<MannaListModel>
+        
+    required init?(coder aDecoder: NSCoder) {
+        let data = PublishSubject<MannaListModel>()
+        
+        onData = data.asObserver()
+        
+        super.init(coder: aDecoder)
+        
+        data.observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self]
+                manna in
+                self?.title.text = manna.title
+                self?.place.text = manna.place
+                self?.appointmentTime.text = manna.appointmentTime
+                self?.numberPeople.text = manna.numberPeople
+            })
+        .disposed(by: cellDisposeBag)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
         layout()
         attribute()
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-//    func setData(mannaList: MannaList) {
-//        title.do {
-//            $0.text = mannaList.title
-//        }
-//        
-//        place.do {
-//            $0.text = mannaList.place
-//        }
-//        
-//        appointmentTime.do {
-//            $0.text = mannaList.appointmentTime
-//        }
-//        
-//        numberPeople.do {
-//            $0.text = mannaList.numberPeople
-//        }
-//    }
-    
+
     func attribute() {
         title.do {
             $0.numberOfLines = 0
@@ -97,48 +97,41 @@ class MannaListCell: UITableViewCell {
     
     func layout() {
         addSubview(title)
-        addSubview(pin)             //핀
+        addSubview(pin)
         addSubview(place)
-        addSubview(clock)           //시계
+        addSubview(clock)
         addSubview(appointmentTime)
         addSubview(user)
-        addSubview(numberPeople)    //사람
-        
+        addSubview(numberPeople)
         
         title.snp.makeConstraints {
             $0.top.equalToSuperview().offset(5)
             $0.bottom.equalTo(pin.snp.top).offset(-5)
             $0.left.equalToSuperview().offset(10)
         }
-        
         pin.snp.makeConstraints {
             $0.left.equalTo(title)
             $0.centerY.equalToSuperview()
         }
-        
         place.snp.makeConstraints {
             $0.leading.equalTo(pin.snp.trailing).offset(10)
             $0.centerY.equalToSuperview()
         }
-        
         clock.snp.makeConstraints {
             $0.top.equalTo(pin.snp.bottom).offset(10)
             $0.bottom.equalToSuperview().offset(-5)
             $0.left.equalTo(title)
         }
-        
         appointmentTime.snp.makeConstraints {
             $0.top.equalTo(clock)
             $0.bottom.equalTo(clock)
             $0.leading.equalTo(clock.snp.trailing).offset(10)
         }
-        
         user.snp.makeConstraints {
             $0.top.equalTo(clock)
             $0.bottom.equalTo(clock)
             $0.leading.equalTo(appointmentTime.snp.trailing).offset(10)
         }
-        
         numberPeople.snp.makeConstraints {
             $0.top.equalTo(clock)
             $0.bottom.equalTo(clock)
