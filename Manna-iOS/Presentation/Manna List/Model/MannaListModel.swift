@@ -7,8 +7,17 @@
 //
 
 import Foundation
-import RxSwift
 
 class MannaListModel {
+    var title: String
+    var place: String
+    var appointmentTime: String
+    var numberPeople: String
     
+    init (title: String, place: String, appointmentTime: String, numberPeople: String){
+        self.title = title
+        self.place = place
+        self.appointmentTime = appointmentTime
+        self.numberPeople = numberPeople
+    }
 }
