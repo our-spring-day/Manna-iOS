@@ -18,7 +18,7 @@ class UserListViewController: UIViewController {
     var disposeBag = DisposeBag()
     let tableView = UITableView()
     let searchController = UISearchController(searchResultsController: nil)
-    var userListViewModel: UserListViewModel!
+    //    var userListViewModel: UserListViewModel!
     var filteredFriends = [String]()
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -68,23 +68,23 @@ class UserListViewController: UIViewController {
         }
     }
     func bind() {
-        let input = userListViewModel.inputs(s
-        var userListViewModel = UserListViewModel(input: input)
-        userListViewModel.outputs.showFriends
+        let input = UserListViewModel.Input(searchKeyword: searchController.searchBar.rx.text.orEmpty.asObservable())
+        let userListViewModel = UserListViewModel(input: input)
+        userListViewModel.outputs!.showFriends
             .bind(to: tableView.rx.items) {(tableView, row, item) -> UITableViewCell in
                 let cell = (tableView.dequeueReusableCell(withIdentifier: "UserListCell", for: IndexPath.init(row: row, section: 0)) as? UserListCell)!
-                cell.textLabel!.text = item
+                print(item)
                 return cell
         }
         .disposed(by: disposeBag)
         //검색기능]
         
-//        searchController.searchBar.rx.text
-//            .orEmpty
-//            .distinctUntilChanged()
-//            .debug()
-//            .bind(to: userListViewModel.inputs.searchKeyWord)
-//            .disposed(by: disposeBag)
+        //        searchController.searchBar.rx.text
+        //            .orEmpty
+        //            .distinctUntilChanged()
+        //            .debug()
+        //            .bind(to: userListViewModel.inputs.searchKeyWord)
+        //            .disposed(by: disposeBag)
         //                searchController.searchBar.rx.text
         //                    .orEmpty
         //                    .subscribe(onNext: {text in
