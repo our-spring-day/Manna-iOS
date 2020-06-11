@@ -70,6 +70,7 @@ class UserListViewController: UIViewController {
     func bind() {
         let input = UserListViewModel.Input(searchKeyword: searchController.searchBar.rx.text.orEmpty.asObservable())
         let userListViewModel = UserListViewModel(input: input)
+        print(userListViewModel.outputs?.showFriends)
         userListViewModel.outputs!.showFriends
             .bind(to: tableView.rx.items) {(tableView, row, item) -> UITableViewCell in
                 let cell = (tableView.dequeueReusableCell(withIdentifier: "UserListCell", for: IndexPath.init(row: row, section: 0)) as? UserListCell)!
@@ -77,22 +78,6 @@ class UserListViewController: UIViewController {
                 return cell
         }
         .disposed(by: disposeBag)
-        //검색기능]
-        
-        //        searchController.searchBar.rx.text
-        //            .orEmpty
-        //            .distinctUntilChanged()
-        //            .debug()
-        //            .bind(to: userListViewModel.inputs.searchKeyWord)
-        //            .disposed(by: disposeBag)
-        //                searchController.searchBar.rx.text
-        //                    .orEmpty
-        //                    .subscribe(onNext: {text in
-        //                        self.filteredFriends = self.userListViewModel.outputs.testArr.filter { $0.contains(text) }
-        //                        print(self.filteredFriends)
-        //                        self.tableView.reloadData()
-        //                    })
-        //                    .disposed(by: disposeBag)
     }
 }
 extension UserListViewController: UISearchResultsUpdating {
