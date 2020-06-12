@@ -14,7 +14,6 @@ import RxOptional
 protocol Type {
     associatedtype Input
     associatedtype Output
-    
     var inputs: Input? { get }
     var outputs: Output? { get }
 }
@@ -23,27 +22,35 @@ class UserListViewModel: Type {
     var inputs: Input?
     var outputs: Output?
     var userListModel = UserListModel()
-    var sortedFriends: [String]?
+    var showFriends: [String] = []
     var filteredFriends: [String]?
+    var filteredObservable: Observable<[String]>?
     init(input: Input) {
         self.inputs = input
         input.searchKeyword.asObservable()
-            .filter{ self.userListModel.friends.contains($0.lowercased())}
-            .subscribe(onNext: { skw in
-//                self.filteredFriends = self.userListModel.friends.filter{ $0.lowercased().contains( skw.lowercased())}
-            })
-            .disposed(by: disposeBag)
-        sortedFriends = (userListModel.friends.sorted())
-//        print(sortedFriends!)
-        self.outputs = Output(showFriends: Observable.of(sortedFriends!)) 
-        print(outputs?.showFriends)
+            .filterEmpty()
+            .debug()
+            .subscribe(onNext: {skw in
+                let filtered = self.userListModel.friends.filter {$0.lowercased().contains(skw.lowercased())}
+                self.filteredFriends = filtered
+                if self.filteredFriends == [] || self.filteredFriends == nil {
+                    self.showFriends = self.userListModel.friends.sorted()
+                } else {
+                    self.showFriends = (self.filteredFriends!.sorted())
+                }
+//                print(self.showFriends)
+                self.inputs?.tableView.reloadData()
+            }).disposed(by: disposeBag)
+        self.showFriends = userListModel.friends.sorted()
+        self.outputs = Output(showFriends: showFriends)
     }
 }
 extension UserListViewModel {
     struct Input {
         let searchKeyword: Observable<String>
+        let tableView: UITableView
     }
     struct Output {
-        var showFriends: Observable<[String]>
+        var showFriends: [String]
     }
 }
