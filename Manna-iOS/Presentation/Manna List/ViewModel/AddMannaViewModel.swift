@@ -8,7 +8,6 @@
 
 import Foundation
 import RxSwift
-import RxCocoa
 
 protocol AddMannaViewModelInput {
 }
@@ -24,4 +23,5 @@ class AddMannaViewModel: AddMannaViewModelInput, AddMannaViewModelOutput, AddMan
     
     var inputs: AddMannaViewModelInput { return self }
     var outputs: AddMannaViewModelOutput { return self }
+    
 }

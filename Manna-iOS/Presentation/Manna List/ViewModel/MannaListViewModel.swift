@@ -8,22 +8,26 @@
 
 import Foundation
 import RxSwift
-import RxCocoa
-
-protocol MannaListViewModelInput {
-}
-protocol MannaListViewModelOutput {
-}
+import RxRelay
 
 protocol MannaListViewModelType {
-    var inputs: MannaListViewModelInput { get }
-    var outputs: MannaListViewModelOutput { get }
+    var allMannas: Observable<[MannaListModel]> { get }
+    var mannas: BehaviorRelay<[MannaListModel]> { get }
 }
 
-class MannaListViewModel: MannaListViewModelInput, MannaListViewModelOutput, MannaListViewModelType {
+class MannaListViewModel {
+    let disposeBag = DisposeBag()
     
-    var inputs: MannaListViewModelInput { return self }
-    var outputs: MannaListViewModelOutput { return self }
+    let addManna = PublishSubject<Void>()
+    let mannas = BehaviorSubject<[MannaListModel]>(value: [])
+    let allMannas: Observable<[MannaListModel]>
+
+
+    init() {
+        allMannas = mannas
     
-    var mannaObservable = BehaviorSubject<[Manna]>(value: [])
+//        mannas.onNext([
+//            MannaListModel(title: "Dummy", place: "Dummy", appointmentTime: "Dummy", numberPeople: "Dummy")
+//        ])
+    }
 }

@@ -20,4 +20,5 @@ class MannaListModel {
         self.appointmentTime = appointmentTime
         self.numberPeople = numberPeople
     }
+    
 }
