@@ -27,9 +27,8 @@ class MannaListViewController: UIViewController {
     }
     
     func bind() {
-        
         let dataSource = RxTableViewSectionedReloadDataSource<MannaSection>(
-          configureCell: { dataSource, tableView, indexPath, item in
+          configureCell: { _, tableView, indexPath, item in
             let cell = tableView.dequeueReusableCell(withIdentifier: MannaListCell.identifier, for: indexPath) as! MannaListCell
             cell.title.text = item.title
             cell.place.text = item.place
