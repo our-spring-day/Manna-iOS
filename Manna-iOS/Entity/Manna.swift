@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxDataSources
 
 struct Manna {
     let title: String

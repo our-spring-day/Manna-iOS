@@ -80,7 +80,11 @@ class AddMannaViewController: UIViewController {
     }
     
     @objc func addManna() {
-        MannaProvider.addManna(manna: Manna(title: "상원", place: "이와", appointmentTime: "떠나는", numberPeople: "여행"))
-        pop
+//        MannaProvider.addManna(manna: Manna(title: "상원", place: "이와", appointmentTime: "떠나는", numberPeople: "여행"))
+        
+        MannaProvider.addManna(data: MannaSection(status: "진행중", items: [Manna(title: "상원", place: "이와", appointmentTime: "떠나는", numberPeople: "여행")]))
+        
+        MannaProvider.addManna(data: MannaSection(status: "시작전", items: [Manna(title: "상원", place: "이와", appointmentTime: "떠나는", numberPeople: "여행")]))
+        self.navigationController?.popViewController(animated: true)
     }
 }

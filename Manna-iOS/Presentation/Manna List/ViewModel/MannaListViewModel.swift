@@ -16,7 +16,7 @@ protocol MannaListViewModelType {
 
 struct MannaListViewModel {
     let disposeBag = DisposeBag()
-    let allMannas: Observable<[Manna?]>
+    let allMannas: Observable<[MannaSection]>
 
     init() {
         allMannas = MannaProvider.observable()
