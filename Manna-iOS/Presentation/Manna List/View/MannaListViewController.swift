@@ -13,15 +13,13 @@ import SnapKit
 
 class MannaListViewController: UIViewController {
     
-    var disposeBag = DisposeBag()
+    let disposeBag = DisposeBag()
     
     let mannaList = UITableView()
     let mannaListViewModel = MannaListViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mannaList.delegate = nil
-        mannaList.dataSource = nil
         attribute()
         layout()
         bind()
@@ -29,25 +27,18 @@ class MannaListViewController: UIViewController {
     
     func bind() {
         mannaListViewModel.allMannas
-            .observeOn(MainScheduler.instance)
-            .bind(to: mannaList.rx.items(cellIdentifier: MannaListCell.identifier,                                 cellType: MannaListCell.self)) { _, item, cell in
-                cell.onData.onNext(item)
+            .bind(to: mannaList.rx.items(cellIdentifier: MannaListCell.identifier, cellType: MannaListCell.self)) {
+                _, item, cell in
+                cell.title.text = item?.title
+                cell.place.text = item?.place
+                cell.appointmentTime.text = item?.appointmentTime
+                cell.numberPeople.text = item?.numberPeople
             }
             .disposed(by: disposeBag)
     }
     
     func attribute() {
-        let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
-        
-        add.rx.tap
-            .flatMap(addVC)
-            .observeOn(MainScheduler.instance)
-            .bind(to: mannaList.rx.items(cellIdentifier: MannaListCell.identifier,                                 cellType: MannaListCell.self)) { _, item, cell in
-                cell.onData.onNext(item)
-            }
-            .disposed(by: disposeBag)
-
-        
+        let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVC))
         self.navigationItem.rightBarButtonItem = add
         self.navigationItem.title = "약속목록"
         view.backgroundColor = .white
@@ -67,10 +58,9 @@ class MannaListViewController: UIViewController {
         }
     }
     
-    func addVC() -> Observable<[MannaListModel]>{
+    @objc func addVC() {
         let view = AddMannaViewController()
-//        self.navigationController?.pushViewController(view, animated: true)
-        present(view, animated: true)
-        return view.addManna
+        self.navigationController?.pushViewController(view, animated: true)
+//        MannaProvider.addManna(manna: Manna(title: "상원", place: "이와", appointmentTime: "떠나는", numberPeople: "여행"))
     }
 }

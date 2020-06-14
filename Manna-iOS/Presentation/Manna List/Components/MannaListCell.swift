@@ -29,50 +29,14 @@ class MannaListCell: UITableViewCell {
     let numberPeople = UILabel()
     let user = UIImageView()
     
-    private let cellDisposeBag = DisposeBag()
-    
-    var disposeBag = DisposeBag()
-    let onData: AnyObserver<MannaListModel>
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        let data = PublishSubject<MannaListModel>()
-        onData = data.asObserver()
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         attribute()
         layout()
-        
-        data.observeOn(MainScheduler.instance)
-        .subscribe(onNext: { [weak self] manna in
-            self?.title.text = manna.title
-            self?.place.text = manna.place
-            self?.appointmentTime.text = manna.appointmentTime
-            self?.numberPeople.text = manna.numberPeople
-        })
-        .disposed(by: cellDisposeBag)
     }
 
     required init?(coder aDecoder: NSCoder) {
-        let data = PublishSubject<MannaListModel>()
-        
-        onData = data.asObserver()
-        
         super.init(coder: aDecoder)
-        
-//        data.observeOn(MainScheduler.instance)
-//            .subscribe(onNext: { [weak self] manna in
-//                self?.title.text = manna.title
-//                self?.place.text = manna.place
-//                self?.appointmentTime.text = manna.appointmentTime
-//                self?.numberPeople.text = manna.numberPeople
-//            })
-//            .disposed(by: cellDisposeBag)
-        
-        
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        disposeBag = DisposeBag()
     }
 
     func attribute() {

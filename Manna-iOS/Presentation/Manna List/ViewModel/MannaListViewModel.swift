@@ -11,23 +11,14 @@ import RxSwift
 import RxRelay
 
 protocol MannaListViewModelType {
-    var allMannas: Observable<[MannaListModel]> { get }
-    var mannas: BehaviorRelay<[MannaListModel]> { get }
+    
 }
 
-class MannaListViewModel {
+struct MannaListViewModel {
     let disposeBag = DisposeBag()
-    
-    let addManna = PublishSubject<Void>()
-    let mannas = BehaviorSubject<[MannaListModel]>(value: [])
-    let allMannas: Observable<[MannaListModel]>
-
+    let allMannas: Observable<[Manna?]>
 
     init() {
-        allMannas = mannas
-    
-//        mannas.onNext([
-//            MannaListModel(title: "Dummy", place: "Dummy", appointmentTime: "Dummy", numberPeople: "Dummy")
-//        ])
+        allMannas = MannaProvider.observable()
     }
 }

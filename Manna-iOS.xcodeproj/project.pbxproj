@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A519FFD524953C000074D554 /* MannaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A519FFD424953C000074D554 /* MannaProvider.swift */; };
+		A519FFD7249611060074D554 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A519FFD6249611060074D554 /* ViewModel.swift */; };
 		A54702B22486A93F0091CA55 /* Manna.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54702B12486A93F0091CA55 /* Manna.swift */; };
 		A55A80BB248FD76200EDFA99 /* AddMannaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55A80BA248FD76200EDFA99 /* AddMannaViewModel.swift */; };
 		A585F8312482848200A60530 /* NotiListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F8302482848200A60530 /* NotiListViewModel.swift */; };
@@ -33,6 +35,8 @@
 /* Begin PBXFileReference section */
 		4DFAEF44CF70735D62CB19F6 /* Pods-Manna-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manna-iOS.release.xcconfig"; path = "Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		5434F4B54E67CE37DCF01314 /* Pods_Manna_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Manna_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A519FFD424953C000074D554 /* MannaProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaProvider.swift; sourceTree = "<group>"; };
+		A519FFD6249611060074D554 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		A54702B12486A93F0091CA55 /* Manna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manna.swift; sourceTree = "<group>"; };
 		A55A80BA248FD76200EDFA99 /* AddMannaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMannaViewModel.swift; sourceTree = "<group>"; };
 		A585F8302482848200A60530 /* NotiListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiListViewModel.swift; sourceTree = "<group>"; };
@@ -77,6 +81,14 @@
 				4DFAEF44CF70735D62CB19F6 /* Pods-Manna-iOS.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		A519FFD324953BCD0074D554 /* DataProvider */ = {
+			isa = PBXGroup;
+			children = (
+				A519FFD424953C000074D554 /* MannaProvider.swift */,
+			);
+			path = DataProvider;
 			sourceTree = "<group>";
 		};
 		A54702B02486A9220091CA55 /* Entity */ = {
@@ -159,6 +171,7 @@
 		CC7059EB2477B81100462251 /* Manna-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				A519FFD324953BCD0074D554 /* DataProvider */,
 				A54702B02486A9220091CA55 /* Entity */,
 				CC705A032477CEAA00462251 /* Presentation */,
 				CC7059EC2477B81100462251 /* AppDelegate.swift */,
@@ -175,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				CC7059F02477B81100462251 /* ViewController.swift */,
+				A519FFD6249611060074D554 /* ViewModel.swift */,
 				CC705A042477CECF00462251 /* User List */,
 				CC705A052477CEF900462251 /* Manna List */,
 				CC705A062477D18100462251 /* Noti List */,
@@ -365,6 +379,8 @@
 				CC7059F12477B81100462251 /* ViewController.swift in Sources */,
 				CC705A0F2477D2D200462251 /* NotiListViewController.swift in Sources */,
 				A585F83A2482961A00A60530 /* MannaListViewModel.swift in Sources */,
+				A519FFD7249611060074D554 /* ViewModel.swift in Sources */,
+				A519FFD524953C000074D554 /* MannaProvider.swift in Sources */,
 				A585F8312482848200A60530 /* NotiListViewModel.swift in Sources */,
 				A5EAE115248A622100BA4E39 /* AddMannaViewController.swift in Sources */,
 				CC705A0B2477D28800462251 /* UserListViewController.swift in Sources */,

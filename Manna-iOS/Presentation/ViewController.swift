@@ -49,20 +49,6 @@ class ViewController: UITabBarController {
         attribute()
     }
     
-//    func attribute() {
-//        userListViewController.tabBarItem = tabBarItems[.userList]
-//        mannaListViewController.tabBarItem = tabBarItems[.mannaList]
-//        notiListViewController.tabBarItem = tabBarItems[.notiList]
-//        setListViewController.tabBarItem = tabBarItems[.setList]
-//
-//        self.viewControllers = [
-//            UINavigationController(rootViewController: userListViewController),
-//            UINavigationController(rootViewController: mannaListViewController),
-//            UINavigationController(rootViewController: notiListViewController),
-//            UINavigationController(rootViewController: setListViewController)
-//        ]
-//    }
-
     func attribute() {
         self.do {
             userListViewController.tabBarItem = tabBarItems[.userList]

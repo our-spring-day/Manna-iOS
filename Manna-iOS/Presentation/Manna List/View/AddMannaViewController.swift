@@ -23,26 +23,10 @@ class AddMannaViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     
-    let addMannaSubject = PublishSubject<[MannaListModel]>()
-//    var addManna: Observable<[MannaListModel]> {
-//        return addMannaSubject.asObservable()
-//    }
-    lazy var addManna: Observable<[MannaListModel]> = addMannaSubject.asObservable()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        
         layout()
         attribute()
-        
-        let compelete = button.rx.tap.map { [MannaListModel(title: "홍대입구", place: "홍대입구", appointmentTime: "1시", numberPeople: "8명")] }
-        
-        Observable.of(compelete)
-            .merge()
-            .bind(onNext: tar)
-            .disposed(by: disposeBag)
-
     }
     
     func attribute() {
@@ -52,6 +36,7 @@ class AddMannaViewController: UIViewController {
             $0.setTitleColor(.black, for: .normal)
             $0.layer.borderWidth = 1.0
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            $0.addTarget(self, action: #selector(addManna), for: .touchUpInside)
         }
         name.do {
             $0.frame = CGRect(x: 10, y: 100, width: 150, height: 45)
@@ -83,18 +68,19 @@ class AddMannaViewController: UIViewController {
     }
     
     func layout() {
-        view.addSubview(button)
-        view.addSubview(name)
-        view.addSubview(place)
-        view.addSubview(appointmentTime)
-        view.addSubview(numberPeople)
-        view.addSubview(datePicker)
+        view.do {
+            $0.backgroundColor = .white
+            $0.addSubview(button)
+            $0.addSubview(name)
+            $0.addSubview(place)
+            $0.addSubview(appointmentTime)
+            $0.addSubview(numberPeople)
+            $0.addSubview(datePicker)
+        }
     }
     
-    func tar(manna: [MannaListModel]) {
-        dismiss(animated: true) { [weak self] in
-            self?.addMannaSubject.onNext(manna)
-            self?.addMannaSubject.onCompleted()
-        }
+    @objc func addManna() {
+        MannaProvider.addManna(manna: Manna(title: "상원", place: "이와", appointmentTime: "떠나는", numberPeople: "여행"))
+        pop
     }
 }
