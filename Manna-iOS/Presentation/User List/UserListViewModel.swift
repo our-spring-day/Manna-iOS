@@ -12,35 +12,25 @@ import RxCocoa
 import RxOptional
 
 protocol  Type {
-    associatedtype Input
-    associatedtype Output
-    var input: Input { get }
-    var output: Output { get }
+    var searchValue : BehaviorRelay<String>? { get }
 }
 class UserListViewModel: Type {
-    var output: Output
-    let input: Input
     let disposeBag = DisposeBag()
     let friendsList = UserListModel().friends.sorted()
-    var filteredFriendsList: [String] = [""]
-    init(input: Input) {
-        self.input = input
-        self.output = Output(showFriendsList: friendsList)
-        self.input.text
-            .subscribe(onNext: { searchKeyword in
-                self.filteredFriendsList.removeAll()
-                self.filteredFriendsList = self.friendsList.filter { $0.hasPrefix(searchKeyword) }
-                self.output = Output(showFriendsList: self.filteredFriendsList)
+    var filteredFriendsList: BehaviorRelay<[String]> = BehaviorRelay(value: [])
+    var searchValue: BehaviorRelay<String>? = BehaviorRelay(value: "")
+    lazy var searchValueObservable: Observable<String> = self.searchValue!.asObservable()
+    lazy var itemsObservable: Observable<[String]> = Observable.of(self.friendsList)
+    lazy var filteredItemobservable: Observable<[String]> = self.filteredFriendsList.asObservable()
+    init() {
+        searchValueObservable
+            .subscribe(onNext: { value in
+                print(value,"thanks")
+                self.itemsObservable.map({ $0.filter({
+                    if value.isEmpty { return true }
+                    return  ($0.lowercased().contains(value.lowercased()))
+                })
+                }).bind(to: self.filteredFriendsList)
             }).disposed(by: disposeBag)
-        self.output = Output(showFriendsList: self.friendsList)
-    }
-}
-
-extension UserListViewModel {
-    struct Input {
-        let text: Observable<String>
-    }
-    struct Output {
-        let showFriendsList: [String]
     }
 }

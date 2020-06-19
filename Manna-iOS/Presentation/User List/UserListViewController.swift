@@ -19,7 +19,7 @@ class UserListViewController: UIViewController {
     let showFriendsList: [String] = []
     let searchController = UISearchController(searchResultsController: nil)
     let testButton = UIBarButtonItem()
-    var viewModel: UserListViewModel!
+    var viewModel = UserListViewModel()
 
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -57,13 +57,11 @@ class UserListViewController: UIViewController {
         navigationItem.rightBarButtonItem = testButton
     }
     func bind() {
-        let dataSource = BehaviorRelay(value: viewModel.output.showFriendsList)
-        dataSource
+        viewModel.filteredFriendsList.asObservable()
             .bind(to: tableView.rx.items(cellIdentifier: "UITableViewCell", cellType: UITableViewCell.self)) {(index: Int, element: String, cell: UITableViewCell) in
+                print(element)
                 cell.textLabel!.text = element
         }.disposed(by: disposeBag)
-        let newSearchResultModels: [String] = viewModel.output.showFriendsList
-        dataSource.accept(newSearchResultModels)
     }
     func selectCell() {
         tableView.rx.modelSelected(String.self)
@@ -76,9 +74,14 @@ class UserListViewController: UIViewController {
         super.viewDidLoad()
         tableViewSet()
         navigationBarSet()
-        let input = UserListViewModel.Input(text: searchController.searchBar.rx.text.orEmpty.asObservable())
-        viewModel = UserListViewModel(input: input)
-        bind()
+        
+        searchController.searchBar.rx.text
+            .orEmpty
+            .distinctUntilChanged()
+            .debug()
+            .bind(to: (viewModel.searchValue)!)
+            .disposed(by: disposeBag)
+//        bind()
         selectCell()
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -89,6 +92,6 @@ class UserListViewController: UIViewController {
 extension UserListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         self.tableView.reloadData()
-        print(viewModel.output.showFriendsList)
+//        print(viewModel.output.showFriendsList)
     }
 }
