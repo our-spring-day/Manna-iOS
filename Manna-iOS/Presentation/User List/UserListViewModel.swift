@@ -11,46 +11,36 @@ import RxSwift
 import RxCocoa
 import RxOptional
 
-protocol Type {
+protocol  Type {
     associatedtype Input
     associatedtype Output
-    var inputs: Input? { get }
-    var outputs: Output? { get }
+    var input: Input { get }
+    var output: Output { get }
 }
 class UserListViewModel: Type {
+    var output: Output
+    let input: Input
     let disposeBag = DisposeBag()
-    var inputs: Input?
-    var outputs: Output?
-    var userListModel = UserListModel()
-    var showFriends: [String] = []
-    var filteredFriends: [String]?
-    var filteredObservable: Observable<[String]>?
+    let friendsList = UserListModel().friends.sorted()
+    var filteredFriendsList: [String] = [""]
     init(input: Input) {
-        self.inputs = input
-        input.searchKeyword.asObservable()
-            .filterEmpty()
-            .debug()
-            .subscribe(onNext: {skw in
-                let filtered = self.userListModel.friends.filter {$0.lowercased().contains(skw.lowercased())}
-                self.filteredFriends = filtered
-                if self.filteredFriends == [] || self.filteredFriends == nil {
-                    self.showFriends = self.userListModel.friends.sorted()
-                } else {
-                    self.showFriends = (self.filteredFriends!.sorted())
-                }
-//                print(self.showFriends)
-                self.inputs?.tableView.reloadData()
+        self.input = input
+        self.output = Output(showFriendsList: friendsList)
+        self.input.text
+            .subscribe(onNext: { searchKeyword in
+                self.filteredFriendsList.removeAll()
+                self.filteredFriendsList = self.friendsList.filter { $0.hasPrefix(searchKeyword) }
+                self.output = Output(showFriendsList: self.filteredFriendsList)
             }).disposed(by: disposeBag)
-        self.showFriends = userListModel.friends.sorted()
-        self.outputs = Output(showFriends: showFriends)
+        self.output = Output(showFriendsList: self.friendsList)
     }
 }
+
 extension UserListViewModel {
     struct Input {
-        let searchKeyword: Observable<String>
-        let tableView: UITableView
+        let text: Observable<String>
     }
     struct Output {
-        var showFriends: [String]
+        let showFriendsList: [String]
     }
 }
