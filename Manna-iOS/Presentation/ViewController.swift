@@ -13,7 +13,7 @@ class ViewController: UITabBarController {
     let mannaListViewController = MannaListViewController()
     let notiListViewController = NotiListViewController()
     let setListViewController = SetListViewController()
-    enum Tab: Int{
+    enum Tab: Int {
         case userList
         case mannaList
         case notiList
@@ -45,7 +45,7 @@ class ViewController: UITabBarController {
         super.viewDidLoad()
         attribute()
     }
-    func attribute(){
+    func attribute() {
         userListViewController.tabBarItem = tabBarItems[.userList]
         mannaListViewController.tabBarItem = tabBarItems[.mannaList]
         notiListViewController.tabBarItem = tabBarItems[.notiList]

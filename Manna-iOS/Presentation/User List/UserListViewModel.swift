@@ -12,7 +12,7 @@ import RxCocoa
 import RxOptional
 
 protocol  Type {
-    var searchValue : BehaviorRelay<String>? { get }
+    var searchValue: BehaviorRelay<String>? { get }
 }
 class UserListViewModel: Type {
     let disposeBag = DisposeBag()
@@ -25,15 +25,12 @@ class UserListViewModel: Type {
     init() {
         searchValueObservable
             .subscribe(onNext: { value in
+                //이부분 계속 응용가능할듯
                 self.itemsObservable.map({ $0.filter({
-//                    print($0)
                     if value.isEmpty { return true }
-//                    print($0.lowercased().contains(value.lowercased()))
                     return  ($0.lowercased().contains(value.lowercased()))
                 })
                 }).bind(to: self.filteredFriendsList)
             }).disposed(by: disposeBag)
-        
-//        filteredFriendsList.subscribe(onNext: {str in print("viewModel",str)}).disposed(by: disposeBag)
     }
 }

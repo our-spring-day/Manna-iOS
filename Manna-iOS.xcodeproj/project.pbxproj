@@ -22,6 +22,7 @@
 		CC705A0D2477D2BA00462251 /* MannaListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A0C2477D2BA00462251 /* MannaListViewController.swift */; };
 		CC705A0F2477D2D200462251 /* NotiListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A0E2477D2D200462251 /* NotiListViewController.swift */; };
 		CC705A112477D2E000462251 /* SetListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A102477D2E000462251 /* SetListViewController.swift */; };
+		CCAD9CFE249CD06300E639BF /* DetailUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAD9CFD249CD06300E639BF /* DetailUserViewController.swift */; };
 		F69ED73508E16B9556FF55D3 /* Pods_Manna_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5434F4B54E67CE37DCF01314 /* Pods_Manna_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		CC705A0C2477D2BA00462251 /* MannaListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaListViewController.swift; sourceTree = "<group>"; };
 		CC705A0E2477D2D200462251 /* NotiListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiListViewController.swift; sourceTree = "<group>"; };
 		CC705A102477D2E000462251 /* SetListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetListViewController.swift; sourceTree = "<group>"; };
+		CCAD9CFD249CD06300E639BF /* DetailUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUserViewController.swift; sourceTree = "<group>"; };
 		F1D0975FD460DE1097C65D92 /* Pods-Manna-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manna-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,6 +148,7 @@
 				CC384C0D24852ADB005F34AE /* UserListModel.swift */,
 				CC6E7D5A2487AA7E0050D774 /* AddUser */,
 				CC384C0F248625EC005F34AE /* Components */,
+				CCAD9CFC249CD01900E639BF /* DetailUser */,
 			);
 			path = "User List";
 			sourceTree = "<group>";
@@ -172,6 +175,14 @@
 				CC705A102477D2E000462251 /* SetListViewController.swift */,
 			);
 			path = "Set List";
+			sourceTree = "<group>";
+		};
+		CCAD9CFC249CD01900E639BF /* DetailUser */ = {
+			isa = PBXGroup;
+			children = (
+				CCAD9CFD249CD06300E639BF /* DetailUserViewController.swift */,
+			);
+			path = DetailUser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,6 +329,7 @@
 				CC705A0F2477D2D200462251 /* NotiListViewController.swift in Sources */,
 				CC705A0B2477D28800462251 /* UserListViewController.swift in Sources */,
 				CC7059ED2477B81100462251 /* AppDelegate.swift in Sources */,
+				CCAD9CFE249CD06300E639BF /* DetailUserViewController.swift in Sources */,
 				CC7059EF2477B81100462251 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
