@@ -57,16 +57,17 @@ class UserListViewController: UIViewController {
         navigationItem.rightBarButtonItem = testButton
     }
     func bind() {
-        viewModel.filteredFriendsList.asObservable()
+        viewModel.filteredFriendsList.subscribe(onNext: { str in print("개소리냐",str)}).disposed(by: disposeBag)
+        viewModel.filteredFriendsList
             .bind(to: tableView.rx.items(cellIdentifier: "UITableViewCell", cellType: UITableViewCell.self)) {(index: Int, element: String, cell: UITableViewCell) in
-                print(element)
+//                print(element)
                 cell.textLabel!.text = element
         }.disposed(by: disposeBag)
     }
     func selectCell() {
         tableView.rx.modelSelected(String.self)
             .subscribe(onNext: { model in
-                print("\(model) was selected")
+//                print("\(model) was selected")
             })
             .disposed(by: disposeBag)
     }
@@ -81,7 +82,7 @@ class UserListViewController: UIViewController {
             .debug()
             .bind(to: (viewModel.searchValue)!)
             .disposed(by: disposeBag)
-//        bind()
+        bind()
         selectCell()
     }
     override func viewWillDisappear(_ animated: Bool) {

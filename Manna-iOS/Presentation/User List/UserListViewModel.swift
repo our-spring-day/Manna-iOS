@@ -25,12 +25,15 @@ class UserListViewModel: Type {
     init() {
         searchValueObservable
             .subscribe(onNext: { value in
-                print(value,"thanks")
                 self.itemsObservable.map({ $0.filter({
+//                    print($0)
                     if value.isEmpty { return true }
+//                    print($0.lowercased().contains(value.lowercased()))
                     return  ($0.lowercased().contains(value.lowercased()))
                 })
                 }).bind(to: self.filteredFriendsList)
             }).disposed(by: disposeBag)
+        
+//        filteredFriendsList.subscribe(onNext: {str in print("viewModel",str)}).disposed(by: disposeBag)
     }
 }
