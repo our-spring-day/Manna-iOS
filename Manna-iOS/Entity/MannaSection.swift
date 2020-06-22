@@ -12,6 +12,11 @@ import RxDataSources
 struct MannaSection {
     var status: String
     var items: [Item]
+    
+    init(status: String, items: [Item]) {
+        self.status = status
+        self.items = items
+    }
 }
 
 extension MannaSection: SectionModelType {
