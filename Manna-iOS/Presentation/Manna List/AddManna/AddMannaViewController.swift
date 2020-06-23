@@ -43,12 +43,12 @@ class AddMannaViewController: UIViewController {
             $0.layer.borderWidth = 1.0
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         }
-        place.do {
+        appointmentTime.do {
             $0.frame = CGRect(x: 10, y: 150, width: 150, height: 45)
             $0.layer.borderWidth = 1.0
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         }
-        appointmentTime.do {
+        place.do {
             $0.frame = CGRect(x: 10, y: 200, width: 150, height: 45)
             $0.layer.borderWidth = 1.0
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -72,8 +72,8 @@ class AddMannaViewController: UIViewController {
             $0.backgroundColor = .white
             $0.addSubview(button)
             $0.addSubview(name)
-            $0.addSubview(place)
             $0.addSubview(appointmentTime)
+            $0.addSubview(place)
             $0.addSubview(numberPeople)
             $0.addSubview(datePicker)
         }
@@ -81,12 +81,11 @@ class AddMannaViewController: UIViewController {
     
     @objc func addManna() {
         let nameT = name.text!
-        let placeT = place.text!
         let appointMentT = appointmentTime.text!
+        let placeT = place.text!
         let numberPeopleT = numberPeople.text!
         
-
-        MannaProvider.addManna(data: Manna(title: nameT, place: placeT, appointmentTime: appointMentT, numberPeople: numberPeopleT))
+        MannaProvider.addManna(data: Manna(title: nameT, appointmentTime: appointMentT, place: placeT, numberPeople: numberPeopleT))
         self.navigationController?.popViewController(animated: true)
     }
 }

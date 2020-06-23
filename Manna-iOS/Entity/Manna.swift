@@ -10,7 +10,7 @@ import Foundation
 
 struct Manna {
     let title: String
-    let place: String
     let appointmentTime: String
+    let place: String
     let numberPeople: String
 }

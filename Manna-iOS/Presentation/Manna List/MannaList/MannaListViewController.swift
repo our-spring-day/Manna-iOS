@@ -65,7 +65,7 @@ class MannaListViewController: UIViewController {
         
         mannaList.do {
             $0.backgroundView?.isHidden = true
-            $0.register(MannaListCell.self, forCellReuseIdentifier: "cell")
+//            $0.register(MannaListCell.self, forCellReuseIdentifier: "cell")
             $0.rowHeight = 90
         }
     }
@@ -79,8 +79,9 @@ class MannaListViewController: UIViewController {
     }
     
     @objc func addVC() {
-        let view = AddMannaViewController()
+//        let view = AddMannaViewController()
+        let view = TitleAddMannaViewController()
+        view.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(view, animated: true)
     }
 }
-

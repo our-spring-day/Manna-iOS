@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		A519FFD524953C000074D554 /* MannaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A519FFD424953C000074D554 /* MannaProvider.swift */; };
+		A522AD7F24A217DB00B8C2F2 /* TitleAddMannaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A522AD7E24A217DB00B8C2F2 /* TitleAddMannaViewController.swift */; };
+		A522AD8124A2194D00B8C2F2 /* TimeAddMannaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A522AD8024A2194D00B8C2F2 /* TimeAddMannaViewController.swift */; };
+		A522AD8324A2196600B8C2F2 /* PlaceAddMannaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A522AD8224A2196600B8C2F2 /* PlaceAddMannaViewController.swift */; };
 		A54702B22486A93F0091CA55 /* Manna.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54702B12486A93F0091CA55 /* Manna.swift */; };
 		A55A80BB248FD76200EDFA99 /* AddMannaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55A80BA248FD76200EDFA99 /* AddMannaViewModel.swift */; };
 		A585F8312482848200A60530 /* NotiListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F8302482848200A60530 /* NotiListViewModel.swift */; };
@@ -36,6 +39,9 @@
 		4DFAEF44CF70735D62CB19F6 /* Pods-Manna-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manna-iOS.release.xcconfig"; path = "Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		5434F4B54E67CE37DCF01314 /* Pods_Manna_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Manna_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A519FFD424953C000074D554 /* MannaProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaProvider.swift; sourceTree = "<group>"; };
+		A522AD7E24A217DB00B8C2F2 /* TitleAddMannaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleAddMannaViewController.swift; sourceTree = "<group>"; };
+		A522AD8024A2194D00B8C2F2 /* TimeAddMannaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAddMannaViewController.swift; sourceTree = "<group>"; };
+		A522AD8224A2196600B8C2F2 /* PlaceAddMannaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAddMannaViewController.swift; sourceTree = "<group>"; };
 		A54702B12486A93F0091CA55 /* Manna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manna.swift; sourceTree = "<group>"; };
 		A55A80BA248FD76200EDFA99 /* AddMannaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMannaViewModel.swift; sourceTree = "<group>"; };
 		A585F8302482848200A60530 /* NotiListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiListViewModel.swift; sourceTree = "<group>"; };
@@ -91,6 +97,28 @@
 			path = DataProvider;
 			sourceTree = "<group>";
 		};
+		A522AD7C24A2112C00B8C2F2 /* MannaList */ = {
+			isa = PBXGroup;
+			children = (
+				CC705A0C2477D2BA00462251 /* MannaListViewController.swift */,
+				A585F8392482961A00A60530 /* MannaListViewModel.swift */,
+				A585F83B2482962600A60530 /* MannaListModel.swift */,
+			);
+			path = MannaList;
+			sourceTree = "<group>";
+		};
+		A522AD7D24A2114E00B8C2F2 /* AddManna */ = {
+			isa = PBXGroup;
+			children = (
+				A5EAE114248A622100BA4E39 /* AddMannaViewController.swift */,
+				A55A80BA248FD76200EDFA99 /* AddMannaViewModel.swift */,
+				A522AD7E24A217DB00B8C2F2 /* TitleAddMannaViewController.swift */,
+				A522AD8024A2194D00B8C2F2 /* TimeAddMannaViewController.swift */,
+				A522AD8224A2196600B8C2F2 /* PlaceAddMannaViewController.swift */,
+			);
+			path = AddManna;
+			sourceTree = "<group>";
+		};
 		A54702B02486A9220091CA55 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
@@ -98,32 +126,6 @@
 				A5B92B1D2496340B008A14C3 /* MannaSection.swift */,
 			);
 			path = Entity;
-			sourceTree = "<group>";
-		};
-		A55A80BC24900CF600EDFA99 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				A585F8392482961A00A60530 /* MannaListViewModel.swift */,
-				A55A80BA248FD76200EDFA99 /* AddMannaViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		A55A80BD24900D1500EDFA99 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				CC705A0C2477D2BA00462251 /* MannaListViewController.swift */,
-				A5EAE114248A622100BA4E39 /* AddMannaViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		A55A80BE24900D2E00EDFA99 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				A585F83B2482962600A60530 /* MannaListModel.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		A585F834248295BD00A60530 /* Components */ = {
@@ -208,9 +210,8 @@
 		CC705A052477CEF900462251 /* Manna List */ = {
 			isa = PBXGroup;
 			children = (
-				A55A80BE24900D2E00EDFA99 /* Model */,
-				A55A80BD24900D1500EDFA99 /* View */,
-				A55A80BC24900CF600EDFA99 /* ViewModel */,
+				A522AD7C24A2112C00B8C2F2 /* MannaList */,
+				A522AD7D24A2114E00B8C2F2 /* AddManna */,
 				A585F83D2482962B00A60530 /* Components */,
 			);
 			path = "Manna List";
@@ -371,7 +372,10 @@
 			files = (
 				CC705A0D2477D2BA00462251 /* MannaListViewController.swift in Sources */,
 				CC705A112477D2E000462251 /* SetListViewController.swift in Sources */,
+				A522AD8124A2194D00B8C2F2 /* TimeAddMannaViewController.swift in Sources */,
 				A55A80BB248FD76200EDFA99 /* AddMannaViewModel.swift in Sources */,
+				A522AD8324A2196600B8C2F2 /* PlaceAddMannaViewController.swift in Sources */,
+				A522AD7F24A217DB00B8C2F2 /* TitleAddMannaViewController.swift in Sources */,
 				A585F83F2482963F00A60530 /* MannaListCell.swift in Sources */,
 				A585F8332482849500A60530 /* NotiListModel.swift in Sources */,
 				A585F83C2482962600A60530 /* MannaListModel.swift in Sources */,
