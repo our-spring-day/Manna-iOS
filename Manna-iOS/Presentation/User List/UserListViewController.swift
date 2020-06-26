@@ -18,7 +18,7 @@ class UserListViewController: UIViewController {
     let tableView = UITableView()
     let showFriendsList: [String] = []
     let searchController = UISearchController(searchResultsController: nil)
-    let testButton = UIBarButtonItem()
+    var addFriendButton: UIBarButtonItem?
     var viewModel = UserListViewModel()
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -57,8 +57,11 @@ class UserListViewController: UIViewController {
             navigationItem.searchController = $0
             definesPresentationContext = true
         }
-        testButton.title = "test"
-        navigationItem.rightBarButtonItem = testButton
+        self.addFriendButton = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(addFriend))
+        navigationItem.rightBarButtonItem = addFriendButton
     }
     func bind() {
         searchController.searchBar.rx.text
@@ -78,12 +81,20 @@ class UserListViewController: UIViewController {
             .subscribe(onNext: { model in
                 let detailUserViewController = DetailUserViewController()
                 self.definesPresentationContext = true
-                //overFullScreen으로 해야 다 가려지면서 alpha값 조정 가능 그냥 FullScreen 아님 //currentcontext 는 탭바랑 네비게이션바 못가림
+                //overFullScreen으로 해야 다 가려지면서 alpha값 조정 가능 그냥 FullScreen 아님
+                //currentcontext 는 탭바랑 네비게이션바 못가림
                 detailUserViewController.modalPresentationStyle = .overFullScreen
                 detailUserViewController.modalTransitionStyle = .crossDissolve
                 self.present(detailUserViewController, animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
+    }
+    @objc func addFriend() {
+        print("entered addFriend")
+        let addUserViewController = AddUserViewController()
+        addUserViewController.modalPresentationStyle = .overFullScreen
+//        self.present(addUserViewController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(addUserViewController, animated: true)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
