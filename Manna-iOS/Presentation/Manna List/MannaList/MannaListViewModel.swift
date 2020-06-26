@@ -10,15 +10,20 @@ import Foundation
 import RxSwift
 import RxRelay
 
-protocol MannaListViewModelType {
+protocol MannaListViewModelInput {
     var allMannas: Observable<[MannaSection]> { get }
 }
 
-struct MannaListViewModel: MannaListViewModelType {
-    let disposeBag = DisposeBag()
+protocol MannaListViewModelType {
+    var input: MannaListViewModelInput { get }
+}
+
+class MannaListViewModel: MannaListViewModelType, MannaListViewModelInput {
     
-    let allMannas: Observable<[MannaSection]>
     init() {
         allMannas = MannaProvider.observable()
     }
+    
+    let allMannas: Observable<[MannaSection]>
+    var input: MannaListViewModelInput { return self } // 지금 일단 쓰이진 않음
 }

@@ -24,11 +24,9 @@ struct MannaProvider {
         .share(replay: 1, scope: .whileConnected)
     
     static func addManna(data: Manna) {
-        //        DispatchQueue(label: "Add Manna").async {
         var mannaValue = self.mannaRelay.value
         mannaValue[0].items.append(data)
         mannaRelay.accept(mannaValue)
-        //        }
     }
 
     static func observable() -> Observable<[MannaSection]> {

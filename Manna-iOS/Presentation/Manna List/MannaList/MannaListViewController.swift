@@ -13,7 +13,6 @@ import RxDataSources
 import SnapKit
 
 class MannaListViewController: UIViewController {
-    
     let disposeBag = DisposeBag()
     
     let mannaList = UITableView()
@@ -65,21 +64,19 @@ class MannaListViewController: UIViewController {
         
         mannaList.do {
             $0.backgroundView?.isHidden = true
-//            $0.register(MannaListCell.self, forCellReuseIdentifier: "cell")
+            $0.register(MannaListCell.self, forCellReuseIdentifier: MannaListCell.identifier)
             $0.rowHeight = 90
         }
     }
     
     func layout() {
         view.addSubview(mannaList)
-        mannaList.register(MannaListCell.self, forCellReuseIdentifier: MannaListCell.identifier)
         mannaList.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }
     
     @objc func addVC() {
-//        let view = AddMannaViewController()
         let view = TitleAddMannaViewController()
         view.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(view, animated: true)

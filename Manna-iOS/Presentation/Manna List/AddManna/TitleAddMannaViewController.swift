@@ -11,7 +11,8 @@ import SnapKit
 
 
 class TitleAddMannaViewController: UIViewController {
-
+    let viewModel = AddMannaViewModel()
+    
     let mannaTitle = UITextField().then {
         $0.layer.borderWidth = 1.0
         $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -23,6 +24,7 @@ class TitleAddMannaViewController: UIViewController {
     }
     
     func layout() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(pushPeopleView))
         view.addSubview(mannaTitle)
         mannaTitle.snp.makeConstraints {
             $0.centerX.equalToSuperview()
@@ -30,12 +32,20 @@ class TitleAddMannaViewController: UIViewController {
             $0.width.equalTo(200)
             $0.height.equalTo(40)
         }
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(pushTimeView))
     }
     
-    @objc func pushTimeView() {
-        let view = TimeAddMannaViewController()
+    @objc func pushPeopleView() {
+        let view = PeopleAddMannaViewController()
+        
+        guard let text = mannaTitle.text,
+            text.count > 0 else {
+                alert(message: "타이틀을 입력하세요")
+                return
+        }
+//        viewModel.title.onNext(text)
+        viewModel.title.onNext("fdffdfdfdfd")
+        viewModel.title.onNext("fdffdfd")
+        
         navigationController?.pushViewController(view, animated: true)
     }
 }

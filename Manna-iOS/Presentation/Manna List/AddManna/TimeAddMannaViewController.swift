@@ -10,7 +10,9 @@ import UIKit
 import SnapKit
 
 class TimeAddMannaViewController: UIViewController {
-
+    
+    let viewModel = AddMannaViewModel()
+    
     let start = UILabel()
     let on = UILabel()
     let end = UILabel()
@@ -23,8 +25,9 @@ class TimeAddMannaViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        attribute()
-        layout()
+//        attribute()
+//        layout()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(pushPlaceView))
     }
     
     func attribute() {
@@ -35,21 +38,24 @@ class TimeAddMannaViewController: UIViewController {
         end.text = "종료시간"
         end.textColor = .black
         startPicker.datePickerMode = .time
-        onPicker.datePickerMode = .dateAndTime
+        onPicker.do {
+            $0.datePickerMode = .dateAndTime
+            $0.timeZone = NSTimeZone.local
+            $0.addTarget(self, action: #selector(changed), for: .valueChanged)
+        }
         endPicker.datePickerMode = .time
     }
     
     func layout() {
-//        view.backgroundColor = .green
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(pushTimeView))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(pushPlaceView))
         let firstView = UIView()
         let secondView = UIView()
         let thirdView = UIView()
        
-//        firstView.backgroundColor = .darkGray
-//        secondView.backgroundColor = .red
-//        thirdView.backgroundColor = .blue
-//
+        firstView.backgroundColor = .darkGray
+        secondView.backgroundColor = .red
+        thirdView.backgroundColor = .blue
+
         view.addSubview(firstView)
         view.addSubview(secondView)
         view.addSubview(thirdView)
@@ -112,8 +118,18 @@ class TimeAddMannaViewController: UIViewController {
         }
     }
     
-    @objc func pushTimeView() {
+    @objc func pushPlaceView() {
         let view = PlaceAddMannaViewController()
+        viewModel.people.onNext("timeisgold")
         navigationController?.pushViewController(view, animated: true)
+    }
+    
+    @objc func changed(sender: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+//        dateFormatter.dateStyle = .short
+//        dateFormatter.timeStyle = .short
+        dateFormatter.dateFormat = "yyyy/MM/dd hh:mm"
+
+        print(dateFormatter.string(from: sender.date))
     }
 }

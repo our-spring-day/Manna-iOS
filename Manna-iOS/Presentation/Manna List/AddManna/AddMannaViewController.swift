@@ -80,12 +80,17 @@ class AddMannaViewController: UIViewController {
     }
     
     @objc func addManna() {
+        guard let text = name.text,
+            text.count > 0 else {
+                alert(message: "타이틀을 입력하세요")
+                return
+        }
         let nameT = name.text!
+        let numberPeopleT = numberPeople.text!
         let appointMentT = appointmentTime.text!
         let placeT = place.text!
-        let numberPeopleT = numberPeople.text!
         
-        MannaProvider.addManna(data: Manna(title: nameT, appointmentTime: appointMentT, place: placeT, numberPeople: numberPeopleT))
+        MannaProvider.addManna(data: Manna(title: nameT, numberPeople: numberPeopleT, appointmentTime: appointMentT, place: placeT))
         self.navigationController?.popViewController(animated: true)
     }
 }

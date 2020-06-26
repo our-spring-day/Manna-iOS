@@ -9,9 +9,22 @@
 import UIKit
 
 class PlaceAddMannaViewController: UIViewController {
+    let viewModel = AddMannaViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .darkGray
+        layout()
     }
+    func layout() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(completeManna))
+    }
+    
+    @objc func completeManna() {
+        viewModel.place.onNext("place is most important things")
+        navigationController?.popToRootViewController(animated: true)
+        
+    }
+
+    
 }
