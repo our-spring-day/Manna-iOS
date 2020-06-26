@@ -20,10 +20,6 @@ class UserListCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    //setData 함수를 controller에서 한번 호출해 모든 데이터를 할당할 수 있도록 수정 요함
-    func setData(friendsId: String) {
-        idLabel.text = "tst"
-    }
     func attribute() {
         idLabel.do {
             $0.font = .systemFont(ofSize: 14, weight: .light)

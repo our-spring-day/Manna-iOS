@@ -50,7 +50,7 @@ class UserListViewController: UIViewController {
     func navigationBarSet() {
         navigationItem.title = "친구"
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.hidesBarsOnSwipe = true
+        navigationItem.hidesSearchBarWhenScrolling = true
         searchController.do {
             $0.obscuresBackgroundDuringPresentation = false
             $0.searchBar.placeholder = "친구 검색"
@@ -65,7 +65,7 @@ class UserListViewController: UIViewController {
             .orEmpty
             .distinctUntilChanged()
             .debug()
-            .bind(to: (viewModel.searchValue)!)
+            .bind(to: viewModel.searchValue)
             .disposed(by: disposeBag)
         // 급해서 기본 cell을 사용했네요 추후에 커스텀 셀로 적용 해야합니다.
         viewModel.filteredFriendsList
