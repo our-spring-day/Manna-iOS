@@ -10,55 +10,43 @@ import Foundation
 import RxSwift
 
 protocol AddMannaViewModelInput {
-    var total: PublishSubject<Manna> { get }
-    var title: PublishSubject<String> { get }
-    var people: PublishSubject<String> { get }
-    var time: PublishSubject<String> { get }
-    var place: PublishSubject<String> { get }
+    var manna: AnyObserver<String> { get }
+}
+
+protocol AddMannaViewModelOutput {
+
 }
 
 protocol AddMannaViewModelType {
     var inputs: AddMannaViewModelInput { get }
+    var outputs: AddMannaViewModelOutput { get }
 }
 
-class AddMannaViewModel: AddMannaViewModelInput, AddMannaViewModelType {
+class AddMannaViewModel: AddMannaViewModelInput, AddMannaViewModelOutput, AddMannaViewModelType {
     let disposeBag = DisposeBag()
     
-    let total: PublishSubject<Manna> = PublishSubject<Manna>()
-    let title: PublishSubject<String> = PublishSubject<String>()
-    let people: PublishSubject<String> = PublishSubject<String>()
-    let time: PublishSubject<String> = PublishSubject<String>()
-    let place: PublishSubject<String> = PublishSubject<String>()
+    let manna: AnyObserver<String>
     
     init() {
-        title
-            .takeLast(1)
-            .subscribe {
-            print($0)
-        }
-        .disposed(by: disposeBag)
+        let mannaInput = PublishSubject<String>()
+        var arr: [Any] = []
+        manna = mannaInput.asObserver()
         
-        people.subscribe {
-            print($0)
-        }
-        .disposed(by: disposeBag)
-        
-        time.subscribe {
-            print($0)
-        }
-        .disposed(by: disposeBag)
-        
-        place.subscribe {
-            print($0)
-        }
-        .disposed(by: disposeBag)
-        
-//        Observable.merge(title, people, time, place)
-//                .subscribe{
-//                    print($0)
-//                }
-//                .disposed(by: disposeBag)
+        mannaInput
+            .take(4)
+            .window(timeSpan: 1000, count: 4, scheduler: MainScheduler.instance)
+            .subscribe(onNext: { [unowned self] (observable) in
+                observable
+                    .subscribe { (str) in
+                        arr.append(str)
+                        print(arr)
+                }
+                }, onCompleted: {
+                    print("complete")
+            })
+            .disposed(by: disposeBag)
     }
     
+    var outputs: AddMannaViewModelOutput { return self }
     var inputs: AddMannaViewModelInput { return self }
 }

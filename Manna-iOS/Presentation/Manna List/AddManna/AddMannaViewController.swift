@@ -13,13 +13,13 @@ import SnapKit
 import Then
 
 class AddMannaViewController: UIViewController {
-    
+    let viewModel = AddMannaViewModel()
     let button = UIButton()
     let name = UITextField()
     let place = UITextField()
     let appointmentTime = UITextField()
     let numberPeople = UITextField()
-    let datePicker = UIDatePicker()
+    
     
     let disposeBag = DisposeBag()
     
@@ -58,13 +58,6 @@ class AddMannaViewController: UIViewController {
             $0.layer.borderWidth = 1.0
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         }
-        datePicker.do {
-            $0.frame = CGRect(x: 10, y: 300, width: 350, height: 300)
-            $0.timeZone = NSTimeZone.local
-            $0.backgroundColor = UIColor.white
-            $0.layer.cornerRadius = 5.0
-            $0.layer.shadowOpacity = 0.5
-        }
     }
     
     func layout() {
@@ -75,8 +68,9 @@ class AddMannaViewController: UIViewController {
             $0.addSubview(appointmentTime)
             $0.addSubview(place)
             $0.addSubview(numberPeople)
-            $0.addSubview(datePicker)
         }
+        
+        
     }
     
     @objc func addManna() {
@@ -89,7 +83,7 @@ class AddMannaViewController: UIViewController {
         let numberPeopleT = numberPeople.text!
         let appointMentT = appointmentTime.text!
         let placeT = place.text!
-        
+            
         MannaProvider.addManna(data: Manna(title: nameT, numberPeople: numberPeopleT, appointmentTime: appointMentT, place: placeT))
         self.navigationController?.popViewController(animated: true)
     }

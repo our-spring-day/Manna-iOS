@@ -21,8 +21,6 @@ class TimeAddMannaViewController: UIViewController {
     let onPicker = UIDatePicker()
     let endPicker = UIDatePicker()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        attribute()
@@ -120,16 +118,13 @@ class TimeAddMannaViewController: UIViewController {
     
     @objc func pushPlaceView() {
         let view = PlaceAddMannaViewController()
-        viewModel.people.onNext("timeisgold")
+        viewModel.manna.onNext("c")
         navigationController?.pushViewController(view, animated: true)
     }
     
     @objc func changed(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-//        dateFormatter.dateStyle = .short
-//        dateFormatter.timeStyle = .short
         dateFormatter.dateFormat = "yyyy/MM/dd hh:mm"
-
         print(dateFormatter.string(from: sender.date))
     }
 }

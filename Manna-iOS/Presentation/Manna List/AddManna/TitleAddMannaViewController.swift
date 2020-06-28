@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 import SnapKit
 
 
@@ -36,16 +38,12 @@ class TitleAddMannaViewController: UIViewController {
     
     @objc func pushPeopleView() {
         let view = PeopleAddMannaViewController()
-        
         guard let text = mannaTitle.text,
             text.count > 0 else {
                 alert(message: "타이틀을 입력하세요")
                 return
         }
-//        viewModel.title.onNext(text)
-        viewModel.title.onNext("fdffdfdfdfd")
-        viewModel.title.onNext("fdffdfd")
-        
+        viewModel.manna.onNext(text)
         navigationController?.pushViewController(view, animated: true)
     }
 }

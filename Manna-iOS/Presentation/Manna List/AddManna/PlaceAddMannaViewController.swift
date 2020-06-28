@@ -21,10 +21,7 @@ class PlaceAddMannaViewController: UIViewController {
     }
     
     @objc func completeManna() {
-        viewModel.place.onNext("place is most important things")
+        viewModel.manna.onNext("place is most important things")
         navigationController?.popToRootViewController(animated: true)
-        
     }
-
-    
 }
