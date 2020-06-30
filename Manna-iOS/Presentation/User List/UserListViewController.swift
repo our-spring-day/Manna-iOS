@@ -14,7 +14,7 @@ import Toaster
 import UIKit
 
 class UserListViewController: UIViewController {
-    var disposeBag = DisposeBag()
+    let disposeBag = DisposeBag()
     let tableView = UITableView()
     let searchController = UISearchController(searchResultsController: nil)
     var addFriendButton: UIBarButtonItem?
@@ -34,14 +34,14 @@ class UserListViewController: UIViewController {
         clickedAddFriendButton()
     }
     func tableViewSet() {
-        view.addSubview(tableView)
         tableView.do {
+            view.addSubview($0)
             $0.snp.makeConstraints {
                 $0.edges.equalToSuperview()
             }
             $0.backgroundView = UIView()
             $0.backgroundView?.isHidden = true
-            $0.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
+            $0.register(UserListCell.self, forCellReuseIdentifier: UserListCell.identifier)
             $0.separatorStyle = .singleLine
             $0.rowHeight = UITableView.automaticDimension
             $0.estimatedRowHeight = 160
@@ -71,8 +71,9 @@ class UserListViewController: UIViewController {
             .disposed(by: disposeBag)
         // 급해서 기본 cell을 사용했네요 추후에 커스텀 셀로 적용 해야합니다.
         viewModel.filteredFriendsList
-            .bind(to: tableView.rx.items(cellIdentifier: "UITableViewCell", cellType: UITableViewCell.self)) {(_: Int, element: String, cell: UITableViewCell) in
-                cell.textLabel!.text = element
+            .bind(to: tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: String, cell: UserListCell) in
+                cell.idLabel.text = element
+                cell.imageView?.image = UIImage(named: "searchimage")
         }.disposed(by: disposeBag)
     }
     func clickedAddFriendButton() {

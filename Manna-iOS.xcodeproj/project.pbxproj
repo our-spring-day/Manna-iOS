@@ -24,7 +24,8 @@
 		CC705A112477D2E000462251 /* SetListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A102477D2E000462251 /* SetListViewController.swift */; };
 		CC986DD124A5DB95004450B7 /* AddUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC986DD024A5DB95004450B7 /* AddUserViewModel.swift */; };
 		CCAD9CFE249CD06300E639BF /* DetailUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAD9CFD249CD06300E639BF /* DetailUserViewController.swift */; };
-		CCB1578624AB3D0E00D81511 /* AddUserListTestStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578524AB3D0E00D81511 /* AddUserListTestStruct.swift */; };
+		CCB1578624AB3D0E00D81511 /* AddUserListTestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578524AB3D0E00D81511 /* AddUserListTestModel.swift */; };
+		CCB1578924AB53B400D81511 /* SearchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578824AB53B400D81511 /* SearchProtocol.swift */; };
 		F69ED73508E16B9556FF55D3 /* Pods_Manna_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5434F4B54E67CE37DCF01314 /* Pods_Manna_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,7 +51,8 @@
 		CC705A102477D2E000462251 /* SetListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetListViewController.swift; sourceTree = "<group>"; };
 		CC986DD024A5DB95004450B7 /* AddUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserViewModel.swift; sourceTree = "<group>"; };
 		CCAD9CFD249CD06300E639BF /* DetailUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUserViewController.swift; sourceTree = "<group>"; };
-		CCB1578524AB3D0E00D81511 /* AddUserListTestStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserListTestStruct.swift; sourceTree = "<group>"; };
+		CCB1578524AB3D0E00D81511 /* AddUserListTestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserListTestModel.swift; sourceTree = "<group>"; };
+		CCB1578824AB53B400D81511 /* SearchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProtocol.swift; sourceTree = "<group>"; };
 		F1D0975FD460DE1097C65D92 /* Pods-Manna-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manna-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,6 +98,7 @@
 			children = (
 				CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */,
 				CC986DD024A5DB95004450B7 /* AddUserViewModel.swift */,
+				CCB1578524AB3D0E00D81511 /* AddUserListTestModel.swift */,
 			);
 			path = AddUser;
 			sourceTree = "<group>";
@@ -122,6 +125,7 @@
 		CC7059EB2477B81100462251 /* Manna-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				CCB1578724AB538C00D81511 /* Protocol */,
 				CCB1578424AB3C3000D81511 /* Entity */,
 				CC705A032477CEAA00462251 /* Presentation */,
 				CC7059EC2477B81100462251 /* AppDelegate.swift */,
@@ -149,11 +153,11 @@
 		CC705A042477CECF00462251 /* User List */ = {
 			isa = PBXGroup;
 			children = (
+				CCAD9CFC249CD01900E639BF /* DetailUser */,
 				CC705A0A2477D28800462251 /* UserListViewController.swift */,
 				CC384C0B24852AD0005F34AE /* UserListViewModel.swift */,
 				CC6E7D5A2487AA7E0050D774 /* AddUser */,
 				CC384C0F248625EC005F34AE /* Components */,
-				CCAD9CFC249CD01900E639BF /* DetailUser */,
 			);
 			path = "User List";
 			sourceTree = "<group>";
@@ -194,9 +198,16 @@
 			isa = PBXGroup;
 			children = (
 				CC384C0D24852ADB005F34AE /* UserListModel.swift */,
-				CCB1578524AB3D0E00D81511 /* AddUserListTestStruct.swift */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		CCB1578724AB538C00D81511 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				CCB1578824AB53B400D81511 /* SearchProtocol.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,7 +345,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC6E7D5C2487AB070050D774 /* AddUserViewController.swift in Sources */,
-				CCB1578624AB3D0E00D81511 /* AddUserListTestStruct.swift in Sources */,
+				CCB1578924AB53B400D81511 /* SearchProtocol.swift in Sources */,
+				CCB1578624AB3D0E00D81511 /* AddUserListTestModel.swift in Sources */,
 				CC384C1124862613005F34AE /* UserListCell.swift in Sources */,
 				CC986DD124A5DB95004450B7 /* AddUserViewModel.swift in Sources */,
 				CC705A0D2477D2BA00462251 /* MannaListViewController.swift in Sources */,

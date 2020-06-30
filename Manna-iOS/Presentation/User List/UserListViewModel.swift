@@ -11,9 +11,9 @@ import RxSwift
 import RxCocoa
 import RxOptional
 
-protocol  Type {
-    var searchValue: BehaviorRelay<String> { get }
-}
+//protocol  UserListViewModelType {
+//    var searchValue: BehaviorRelay<String> { get }
+//}
 class UserListViewModel: Type {
     let disposeBag = DisposeBag()
     let friendsList = UserListModel().friends.sorted()
@@ -21,7 +21,7 @@ class UserListViewModel: Type {
     var searchValue: BehaviorRelay<String> = BehaviorRelay(value: "")
     lazy var searchValueObservable: Observable<String> = self.searchValue.asObservable()
     lazy var itemsObservable: Observable<[String]> = Observable.of(self.friendsList)
-    lazy var filteredItemobservable: Observable<[String]> = self.filteredFriendsList.asObservable()
+//    lazy var filteredItemobservable: Observable<[String]> = self.filteredFriendsList.asObservable()
     init() {
         searchValueObservable
             .subscribe(onNext: { value in

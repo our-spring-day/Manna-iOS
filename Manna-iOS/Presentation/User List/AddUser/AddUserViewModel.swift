@@ -6,12 +6,25 @@
 //  Copyright © 2020 정재인. All rights reserved.
 //
 
-import UIKit
+import Foundation
+import RxSwift
+import RxCocoa
+import RxOptional
 
-class AddUserViewModel: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+class AddUserViewModel: Type {
+    let disposeBag = DisposeBag()
+    var searchValue: BehaviorRelay<String>
+    let friendsList = UserListTestStruct().userListTestStruct
+    lazy var searchValueObservable: Observable<String> = self.searchValue.asObservable()
+    lazy var itemsObservable: Observable<[String]> = Observable.of(self.friendsList)
+    init() {
+        searchValueObservable
+        .subscribe(onNext: { value in
+            self.itemsObservable.map({ $0.filter({
+                if value.isEmpty { return true }
+                return  ($0.lowercased().contains(value.lowercased()))
+            })
+            }).bind(to: self.filteredFriendsList)
+        }).disposed(by: disposeBag)
     }
 }

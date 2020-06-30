@@ -1,5 +1,5 @@
 //
-//  AddUserListTestStruct.swift
+//  SearchProtocol.swift
 //  Manna-iOS
 //
 //  Created by 정재인 on 2020/06/30.
@@ -7,3 +7,9 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
+
+protocol  Type {
+    var searchValue: BehaviorRelay<String> { get }
+}

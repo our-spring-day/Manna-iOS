@@ -10,12 +10,13 @@ import UIKit
 import SnapKit
 
 class UserListCell: UITableViewCell {
+    static let identifier = "UserListCell"
     let idLabel = UILabel()
     let userImageView = UIImageView()
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        layout()
         attribute()
+        layout()
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -26,14 +27,13 @@ class UserListCell: UITableViewCell {
             $0.textColor = .black
         }
         userImageView.do {
-            //clipsToBounds??
             $0.clipsToBounds = true
             $0.contentMode = .scaleAspectFit
         }
     }
     func layout() {
-        contentView.addSubview(idLabel)
-        contentView.addSubview(userImageView)
+        addSubview(idLabel)
+        addSubview(userImageView)
         userImageView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(16)
             $0.left.equalToSuperview()
@@ -41,7 +41,7 @@ class UserListCell: UITableViewCell {
         }
         idLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(16)
-            $0.left.equalTo(userImageView.snp.right).offset(8)
+            $0.left.equalTo(userImageView.snp.right).offset(50)
             $0.right.equalToSuperview().offset(-8)
         }
     }
