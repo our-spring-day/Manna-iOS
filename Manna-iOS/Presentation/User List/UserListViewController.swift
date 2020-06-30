@@ -16,7 +16,6 @@ import UIKit
 class UserListViewController: UIViewController {
     var disposeBag = DisposeBag()
     let tableView = UITableView()
-    let showFriendsList: [String] = []
     let searchController = UISearchController(searchResultsController: nil)
     var addFriendButton: UIBarButtonItem?
     var viewModel = UserListViewModel()
@@ -32,10 +31,11 @@ class UserListViewController: UIViewController {
         navigationBarSet()
         bind()
         clickedCell()
+        clickedAddFriendButton()
     }
     func tableViewSet() {
+        view.addSubview(tableView)
         tableView.do {
-            view.addSubview($0)
             $0.snp.makeConstraints {
                 $0.edges.equalToSuperview()
             }
@@ -59,8 +59,7 @@ class UserListViewController: UIViewController {
         }
         self.addFriendButton = UIBarButtonItem(
             barButtonSystemItem: .add,
-            target: self,
-            action: #selector(addFriend))
+            target: self, action: nil)
         navigationItem.rightBarButtonItem = addFriendButton
     }
     func bind() {
@@ -72,32 +71,27 @@ class UserListViewController: UIViewController {
             .disposed(by: disposeBag)
         // 급해서 기본 cell을 사용했네요 추후에 커스텀 셀로 적용 해야합니다.
         viewModel.filteredFriendsList
-            .bind(to: tableView.rx.items(cellIdentifier: "UITableViewCell", cellType: UITableViewCell.self)) {(index: Int, element: String, cell: UITableViewCell) in
+            .bind(to: tableView.rx.items(cellIdentifier: "UITableViewCell", cellType: UITableViewCell.self)) {(_: Int, element: String, cell: UITableViewCell) in
                 cell.textLabel!.text = element
         }.disposed(by: disposeBag)
     }
+    func clickedAddFriendButton() {
+        addFriendButton?.rx.tap
+            .subscribe(onNext: {
+                let addUserViewController = AddUserViewController()
+                addUserViewController.modalPresentationStyle = .overFullScreen
+                self.navigationController?.pushViewController(addUserViewController, animated: true)
+            }).disposed(by: disposeBag)
+    }
     func clickedCell() {
         tableView.rx.modelSelected(String.self)
-            .subscribe(onNext: { model in
+            .subscribe(onNext: { _ in
                 let detailUserViewController = DetailUserViewController()
                 self.definesPresentationContext = true
-                //overFullScreen으로 해야 다 가려지면서 alpha값 조정 가능 그냥 FullScreen 아님
-                //currentcontext 는 탭바랑 네비게이션바 못가림
                 detailUserViewController.modalPresentationStyle = .overFullScreen
                 detailUserViewController.modalTransitionStyle = .crossDissolve
                 self.present(detailUserViewController, animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
-    }
-    @objc func addFriend() {
-        print("entered addFriend")
-        let addUserViewController = AddUserViewController()
-        addUserViewController.modalPresentationStyle = .overFullScreen
-//        self.present(addUserViewController, animated: true, completion: nil)
-        self.navigationController?.pushViewController(addUserViewController, animated: true)
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.isNavigationBarHidden = false
     }
 }

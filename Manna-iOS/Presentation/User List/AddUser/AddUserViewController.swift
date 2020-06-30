@@ -12,8 +12,19 @@ import RxSwift
 
 //새로운 친구를 찾으려 검색할 때 view
 class AddUserViewController: UIViewController {
+    let searchController = UISearchController(searchResultsController: nil)
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        view.backgroundColor = .white
+        navigationBarSet()
+    }
+    func navigationBarSet() {
+        navigationItem.title = "ID로 친구 추가"
+        searchController.do {
+            $0.obscuresBackgroundDuringPresentation = false
+            $0.searchBar.placeholder = "친구 검색"
+            navigationItem.searchController = $0
+            definesPresentationContext = true
+        }
     }
 }
