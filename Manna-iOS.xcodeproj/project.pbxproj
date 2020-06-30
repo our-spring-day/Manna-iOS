@@ -153,11 +153,11 @@
 		CC705A042477CECF00462251 /* User List */ = {
 			isa = PBXGroup;
 			children = (
-				CCAD9CFC249CD01900E639BF /* DetailUser */,
 				CC705A0A2477D28800462251 /* UserListViewController.swift */,
 				CC384C0B24852AD0005F34AE /* UserListViewModel.swift */,
-				CC6E7D5A2487AA7E0050D774 /* AddUser */,
 				CC384C0F248625EC005F34AE /* Components */,
+				CCAD9CFC249CD01900E639BF /* DetailUser */,
+				CC6E7D5A2487AA7E0050D774 /* AddUser */,
 			);
 			path = "User List";
 			sourceTree = "<group>";

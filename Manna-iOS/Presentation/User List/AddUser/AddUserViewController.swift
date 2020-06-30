@@ -12,7 +12,7 @@ import RxSwift
 
 //새로운 친구를 찾으려 검색할 때 view
 class AddUserViewController: UIViewController {
-    let viewModel = AddUserViewModel()
+//    let viewModel = AddUserViewModel()
     let disposeBag = DisposeBag()
     let searchController = UISearchController(searchResultsController: nil)
     override func viewDidLoad() {
@@ -31,11 +31,12 @@ class AddUserViewController: UIViewController {
         }
     }
     func bind() {
-        searchController.searchBar.rx.text
-            .orEmpty
-            .distinctUntilChanged()
-            .debug()
-            .bind(to: viewModel.searchValue)
-            .disposed(by: disposeBag)
+//        searchController.searchBar.rx.t
+//        searchController.searchBar.rx.text
+//            .orEmpty
+//            .distinctUntilChanged()
+//            .debug()
+//            .bind(to: viewModel.searchValue)
+//            .disposed(by: disposeBag)
     }
 }
