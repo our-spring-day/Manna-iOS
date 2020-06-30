@@ -83,8 +83,21 @@ class AddMannaViewController: UIViewController {
         let numberPeopleT = numberPeople.text!
         let appointMentT = appointmentTime.text!
         let placeT = place.text!
-            
-        MannaProvider.addManna(data: Manna(title: nameT, numberPeople: numberPeopleT, appointmentTime: appointMentT, place: placeT))
+        
+        let ob1 = Observable.just(nameT)
+        let ob2 = Observable.just(numberPeopleT)
+        let ob3 = Observable.just(appointMentT)
+        let ob4 = Observable.just(placeT)
+        
+//        let ob5 =
+            Observable.zip(ob1, ob2, ob3, ob4)
+                .subscribe { let manna = Manna(title: $0.element?.0 ?? "", numberPeople: $0.element?.1 ?? "", appointmentTime: $0.element?.2 ?? "", place: $0.element?.3 ?? "")
+                    MannaProvider.addManna(data: manna)
+            }
+                .disposed(by: disposeBag)
+        
+        
+//        MannaProvider.addManna(data: Manna(title: nameT, numberPeople: numberPeopleT, appointmentTime: appointMentT, place: placeT))
         self.navigationController?.popViewController(animated: true)
     }
 }

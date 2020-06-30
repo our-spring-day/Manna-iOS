@@ -118,7 +118,7 @@ class TimeAddMannaViewController: UIViewController {
     
     @objc func pushPlaceView() {
         let view = PlaceAddMannaViewController()
-        viewModel.manna.onNext("c")
+//        viewModel.manna.onNext("c")
         navigationController?.pushViewController(view, animated: true)
     }
     

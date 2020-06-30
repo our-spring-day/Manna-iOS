@@ -28,7 +28,7 @@ struct MannaProvider {
         mannaValue[0].items.append(data)
         mannaRelay.accept(mannaValue)
     }
-
+    
     static func observable() -> Observable<[MannaSection]> {
         return mannaObservable
             .map { $0 }

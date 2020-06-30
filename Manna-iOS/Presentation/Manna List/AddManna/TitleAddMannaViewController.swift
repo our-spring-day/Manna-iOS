@@ -43,7 +43,7 @@ class TitleAddMannaViewController: UIViewController {
                 alert(message: "타이틀을 입력하세요")
                 return
         }
-        viewModel.manna.onNext(text)
+//        viewModel.manna.onNext(text)
         navigationController?.pushViewController(view, animated: true)
     }
 }

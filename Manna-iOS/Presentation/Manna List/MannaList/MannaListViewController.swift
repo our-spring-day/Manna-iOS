@@ -77,7 +77,7 @@ class MannaListViewController: UIViewController {
     }
     
     @objc func addVC() {
-        let view = TitleAddMannaViewController()
+        let view = AddMannaViewController()
         view.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(view, animated: true)
     }

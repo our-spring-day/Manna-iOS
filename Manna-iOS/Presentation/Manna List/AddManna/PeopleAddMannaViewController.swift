@@ -34,7 +34,7 @@ class PeopleAddMannaViewController: UIViewController {
 
     @objc func pushTimeView() {
         let view = TimeAddMannaViewController()
-        viewModel.manna.onNext("b")
+//        viewModel.manna.onNext("b")
         navigationController?.pushViewController(view, animated: true)
     }
 
