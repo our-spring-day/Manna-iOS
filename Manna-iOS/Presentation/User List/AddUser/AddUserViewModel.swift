@@ -11,14 +11,14 @@ import RxSwift
 import RxCocoa
 import RxOptional
 
-//class AddUserViewModel: Type {
-//    let disposeBag = DisposeBag()
-//    var searchValue: BehaviorRelay<String>
-//    var filteredUser = BehaviorRelay(value: [])
-//    let friendsList = UserListTestStruct().userListTestStruct
-//    lazy var searchValueObservable: Observable<String> = self.searchValue.asObservable()
-//    lazy var itemsObservable: Observable<[String]> = Observable.of(self.friendsList)
-//    init() {
-//        
-//    }
-//}
+class AddUserViewModel: Type {
+    let disposeBag = DisposeBag()
+    var searchValue: BehaviorRelay<String> = BehaviorRelay(value: "")
+    var filteredUser = BehaviorRelay(value: [])
+    let friendsList = UserListTestStruct().userListTestStruct
+    lazy var searchValueObservable: Observable<String> = self.searchValue.asObservable()
+    lazy var itemsObservable: Observable<[String]> = Observable.of(self.friendsList)
+    init() {
+        
+    }
+}
