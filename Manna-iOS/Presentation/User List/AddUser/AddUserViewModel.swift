@@ -19,6 +19,14 @@ class AddUserViewModel: Type {
     lazy var searchValueObservable: Observable<String> = self.searchValue.asObservable()
     lazy var itemsObservable: Observable<[String]> = Observable.of(self.friendsList)
     init() {
-        
+        searchValueObservable
+            .subscribe(onNext: { value in
+                //이부분 계속 응용가능할듯
+                self.itemsObservable.map({ $0.filter({
+                    if value.isEmpty { return true }
+                    return  ($0.lowercased().contains(value.lowercased()))
+                })
+                }).bind(to: self.filteredUser)
+            }).disposed(by: disposeBag)
     }
 }

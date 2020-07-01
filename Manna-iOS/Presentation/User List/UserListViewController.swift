@@ -69,7 +69,6 @@ class UserListViewController: UIViewController {
             .debug()
             .bind(to: viewModel.searchValue)
             .disposed(by: disposeBag)
-        // 급해서 기본 cell을 사용했네요 추후에 커스텀 셀로 적용 해야합니다.
         viewModel.filteredFriendsList
             .bind(to: tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: String, cell: UserListCell) in
                 cell.idLabel.text = element

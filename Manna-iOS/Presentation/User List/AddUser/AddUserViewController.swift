@@ -47,5 +47,9 @@ class AddUserViewController: UIViewController {
                     .bind(to: self.viewModel.searchValue)
                     .disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
+        viewModel.filteredUser
+            .subscribe(onNext: {str in
+                
+            })
     }
 }
