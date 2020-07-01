@@ -31,13 +31,6 @@ class AddUserViewController: UIViewController {
         }
     }
     func bind() {
-//        searchController.searchBar.rx.t
-//        searchController.searchBar.rx.text
-//            .orEmpty
-//            .distinctUntilChanged()
-//            .debug()
-//            .bind(to: viewModel.searchValue)
-//            .disposed(by: disposeBag)
         searchController.searchBar.rx.searchButtonClicked
             .subscribe(onNext: {
                 self.searchController.searchBar.rx.text
@@ -46,10 +39,9 @@ class AddUserViewController: UIViewController {
                     .debug()
                     .bind(to: self.viewModel.searchValue)
                     .disposed(by: self.disposeBag)
+            let searchResultViewController = SearchResultViewController()
+            searchResultViewController.modalPresentationStyle = .overFullScreen
+            self.navigationController?.pushViewController(searchResultViewController, animated: true)
             }).disposed(by: disposeBag)
-        viewModel.filteredUser
-            .subscribe(onNext: {str in
-                
-            })
     }
 }

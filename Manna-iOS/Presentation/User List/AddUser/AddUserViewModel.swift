@@ -21,7 +21,6 @@ class AddUserViewModel: Type {
     init() {
         searchValueObservable
             .subscribe(onNext: { value in
-                //이부분 계속 응용가능할듯
                 self.itemsObservable.map({ $0.filter({
                     if value.isEmpty { return true }
                     return  ($0.lowercased().contains(value.lowercased()))
