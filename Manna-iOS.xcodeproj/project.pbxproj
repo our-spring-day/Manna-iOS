@@ -26,7 +26,6 @@
 		CCAD9CFE249CD06300E639BF /* DetailUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAD9CFD249CD06300E639BF /* DetailUserViewController.swift */; };
 		CCB1578624AB3D0E00D81511 /* AddUserListTestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578524AB3D0E00D81511 /* AddUserListTestModel.swift */; };
 		CCB1578924AB53B400D81511 /* SearchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578824AB53B400D81511 /* SearchProtocol.swift */; };
-		CCCBEBD724ACBFBA002580EF /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCBEBD624ACBFBA002580EF /* SearchResultViewController.swift */; };
 		F69ED73508E16B9556FF55D3 /* Pods_Manna_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5434F4B54E67CE37DCF01314 /* Pods_Manna_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,7 +53,6 @@
 		CCAD9CFD249CD06300E639BF /* DetailUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUserViewController.swift; sourceTree = "<group>"; };
 		CCB1578524AB3D0E00D81511 /* AddUserListTestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserListTestModel.swift; sourceTree = "<group>"; };
 		CCB1578824AB53B400D81511 /* SearchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProtocol.swift; sourceTree = "<group>"; };
-		CCCBEBD624ACBFBA002580EF /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		F1D0975FD460DE1097C65D92 /* Pods-Manna-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manna-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,7 +96,6 @@
 		CC6E7D5A2487AA7E0050D774 /* AddUser */ = {
 			isa = PBXGroup;
 			children = (
-				CCCBEBD524ACBF29002580EF /* SearchResult */,
 				CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */,
 				CC986DD024A5DB95004450B7 /* AddUserViewModel.swift */,
 				CCB1578524AB3D0E00D81511 /* AddUserListTestModel.swift */,
@@ -211,14 +208,6 @@
 				CCB1578824AB53B400D81511 /* SearchProtocol.swift */,
 			);
 			path = Protocol;
-			sourceTree = "<group>";
-		};
-		CCCBEBD524ACBF29002580EF /* SearchResult */ = {
-			isa = PBXGroup;
-			children = (
-				CCCBEBD624ACBFBA002580EF /* SearchResultViewController.swift */,
-			);
-			path = SearchResult;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -369,7 +358,6 @@
 				CC705A0B2477D28800462251 /* UserListViewController.swift in Sources */,
 				CC7059ED2477B81100462251 /* AppDelegate.swift in Sources */,
 				CCAD9CFE249CD06300E639BF /* DetailUserViewController.swift in Sources */,
-				CCCBEBD724ACBFBA002580EF /* SearchResultViewController.swift in Sources */,
 				CC7059EF2477B81100462251 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
