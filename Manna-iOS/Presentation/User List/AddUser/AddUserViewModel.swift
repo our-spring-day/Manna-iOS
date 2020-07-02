@@ -21,9 +21,19 @@ class AddUserViewModel: Type {
     init() {
         searchValueObservable
             .subscribe(onNext: { value in
+                print("firstIndex : ", (self.friendsList.firstIndex(of: value)) == nil)
                 self.itemsObservable.map({ $0.filter({
-                    if value.isEmpty { return true }
-                    return  ($0.lowercased().contains(value.lowercased()))
+                    if value.isEmpty {
+                        //검색어를 입력하라 라는 다이얼로그
+                        return false
+                    }
+                    if (self.friendsList.firstIndex(of: value)) != nil {
+                        return  $0.lowercased().contains(value.lowercased())
+                    }
+                    else {
+                        //매칭되는 아이디가 없다는 뷰
+                        return false
+                    }
                 })
                 }).bind(to: self.filteredUser)
             }).disposed(by: disposeBag)

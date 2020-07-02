@@ -80,6 +80,7 @@ class UserListViewController: UIViewController {
             .subscribe(onNext: {
                 let addUserViewController = AddUserViewController()
                 addUserViewController.modalPresentationStyle = .overFullScreen
+                addUserViewController.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(addUserViewController, animated: true)
             }).disposed(by: disposeBag)
     }

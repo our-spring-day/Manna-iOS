@@ -11,9 +11,9 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class SearchResultViewController: UIViewController{
+class SearchResultViewController: UIViewController {
+    let uiView = UIView()
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
     }
 }
