@@ -9,9 +9,11 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import SnapKit
 
-//새로운 친구를 찾으려 검색할 때 view
 class AddUserViewController: UIViewController {
+    var backgroundView = UIView()
+    var newView = UIView()
     let resultStackView = UIStackView()
     let viewModel = AddUserViewModel()
     let disposeBag = DisposeBag()
@@ -21,43 +23,52 @@ class AddUserViewController: UIViewController {
         view.backgroundColor = .white
         navigationBarSet()
         bind()
-        var v1: UIView = {
-            let v1 = UIView()
-            v1.backgroundColor = .blue
-            v1.heightAnchor.constraint(equalToConstant: 100).isActive = true
-            return v1
-        }()
-        v1.translatesAutoresizingMaskIntoConstraints = false
-        v1.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        var v2:UIView = {
-            let v2 = UIView()
-            v2.backgroundColor = .red
-            return v2
-        }()
-        var stack:UIStackView = {
-            let stack = UIStackView(frame: self.view.bounds)
-            stack.axis = .vertical
-            stack.distribution = .fillEqually
-            stack.alignment = .fill
-            stack.spacing = 5
-            stack.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            stack.addArrangedSubview(v1)
-            stack.addArrangedSubview(v2)
-            
-            return stack
-        }()
-        view.addSubview(stack)
-        
-        stack.heightAnchor.constraint(equalToConstant: 200)
-            .isActive = true // ---- 3
-        stack.widthAnchor.constraint(equalToConstant: 200)
-            .isActive = true // ---- 4
-        stack.centerXAnchor.constraint(equalTo:view.centerXAnchor)
-            .isActive = true // ---- 1
-        stack.centerYAnchor.constraint(equalTo:view.centerYAnchor)
-            .isActive = true // ---- 2
+        backgroundView.addSubview(searchController.searchBar)
+        backgroundView.addSubview(newView)
+        view.addSubview(backgroundView)
+        backgroundView.backgroundColor = .red
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -100).isActive = true
+        backgroundView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: -100).isActive = true
+        backgroundView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+//        backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
+        backgroundView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        backgroundView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        backgroundView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+            $0.centerX.equalToSuperview()
+            $0.width.height.equalTo(240)
+        }
+//        newView.backgroundColor = .blue
+//        newView.translatesAutoresizingMaskIntoConstraints = false
+//        newView.topAnchor.constraint(equalTo: searchController.searchBar.bottomAnchor, constant: 10).isActive = true
+//        newView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+//        newView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+//        newView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        var v1:UIView = {
+//            let testView1 = UIView()
+//            testView1.backgroundColor = .blue
+//            return testView1
+//        }()
+//        var v2:UIView = {
+//            let testView2 = UIView()
+//            testView2.backgroundColor = .blue
+//            return testView2
+//        }()
+//        var stack:UIStackView = {
+//            let testStack = UIStackView(frame: self.view.bounds)
+//            testStack.axis = .vertical
+//            testStack.distribution = .fillEqually
+//            testStack.alignment = .fill
+//            testStack.spacing = 5
+//            testStack.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//            testStack.translatesAutoresizingMaskIntoConstraints = false
+//            return testStack
+//        }()
+//        stack.addArrangedSubview(v1)
+//        stack.addArrangedSubview(v2)
+//        view.addSubview(stack)
     }
-    
     func navigationBarSet() {
         navigationItem.title = "ID로 친구 추가"
         searchController.do {
@@ -65,6 +76,7 @@ class AddUserViewController: UIViewController {
             $0.searchBar.placeholder = "친구 검색"
             navigationItem.searchController = $0
             definesPresentationContext = true
+            navigationItem.searchController = searchController
         }
     }
     func bind() {
