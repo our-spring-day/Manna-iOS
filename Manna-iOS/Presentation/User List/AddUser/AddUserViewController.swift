@@ -12,65 +12,30 @@ import RxSwift
 import SnapKit
 
 class AddUserViewController: UIViewController {
+    let imageView = UIImageView()
+    var textLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     var backgroundView = UIView()
     var newView = UIView()
     let resultStackView = UIStackView()
     let viewModel = AddUserViewModel()
     let disposeBag = DisposeBag()
     let searchController = UISearchController(searchResultsController: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationBarSet()
         bind()
-        backgroundView.addSubview(searchController.searchBar)
-        backgroundView.addSubview(newView)
-        view.addSubview(backgroundView)
-        backgroundView.backgroundColor = .red
-        backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -100).isActive = true
-        backgroundView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: -100).isActive = true
-        backgroundView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
-//        backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
-        backgroundView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        backgroundView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        backgroundView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
-            $0.centerX.equalToSuperview()
-            $0.width.height.equalTo(240)
-        }
-//        newView.backgroundColor = .blue
-//        newView.translatesAutoresizingMaskIntoConstraints = false
-//        newView.topAnchor.constraint(equalTo: searchController.searchBar.bottomAnchor, constant: 10).isActive = true
-//        newView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-//        newView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
-//        newView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        var v1:UIView = {
-//            let testView1 = UIView()
-//            testView1.backgroundColor = .blue
-//            return testView1
-//        }()
-//        var v2:UIView = {
-//            let testView2 = UIView()
-//            testView2.backgroundColor = .blue
-//            return testView2
-//        }()
-//        var stack:UIStackView = {
-//            let testStack = UIStackView(frame: self.view.bounds)
-//            testStack.axis = .vertical
-//            testStack.distribution = .fillEqually
-//            testStack.alignment = .fill
-//            testStack.spacing = 5
-//            testStack.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//            testStack.translatesAutoresizingMaskIntoConstraints = false
-//            return testStack
-//        }()
-//        stack.addArrangedSubview(v1)
-//        stack.addArrangedSubview(v2)
-//        view.addSubview(stack)
+        backgroundViewSet()
+        backgroundView.addSubview(textLabel)
+        textLabel.center = CGPoint(x: 160, y: 284)
+        textLabel.textAlignment = NSTextAlignment.center
+        textLabel.text = "I'm a test label"
+        
     }
     func navigationBarSet() {
         navigationItem.title = "ID로 친구 추가"
+        navigationController?.navigationBar.prefersLargeTitles = false
         searchController.do {
             $0.obscuresBackgroundDuringPresentation = false
             $0.searchBar.placeholder = "친구 검색"
@@ -89,9 +54,18 @@ class AddUserViewController: UIViewController {
                     .bind(to: self.viewModel.searchValue)
                     .disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
-        viewModel.filteredUser
-            .subscribe(onNext: {str in
-                print(str)}
-        ).disposed(by: disposeBag)
+        viewModel.filteredUser.bind(to: textLabel.rx.text)
+    }
+    func backgroundViewSet() {
+        backgroundView.do {
+            view.addSubview($0)
+            $0.backgroundColor = .red
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        backgroundView.snp.makeConstraints {
+            $0.width.equalTo(400)
+            $0.center.equalTo(view.center)
+            $0.top.equalTo(view).offset(200)
+        }
     }
 }
