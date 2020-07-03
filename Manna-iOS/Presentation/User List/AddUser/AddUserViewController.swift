@@ -20,18 +20,12 @@ class AddUserViewController: UIViewController {
     let viewModel = AddUserViewModel()
     let disposeBag = DisposeBag()
     let searchController = UISearchController(searchResultsController: nil)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationBarSet()
         bind()
         backgroundViewSet()
-        backgroundView.addSubview(textLabel)
-        textLabel.center = CGPoint(x: 160, y: 284)
-        textLabel.textAlignment = NSTextAlignment.center
-        textLabel.text = "I'm a test label"
-        
     }
     func navigationBarSet() {
         navigationItem.title = "ID로 친구 추가"
@@ -54,18 +48,27 @@ class AddUserViewController: UIViewController {
                     .bind(to: self.viewModel.searchValue)
                     .disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
-        viewModel.filteredUser.bind(to: textLabel.rx.text)
+//        viewModel.filteredUser.bind(to: textLabel.rx.text)
     }
     func backgroundViewSet() {
         backgroundView.do {
             view.addSubview($0)
-            $0.backgroundColor = .red
+            $0.backgroundColor = .lightGray
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         backgroundView.snp.makeConstraints {
             $0.width.equalTo(400)
             $0.center.equalTo(view.center)
             $0.top.equalTo(view).offset(200)
+        }
+        textLabel.do {
+            backgroundView.addSubview($0)
+            $0.textAlignment = NSTextAlignment.center
+            $0.text = "사용자 아이디가 들어갈 자리"
+        }
+        textLabel.snp.makeConstraints {
+            $0.centerX.equalTo(view.center)
+            $0.bottom.equalTo(backgroundView).offset(-50)
         }
     }
 }
