@@ -17,21 +17,17 @@ class AddUserViewModel: Type {
     var filteredUser = BehaviorRelay(value: [])
     let friendsList = UserListTestStruct().userListTestStruct
     lazy var searchValueObservable: Observable<String> = self.searchValue.asObservable()
-    lazy var itemsObservable: Observable<[String]> = Observable.of(self.friendsList)
+    lazy var itemsObservable = Observable.of(self.friendsList)
     init() {
         searchValueObservable
             .subscribe(onNext: { value in
-                print("firstIndex : ", (self.friendsList.firstIndex(of: value)) == nil)
-                self.itemsObservable.map({ $0.filter({
+                self.itemsObservable.map({ $0.filter({_ in
                     if value.isEmpty {
-                        //검색어를 입력하라 라는 다이얼로그
                         return false
                     }
-                    if (self.friendsList.firstIndex(of: value)) != nil {
-                        return  $0.lowercased().contains(value.lowercased())
-                    }
-                    else {
-                        //매칭되는 아이디가 없다는 뷰
+                    if (self.friendsList.filter { ($0.name == value) }) {
+                        return true
+                    }else {
                         return false
                     }
                 })

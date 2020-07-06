@@ -23,8 +23,9 @@
 		CC705A0F2477D2D200462251 /* NotiListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A0E2477D2D200462251 /* NotiListViewController.swift */; };
 		CC705A112477D2E000462251 /* SetListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A102477D2E000462251 /* SetListViewController.swift */; };
 		CC986DD124A5DB95004450B7 /* AddUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC986DD024A5DB95004450B7 /* AddUserViewModel.swift */; };
+		CCAC1F2D24B2FD28007C21ED /* UserListTestStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAC1F2C24B2FD28007C21ED /* UserListTestStruct.swift */; };
 		CCAD9CFE249CD06300E639BF /* DetailUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAD9CFD249CD06300E639BF /* DetailUserViewController.swift */; };
-		CCB1578624AB3D0E00D81511 /* AddUserListTestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578524AB3D0E00D81511 /* AddUserListTestModel.swift */; };
+		CCB1578624AB3D0E00D81511 /* UserTestStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578524AB3D0E00D81511 /* UserTestStruct.swift */; };
 		CCB1578924AB53B400D81511 /* SearchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578824AB53B400D81511 /* SearchProtocol.swift */; };
 		F69ED73508E16B9556FF55D3 /* Pods_Manna_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5434F4B54E67CE37DCF01314 /* Pods_Manna_iOS.framework */; };
 /* End PBXBuildFile section */
@@ -50,8 +51,9 @@
 		CC705A0E2477D2D200462251 /* NotiListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiListViewController.swift; sourceTree = "<group>"; };
 		CC705A102477D2E000462251 /* SetListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetListViewController.swift; sourceTree = "<group>"; };
 		CC986DD024A5DB95004450B7 /* AddUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserViewModel.swift; sourceTree = "<group>"; };
+		CCAC1F2C24B2FD28007C21ED /* UserListTestStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListTestStruct.swift; sourceTree = "<group>"; };
 		CCAD9CFD249CD06300E639BF /* DetailUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUserViewController.swift; sourceTree = "<group>"; };
-		CCB1578524AB3D0E00D81511 /* AddUserListTestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserListTestModel.swift; sourceTree = "<group>"; };
+		CCB1578524AB3D0E00D81511 /* UserTestStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTestStruct.swift; sourceTree = "<group>"; };
 		CCB1578824AB53B400D81511 /* SearchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProtocol.swift; sourceTree = "<group>"; };
 		F1D0975FD460DE1097C65D92 /* Pods-Manna-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manna-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,7 +100,8 @@
 			children = (
 				CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */,
 				CC986DD024A5DB95004450B7 /* AddUserViewModel.swift */,
-				CCB1578524AB3D0E00D81511 /* AddUserListTestModel.swift */,
+				CCB1578524AB3D0E00D81511 /* UserTestStruct.swift */,
+				CCAC1F2C24B2FD28007C21ED /* UserListTestStruct.swift */,
 			);
 			path = AddUser;
 			sourceTree = "<group>";
@@ -346,7 +349,8 @@
 			files = (
 				CC6E7D5C2487AB070050D774 /* AddUserViewController.swift in Sources */,
 				CCB1578924AB53B400D81511 /* SearchProtocol.swift in Sources */,
-				CCB1578624AB3D0E00D81511 /* AddUserListTestModel.swift in Sources */,
+				CCB1578624AB3D0E00D81511 /* UserTestStruct.swift in Sources */,
+				CCAC1F2D24B2FD28007C21ED /* UserListTestStruct.swift in Sources */,
 				CC384C1124862613005F34AE /* UserListCell.swift in Sources */,
 				CC986DD124A5DB95004450B7 /* AddUserViewModel.swift in Sources */,
 				CC705A0D2477D2BA00462251 /* MannaListViewController.swift in Sources */,

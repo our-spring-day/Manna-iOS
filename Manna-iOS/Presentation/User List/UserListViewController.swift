@@ -79,7 +79,6 @@ class UserListViewController: UIViewController {
         addFriendButton?.rx.tap
             .subscribe(onNext: {
                 let addUserViewController = AddUserViewController()
-                addUserViewController.modalPresentationStyle = .overFullScreen
                 addUserViewController.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(addUserViewController, animated: true)
             }).disposed(by: disposeBag)
