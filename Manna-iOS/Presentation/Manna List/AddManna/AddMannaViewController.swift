@@ -13,15 +13,12 @@ import SnapKit
 import Then
 
 class AddMannaViewController: UIViewController {
-    let viewModel = AddMannaViewModel()
-    let button = UIButton()
-    let name = UITextField()
-    let place = UITextField()
-    let appointmentTime = UITextField()
-    let numberPeople = UITextField()
-    
-    
     let disposeBag = DisposeBag()
+    
+    let pageView = MannaPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    let completeBtn = UIButton()
+    let titleLabel = UILabel()
+    let titleText = UITextField()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,75 +26,72 @@ class AddMannaViewController: UIViewController {
         attribute()
     }
     
+    func bind() {
+        
+    }
+    
     func attribute() {
-        button.do {
-            $0.frame = CGRect(x: 200, y: 100, width: 100, height: 50)
-            $0.setTitle("완료", for: .normal)
-            $0.setTitleColor(.black, for: .normal)
-            $0.layer.borderWidth = 1.0
-            $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-            $0.addTarget(self, action: #selector(addManna), for: .touchUpInside)
-        }
-        name.do {
-            $0.frame = CGRect(x: 10, y: 100, width: 150, height: 45)
-            $0.layer.borderWidth = 1.0
-            $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        }
-        appointmentTime.do {
-            $0.frame = CGRect(x: 10, y: 150, width: 150, height: 45)
-            $0.layer.borderWidth = 1.0
-            $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        }
-        place.do {
-            $0.frame = CGRect(x: 10, y: 200, width: 150, height: 45)
-            $0.layer.borderWidth = 1.0
-            $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        }
-        numberPeople.do {
-            $0.frame = CGRect(x: 10, y: 250, width: 150, height: 45)
-            $0.layer.borderWidth = 1.0
-            $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        }
+        view.backgroundColor = .white
+
+        completeBtn.setTitle("완료", for: .normal)
+        completeBtn.setTitleColor(.black, for: .normal)
+        completeBtn.layer.borderWidth = 1.0
+        completeBtn.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        completeBtn.addTarget(self, action: #selector(btn), for: .touchUpInside)
+        
+        titleText.layer.borderWidth = 1.0
+        titleText.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        titleText.textAlignment = .center
     }
     
     func layout() {
-        view.do {
-            $0.backgroundColor = .white
-            $0.addSubview(button)
-            $0.addSubview(name)
-            $0.addSubview(appointmentTime)
-            $0.addSubview(place)
-            $0.addSubview(numberPeople)
-        }
+        view.addSubview(completeBtn)
+        completeBtn.translatesAutoresizingMaskIntoConstraints = false
+        completeBtn.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        completeBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+        completeBtn.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        completeBtn.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
+        view.addSubview(titleText)
+        titleText.translatesAutoresizingMaskIntoConstraints = false
+        titleText.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        titleText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        titleText.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        titleText.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
+        view.addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
-    @objc func addManna() {
-        guard let text = name.text,
-            text.count > 0 else {
-                alert(message: "타이틀을 입력하세요")
-                return
-        }
-        let nameT = name.text!
-        let numberPeopleT = numberPeople.text!
-        let appointMentT = appointmentTime.text!
-        let placeT = place.text!
+    func nextBtn() {
+        let currentView = pageView.VCArr
+        let currentPage = pageView.pageControl.currentPage
+        let nextPage = currentPage + 1
         
-        let ob1 = Observable.just(nameT)
-        let ob2 = Observable.just(numberPeopleT)
-        let ob3 = Observable.just(appointMentT)
-        let ob4 = Observable.just(placeT)
-        
-//        let ob5 =
-            Observable.zip(ob1, ob2, ob3, ob4)
-                .subscribe { let manna = Manna(title: $0.element?.0 ?? "", numberPeople: $0.element?.1 ?? "", appointmentTime: $0.element?.2 ?? "", place: $0.element?.3 ?? "")
-                    MannaProvider.addManna(data: manna)
+        if nextPage < currentView.count {
+            let nextVC = currentView[nextPage]
+            self.pageView.setViewControllers([nextVC], direction: .forward, animated: true) { _ in
+                self.pageView.pageControl.currentPage = nextPage
             }
-                .disposed(by: disposeBag)
+        }
+    }
+    
+    @objc func btn(_ sender: Any) {
+        titleLabel.text = titleText.text
+        titleText.text = ""
+        titleText.removeFromSuperview()
         
-        
-//        MannaProvider.addManna(data: Manna(title: nameT, numberPeople: numberPeopleT, appointmentTime: appointMentT, place: placeT))
-        self.navigationController?.popViewController(animated: true)
+        UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.titleLabel.transform = self.titleLabel.transform.translatedBy(x: 0, y: -40)
+        })
+
+        view.addSubview(pageView.view)
+        pageView.view.translatesAutoresizingMaskIntoConstraints = false
+        pageView.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 70).isActive = true
+        pageView.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        pageView.view.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        pageView.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
 }
