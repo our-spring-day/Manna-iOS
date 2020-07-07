@@ -61,12 +61,9 @@ class UserListViewController: UIViewController {
         }
     }
     func bind() {
-        
-        
         searchController.searchBar.rx.text
             .orEmpty
             .distinctUntilChanged()
-            .debug()
             .bind(to: viewModel.searchValue)
             .disposed(by: disposeBag)
         viewModel.filteredFriendsList

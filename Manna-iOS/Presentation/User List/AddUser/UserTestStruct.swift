@@ -12,7 +12,6 @@ struct UserTestStruct {
     let name: String
     let profileImage: String
 }
-
 let justhis = UserTestStruct(name: "저스디스", profileImage: "justhis")
 let sikk = UserTestStruct(name: "식케이", profileImage: "sik-k")
 let soma = UserTestStruct(name: "소마", profileImage: "soma")

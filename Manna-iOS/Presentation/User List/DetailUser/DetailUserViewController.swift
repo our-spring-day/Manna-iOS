@@ -9,6 +9,7 @@
 import UIKit
 
 class DetailUserViewController: UIViewController {
+    let screenSize: CGRect = UIScreen.main.bounds
     let backgroundView = UIView()
     var userProfileImageView = UIImageView()
     override func viewDidLoad() {
@@ -25,23 +26,25 @@ class DetailUserViewController: UIViewController {
         backgroundView.do {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-            $0.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-            $0.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-            $0.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
             $0.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        }
+        backgroundView.snp.makeConstraints {
+            $0.center.equalTo(view.center)
+            $0.width.equalTo(screenSize.width)
+            $0.height.equalTo(screenSize.height)
         }
     }
     func userProfileImageViewSet() {
         userProfileImageView.do {
             backgroundView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.widthAnchor.constraint(equalToConstant: 300).isActive = true
-            $0.heightAnchor.constraint(equalToConstant: 300).isActive = true
-            $0.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-            $0.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
             $0.image = UIImage(named: "userlistimage")
             self.view.bringSubviewToFront($0)
+        }
+        userProfileImageView.snp.makeConstraints {
+            $0.center.equalTo(view.center)
+            $0.width.equalTo(screenSize.width)
+            $0.height.equalTo(screenSize.height)
         }
     }
 }
