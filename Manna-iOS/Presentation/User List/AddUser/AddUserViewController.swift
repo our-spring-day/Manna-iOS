@@ -48,9 +48,10 @@ class AddUserViewController: UIViewController {
                     .disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
         viewModel.filteredUser
-            .subscribe(onNext: { str in
-                print("여긴뷰컨입니다", str)
-            }).disposed(by: disposeBag)
+            .filterEmpty()
+            .map { $0[0].name}
+            .bind(to: textLabel.rx.text)
+            .disposed(by: disposeBag)
     }
     func profileViewSet() {
         profileView.do {

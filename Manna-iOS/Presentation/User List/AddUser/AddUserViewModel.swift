@@ -14,20 +14,19 @@ import RxOptional
 class AddUserViewModel: Type {
     let disposeBag = DisposeBag()
     var searchValue: BehaviorRelay<String> = BehaviorRelay(value: "")
-    var filteredUser = BehaviorRelay(value: [])
+    var filteredUser = BehaviorRelay(value: [UserTestStruct]())
     let friendsList = UserListTestStruct().userListTestStruct
     lazy var searchValueObservable: Observable<String> = self.searchValue.asObservable()
     lazy var itemsObservable = Observable.of(self.friendsList)
     init() {
         searchValueObservable
             .subscribe(onNext: { value in
-                self.itemsObservable.map({ $0.filter({_ in
+                self.itemsObservable.map({ $0.filter({ key in
                     if value.isEmpty {
                         return false
-                    }
-                    if (self.friendsList.filter { ($0.name == value) }) {
+                    } else if key.name == value {
                         return true
-                    }else {
+                    } else {
                         return false
                     }
                 })
