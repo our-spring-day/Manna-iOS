@@ -38,15 +38,13 @@ class AddUserViewController: UIViewController {
         }
     }
     func bind() {
+//        var test: Observable<Void> =searchController.searchBar.rx.searchButtonClicked.withLatestFrom(searchController.searchBar.rx.text, resultSelector: { (lastLeft, lastRight) in
+//        "\(lastLeft) \(lastRight)"
+//        })
         searchController.searchBar.rx.searchButtonClicked
-            .subscribe(onNext: {
-                self.searchController.searchBar.rx.text
-                    .orEmpty
-                    .distinctUntilChanged()
-                    .debug()
-                    .bind(to: self.viewModel.searchValue)
-                    .disposed(by: self.disposeBag)
-            }).disposed(by: disposeBag)
+        .withLatestFrom(searchController.searchBar.rx.text) { "\($1)"}
+            .bind(to: self.viewModel.searchValue)
+            .disposed(by: disposeBag)
         viewModel.filteredUser
             .filterEmpty()
             .map { $0[0].name}
@@ -66,7 +64,7 @@ class AddUserViewController: UIViewController {
         textLabel.do {
             profileView.addSubview($0)
             $0.textAlignment = NSTextAlignment.center
-            $0.text = "사용자 아이디가 들어갈 자리"
+//            $0.text = "사용자 아이디가 들어갈 자리"
         }
         textLabel.snp.makeConstraints {
             $0.centerX.equalTo(view.center)
@@ -74,7 +72,7 @@ class AddUserViewController: UIViewController {
         }
         imageView.do {
             profileView.addSubview($0)
-            $0.image = UIImage(named: "soma")
+//            $0.image = UIImage(named: "soma")
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.widthAnchor.constraint(equalToConstant: 300).isActive = true
             $0.heightAnchor.constraint(equalToConstant: 300).isActive = true

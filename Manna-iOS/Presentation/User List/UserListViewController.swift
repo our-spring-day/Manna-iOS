@@ -17,8 +17,11 @@ class UserListViewController: UIViewController {
     let disposeBag = DisposeBag()
     let tableView = UITableView()
     let searchController = UISearchController(searchResultsController: nil)
-    var addFriendButton: UIBarButtonItem?
     var viewModel = UserListViewModel()
+    var addFriendButton = UIBarButtonItem(
+        barButtonSystemItem: .add,
+        target: self, action: nil
+    )
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -36,33 +39,30 @@ class UserListViewController: UIViewController {
     func tableViewSet() {
         tableView.do {
             view.addSubview($0)
+            $0.register(UserListCell.self, forCellReuseIdentifier: UserListCell.identifier)
+            $0.rowHeight = 55
             $0.snp.makeConstraints {
                 $0.edges.equalToSuperview()
             }
-            $0.backgroundView = UIView()
-            $0.backgroundView?.isHidden = true
-            $0.register(UserListCell.self, forCellReuseIdentifier: UserListCell.identifier)
-            $0.separatorStyle = .singleLine
-            $0.rowHeight = UITableView.automaticDimension
-            $0.estimatedRowHeight = 160
         }
     }
     func navigationBarSet() {
-        navigationItem.title = "친구"
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.hidesSearchBarWhenScrolling = true
+        navigationItem.do {
+            $0.title = "친구"
+            $0.hidesSearchBarWhenScrolling = true
+            $0.searchController = searchController
+            $0.rightBarButtonItem = addFriendButton
+        }
         searchController.do {
             $0.obscuresBackgroundDuringPresentation = false
             $0.searchBar.placeholder = "친구 검색"
-            navigationItem.searchController = $0
             definesPresentationContext = true
         }
-        self.addFriendButton = UIBarButtonItem(
-            barButtonSystemItem: .add,
-            target: self, action: nil)
-        navigationItem.rightBarButtonItem = addFriendButton
     }
     func bind() {
+        
+        
         searchController.searchBar.rx.text
             .orEmpty
             .distinctUntilChanged()
@@ -76,7 +76,7 @@ class UserListViewController: UIViewController {
         }.disposed(by: disposeBag)
     }
     func clickedAddFriendButton() {
-        addFriendButton?.rx.tap
+        addFriendButton.rx.tap
             .subscribe(onNext: {
                 let addUserViewController = AddUserViewController()
                 addUserViewController.hidesBottomBarWhenPushed = true

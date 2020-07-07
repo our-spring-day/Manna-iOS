@@ -20,6 +20,7 @@ class AddUserViewModel: Type {
     lazy var itemsObservable = Observable.of(self.friendsList)
     init() {
         searchValueObservable
+            .distinctUntilChanged()
             .subscribe(onNext: { value in
                 self.itemsObservable.map({ $0.filter({ key in
                     if value.isEmpty {
