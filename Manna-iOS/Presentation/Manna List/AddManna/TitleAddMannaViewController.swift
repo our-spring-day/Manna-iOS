@@ -14,19 +14,20 @@ import SnapKit
 
 class TitleAddMannaViewController: UIViewController {
     let viewModel = AddMannaViewModel()
+    let disposeBag = DisposeBag()
     
     let mannaTitle = UITextField().then {
         $0.layer.borderWidth = 1.0
         $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
     }
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .purple
         layout()
     }
     
     func layout() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(pushPeopleView))
         view.addSubview(mannaTitle)
         mannaTitle.snp.makeConstraints {
             $0.centerX.equalToSuperview()
@@ -43,7 +44,5 @@ class TitleAddMannaViewController: UIViewController {
                 alert(message: "타이틀을 입력하세요")
                 return
         }
-//        viewModel.manna.onNext(text)
-        navigationController?.pushViewController(view, animated: true)
     }
 }

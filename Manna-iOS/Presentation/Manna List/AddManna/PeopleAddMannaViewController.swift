@@ -9,7 +9,7 @@
 import UIKit
 
 class PeopleAddMannaViewController: UIViewController {
-    let viewModel = AddMannaViewModel()
+//    let viewModel = AddMannaViewModel()
     
     let mannaPeople = UITextField().then {
         $0.layer.borderWidth = 1.0
@@ -18,11 +18,11 @@ class PeopleAddMannaViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .brown
         layout()
     }
     
     func layout() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(pushTimeView))
         view.addSubview(mannaPeople)
         mannaPeople.snp.makeConstraints {
             $0.centerX.equalToSuperview()
@@ -34,7 +34,7 @@ class PeopleAddMannaViewController: UIViewController {
 
     @objc func pushTimeView() {
         let view = TimeAddMannaViewController()
-//        viewModel.manna.onNext("b")
+//        viewModel.inputs.peopleInput(string: "gd")
         navigationController?.pushViewController(view, animated: true)
     }
 

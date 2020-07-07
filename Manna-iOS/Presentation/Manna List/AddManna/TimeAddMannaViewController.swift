@@ -11,10 +11,14 @@ import SnapKit
 
 class TimeAddMannaViewController: UIViewController {
     
-    let viewModel = AddMannaViewModel()
+//    let viewModel = AddMannaViewModel()
+    let mannaTime = UITextField().then {
+        $0.layer.borderWidth = 1.0
+        $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+    }
     
     let start = UILabel()
-    let on = UILabel()
+    let onTime = UILabel()
     let end = UILabel()
     
     let startPicker = UIDatePicker()
@@ -23,6 +27,7 @@ class TimeAddMannaViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
 //        attribute()
 //        layout()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(pushPlaceView))
@@ -31,8 +36,8 @@ class TimeAddMannaViewController: UIViewController {
     func attribute() {
         start.text = "시작시간"
         start.textColor = .black
-        on.text = "약속시간"
-        on.textColor = .black
+        onTime.text = "약속시간"
+        onTime.textColor = .black
         end.text = "종료시간"
         end.textColor = .black
         startPicker.datePickerMode = .time
@@ -45,7 +50,13 @@ class TimeAddMannaViewController: UIViewController {
     }
     
     func layout() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(pushPlaceView))
+        view.addSubview(mannaTime)
+        mannaTime.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+            $0.width.equalTo(200)
+            $0.height.equalTo(40)
+        }
         let firstView = UIView()
         let secondView = UIView()
         let thirdView = UIView()
@@ -60,12 +71,11 @@ class TimeAddMannaViewController: UIViewController {
         
         firstView.addSubview(start)
         firstView.addSubview(startPicker)
-        secondView.addSubview(on)
+        secondView.addSubview(onTime)
         secondView.addSubview(onPicker)
         thirdView.addSubview(end)
         thirdView.addSubview(endPicker)
 
-        
         start.snp.makeConstraints {
             $0.top.equalTo(firstView.snp.top).offset(10)
             $0.leading.equalTo(firstView.snp.leading).offset(10)
@@ -76,14 +86,14 @@ class TimeAddMannaViewController: UIViewController {
             $0.leading.equalTo(start.snp.trailing).offset(10)
             $0.trailing.equalTo(firstView.snp.trailing).offset(-10)
         }
-        on.snp.makeConstraints {
+        onTime.snp.makeConstraints {
             $0.top.equalTo(secondView.snp.top)
             $0.leading.equalTo(firstView.snp.leading).offset(10)
         }
         onPicker.snp.makeConstraints {
-            $0.top.equalTo(on)
+            $0.top.equalTo(onTime)
             $0.bottom.equalTo(secondView.snp.bottom).offset(-10)
-            $0.leading.equalTo(on.snp.trailing).offset(10)
+            $0.leading.equalTo(onTime.snp.trailing).offset(10)
             $0.trailing.equalTo(secondView.snp.trailing).offset(-10)
         }
         end.snp.makeConstraints {
@@ -118,7 +128,6 @@ class TimeAddMannaViewController: UIViewController {
     
     @objc func pushPlaceView() {
         let view = PlaceAddMannaViewController()
-//        viewModel.manna.onNext("c")
         navigationController?.pushViewController(view, animated: true)
     }
     
