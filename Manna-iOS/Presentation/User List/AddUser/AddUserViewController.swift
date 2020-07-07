@@ -12,6 +12,7 @@ import RxSwift
 import SnapKit
 
 class AddUserViewController: UIViewController {
+    let screenSize: CGRect = UIScreen.main.bounds
     let imageView = UIImageView()
     var textLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     var profileView = UIView()
@@ -54,9 +55,21 @@ class AddUserViewController: UIViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         profileView.snp.makeConstraints {
+            //스크린 별로 대항하게 끔 추후 변환 피수
             $0.width.equalTo(400)
             $0.center.equalTo(view.center)
             $0.top.equalTo(view).offset(200)
+        }
+        imageView.do {
+            profileView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.image = UIImage(named: "soma")
+        }
+        imageView.snp.makeConstraints {
+            $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+            $0.top.equalTo(view).offset(300)
+            $0.width.equalTo(screenSize.width).offset(300)
+            $0.height.equalTo(screenSize.height).offset(300)
         }
         textLabel.do {
             profileView.addSubview($0)
@@ -64,17 +77,7 @@ class AddUserViewController: UIViewController {
         }
         textLabel.snp.makeConstraints {
             $0.centerX.equalTo(view.center)
-            $0.bottom.equalTo(profileView).offset(-50)
-        }
-        imageView.do {
-            profileView.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.widthAnchor.constraint(equalToConstant: 300).isActive = true
-            $0.heightAnchor.constraint(equalToConstant: 300).isActive = true
-            $0.centerXAnchor.constraint(equalTo: profileView.centerXAnchor, constant: 0).isActive = true
-        }
-        imageView.snp.makeConstraints {
-            $0.top.equalTo(profileView).offset(50)
+            $0.top.equalTo(imageView.safeAreaLayoutGuide.snp.bottom).offset(50)
         }
     }
 }
