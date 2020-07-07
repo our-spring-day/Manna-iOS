@@ -16,8 +16,6 @@ class AddUserViewController: UIViewController {
     let imageView = UIImageView()
     var textLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     var profileView = UIView()
-    var newView = UIView()
-    let resultStackView = UIStackView()
     let viewModel = AddUserViewModel()
     let disposeBag = DisposeBag()
     let searchController = UISearchController(searchResultsController: nil)
@@ -33,14 +31,13 @@ class AddUserViewController: UIViewController {
         searchController.do {
             $0.obscuresBackgroundDuringPresentation = false
             $0.searchBar.placeholder = "친구 검색"
-            navigationItem.searchController = $0
             definesPresentationContext = true
-            navigationItem.searchController = searchController
+            navigationItem.searchController = $0
         }
     }
     func bind() {
         searchController.searchBar.rx.searchButtonClicked
-        .withLatestFrom(searchController.searchBar.rx.text) { "\($1!)"}
+            .withLatestFrom(searchController.searchBar.rx.text) { "\($1!)"}
             .bind(to: self.viewModel.searchValue)
             .disposed(by: disposeBag)
         viewModel.filteredUser
@@ -48,6 +45,12 @@ class AddUserViewController: UIViewController {
             .map { $0[0].name}
             .bind(to: textLabel.rx.text)
             .disposed(by: disposeBag)
+        viewModel.filteredUser
+            .filterEmpty()
+            .map { $0[0].profileImage}
+            .subscribe(onNext: {str in
+                self.imageView.image = UIImage(named: "\(str)")
+            }).disposed(by: disposeBag)
     }
     func profileViewSet() {
         profileView.do {
@@ -55,7 +58,6 @@ class AddUserViewController: UIViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         profileView.snp.makeConstraints {
-            //스크린 별로 대항하게 끔 추후 변환 피수
             $0.width.equalTo(400)
             $0.center.equalTo(view.center)
             $0.top.equalTo(view).offset(200)
@@ -63,7 +65,6 @@ class AddUserViewController: UIViewController {
         imageView.do {
             profileView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.image = UIImage(named: "soma")
         }
         imageView.snp.makeConstraints {
             $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)

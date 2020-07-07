@@ -11,9 +11,6 @@ import RxSwift
 import RxCocoa
 import RxOptional
 
-//protocol  UserListViewModelType {
-//    var searchValue: BehaviorRelay<String> { get }
-//}
 class UserListViewModel: Type {
     let disposeBag = DisposeBag()
     let friendsList = UserListModel().friends.sorted()
