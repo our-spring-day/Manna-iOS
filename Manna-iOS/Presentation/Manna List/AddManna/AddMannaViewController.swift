@@ -16,9 +16,11 @@ class AddMannaViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     let pageView = MannaPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-    let completeBtn = UIButton()
+    let titleButton = UIButton()
     let titleLabel = UILabel()
-    let titleText = UITextField()
+    let titleInput = UITextField()
+    
+    let nextButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,31 +35,37 @@ class AddMannaViewController: UIViewController {
     func attribute() {
         view.backgroundColor = .white
 
-        completeBtn.setTitle("완료", for: .normal)
-        completeBtn.setTitleColor(.black, for: .normal)
-        completeBtn.layer.borderWidth = 1.0
-        completeBtn.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        completeBtn.addTarget(self, action: #selector(btn), for: .touchUpInside)
+        nextButton.setTitle("완료", for: .normal)
+        nextButton.setTitleColor(.black, for: .normal)
+        nextButton.layer.borderWidth = 1.0
+        nextButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        nextButton.addTarget(self, action: #selector(titlebtn), for: .touchUpInside)
         
-        titleText.layer.borderWidth = 1.0
-        titleText.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        titleText.textAlignment = .center
+        titleButton.setTitle("완료", for: .normal)
+        titleButton.setTitleColor(.black, for: .normal)
+        titleButton.layer.borderWidth = 1.0
+        titleButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        titleButton.addTarget(self, action: #selector(titlebtn), for: .touchUpInside)
+        
+        titleInput.layer.borderWidth = 1.0
+        titleInput.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        titleInput.textAlignment = .center
     }
     
     func layout() {
-        view.addSubview(completeBtn)
-        completeBtn.translatesAutoresizingMaskIntoConstraints = false
-        completeBtn.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
-        completeBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
-        completeBtn.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        completeBtn.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        view.addSubview(titleButton)
+        titleButton.translatesAutoresizingMaskIntoConstraints = false
+        titleButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        titleButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+        titleButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        titleButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
-        view.addSubview(titleText)
-        titleText.translatesAutoresizingMaskIntoConstraints = false
-        titleText.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
-        titleText.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        titleText.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        titleText.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        view.addSubview(titleInput)
+        titleInput.translatesAutoresizingMaskIntoConstraints = false
+        titleInput.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        titleInput.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        titleInput.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        titleInput.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         view.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -78,13 +86,30 @@ class AddMannaViewController: UIViewController {
         }
     }
     
-    @objc func btn(_ sender: Any) {
-        titleLabel.text = titleText.text
-        titleText.text = ""
-        titleText.removeFromSuperview()
+    @objc func titlebtn(_ sender: Any) {
+        guard let text = titleInput.text,
+            text.count > 0 else {
+                alert(message: "타이틀을 입력하세요")
+                return
+        }
+        titleLabel.text = text
+        titleInput.text = ""
+        titleInput.removeFromSuperview()
+        titleButton.removeFromSuperview()
         
         UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.titleLabel.transform = self.titleLabel.transform.translatedBy(x: 0, y: -40)
+        })
+        
+        view.addSubview(nextButton)
+        nextButton.translatesAutoresizingMaskIntoConstraints = false
+        nextButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+        nextButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        nextButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        
+        UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.nextButton.transform = self.nextButton.transform.translatedBy(x: 0, y: -40)
         })
 
         view.addSubview(pageView.view)
