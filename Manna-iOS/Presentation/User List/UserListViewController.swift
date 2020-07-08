@@ -67,10 +67,11 @@ class UserListViewController: UIViewController {
             .bind(to: viewModel.searchValue)
             .disposed(by: disposeBag)
         viewModel.filteredFriendsList
-            .bind(to: tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: String, cell: UserListCell) in
-                cell.idLabel.text = element
-                cell.imageView?.image = UIImage(named: "searchimage")
+            .bind(to: tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: UserTestStruct, cell: UserListCell) in
+                cell.idLabel.text = element.name
+                cell.imageView?.image = UIImage(named: "\(element.profileImage)")
         }.disposed(by: disposeBag)
+        //        }
     }
     func clickedAddFriendButton() {
         addFriendButton.rx.tap
@@ -82,7 +83,10 @@ class UserListViewController: UIViewController {
     }
     func clickedCell() {
         tableView.rx.modelSelected(String.self)
-            .subscribe(onNext: { _ in
+            .debug()
+            .subscribe(onNext: { str in
+                //                print(str)
+                //                print(type(of: str))
                 let detailUserViewController = DetailUserViewController()
                 self.definesPresentationContext = true
                 detailUserViewController.modalPresentationStyle = .overFullScreen

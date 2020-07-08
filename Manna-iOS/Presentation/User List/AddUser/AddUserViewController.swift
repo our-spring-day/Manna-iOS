@@ -19,6 +19,7 @@ class AddUserViewController: UIViewController {
     let viewModel = AddUserViewModel()
     let disposeBag = DisposeBag()
     let searchController = UISearchController(searchResultsController: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -30,7 +31,7 @@ class AddUserViewController: UIViewController {
         navigationItem.title = "ID로 친구 추가"
         searchController.do {
             $0.obscuresBackgroundDuringPresentation = false
-            $0.searchBar.placeholder = "친구 검색"
+            $0.searchBar.placeholder = "친구 ID"
             definesPresentationContext = true
             navigationItem.searchController = $0
         }
