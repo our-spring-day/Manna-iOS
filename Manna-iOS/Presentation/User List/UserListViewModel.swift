@@ -25,7 +25,6 @@ class UserListViewModel: Type {
                 //이부분 계속 응용가능할듯
                 self.itemsObservable.map({ $0.filter({
                     if value.isEmpty { return true }
-                    print($0.name.lowercased().contains(value.lowercased()))
                     return  ($0.name.lowercased().contains(value.lowercased()))
                 })
                 }).bind( to: self.filteredFriendsList )

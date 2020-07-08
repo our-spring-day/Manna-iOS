@@ -17,8 +17,9 @@ class UserListViewController: UIViewController {
     let disposeBag = DisposeBag()
     let tableView = UITableView()
     let searchController = UISearchController(searchResultsController: nil)
-    var viewModel = UserListViewModel()
-    var addFriendButton = UIBarButtonItem(
+    let viewModel = UserListViewModel()
+    var selectedFriends: BehaviorRelay<UserTestStruct>
+    let addFriendButton = UIBarButtonItem(
         barButtonSystemItem: .add,
         target: self, action: nil
     )
@@ -84,15 +85,14 @@ class UserListViewController: UIViewController {
     func clickedCell() {
         tableView.rx.modelSelected(UserTestStruct.self)
             .debug()
-            .subscribe(onNext: { str in
-                print(str)
-                print(type(of: str))
-                let detailUserViewController = DetailUserViewController()
-                self.definesPresentationContext = true
-                detailUserViewController.modalPresentationStyle = .overFullScreen
-                detailUserViewController.modalTransitionStyle = .crossDissolve
-                self.present(detailUserViewController, animated: true, completion: nil)
-            })
+            .bind(to: selectedFriends)
+//            .subscribe(onNext: { str in
+//                let detailUserViewController = DetailUserViewController()
+//                self.definesPresentationContext = true
+//                detailUserViewController.modalPresentationStyle = .overFullScreen
+//                detailUserViewController.modalTransitionStyle = .crossDissolve
+//                self.present(detailUserViewController, animated: true, completion: nil)
+//            })
             .disposed(by: disposeBag)
     }
 }

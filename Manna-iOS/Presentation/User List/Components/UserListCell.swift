@@ -23,31 +23,32 @@ class UserListCell: UITableViewCell {
     }
     func attribute() {
         idLabel.do {
+            $0.translatesAutoresizingMaskIntoConstraints = false
             $0.font = .systemFont(ofSize: 14, weight: .light)
             $0.textColor = .black
         }
         userImageView.do {
+            $0.translatesAutoresizingMaskIntoConstraints = false
             $0.clipsToBounds = true
-            $0.contentMode = .scaleAspectFit
+            $0.contentMode = .scaleToFill
             $0.layer.cornerRadius = 1
             $0.layer.masksToBounds = true
-//            $0.frame(forAlignmentRect: CGRect(x: 0, y: 0, width: 10, height: 10))
         }
     }
     func layout() {
         addSubview(idLabel)
         addSubview(userImageView)
-        //UIImageView(frame: CGRectMake(5, 5, 50, 50))
         userImageView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview().inset(16)
             $0.left.equalToSuperview()
-//            $0.width.height.equalTo(0)
-            $0.height.equalTo(10)
-//            $0.width.equalTo(50)
+            $0.width.height.equalTo(10)
+//            $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+//            $0.top.equalTo(view).offset(300)
+//            $0.width.equalTo(screenSize.width).offset(300)
+//            $0.height.equalTo(screenSize.height).offset(300)
         }
         idLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(16)
-            $0.left.equalTo(userImageView.snp.right).offset(50)
+            $0.left.equalTo(userImageView.snp.right).offset(100)
             $0.right.equalToSuperview().offset(-8)
         }
     }
