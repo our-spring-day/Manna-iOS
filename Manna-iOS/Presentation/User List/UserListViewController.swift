@@ -82,11 +82,11 @@ class UserListViewController: UIViewController {
             }).disposed(by: disposeBag)
     }
     func clickedCell() {
-        tableView.rx.modelSelected(String.self)
+        tableView.rx.modelSelected(UserTestStruct.self)
             .debug()
             .subscribe(onNext: { str in
-                //                print(str)
-                //                print(type(of: str))
+                print(str)
+                print(type(of: str))
                 let detailUserViewController = DetailUserViewController()
                 self.definesPresentationContext = true
                 detailUserViewController.modalPresentationStyle = .overFullScreen

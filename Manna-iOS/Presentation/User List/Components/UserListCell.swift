@@ -29,15 +29,21 @@ class UserListCell: UITableViewCell {
         userImageView.do {
             $0.clipsToBounds = true
             $0.contentMode = .scaleAspectFit
+            $0.layer.cornerRadius = 1
+            $0.layer.masksToBounds = true
+//            $0.frame(forAlignmentRect: CGRect(x: 0, y: 0, width: 10, height: 10))
         }
     }
     func layout() {
         addSubview(idLabel)
         addSubview(userImageView)
+        //UIImageView(frame: CGRectMake(5, 5, 50, 50))
         userImageView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(16)
             $0.left.equalToSuperview()
-            $0.width.height.equalTo(10)
+//            $0.width.height.equalTo(0)
+            $0.height.equalTo(10)
+//            $0.width.equalTo(50)
         }
         idLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(16)
