@@ -17,15 +17,8 @@ extension AddMannaViewController {
         
         present(alert, animated: true, completion: nil)
     }
-}
-
-extension TitleAddMannaViewController {
-    func alert(title: String = "알림", message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    
+    func viewFlag(_ view: UIView, _ flag: Int) {
         
-        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-        alert.addAction(okAction)
-        
-        present(alert, animated: true, completion: nil)
     }
 }

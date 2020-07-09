@@ -10,8 +10,8 @@ import UIKit
 import SnapKit
 
 class TimeAddMannaViewController: UIViewController {
+    static let shared = TimeAddMannaViewController()
     
-//    let viewModel = AddMannaViewModel()
     let mannaTime = UITextField().then {
         $0.layer.borderWidth = 1.0
         $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -28,9 +28,16 @@ class TimeAddMannaViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        view.addSubview(mannaTime)
+        mannaTime.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+            $0.width.equalTo(200)
+            $0.height.equalTo(40)
+        }
+
 //        attribute()
 //        layout()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(pushPlaceView))
     }
     
     func attribute() {
@@ -124,11 +131,6 @@ class TimeAddMannaViewController: UIViewController {
             $0.leading.equalTo(firstView)
             $0.trailing.equalTo(firstView)
         }
-    }
-    
-    @objc func pushPlaceView() {
-        let view = PlaceAddMannaViewController()
-        navigationController?.pushViewController(view, animated: true)
     }
     
     @objc func changed(sender: UIDatePicker) {

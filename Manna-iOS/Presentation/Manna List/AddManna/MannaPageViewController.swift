@@ -11,10 +11,9 @@ import UIKit
 class MannaPageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     
     var pageControl = UIPageControl()
-    let VCArr: [UIViewController] = [TitleAddMannaViewController(),
-                                     PeopleAddMannaViewController(),
-                                     TimeAddMannaViewController(),
-                                     PlaceAddMannaViewController()]
+    let VCArr: [UIViewController] = [PeopleAddMannaViewController.shared,
+                                     TimeAddMannaViewController.shared,
+                                     PlaceAddMannaViewController.shared]
     
     override func viewDidLoad() {
         super.viewDidLoad()

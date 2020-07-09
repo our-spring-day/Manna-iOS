@@ -9,7 +9,8 @@
 import UIKit
 
 class PeopleAddMannaViewController: UIViewController {
-//    let viewModel = AddMannaViewModel()
+    
+    static let shared = PeopleAddMannaViewController()
     
     let mannaPeople = UITextField().then {
         $0.layer.borderWidth = 1.0
@@ -31,11 +32,9 @@ class PeopleAddMannaViewController: UIViewController {
             $0.height.equalTo(40)
         }
     }
-
-    @objc func pushTimeView() {
-        let view = TimeAddMannaViewController()
-//        viewModel.inputs.peopleInput(string: "gd")
-        navigationController?.pushViewController(view, animated: true)
+    
+    func bind() {
+        
     }
-
+    
 }

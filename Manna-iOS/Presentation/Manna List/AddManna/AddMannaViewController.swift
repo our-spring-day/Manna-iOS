@@ -14,8 +14,21 @@ import Then
 
 class AddMannaViewController: UIViewController {
     let disposeBag = DisposeBag()
-    
+    let viewModel = AddMannaViewModel()
     let pageView = MannaPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    let peopleVC = PeopleAddMannaViewController.shared
+    let timeVC = TimeAddMannaViewController.shared
+    let placeVC = PlaceAddMannaViewController.shared
+    
+    let completeButton = UIButton().then {
+        $0.frame = CGRect(x: 50, y: 50, width: 70, height: 30)
+        $0.setTitle("저장", for: .normal)
+        $0.setTitleColor(.black, for: .normal)
+        $0.layer.borderWidth = 1.0
+        $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        $0.addTarget(self, action: #selector(completeBtn), for: .touchUpInside)
+    }
+    
     let titleButton = UIButton()
     let titleLabel = UILabel()
     let titleInput = UITextField()
@@ -27,10 +40,28 @@ class AddMannaViewController: UIViewController {
         super.viewDidLoad()
         layout()
         attribute()
+        
+    }
+    @objc func completeBtn() {
+        bind()
     }
     
     func bind() {
+        titleInput.rx.text.orEmpty
+            .bind(to: viewModel.inputs.title)
+            .disposed(by: disposeBag)
         
+        peopleVC.mannaPeople.rx.text.orEmpty
+            .subscribe(onNext: {print($0)})
+            .disposed(by: disposeBag)
+        
+        timeVC.mannaTime.rx.text.orEmpty
+            .subscribe(onNext: {print($0)})
+            .disposed(by: disposeBag)
+        
+        placeVC.mannaPlace.rx.text.orEmpty
+            .subscribe(onNext: {print($0)})
+            .disposed(by: disposeBag)
     }
     
     func attribute() {
@@ -38,7 +69,7 @@ class AddMannaViewController: UIViewController {
         
         prevButton.setImage(#imageLiteral(resourceName: "backButton"), for: .normal)
         prevButton.addTarget(self, action: #selector(prevBtn), for: .touchUpInside)
-
+        
         nextButton.setTitle("완료", for: .normal)
         nextButton.setTitleColor(.black, for: .normal)
         nextButton.layer.borderWidth = 1.0
@@ -57,6 +88,7 @@ class AddMannaViewController: UIViewController {
     }
     
     func layout() {
+        view.addSubview(completeButton)
         view.addSubview(titleButton)
         titleButton.translatesAutoresizingMaskIntoConstraints = false
         titleButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
@@ -89,51 +121,46 @@ class AddMannaViewController: UIViewController {
         
         if currentPage == 0 {
             self.pageView.view.removeFromSuperview()
-            self.prevButton.removeFromSuperview()
-            UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.titleLabel.alpha = 0
-                self.titleLabel.transform = self.titleLabel.transform.translatedBy(x: 0, y: 40)
-            })
-            UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.nextButton.transform = self.nextButton.transform.translatedBy(x: 0, y: 40)
-            })
+            self.titleLabel.removeFromSuperview()
+            self.nextButton.removeFromSuperview()
+//            view.addSubview(titleInput)
+            titleInput.translatesAutoresizingMaskIntoConstraints = false
+            titleInput.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+            titleInput.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            titleInput.widthAnchor.constraint(equalToConstant: 200).isActive = true
+            titleInput.heightAnchor.constraint(equalToConstant: 30).isActive = true
 
-            UIView.animate(withDuration: 3.5, animations: {
-                self.view.addSubview(self.titleInput)
-                self.titleInput.translatesAutoresizingMaskIntoConstraints = false
-                self.titleInput.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
-                self.titleInput.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-                self.titleInput.widthAnchor.constraint(equalToConstant: 200).isActive = true
-                self.titleInput.heightAnchor.constraint(equalToConstant: 30).isActive = true
-                self.titleInput.text = self.titleLabel.text
-                
-                self.view.addSubview(self.titleButton)
-                self.titleButton.translatesAutoresizingMaskIntoConstraints = false
-                self.titleButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
-                self.titleButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10).isActive = true
-                self.titleButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
-                self.titleButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+//            view.addSubview(titleButton)
+            titleButton.translatesAutoresizingMaskIntoConstraints = false
+            titleButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+            titleButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+            titleButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
+            titleButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+
+            UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.titleInput.transform = self.titleInput.transform.translatedBy(x: 0, y: 40)
             })
-            
-            
+            UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.titleButton.transform = self.titleButton.transform.translatedBy(x: 0, y: 40)
+            })
         } else {
             let prevVC = currentView[prevPage]
             self.pageView.setViewControllers([prevVC], direction: .reverse, animated: true) { _ in
                 self.pageView.pageControl.currentPage = prevPage
             }
         }
-        
     }
     
     func nextPage() {
         let currentView = pageView.VCArr
         let currentPage = pageView.pageControl.currentPage
         let nextPage = currentPage + 1
-        print("\(currentPage)")
+        print("\(nextPage)")
         if nextPage < currentView.count {
             let nextVC = currentView[nextPage]
             self.pageView.setViewControllers([nextVC], direction: .forward, animated: true) { _ in
                 self.pageView.pageControl.currentPage = nextPage
+                print("현재 페이지는 : \(nextPage)Page 입니다.")
             }
         }
     }
@@ -170,7 +197,7 @@ class AddMannaViewController: UIViewController {
         UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.nextButton.transform = self.nextButton.transform.translatedBy(x: 0, y: -40)
         })
-
+        
         view.addSubview(pageView.view)
         pageView.view.translatesAutoresizingMaskIntoConstraints = false
         pageView.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 70).isActive = true

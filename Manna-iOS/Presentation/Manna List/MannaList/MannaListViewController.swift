@@ -40,7 +40,7 @@ class MannaListViewController: UIViewController {
             return dataSource.sectionModels[index].status
         }
         
-        mannaListViewModel.allMannas
+        mannaListViewModel.input.allMannas
             .bind(to: mannaList.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
         
@@ -79,6 +79,8 @@ class MannaListViewController: UIViewController {
     @objc func addVC() {
         let view = AddMannaViewController()
         view.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(view, animated: true)
+        view.modalPresentationStyle = .fullScreen
+        self.present(view, animated: true, completion: nil)
+//        self.navigationController?.pushViewController(view, animated: true)
     }
 }
