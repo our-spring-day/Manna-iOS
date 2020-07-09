@@ -41,10 +41,6 @@ class UserListCell: UITableViewCell {
         userImageView.snp.makeConstraints {
             $0.left.equalToSuperview()
             $0.width.height.equalTo(10)
-//            $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
-//            $0.top.equalTo(view).offset(300)
-//            $0.width.equalTo(screenSize.width).offset(300)
-//            $0.height.equalTo(screenSize.height).offset(300)
         }
         idLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(16)
