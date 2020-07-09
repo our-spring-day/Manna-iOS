@@ -48,20 +48,22 @@ class AddMannaViewController: UIViewController {
     
     func bind() {
         titleInput.rx.text.orEmpty
-            .bind(to: viewModel.inputs.title)
+            .bind(to: viewModel.input.title)
             .disposed(by: disposeBag)
         
         peopleVC.mannaPeople.rx.text.orEmpty
-            .subscribe(onNext: {print($0)})
+            .bind(to: viewModel.input.people)
             .disposed(by: disposeBag)
         
         timeVC.mannaTime.rx.text.orEmpty
-            .subscribe(onNext: {print($0)})
+            .bind(to: viewModel.input.time)
             .disposed(by: disposeBag)
         
         placeVC.mannaPlace.rx.text.orEmpty
-            .subscribe(onNext: {print($0)})
+            .bind(to: viewModel.input.place)
             .disposed(by: disposeBag)
+        
+        dismiss(animated: true, completion: nil)
     }
     
     func attribute() {
