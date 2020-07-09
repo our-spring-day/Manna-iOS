@@ -19,7 +19,6 @@ class AddUserViewController: UIViewController {
     let viewModel = AddUserViewModel()
     let disposeBag = DisposeBag()
     let searchController = UISearchController(searchResultsController: nil)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white

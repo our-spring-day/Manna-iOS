@@ -13,18 +13,17 @@ import Then
 import Toaster
 import UIKit
 
-class UserListViewController: UIViewController {
+class UserListViewController: UIViewController{
+    var delegate: SendDataDelegate?
     let disposeBag = DisposeBag()
     let tableView = UITableView()
     let searchController = UISearchController(searchResultsController: nil)
     let viewModel = UserListViewModel()
-    let detailView = DetailUserViewController()
     var selectedFriends = BehaviorRelay(value: UserTestStruct(name: "", profileImage: ""))
     let addFriendButton = UIBarButtonItem(
         barButtonSystemItem: .add,
         target: self, action: nil
     )
-    var testValue: BehaviorRelay<UserTestStruct> = BehaviorRelay(value: UserTestStruct(name: "", profileImage: ""))
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -85,22 +84,13 @@ class UserListViewController: UIViewController {
     }
     func clickedCell() {
         tableView.rx.modelSelected(UserTestStruct.self)
-            .debug()
-            .bind(to: self.detailView.userDetailInfo)
-            //            .subscribe(onNext: { str in
-            //                print(type(of: str))
-            ////                self.testValue = str.
-            //                print(type(of: self.testValue))
-            //            })
-            .disposed(by: disposeBag)
-        tableView.rx.modelSelected(UserTestStruct.self)
-            .subscribe(onNext: { _ in
+            .subscribe(onNext: { item in
                 let detailUserViewController = DetailUserViewController()
+                detailUserViewController.sendData(data: item)
                 self.definesPresentationContext = true
                 detailUserViewController.modalPresentationStyle = .overFullScreen
                 detailUserViewController.modalTransitionStyle = .crossDissolve
                 self.present(detailUserViewController, animated: true, completion: nil)
-            })
-            .disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
     }
 }

@@ -10,31 +10,21 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-protocol Test {
-    var userDetailInfo: BehaviorRelay<UserTestStruct> { get }
-}
-
-class DetailUserViewController: UIViewController, Test {
+class DetailUserViewController: UIViewController {
     let disposeBag = DisposeBag()
     let screenSize: CGRect = UIScreen.main.bounds
     let backgroundView = UIView()
     let userProfileImageView = UIImageView()
     let nameLabel = UILabel()
-    var userDetailInfo: BehaviorRelay<UserTestStruct> = BehaviorRelay(value: UserTestStruct(name: "dd", profileImage: ""))
-    lazy var itemsObservable: Observable<UserTestStruct> = self.userDetailInfo.asObservable()
+    let userListViewController = UserListViewController()
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        alpha가 더 자연스러운 것 같은데 프로토타입대로 일단은
-        //        view.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
+        userListViewController.delegate = self
         view.backgroundColor = UIColor.lightGray
         backgroundViewSet()
         userProfileViewSet()
         dismissActionSet()
-        itemsObservable
-            .subscribe(onNext: {str in
-                print(str)
-            })
-            .disposed(by: disposeBag)
+        userListViewController.delegate = self
     }
     @objc func dismiss(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
@@ -56,7 +46,7 @@ class DetailUserViewController: UIViewController, Test {
         userProfileImageView.do {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.image = UIImage(named: "soma")
+//            $0.image = UIImage(named: "soma")
             $0.layer.cornerRadius = 10
             $0.layer.masksToBounds = true
         }
@@ -69,7 +59,7 @@ class DetailUserViewController: UIViewController, Test {
         nameLabel.do {
             backgroundView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.text = "일해라 정재인"
+//            $0.text = "일해라 정재인"
         }
         nameLabel.snp.makeConstraints {
             $0.centerX.equalTo(backgroundView.snp.centerX)
@@ -78,10 +68,16 @@ class DetailUserViewController: UIViewController, Test {
     }
     func dismissActionSet() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(dismiss(_:)))
-        let gesture2 = UISwipeGestureRecognizer(target: self, action: #selector(dismiss(_:)))
-        let gesture3 = UIHoverGestureRecognizer(target: self, action: #selector(dismiss(_:)))
         self.view.addGestureRecognizer(gesture)
-        self.view.addGestureRecognizer(gesture2)
-        self.view.addGestureRecognizer(gesture3)
+    }
+}
+
+extension DetailUserViewController: SendDataDelegate {
+    func sendData(data: UserTestStruct) {
+        print("sendData entered")
+        userProfileImageView.image = UIImage(named: data.profileImage)
+        nameLabel.text = data.name
+        print("sendData finished")
+        print(nameLabel.text)
     }
 }

@@ -16,8 +16,6 @@ let justhis = UserTestStruct(name: "저스디스", profileImage: "justhis")
 let sikk = UserTestStruct(name: "식케이", profileImage: "sik-k")
 let soma = UserTestStruct(name: "소마", profileImage: "soma")
 let simondominic = UserTestStruct(name: "쌈디", profileImage: "simondominic")
-//------------------------------------
-//문찬2,ㅁㅁㅁ
 let namjihyeon = UserTestStruct(name: "남지현", profileImage: "namjihyeon")
 let juyeon = UserTestStruct(name: "주연", profileImage: "juyeon")
 let bomin = UserTestStruct(name: "안보민", profileImage: "bomin")
