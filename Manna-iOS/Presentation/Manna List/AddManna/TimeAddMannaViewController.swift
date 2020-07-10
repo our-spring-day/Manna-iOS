@@ -12,58 +12,45 @@ import SnapKit
 class TimeAddMannaViewController: UIViewController {
     static let shared = TimeAddMannaViewController()
     
-    let mannaTime = UITextField().then {
-        $0.layer.borderWidth = 1.0
-        $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+    let start = UILabel().then {
+        $0.text = "시작시간"
+        $0.textColor = .black
     }
-    
-    let start = UILabel()
-    let onTime = UILabel()
-    let end = UILabel()
-    
-    let startPicker = UIDatePicker()
-    let onPicker = UIDatePicker()
-    let endPicker = UIDatePicker()
+    let onTime = UILabel().then {
+        $0.text = "약속시간"
+        $0.textColor = .black
+    }
+    let onTimeDisplay = UILabel().then {
+        $0.textColor = .black
+    }
+    let end = UILabel().then {
+        $0.text = "종료시간"
+        $0.textColor = .black
+    }
+    let startPicker = UIDatePicker().then {
+        $0.datePickerMode = .time
+    }
+    let onPicker = UIDatePicker().then {
+        $0.datePickerMode = .dateAndTime
+        $0.timeZone = NSTimeZone.local
+        $0.addTarget(self, action: #selector(changed), for: .valueChanged)
+    }
+    let endPicker = UIDatePicker().then {
+        $0.datePickerMode = .time
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        view.addSubview(mannaTime)
-        mannaTime.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
-            $0.width.equalTo(200)
-            $0.height.equalTo(40)
-        }
-
-//        attribute()
-//        layout()
+        attribute()
+        layout()
     }
     
     func attribute() {
-        start.text = "시작시간"
-        start.textColor = .black
-        onTime.text = "약속시간"
-        onTime.textColor = .black
-        end.text = "종료시간"
-        end.textColor = .black
-        startPicker.datePickerMode = .time
-        onPicker.do {
-            $0.datePickerMode = .dateAndTime
-            $0.timeZone = NSTimeZone.local
-            $0.addTarget(self, action: #selector(changed), for: .valueChanged)
-        }
-        endPicker.datePickerMode = .time
+        
     }
     
     func layout() {
-        view.addSubview(mannaTime)
-        mannaTime.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
-            $0.width.equalTo(200)
-            $0.height.equalTo(40)
-        }
         let firstView = UIView()
         let secondView = UIView()
         let thirdView = UIView()
@@ -79,6 +66,7 @@ class TimeAddMannaViewController: UIViewController {
         firstView.addSubview(start)
         firstView.addSubview(startPicker)
         secondView.addSubview(onTime)
+        secondView.addSubview(onTimeDisplay)
         secondView.addSubview(onPicker)
         thirdView.addSubview(end)
         thirdView.addSubview(endPicker)
@@ -96,6 +84,10 @@ class TimeAddMannaViewController: UIViewController {
         onTime.snp.makeConstraints {
             $0.top.equalTo(secondView.snp.top)
             $0.leading.equalTo(firstView.snp.leading).offset(10)
+        }
+        onTimeDisplay.snp.makeConstraints {
+            $0.top.equalTo(secondView.snp.top).offset(10)
+            $0.trailing.equalTo(secondView.snp.trailing).offset(-20)
         }
         onPicker.snp.makeConstraints {
             $0.top.equalTo(onTime)
@@ -135,7 +127,11 @@ class TimeAddMannaViewController: UIViewController {
     
     @objc func changed(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy/MM/dd hh:mm"
+//        dateFormatter.dateFormat = "yyyy/MM/dd hh:mm"
+        dateFormatter.dateFormat = "MM월 dd일 hh시mm분"
+        onTimeDisplay.text = dateFormatter.string(from: sender.date)
+        endPicker.minimumDate = onPicker.date
+        
         print(dateFormatter.string(from: sender.date))
     }
 }
