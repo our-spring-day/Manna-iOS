@@ -10,21 +10,13 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-protocol AddMannaViewModelInput {
+protocol AddMannaViewModelType {
     associatedtype Input
     
     var input: Input { get }
 }
 
-//protocol AddMannaViewModelOutput {
-//}
-//
-//protocol AddMannaViewModelType {
-//    var inputs: AddMannaViewModelInput { get }
-//    var outputs: AddMannaViewModelOutput { get }
-//}
-
-class AddMannaViewModel: AddMannaViewModelInput {
+class AddMannaViewModel: AddMannaViewModelType {
     struct Input {
         let title = PublishSubject<String>()
         let people = PublishSubject<String>()
@@ -48,9 +40,4 @@ class AddMannaViewModel: AddMannaViewModelInput {
             })
             .disposed(by: disposeBag)
     }
-    
-    
-   
-//    var inputs: AddMannaViewModelInput { return self }
-//    var outputs: AddMannaViewModelOutput { return self }
 }

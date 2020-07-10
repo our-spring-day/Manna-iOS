@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class PeopleAddMannaViewController: UIViewController {
     
@@ -32,9 +33,4 @@ class PeopleAddMannaViewController: UIViewController {
             $0.height.equalTo(40)
         }
     }
-    
-    func bind() {
-        
-    }
-    
 }
