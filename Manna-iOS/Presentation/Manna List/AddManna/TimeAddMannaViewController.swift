@@ -11,6 +11,7 @@ import SnapKit
 
 class TimeAddMannaViewController: UIViewController {
     static let shared = TimeAddMannaViewController()
+//    let loc = Locale(identifier: "ko_KR")
     
     let start = UILabel().then {
         $0.text = "시작시간"
@@ -29,14 +30,18 @@ class TimeAddMannaViewController: UIViewController {
     }
     let startPicker = UIDatePicker().then {
         $0.datePickerMode = .time
+        $0.minuteInterval = 5
     }
     let onPicker = UIDatePicker().then {
         $0.datePickerMode = .dateAndTime
         $0.timeZone = NSTimeZone.local
+        $0.minuteInterval = 5
+        $0.locale = Locale(identifier: "ko_KR")
         $0.addTarget(self, action: #selector(changed), for: .valueChanged)
     }
     let endPicker = UIDatePicker().then {
         $0.datePickerMode = .time
+        $0.minuteInterval = 5
     }
     
     override func viewDidLoad() {
@@ -127,11 +132,12 @@ class TimeAddMannaViewController: UIViewController {
     
     @objc func changed(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy/MM/dd hh:mm"
         dateFormatter.dateFormat = "MM월 dd일 hh시mm분"
         onTimeDisplay.text = dateFormatter.string(from: sender.date)
+        startPicker.minimumDate = Calendar.current.date(byAdding: .hour, value: -2, to: onPicker.date)
+        startPicker.maximumDate = onPicker.date
         endPicker.minimumDate = onPicker.date
-        
+        endPicker.maximumDate = Date(timeInterval: 60*60*3, since: onPicker.date)
         print(dateFormatter.string(from: sender.date))
     }
 }
