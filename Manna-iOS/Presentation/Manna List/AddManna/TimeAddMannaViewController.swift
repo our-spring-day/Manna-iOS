@@ -87,8 +87,8 @@ class TimeAddMannaViewController: UIViewController {
             $0.trailing.equalTo(firstView.snp.trailing).offset(-10)
         }
         onTime.snp.makeConstraints {
-            $0.top.equalTo(secondView.snp.top)
-            $0.leading.equalTo(firstView.snp.leading).offset(10)
+            $0.top.equalTo(secondView.snp.top).offset(20)
+            $0.leading.equalTo(secondView.snp.leading).offset(20)
         }
         onTimeDisplay.snp.makeConstraints {
             $0.top.equalTo(secondView.snp.top).offset(10)
@@ -101,7 +101,7 @@ class TimeAddMannaViewController: UIViewController {
             $0.trailing.equalTo(secondView.snp.trailing).offset(-10)
         }
         end.snp.makeConstraints {
-            $0.top.equalTo(thirdView.snp.top)
+            $0.top.equalTo(thirdView.snp.top).offset(20)
             $0.leading.equalTo(thirdView.snp.leading).offset(10)
         }
         endPicker.snp.makeConstraints {
@@ -120,7 +120,7 @@ class TimeAddMannaViewController: UIViewController {
             $0.top.equalTo(firstView.snp.bottom)
             $0.leading.equalTo(firstView)
             $0.trailing.equalTo(firstView)
-            $0.height.equalTo(400)
+            $0.height.equalTo(380)
         }
         thirdView.snp.makeConstraints {
             $0.top.equalTo(secondView.snp.bottom)
