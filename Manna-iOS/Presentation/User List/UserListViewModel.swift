@@ -27,5 +27,6 @@ class UserListViewModel: Type {
                 })
                 }).bind( to: self.filteredFriendsList )
             }).disposed(by: disposeBag)
+        
     }
 }

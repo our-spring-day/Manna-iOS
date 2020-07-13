@@ -13,7 +13,7 @@ import Then
 import Toaster
 import UIKit
 
-class UserListViewController: UIViewController{
+class UserListViewController: UIViewController {
     var delegate: SendDataDelegate?
     let disposeBag = DisposeBag()
     let tableView = UITableView()
@@ -34,9 +34,10 @@ class UserListViewController: UIViewController{
         super.viewDidLoad()
         tableViewSet()
         navigationBarSet()
-        bind()
-        clickedCell()
+        searchBind()
+        tableBind()
         clickedAddFriendButton()
+        selectedCell()
     }
     func tableViewSet() {
         tableView.do {
@@ -62,12 +63,14 @@ class UserListViewController: UIViewController{
             definesPresentationContext = true
         }
     }
-    func bind() {
+    func searchBind() {
         searchController.searchBar.rx.text
-            .orEmpty
-            .distinctUntilChanged()
-            .bind(to: viewModel.searchValue)
-            .disposed(by: disposeBag)
+        .orEmpty
+        .distinctUntilChanged()
+        .bind(to: viewModel.searchValue)
+        .disposed(by: disposeBag)
+    }
+    func tableBind() {
         viewModel.filteredFriendsList
             .bind(to: tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: UserTestStruct, cell: UserListCell) in
                 cell.idLabel.text = element.name
@@ -78,19 +81,23 @@ class UserListViewController: UIViewController{
         addFriendButton.rx.tap
             .subscribe(onNext: {
                 let addUserViewController = AddUserViewController()
-                addUserViewController.hidesBottomBarWhenPushed = true
-                self.navigationController?.pushViewController(addUserViewController, animated: true)
+                addUserViewController.do {
+                    $0.hidesBottomBarWhenPushed = true
+                    self.navigationController?.pushViewController($0, animated: true)
+                }
             }).disposed(by: disposeBag)
     }
-    func clickedCell() {
+    func selectedCell() {
         tableView.rx.modelSelected(UserTestStruct.self)
             .subscribe(onNext: { item in
                 let detailUserViewController = DetailUserViewController()
-                detailUserViewController.sendData(data: item)
-                self.definesPresentationContext = true
-                detailUserViewController.modalPresentationStyle = .overFullScreen
-                detailUserViewController.modalTransitionStyle = .crossDissolve
-                self.present(detailUserViewController, animated: true, completion: nil)
+                detailUserViewController.do {
+                    $0.sendData(data: item)
+                    self.definesPresentationContext = true
+                    $0.modalPresentationStyle = .overFullScreen
+                    $0.modalTransitionStyle = .crossDissolve
+                    self.present($0, animated: true, completion: nil)
+                }
             }).disposed(by: disposeBag)
     }
 }
