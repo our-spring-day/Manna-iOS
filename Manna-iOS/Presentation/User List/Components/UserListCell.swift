@@ -29,23 +29,22 @@ class UserListCell: UITableViewCell {
         }
         userImageView.do {
             $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.clipsToBounds = true
-            $0.contentMode = .scaleToFill
-            $0.layer.cornerRadius = 1
+            $0.layer.cornerRadius = 10
             $0.layer.masksToBounds = true
+            $0.contentMode = .scaleAspectFill
         }
     }
     func layout() {
         addSubview(idLabel)
         addSubview(userImageView)
         userImageView.snp.makeConstraints {
-            $0.left.equalToSuperview()
-            $0.width.height.equalTo(10)
+            $0.left.equalToSuperview().offset(22)
+            $0.width.height.equalTo(50)
+            $0.centerY.equalToSuperview()
         }
         idLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(16)
-            $0.left.equalTo(userImageView.snp.right).offset(100)
-            $0.right.equalToSuperview().offset(-8)
+            $0.centerY.equalToSuperview()
+            $0.left.equalTo(userImageView.snp.right).offset(10)
         }
     }
 }

@@ -71,7 +71,7 @@ class UserListViewController: UIViewController{
         viewModel.filteredFriendsList
             .bind(to: tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: UserTestStruct, cell: UserListCell) in
                 cell.idLabel.text = element.name
-                cell.imageView?.image = UIImage(named: "\(element.profileImage)")
+                cell.userImageView.image = UIImage(named: "\(element.profileImage)")
         }.disposed(by: disposeBag)
     }
     func clickedAddFriendButton() {

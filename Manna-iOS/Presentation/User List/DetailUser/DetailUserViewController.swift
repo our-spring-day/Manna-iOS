@@ -46,9 +46,9 @@ class DetailUserViewController: UIViewController {
         userProfileImageView.do {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
-//            $0.image = UIImage(named: "soma")
             $0.layer.cornerRadius = 10
             $0.layer.masksToBounds = true
+            $0.contentMode = .scaleAspectFill
         }
         userProfileImageView.snp.makeConstraints {
             $0.centerX.equalTo(backgroundView.snp.centerX)
@@ -59,7 +59,6 @@ class DetailUserViewController: UIViewController {
         nameLabel.do {
             backgroundView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
-//            $0.text = "일해라 정재인"
         }
         nameLabel.snp.makeConstraints {
             $0.centerX.equalTo(backgroundView.snp.centerX)
@@ -74,10 +73,7 @@ class DetailUserViewController: UIViewController {
 
 extension DetailUserViewController: SendDataDelegate {
     func sendData(data: UserTestStruct) {
-        print("sendData entered")
         userProfileImageView.image = UIImage(named: data.profileImage)
         nameLabel.text = data.name
-        print("sendData finished")
-        print(nameLabel.text)
     }
 }
