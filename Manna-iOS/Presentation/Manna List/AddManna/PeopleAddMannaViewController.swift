@@ -10,10 +10,9 @@ import UIKit
 import SnapKit
 
 class PeopleAddMannaViewController: UIViewController {
-    
     static let shared = PeopleAddMannaViewController()
     
-    let mannaPeople = UITextField().then {
+    lazy var mannaPeople = UITextField().then {
         $0.layer.borderWidth = 1.0
         $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
     }

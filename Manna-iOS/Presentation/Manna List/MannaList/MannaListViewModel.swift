@@ -25,5 +25,5 @@ class MannaListViewModel: MannaListViewModelType, MannaListViewModelInput {
     }
     
     let allMannas: Observable<[MannaSection]>
-    var input: MannaListViewModelInput { return self } // 지금 일단 쓰이진 않음
+    var input: MannaListViewModelInput { return self }
 }

@@ -7,16 +7,22 @@
 //
 
 import UIKit
+import Alamofire
 import RxSwift
 import RxCocoa
+import SwiftyJSON
 
 class SelectPlaceViewController: UIViewController {
     let disposeBag = DisposeBag()
     let viewModel = AddMannaViewModel()
-    
+    var resultList: [Address] = []
     let backButton = UIButton().then {
         $0.setImage(#imageLiteral(resourceName: "backButton"), for: .normal)
-        $0.addTarget(self, action: #selector(close), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(result), for: .touchUpInside)
+    }
+    let resultButton = UIButton().then {
+        $0.setImage(#imageLiteral(resourceName: "Image"), for: .normal)
+        $0.addTarget(self, action: #selector(result), for: .touchUpInside)
     }
     let searchText = UITextField().then {
         $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -69,7 +75,38 @@ class SelectPlaceViewController: UIViewController {
         }
     }
 
-    @objc func close() {
-        dismiss(animated: true, completion: nil)
+    func searchAddress(_ keyword: String) {
+        let headers: HTTPHeaders = [
+            "Authorization": "KakaoAK ec74a28d28177a706155cb8af1fb7ec8"
+        ]
+        
+        let parameters: [String: Any] = [
+            "query": keyword
+        ]
+
+        AF.request("https://dapi.kakao.com/v2/local/search/keyword.json", method: .get, parameters: parameters, headers: headers)
+            .responseJSON(completionHandler: { response in
+                switch response.result {
+                case .success(let value):
+                    self.resultList.removeAll()
+                    if let addressList = JSON(value)["documents"].array {
+                        for item in addressList {
+                            print(item["address_name"])
+                            print(item["road_address_name"])
+                            self.resultList.append(Address(address: item["address_name"].string!, jibunAddress: item["road_address_name"].string!))
+                        }
+                        print(self.resultList)
+                        self.viewModel.output.address.accept(self.resultList)
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+                
+            })
+    }
+    
+    @objc func result() {
+        let input: String = searchText.text!
+        searchAddress(input)
     }
 }

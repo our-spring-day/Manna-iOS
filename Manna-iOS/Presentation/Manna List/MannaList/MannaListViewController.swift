@@ -80,7 +80,7 @@ class MannaListViewController: UIViewController {
         let view = AddMannaViewController()
         view.hidesBottomBarWhenPushed = true
         view.modalPresentationStyle = .fullScreen
-        self.present(view, animated: true, completion: nil)
-//        self.navigationController?.pushViewController(view, animated: true)
+//        self.present(view, animated: true, completion: nil)
+        self.navigationController?.pushViewController(view, animated: true)
     }
 }

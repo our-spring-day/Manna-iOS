@@ -19,7 +19,7 @@ class MannaPageViewController: UIPageViewController, UIPageViewControllerDelegat
         super.viewDidLoad()
         self.delegate = self
         self.dataSource = self
-        
+        self.isPagingEnabled = false
         if let firstVC = VCArr.first {
             setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
         }
@@ -53,5 +53,26 @@ class MannaPageViewController: UIPageViewController, UIPageViewControllerDelegat
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+}
+
+extension MannaPageViewController {
+    var isPagingEnabled: Bool {
+        get {
+            var isEnabled: Bool = true
+            for view in view.subviews {
+                if let subView = view as? UIScrollView {
+                    isEnabled = subView.isScrollEnabled
+                }
+            }
+            return isEnabled
+        }
+        set {
+            for view in view.subviews {
+                if let subView = view as? UIScrollView {
+                    subView.isScrollEnabled = newValue
+                }
+            }
+        }
     }
 }

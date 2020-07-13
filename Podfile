@@ -10,6 +10,8 @@ target 'Manna-iOS' do
   pod 'RxDataSources'
   pod 'Then'
   pod 'SnapKit'
+  pod 'Alamofire'
+  pod 'SwiftyJSON'
 
   # Pods for Manna-iOS
 

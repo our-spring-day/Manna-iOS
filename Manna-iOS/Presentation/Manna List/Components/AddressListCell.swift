@@ -11,6 +11,8 @@ import SnapKit
 import Then
 
 class AddressListCell: UITableViewCell {
+    static let identifier = "AddressListCell"
+    
     let address = UILabel().then {
         $0.numberOfLines = 0
         $0.adjustsFontSizeToFitWidth = true
@@ -32,15 +34,14 @@ class AddressListCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func labelAutolayout(){
-        address.translatesAutoresizingMaskIntoConstraints = false
-        address.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 12).isActive = true
-        address.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        address.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12).isActive = true
-        
-        jibunAddress.translatesAutoresizingMaskIntoConstraints = false
-        jibunAddress.topAnchor.constraint(equalTo: address.bottomAnchor).isActive = true
-        jibunAddress.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 12).isActive = true
-        jibunAddress.heightAnchor.constraint(equalToConstant: 35).isActive = true
+    func labelAutolayout() {
+        address.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(30)
+            $0.leading.equalToSuperview().offset(20)
+        }
+        jibunAddress.snp.makeConstraints {
+            $0.top.equalTo(address.snp.bottom).offset(20)
+            $0.leading.equalTo(address)
+        }
     }
 }

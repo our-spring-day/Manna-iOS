@@ -16,7 +16,6 @@ class AddMannaViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     let viewModel = AddMannaViewModel()
-    
     let pageView = MannaPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     let peopleVC = PeopleAddMannaViewController.shared
     let timeVC = TimeAddMannaViewController.shared
@@ -76,21 +75,18 @@ class AddMannaViewController: UIViewController {
             .map {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MM월 dd일 hh시mm분"
-                return dateFormatter.string(from: $0)}
+                return dateFormatter.string(from: $0)
+            }
             .bind(to: viewModel.input.time)
             .disposed(by: disposeBag)
-        
-        
+
         placeVC.mannaPlace.rx.text.orEmpty
             .bind(to: viewModel.input.place)
             .disposed(by: disposeBag)
         
-//        peopleVC.mannaPeople.text = ""
-//        timeVC.mannaTime.text = ""
-//        placeVC.mannaPlace.text = ""
-        
+        peopleVC.mannaPeople.text = ""
+        placeVC.mannaPlace.text = ""
         self.navigationController?.popViewController(animated: true)
-        
     }
     
     func layout() {

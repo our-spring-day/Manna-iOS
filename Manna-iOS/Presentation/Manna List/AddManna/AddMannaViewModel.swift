@@ -12,8 +12,10 @@ import RxCocoa
 
 protocol AddMannaViewModelType {
     associatedtype Input
+    associatedtype Output
     
     var input: Input { get }
+    var output: Output { get }
 }
 
 class AddMannaViewModel: AddMannaViewModelType {
@@ -24,7 +26,12 @@ class AddMannaViewModel: AddMannaViewModelType {
         let place = PublishSubject<String>()
     }
     
+    struct Output {
+        let address = BehaviorRelay<[Address]>(value: [Address]())
+    }
+    
     let input = Input()
+    let output = Output()
     let disposeBag = DisposeBag()
     
     init() {
