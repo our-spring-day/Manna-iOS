@@ -9,11 +9,6 @@
 import Foundation
 
 struct Address: Codable {
-    var address : String
-    var jibunAddress : String
-    
-    init(address : String ,jibunAddress : String) {
-        self.address = address
-        self.jibunAddress = jibunAddress
-    }
+    let address : String
+    let jibunAddress : String
 }
