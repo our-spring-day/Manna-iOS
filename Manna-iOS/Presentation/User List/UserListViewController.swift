@@ -14,9 +14,9 @@ import Toaster
 import UIKit
 
 class UserListViewController: UIViewController {
-    var delegate: SendDataDelegate?
     let disposeBag = DisposeBag()
     let tableView = UITableView()
+    var delegate: SendDataDelegate?
     let searchController = UISearchController(searchResultsController: nil)
     let viewModel = UserListViewModel()
     var selectedFriends = BehaviorRelay(value: UserTestStruct(name: "", profileImage: ""))
@@ -32,30 +32,30 @@ class UserListViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableViewSet()
-        navigationBarSet()
+        layout()
+        attribute()
         searchBind()
         tableBind()
         clickedAddFriendButton()
         selectedCell()
     }
-    func tableViewSet() {
-        tableView.do {
-            view.addSubview($0)
-            $0.register(UserListCell.self, forCellReuseIdentifier: UserListCell.identifier)
-            $0.rowHeight = 55
-            $0.snp.makeConstraints {
-                $0.edges.equalToSuperview()
-            }
+    func layout() {
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
     }
-    func navigationBarSet() {
+    func attribute() {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.do {
             $0.title = "친구"
             $0.hidesSearchBarWhenScrolling = true
             $0.searchController = searchController
             $0.rightBarButtonItem = addFriendButton
+        }
+        tableView.do {
+            $0.register(UserListCell.self, forCellReuseIdentifier: UserListCell.identifier)
+            $0.rowHeight = 55
         }
         searchController.do {
             $0.obscuresBackgroundDuringPresentation = false
@@ -65,10 +65,10 @@ class UserListViewController: UIViewController {
     }
     func searchBind() {
         searchController.searchBar.rx.text
-        .orEmpty
-        .distinctUntilChanged()
-        .bind(to: viewModel.searchValue)
-        .disposed(by: disposeBag)
+            .orEmpty
+            .distinctUntilChanged()
+            .bind(to: viewModel.searchValue)
+            .disposed(by: disposeBag)
     }
     func tableBind() {
         viewModel.filteredFriendsList
