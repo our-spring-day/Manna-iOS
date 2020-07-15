@@ -52,6 +52,7 @@ class UserListViewController: UIViewController {
             $0.hidesSearchBarWhenScrolling = true
             $0.searchController = searchController
             $0.rightBarButtonItem = addFriendButton
+            $0.rightBarButtonItem?.tintColor = UIColor(named: "default")
         }
         tableView.do {
             $0.register(UserListCell.self, forCellReuseIdentifier: UserListCell.identifier)
@@ -60,6 +61,7 @@ class UserListViewController: UIViewController {
         searchController.do {
             $0.obscuresBackgroundDuringPresentation = false
             $0.searchBar.placeholder = "친구 검색"
+            $0.searchBar.tintColor = UIColor(named: "default")
             definesPresentationContext = true
         }
     }

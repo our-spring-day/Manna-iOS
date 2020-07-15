@@ -31,6 +31,7 @@ class AddUserViewController: UIViewController {
         searchController.do {
             $0.obscuresBackgroundDuringPresentation = false
             $0.searchBar.placeholder = "친구 ID"
+            $0.searchBar.tintColor = UIColor(named: "default")
             definesPresentationContext = true
             navigationItem.searchController = $0
         }

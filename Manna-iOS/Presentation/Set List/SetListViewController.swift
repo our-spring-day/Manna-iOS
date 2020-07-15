@@ -13,8 +13,6 @@ import SnapKit
 
 class SetListViewController: UIViewController {
     let screenSize: CGRect = UIScreen.main.bounds
-//    let testRadioButton =
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
