@@ -12,13 +12,13 @@ import RxCocoa
 import SnapKit
 
 class SetListViewController: UIViewController {
-
+    let screenSize: CGRect = UIScreen.main.bounds
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        var snakeView = MainView(frame: CGRect(x: 200, y: 200, width: self.view.frame.size.width, height: 66))
-        view.addSubview(snakeView)
-        snakeView.updateData(title: "hello")
+        var tableView = MainView(frame: CGRect(x: 5, y: 66, width: screenSize.width-10, height: screenSize.height - 66))
+        view.addSubview(tableView)
+//        tableView.updateData(title: "hello")
         
     }
 }
