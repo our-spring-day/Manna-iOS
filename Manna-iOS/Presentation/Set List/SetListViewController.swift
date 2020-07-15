@@ -7,22 +7,18 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import SnapKit
 
 class SetListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .white
+        var snakeView = MainView(frame: CGRect(x: 200, y: 200, width: self.view.frame.size.width, height: 66))
+        view.addSubview(snakeView)
+        snakeView.updateData(title: "hello")
+        
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
