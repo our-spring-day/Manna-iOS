@@ -13,8 +13,10 @@ class UserListCell: UITableViewCell {
     static let identifier = "UserListCell"
     let idLabel = UILabel()
     let userImageView = UIImageView()
+    let checkBox = UIButton()
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         addView()
         attribute()
         layout()
@@ -25,6 +27,7 @@ class UserListCell: UITableViewCell {
     func addView() {
         addSubview(idLabel)
         addSubview(userImageView)
+        addSubview(checkBox)
     }
     func attribute() {
         idLabel.do {
@@ -38,6 +41,11 @@ class UserListCell: UITableViewCell {
             $0.layer.masksToBounds = true
             $0.contentMode = .scaleAspectFill
         }
+        checkBox.do {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
+            $0.setImage(UIImage(named: "unchecked"), for: .normal)
+        }
     }
     func layout() {
         idLabel.snp.makeConstraints {
@@ -47,6 +55,10 @@ class UserListCell: UITableViewCell {
         userImageView.snp.makeConstraints {
             $0.left.equalToSuperview().offset(22)
             $0.width.height.equalTo(50)
+            $0.centerY.equalToSuperview()
+        }
+        checkBox.snp.makeConstraints {
+            $0.right.equalToSuperview().offset(-10)
             $0.centerY.equalToSuperview()
         }
     }
