@@ -46,6 +46,7 @@ class ViewController: UITabBarController {
         attribute()
     }
     func attribute() {
+        UITabBar.appearance().tintColor = UIColor(named: "default")
         userListViewController.tabBarItem = tabBarItems[.userList]
         mannaListViewController.tabBarItem = tabBarItems[.mannaList]
         notiListViewController.tabBarItem = tabBarItems[.notiList]
