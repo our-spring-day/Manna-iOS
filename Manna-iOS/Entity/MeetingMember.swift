@@ -8,6 +8,9 @@
 
 import Foundation
 
-struct MeetingMember {
-    let member: [UserTestStruct] = []
+struct MeetingInfo{
+    //about time value
+    //about place value
+    //about
+    var member: [UserTestStruct] = []
 }

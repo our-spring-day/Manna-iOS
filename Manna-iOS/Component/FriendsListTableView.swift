@@ -11,6 +11,10 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
+protocol test {
+    
+}
+
 class FriendsListTableView: UIView {
     let tableView = UITableView()
     let viewModel = UserListViewModel()
@@ -37,6 +41,10 @@ class FriendsListTableView: UIView {
                 cell.idLabel.text = element.name
                 cell.userImageView.image = UIImage(named: "\(element.profileImage)")
                 cell.checkBox.userInfo = element
+                cell.checkBox.rx.tap
+                    .subscribe(onNext: {
+                        print("tap")
+                    }).disposed(by: self.disposeBag)
         }.disposed(by: disposeBag)
     }
 }

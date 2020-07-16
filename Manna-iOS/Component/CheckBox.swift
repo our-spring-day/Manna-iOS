@@ -13,24 +13,25 @@ class CheckBox: UIButton {
     var flag = 0
     var userInfo: UserTestStruct?
     let disposeBag = DisposeBag()
+    //    var meetingInfo = MeetingInfo()
     convenience init() {
         self.init(frame: .zero)
         self.setImage(UIImage(named: "unchecked"), for: .normal)
         self.setImage(UIImage(named: "checked"), for: .selected)
         self.rx.tap
-            .subscribe(onNext: {
+            .subscribe(onNext: { item in
                 self.isSelected = !self.isSelected
-                        if self.isSelected == true {
-                            self.flag = 1
-                            if let info = self.userInfo {
-                                print(info)
-                            }
-                        } else {
-                            self.flag = 0
-                            if let info = self.userInfo {
-                                print("delete",info)
-                            }
-                        }
+                if self.isSelected == true {
+                    self.flag = 1
+                    if let info = self.userInfo {
+                        print(info)
+                    }
+                } else {
+                    self.flag = 0
+                    if let info = self.userInfo {
+                        print("delete",info)
+                    }
+                }
             }).disposed(by: disposeBag)
     }
 }

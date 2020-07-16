@@ -25,6 +25,7 @@ class SetListViewController: UIViewController {
                 print("이부분인가요?",str)
             }).disposed(by: disposeBag
         )
+//        tableView.checkBox.rx.
 //        tableView.checkBox.rx.tap
 //            .subscribe(onNext: { str in
 //                print("tapped!!")
