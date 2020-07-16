@@ -28,7 +28,8 @@
 		CCAD9CFE249CD06300E639BF /* DetailUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAD9CFD249CD06300E639BF /* DetailUserViewController.swift */; };
 		CCB1578624AB3D0E00D81511 /* UserTestStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578524AB3D0E00D81511 /* UserTestStruct.swift */; };
 		CCB1578924AB53B400D81511 /* SearchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578824AB53B400D81511 /* SearchProtocol.swift */; };
-		CCC1F7ED24BDA70700DC8BCB /* FriendsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1F7EC24BDA70700DC8BCB /* FriendsList.swift */; };
+		CCC1F7ED24BDA70700DC8BCB /* FriendsListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1F7EC24BDA70700DC8BCB /* FriendsListTableView.swift */; };
+		CCC1F7F024BEE7B100DC8BCB /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1F7EF24BEE7B100DC8BCB /* CheckBox.swift */; };
 		F69ED73508E16B9556FF55D3 /* Pods_Manna_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5434F4B54E67CE37DCF01314 /* Pods_Manna_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,7 +59,8 @@
 		CCAD9CFD249CD06300E639BF /* DetailUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUserViewController.swift; sourceTree = "<group>"; };
 		CCB1578524AB3D0E00D81511 /* UserTestStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTestStruct.swift; sourceTree = "<group>"; };
 		CCB1578824AB53B400D81511 /* SearchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProtocol.swift; sourceTree = "<group>"; };
-		CCC1F7EC24BDA70700DC8BCB /* FriendsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsList.swift; sourceTree = "<group>"; };
+		CCC1F7EC24BDA70700DC8BCB /* FriendsListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableView.swift; sourceTree = "<group>"; };
+		CCC1F7EF24BEE7B100DC8BCB /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		F1D0975FD460DE1097C65D92 /* Pods-Manna-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manna-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,6 +134,7 @@
 		CC7059EB2477B81100462251 /* Manna-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				CCC1F7EE24BEE78000DC8BCB /* Component */,
 				CCB1578724AB538C00D81511 /* Protocol */,
 				CCB1578424AB3C3000D81511 /* Entity */,
 				CC705A032477CEAA00462251 /* Presentation */,
@@ -189,7 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				CC705A102477D2E000462251 /* SetListViewController.swift */,
-				CCC1F7EC24BDA70700DC8BCB /* FriendsList.swift */,
+				CCC1F7EC24BDA70700DC8BCB /* FriendsListTableView.swift */,
 			);
 			path = "Set List";
 			sourceTree = "<group>";
@@ -217,6 +220,14 @@
 				CC629D3F24B736D100C0C165 /* SendDataDelegate.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		CCC1F7EE24BEE78000DC8BCB /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				CCC1F7EF24BEE7B100DC8BCB /* CheckBox.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -358,8 +369,9 @@
 				CCB1578624AB3D0E00D81511 /* UserTestStruct.swift in Sources */,
 				CCAC1F2D24B2FD28007C21ED /* UserListTestStruct.swift in Sources */,
 				CC384C1124862613005F34AE /* UserListCell.swift in Sources */,
-				CCC1F7ED24BDA70700DC8BCB /* FriendsList.swift in Sources */,
+				CCC1F7ED24BDA70700DC8BCB /* FriendsListTableView.swift in Sources */,
 				CC986DD124A5DB95004450B7 /* AddUserViewModel.swift in Sources */,
+				CCC1F7F024BEE7B100DC8BCB /* CheckBox.swift in Sources */,
 				CC705A0D2477D2BA00462251 /* MannaListViewController.swift in Sources */,
 				CC384C0C24852AD0005F34AE /* UserListViewModel.swift in Sources */,
 				CC705A112477D2E000462251 /* SetListViewController.swift in Sources */,

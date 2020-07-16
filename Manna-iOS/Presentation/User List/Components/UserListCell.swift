@@ -16,7 +16,6 @@ class UserListCell: UITableViewCell {
     let checkBox = CheckBox()
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         addView()
         attribute()
         layout()
@@ -61,18 +60,5 @@ class UserListCell: UITableViewCell {
             $0.right.equalToSuperview().offset(-10)
             $0.centerY.equalToSuperview()
         }
-    }
-}
-
-class CheckBox: UIButton {
-    convenience init() {
-        self.init(frame: .zero)
-        self.setImage(UIImage(named: "unchecked"), for: .normal)
-        self.setImage(UIImage(named: "checked"), for: .selected)
-        self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-    }
-
-    @objc private func buttonTapped() {
-        self.isSelected = !self.isSelected
     }
 }
