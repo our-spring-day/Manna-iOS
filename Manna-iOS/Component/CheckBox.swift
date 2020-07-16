@@ -7,26 +7,30 @@
 //
 import Foundation
 import UIKit
-
+import RxSwift
+import RxCocoa
 class CheckBox: UIButton {
     var flag = 0
-    var cellIndex = 0
+    var userInfo: UserTestStruct?
+    let disposeBag = DisposeBag()
     convenience init() {
         self.init(frame: .zero)
         self.setImage(UIImage(named: "unchecked"), for: .normal)
         self.setImage(UIImage(named: "checked"), for: .selected)
-        self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-    }
-
-    @objc private func buttonTapped() {
-        print(cellIndex)
-        self.isSelected = !self.isSelected
-        if self.isSelected == true  {
-            flag = 1
-        }
-        else {
-            flag = 0
-        }
-        print(flag)
+        self.rx.tap
+            .subscribe(onNext: {
+                self.isSelected = !self.isSelected
+                        if self.isSelected == true {
+                            self.flag = 1
+                            if let info = self.userInfo {
+                                print(info)
+                            }
+                        } else {
+                            self.flag = 0
+                            if let info = self.userInfo {
+                                print("delete",info)
+                            }
+                        }
+            }).disposed(by: disposeBag)
     }
 }

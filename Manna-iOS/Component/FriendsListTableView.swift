@@ -15,6 +15,7 @@ class FriendsListTableView: UIView {
     let tableView = UITableView()
     let viewModel = UserListViewModel()
     let disposeBag = DisposeBag()
+    let checkBox = CheckBox()
     override init (frame: CGRect) {
         super.init(frame: frame)
         self.addSubview(tableView)
@@ -35,7 +36,7 @@ class FriendsListTableView: UIView {
             .bind(to: tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(index: Int, element: UserTestStruct, cell: UserListCell) in
                 cell.idLabel.text = element.name
                 cell.userImageView.image = UIImage(named: "\(element.profileImage)")
-                cell.checkBox.cellIndex = index
+                cell.checkBox.userInfo = element
         }.disposed(by: disposeBag)
     }
 }

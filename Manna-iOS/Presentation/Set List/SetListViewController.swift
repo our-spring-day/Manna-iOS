@@ -15,6 +15,7 @@ class SetListViewController: UIViewController {
     var tableView = FriendsListTableView()
     let screenSize: CGRect = UIScreen.main.bounds
     let disposeBag = DisposeBag()
+    var meetingMemberArray: [UserTestStruct] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -24,15 +25,19 @@ class SetListViewController: UIViewController {
                 print("이부분인가요?",str)
             }).disposed(by: disposeBag
         )
-        tableView.tableView.rx.itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
-                let cell = self?.tableView.tableView.cellForRow(at: indexPath)
-//                print(indexPath[1])
-                print(indexPath)
-            }).disposed(by: disposeBag)
+//        tableView.checkBox.rx.tap
+//            .subscribe(onNext: { str in
+//                print("tapped!!")
+//                print(str)
+//            }).disposed(by: disposeBag)
+//        tableView.
     }
     func tableViewSet() {
-        tableView = FriendsListTableView(frame: CGRect(x: 5, y: 66, width: screenSize.width-10, height: screenSize.height - 266))
+        tableView = FriendsListTableView(frame: CGRect(x: 5, y: 266, width: screenSize.width-10, height: screenSize.height - 266))
         view.addSubview(tableView)
     }
 }
+//쓸모가 있을듯
+//let cell = self?.tableView.tableView.cellForRow(at: indexPath)
+//                print(indexPath[1])
+
