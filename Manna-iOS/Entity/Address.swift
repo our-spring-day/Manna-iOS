@@ -9,6 +9,6 @@
 import Foundation
 
 struct Address: Codable {
-    let address : String
-    let jibunAddress : String
+    let address: String
+    let roadAddress: String
 }

@@ -22,33 +22,14 @@ class AddMannaViewController: UIViewController {
     let placeVC = PlaceAddMannaViewController.shared
     
     let titleLabel = UILabel()
-    let titleInput = UITextField().then {
-        $0.layer.borderWidth = 1.0
-        $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        $0.textAlignment = .center
-    }
-    let titleButton = UIButton().then {
-        $0.setTitle("완료", for: .normal)
-        $0.setTitleColor(.black, for: .normal)
-        $0.layer.borderWidth = 1.0
-        $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        $0.addTarget(self, action: #selector(titleBtn), for: .touchUpInside)
-    }
-    let prevButton = UIButton(type: .custom).then {
-        $0.setImage(#imageLiteral(resourceName: "backButton"), for: .normal)
-        $0.addTarget(self, action: #selector(prevBtn), for: .touchUpInside)
-    }
-    let nextButton = UIButton().then {
-        $0.setTitle("완료", for: .normal)
-        $0.setTitleColor(.black, for: .normal)
-        $0.layer.borderWidth = 1.0
-        $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        $0.addTarget(self, action: #selector(nextBtn), for: .touchUpInside)
-    }
+    let titleInput = UITextField()
+    let titleButton = UIButton()
+    let prevButton = UIButton(type: .custom)
+    let nextButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        attribute()
         layout()
     }
     
@@ -62,6 +43,63 @@ class AddMannaViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
+    func attribute() {
+        view.do {
+            $0.backgroundColor = .white
+        }
+        titleInput.do {
+            $0.layer.borderWidth = 1.0
+            $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            $0.textAlignment = .center
+        }
+        titleButton.do {
+            $0.setTitle("완료", for: .normal)
+            $0.setTitleColor(.black, for: .normal)
+            $0.layer.borderWidth = 1.0
+            $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            $0.addTarget(self, action: #selector(titleBtn), for: .touchUpInside)
+        }
+        prevButton.do {
+            $0.setImage(#imageLiteral(resourceName: "backButton"), for: .normal)
+            $0.addTarget(self, action: #selector(prevBtn), for: .touchUpInside)
+        }
+        nextButton.do {
+            $0.setTitle("완료", for: .normal)
+            $0.setTitleColor(.black, for: .normal)
+            $0.layer.borderWidth = 1.0
+            $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            $0.addTarget(self, action: #selector(nextBtn), for: .touchUpInside)
+        }
+    }
+    
+    func layout() {
+        view.addSubview(titleButton)
+        view.addSubview(titleInput)
+        view.addSubview(titleLabel)
+        view.addSubview(prevButton)
+        
+        titleButton.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
+            $0.trailing.equalTo(view.snp.trailing).offset(-10)
+            $0.width.equalTo(30)
+            $0.height.equalTo(30)
+        }
+        titleInput.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
+            $0.centerX.equalTo(view.snp.centerX)
+            $0.width.equalTo(200)
+            $0.height.equalTo(30)
+        }
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
+            $0.centerX.equalTo(view.snp.centerX)
+        }
+        prevButton.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
+            $0.leading.equalTo(view.snp.leading).offset(10)
+        }
+    }
+    
     func bind() {
         titleInput.rx.text.orEmpty
             .bind(to: viewModel.input.title)
@@ -87,32 +125,6 @@ class AddMannaViewController: UIViewController {
         peopleVC.mannaPeople.text = ""
         placeVC.mannaPlace.text = ""
         self.navigationController?.popViewController(animated: true)
-    }
-    
-    func layout() {
-        view.addSubview(titleButton)
-        titleButton.translatesAutoresizingMaskIntoConstraints = false
-        titleButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
-        titleButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
-        titleButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        titleButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        
-        view.addSubview(titleInput)
-        titleInput.translatesAutoresizingMaskIntoConstraints = false
-        titleInput.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
-        titleInput.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        titleInput.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        titleInput.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        
-        view.addSubview(titleLabel)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
-        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        view.addSubview(prevButton)
-        prevButton.translatesAutoresizingMaskIntoConstraints = false
-        prevButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        prevButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
     }
     
     func prevPage() {

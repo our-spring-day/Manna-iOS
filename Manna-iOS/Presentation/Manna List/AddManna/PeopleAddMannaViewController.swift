@@ -12,15 +12,22 @@ import SnapKit
 class PeopleAddMannaViewController: UIViewController {
     static let shared = PeopleAddMannaViewController()
     
-    lazy var mannaPeople = UITextField().then {
-        $0.layer.borderWidth = 1.0
-        $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-    }
+    lazy var mannaPeople = UITextField()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .brown
+        attribute()
         layout()
+    }
+    
+    func attribute() {
+        view.do {
+            $0.backgroundColor = .brown
+        }
+        mannaPeople.do {
+            $0.layer.borderWidth = 1.0
+            $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        }
     }
     
     func layout() {

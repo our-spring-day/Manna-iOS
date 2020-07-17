@@ -43,27 +43,22 @@ class MannaListCell: UITableViewCell {
             $0.numberOfLines = 0
             $0.adjustsFontSizeToFitWidth = true
         }
-        
         place.do {
             $0.numberOfLines = 0
             $0.adjustsFontSizeToFitWidth = true
         }
-        
         appointmentTime.do {
             $0.numberOfLines = 0
             $0.adjustsFontSizeToFitWidth = true
         }
-        
         numberPeople.do {
             $0.numberOfLines = 0
             $0.adjustsFontSizeToFitWidth = true
         }
-        
         pin.do {
             $0.image = UIImage(named: "Image")
             $0.contentMode = .scaleAspectFit
         }
-
         clock.do {
             $0.image = UIImage(named: "Image-1")
             $0.contentMode = .scaleAspectFit

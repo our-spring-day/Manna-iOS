@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class MannaPageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     
@@ -44,15 +45,19 @@ class MannaPageViewController: UIPageViewController, UIPageViewControllerDelegat
     }
     
     func configurePageControl() {
-        self.pageControl.numberOfPages = VCArr.count
-        self.pageControl.currentPage = 0
-        self.pageControl.tintColor = UIColor.black
-        self.pageControl.pageIndicatorTintColor = UIColor.gray
-        self.pageControl.currentPageIndicatorTintColor = UIColor.black
+        self.pageControl.do {
+            $0.numberOfPages = VCArr.count
+            $0.currentPage = 0
+            $0.tintColor = UIColor.black
+            $0.pageIndicatorTintColor = UIColor.gray
+            $0.currentPageIndicatorTintColor = UIColor.black
+        }
+        
         self.view.addSubview(pageControl)
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-        pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        pageControl.snp.makeConstraints {
+            $0.centerX.equalTo(view.snp.centerX)
+            $0.bottom.equalTo(view.snp.bottom)
+        }
     }
 }
 

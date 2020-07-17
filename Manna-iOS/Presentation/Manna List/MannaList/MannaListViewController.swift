@@ -15,14 +15,38 @@ import SnapKit
 class MannaListViewController: UIViewController {
     let disposeBag = DisposeBag()
     
-    let mannaList = UITableView()
     let mannaListViewModel = MannaListViewModel()
+    
+    let mannaList = UITableView()
+    let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVC))
     
     override func viewDidLoad() {
         super.viewDidLoad()
         attribute()
         layout()
         bind()
+    }
+    
+    func attribute() {
+        navigationItem.do {
+            $0.rightBarButtonItem = add
+            $0.title = "약속목록"
+        }
+        view.do {
+            $0.backgroundColor = .white
+        }
+        mannaList.do {
+            $0.backgroundView?.isHidden = true
+            $0.register(MannaListCell.self, forCellReuseIdentifier: MannaListCell.identifier)
+            $0.rowHeight = 90
+        }
+    }
+    
+    func layout() {
+        view.addSubview(mannaList)
+        mannaList.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
     func bind() {
@@ -43,44 +67,12 @@ class MannaListViewController: UIViewController {
         mannaListViewModel.input.allMannas
             .bind(to: mannaList.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
-        
-        //        // items 를 바인딩함으로써 datasource값을 가져와 tableView를 뿌려줌
-        //        mannaListViewModel.allMannas
-        //            .bind(to: mannaList.rx.items(cellIdentifier: MannaListCell.identifier, cellType: MannaListCell.self)) {
-        //                _, item, cell in
-        //                cell.title.text = item?.title
-        //                cell.place.text = item?.place
-        //                cell.appointmentTime.text = item?.appointmentTime
-        //                cell.numberPeople.text = item?.numberPeople
-        //            }
-        //            .disposed(by: disposeBag)
-    }
-    
-    func attribute() {
-        let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVC))
-        self.navigationItem.rightBarButtonItem = add
-        self.navigationItem.title = "약속목록"
-        view.backgroundColor = .white
-        
-        mannaList.do {
-            $0.backgroundView?.isHidden = true
-            $0.register(MannaListCell.self, forCellReuseIdentifier: MannaListCell.identifier)
-            $0.rowHeight = 90
-        }
-    }
-    
-    func layout() {
-        view.addSubview(mannaList)
-        mannaList.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
     }
     
     @objc func addVC() {
         let view = AddMannaViewController()
         view.hidesBottomBarWhenPushed = true
         view.modalPresentationStyle = .fullScreen
-//        self.present(view, animated: true, completion: nil)
         self.navigationController?.pushViewController(view, animated: true)
     }
 }

@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (5.2.0)
   - Differentiator (4.0.1)
+  - NMapsMap (3.8.0)
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
@@ -18,6 +19,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - NMapsMap
   - RxCocoa
   - RxDataSources
   - RxSwift
@@ -30,6 +32,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - Differentiator
+    - NMapsMap
     - RxCocoa
     - RxDataSources
     - RxRelay
@@ -42,6 +45,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: c1ca147559e730bfb2182c8c7aafbdd90a867987
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
+  NMapsMap: b3633ad688483a318be9293aeddd323a714fb08b
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
@@ -51,6 +55,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   Then: 90cd104fd951cec1980a03f57704ad8f784d4d79
 
-PODFILE CHECKSUM: 9d491111f1666e3589240472ed39cc23a1ebe4e7
+PODFILE CHECKSUM: a9f6e4a285d49927f28cd4f352f80f273a51c5e3
 
 COCOAPODS: 1.9.1

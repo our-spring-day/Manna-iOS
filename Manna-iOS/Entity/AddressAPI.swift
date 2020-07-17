@@ -8,33 +8,40 @@
 
 import Foundation
 import Alamofire
+import RxSwift
 import SwiftyJSON
 
 private let getAddressUrl = "https://dapi.kakao.com/v2/local/search/keyword.json"
 
 class AddressAPI {
-    static func searchAddress(_ keyword: String) {
-        let headers: HTTPHeaders = [ "Authorization": "KakaoAK ec74a28d28177a706155cb8af1fb7ec8" ]
+    static func getAddress(_ keyword: String) -> Observable<[Address]> {
+        let headers: HTTPHeaders = [
+            "Authorization": "KakaoAK ec74a28d28177a706155cb8af1fb7ec8"
+        ]
+        let parameters: [String: String] = [
+            "query": keyword
+        ]
         
-        let parameters: [String: Any] = [ "query": keyword ]
-        
-        AF.request("https://dapi.kakao.com/v2/local/search/keyword.json", method: .get, parameters: parameters, headers: headers)
-            .responseJSON(completionHandler: { response in
-                switch response.result {
-                case .success(let value):
-                    resultList.removeAll()
-                    if let addressList = JSON(value)["documents"].array {
-                        for item in addressList {
-                            print(item["address_name"])
-                            print(item["road_address_name"])
-                            resultList.append(Address(address: item["address_name"].string!, jibunAddress: item["road_address_name"].string!))
+        return Observable.create { observer in
+            AF.request(getAddressUrl, method: .get, parameters: parameters, headers: headers)
+                .responseJSON { response in
+                    switch response.result {
+                    case .success(let value):
+                        var resultList: [Address] = []
+                        if let addressList = JSON(value)["documents"].array {
+                            for item in addressList {
+                                let address = Address(address: item["address_name"].string!,
+                                                      roadAddress: item["road_address_name"].string!)
+                                resultList.append(address)
+                            }
+                            observer.onNext(resultList)
                         }
-                        print(resultList)
-                        viewModel.output.address.accept(resultList)
+                    case .failure(let err):
+                        print(err)
                     }
-                case .failure(let error):
-                    print(error)
-                }
-            })
+                    observer.onCompleted()
+            }
+            return Disposables.create()
+        }
     }
 }

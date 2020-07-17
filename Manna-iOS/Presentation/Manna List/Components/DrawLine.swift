@@ -11,10 +11,12 @@ import UIKit
 class DrawLine: UIView {
     override func draw(_ rect: CGRect) {
         let path = UIBezierPath()
+        path.do {
+            $0.move(to: CGPoint(x: 40, y: 140))
+            $0.addLine(to: CGPoint(x: 315, y: 140))
+            $0.close()
+            $0.stroke()
+        }
         
-        path.move(to: CGPoint(x: 40, y: 140))
-        path.addLine(to: CGPoint(x: 315, y: 140))
-        path.close()
-        path.stroke()
     }
 }

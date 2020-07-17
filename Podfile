@@ -12,6 +12,7 @@ target 'Manna-iOS' do
   pod 'SnapKit'
   pod 'Alamofire'
   pod 'SwiftyJSON'
+  pod 'NMapsMap'
 
   # Pods for Manna-iOS
 
