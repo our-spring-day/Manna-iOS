@@ -76,14 +76,9 @@ class AddUserViewController: UIViewController {
             .disposed(by: disposeBag)
         viewModel.filteredUser
             .filterEmpty()
-            .map { $0[0].name}
-            .bind(to: textLabel.rx.text)
-            .disposed(by: disposeBag)
-        viewModel.filteredUser
-            .filterEmpty()
-            .map { $0[0].profileImage}
-            .subscribe(onNext: {str in
-                self.imageView.image = UIImage(named: "\(str)")
+            .subscribe(onNext: { item in
+                    self.textLabel.text = item[0].name
+                    self.imageView.image = UIImage(named: item[0].profileImage)
             }).disposed(by: disposeBag)
     }
 }
