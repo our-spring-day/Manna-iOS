@@ -10,10 +10,9 @@ import UIKit
 import RxSwift
 import RxCocoa
 class CheckBox: UIButton {
+    let disposeBag = DisposeBag()
     var flag = 0
     var userInfo: UserTestStruct?
-    let disposeBag = DisposeBag()
-    //    var meetingInfo = MeetingInfo()
     convenience init() {
         self.init(frame: .zero)
         self.setImage(UIImage(named: "unchecked"), for: .normal)

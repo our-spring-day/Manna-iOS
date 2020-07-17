@@ -12,17 +12,17 @@ import RxCocoa
 import SnapKit
 
 class SetListViewController: UIViewController {
-    var tableView = FriendsListTableView()
-    let screenSize: CGRect = UIScreen.main.bounds
     let disposeBag = DisposeBag()
     var meetingMemberArray: [UserTestStruct] = []
+    let screenSize: CGRect = UIScreen.main.bounds
+    var tableView = FriendsListTableView()
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         tableViewSet()
         tableView.tableView.rx.modelSelected(UserTestStruct.self)
             .subscribe(onNext: { str in
-                print("이부분인가요?",str)
+                print("이부분인가요?", str)
             }).disposed(by: disposeBag
         )
 //        tableView.checkBox.rx.
@@ -41,4 +41,3 @@ class SetListViewController: UIViewController {
 //쓸모가 있을듯
 //let cell = self?.tableView.tableView.cellForRow(at: indexPath)
 //                print(indexPath[1])
-
