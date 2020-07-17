@@ -6,45 +6,38 @@
 //  Copyright © 2020 정재인. All rights reserved.
 //
 
+import UIKit
 import RxCocoa
 import RxSwift
 import SnapKit
 import Then
-import Toaster
-import UIKit
 
 class UserListViewController: UIViewController {
     let disposeBag = DisposeBag()
-    let tableView = UITableView()
+    
     var delegate: SendDataDelegate?
+    let tableView = UITableView()
     let searchController = UISearchController(searchResultsController: nil)
     let viewModel = UserListViewModel()
     var selectedFriends = BehaviorRelay(value: UserTestStruct(name: "", profileImage: ""))
-    let addFriendButton = UIBarButtonItem(
-        barButtonSystemItem: .add,
-        target: self, action: nil
-    )
+    
+    let addFriendButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        layout()
         attribute()
-        searchBind()
-        tableBind()
-        clickedAddFriendButton()
-        selectedCell()
+        layout()
+        bind()
     }
-    func layout() {
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-    }
+    
     func attribute() {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.do {
@@ -65,41 +58,48 @@ class UserListViewController: UIViewController {
             definesPresentationContext = true
         }
     }
-    func searchBind() {
-        searchController.searchBar.rx.text
-            .orEmpty
-            .distinctUntilChanged()
-            .bind(to: viewModel.searchValue)
-            .disposed(by: disposeBag)
+    
+    func layout() {
+        view.addSubview(tableView)
+        
+        tableView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
-    func tableBind() {
+    
+    func bind() {
         viewModel.filteredFriendsList
             .bind(to: tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: UserTestStruct, cell: UserListCell) in
                 cell.idLabel.text = element.name
                 cell.userImageView.image = UIImage(named: "\(element.profileImage)")
+                cell.checkBox.isHidden = true
         }.disposed(by: disposeBag)
-    }
-    func clickedAddFriendButton() {
-        addFriendButton.rx.tap
-            .subscribe(onNext: {
-                let addUserViewController = AddUserViewController()
-                addUserViewController.do {
-                    $0.hidesBottomBarWhenPushed = true
-                    self.navigationController?.pushViewController($0, animated: true)
-                }
-            }).disposed(by: disposeBag)
-    }
-    func selectedCell() {
+        
+        searchController.searchBar.rx.text
+        .orEmpty
+        .distinctUntilChanged()
+        .bind(to: viewModel.searchValue)
+        .disposed(by: disposeBag)
+        
+        self.addFriendButton.rx.tap
+        .subscribe(onNext: {
+            let addUserViewController = AddUserViewController()
+            addUserViewController.do {
+                $0.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController($0, animated: true)
+            }
+        }).disposed(by: disposeBag)
+        
         tableView.rx.modelSelected(UserTestStruct.self)
-            .subscribe(onNext: { item in
-                let detailUserViewController = DetailUserViewController()
-                detailUserViewController.do {
-                    $0.sendData(data: item)
-                    self.definesPresentationContext = true
-                    $0.modalPresentationStyle = .overFullScreen
-                    $0.modalTransitionStyle = .crossDissolve
-                    self.present($0, animated: true, completion: nil)
-                }
-            }).disposed(by: disposeBag)
+        .subscribe(onNext: { item in
+            let detailUserViewController = DetailUserViewController()
+            detailUserViewController.do {
+                $0.sendData(data: item)
+                self.definesPresentationContext = true
+                $0.modalPresentationStyle = .overFullScreen
+                $0.modalTransitionStyle = .crossDissolve
+                self.present($0, animated: true, completion: nil)
+            }
+        }).disposed(by: disposeBag)
     }
 }

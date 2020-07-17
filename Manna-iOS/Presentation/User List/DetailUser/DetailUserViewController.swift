@@ -11,28 +11,26 @@ import RxSwift
 import RxCocoa
 
 class DetailUserViewController: UIViewController {
-    let backgroundView = UIView()
     let disposeBag = DisposeBag()
+    
+    let userListViewController = UserListViewController()
+    
+    let backgroundView = UIView()
+    let userProfileImageView = UIImageView()
     let nameLabel = UILabel()
     let screenSize: CGRect = UIScreen.main.bounds
-    let userProfileImageView = UIImageView()
-    let userListViewController = UserListViewController()
+    
     override func viewDidLoad() {
-        set()
+        super.viewDidLoad()
         attributes()
         layouts()
         dismissActionSet()
-        userListViewController.delegate = self
-    }
-    func set() {
-        super.viewDidLoad()
-        view.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5) 
-        view.addSubview(backgroundView)
-        view.addSubview(userProfileImageView)
-        backgroundView.addSubview(nameLabel)
-        userListViewController.delegate = self
     }
     func attributes() {
+        userListViewController.delegate = self
+        view.do {
+            $0.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
+        }
         backgroundView.do {
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.backgroundColor = .white
@@ -49,6 +47,10 @@ class DetailUserViewController: UIViewController {
         }
     }
     func layouts() {
+        view.addSubview(backgroundView)
+        view.addSubview(userProfileImageView)
+        backgroundView.addSubview(nameLabel)
+        
         backgroundView.snp.makeConstraints {
             $0.center.equalTo(view.center)
             $0.width.equalTo(350)
@@ -65,11 +67,12 @@ class DetailUserViewController: UIViewController {
             $0.top.equalTo(userProfileImageView.snp.bottom).offset(25)
         }
     }
-    //추후에 rx로 바꿉시다.
+    
     func dismissActionSet() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(dismiss(_:)))
         self.view.addGestureRecognizer(gesture)
     }
+    
     @objc func dismiss(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }

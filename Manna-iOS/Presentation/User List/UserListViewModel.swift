@@ -13,11 +13,13 @@ import RxOptional
 
 class UserListViewModel: Type {
     let disposeBag = DisposeBag()
+    
     let friendsList = UserListModel().friends
     var filteredFriendsList = BehaviorRelay(value: [UserTestStruct]())
     var searchValue: BehaviorRelay<String> = BehaviorRelay(value: "")
     lazy var searchValueObservable: Observable<String> = self.searchValue.asObservable()
     lazy var itemsObservable: Observable<[UserTestStruct]> = Observable.of(self.friendsList)
+    
     init() {
         searchValueObservable
             .subscribe(onNext: { value in

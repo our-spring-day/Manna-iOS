@@ -13,5 +13,4 @@ class NotiListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
 }

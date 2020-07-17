@@ -14,27 +14,29 @@ import UIKit
 
 class AddUserViewController: UIViewController {
     let disposeBag = DisposeBag()
+    
+    let viewModel = AddUserViewModel()
+    
     let imageView = UIImageView()
     var profileView = UIView()
     let searchController = UISearchController(searchResultsController: nil)
     let screenSize: CGRect = UIScreen.main.bounds
     var textLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-    let viewModel = AddUserViewModel()
+    
     override func viewDidLoad() {
-        set()
+        super.viewDidLoad()
         attribute()
         layouts()
         bind()
     }
-    func set() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
-        navigationItem.title = "ID로 친구 추가"
-        view.addSubview(profileView)
-        view.addSubview(imageView)
-        view.addSubview(textLabel)
-    }
+    
     func attribute() {
+        view.do {
+            $0.backgroundColor = .white
+        }
+        navigationItem.do {
+            $0.title = "ID로 친구 추가"
+        }
         searchController.do {
             $0.obscuresBackgroundDuringPresentation = false
             $0.searchBar.placeholder = "친구 ID"
@@ -52,7 +54,11 @@ class AddUserViewController: UIViewController {
             $0.textAlignment = NSTextAlignment.center
         }
     }
+    
     func layouts() {
+        view.addSubview(profileView)
+        view.addSubview(imageView)
+        view.addSubview(textLabel)
         profileView.snp.makeConstraints {
             $0.width.equalTo(400)
             $0.center.equalTo(view.center)
@@ -69,11 +75,13 @@ class AddUserViewController: UIViewController {
             $0.top.equalTo(imageView.safeAreaLayoutGuide.snp.bottom).offset(50)
         }
     }
+    
     func bind() {
         searchController.searchBar.rx.searchButtonClicked
             .withLatestFrom(searchController.searchBar.rx.text) { "\($1!)"}
             .bind(to: self.viewModel.searchValue)
             .disposed(by: disposeBag)
+        
         viewModel.filteredUser
             .filterEmpty()
             .subscribe(onNext: { item in

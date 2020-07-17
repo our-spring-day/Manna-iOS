@@ -7,12 +7,16 @@
 //
 import Foundation
 import UIKit
-import RxSwift
 import RxCocoa
+import RxSwift
+
 class CheckBox: UIButton {
     let disposeBag = DisposeBag()
-    var flag = 0
+    
     var userInfo: UserTestStruct?
+    
+    var flag = 0
+    
     convenience init() {
         self.init(frame: .zero)
         self.setImage(UIImage(named: "unchecked"), for: .normal)
@@ -22,14 +26,10 @@ class CheckBox: UIButton {
                 self.isSelected = !self.isSelected
                 if self.isSelected == true {
                     self.flag = 1
-                    if let info = self.userInfo {
-                        print(info)
-                    }
+                    if let info = self.userInfo { print(info) }
                 } else {
                     self.flag = 0
-                    if let info = self.userInfo {
-                        print("delete",info)
-                    }
+                    if let info = self.userInfo { print("delete",info) }
                 }
             }).disposed(by: disposeBag)
     }

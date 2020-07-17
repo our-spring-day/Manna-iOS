@@ -9,10 +9,12 @@
 import UIKit
 
 class ViewController: UITabBarController {
+    
     let userListViewController = UserListViewController()
     let mannaListViewController = MannaListViewController()
     let notiListViewController = NotiListViewController()
     let setListViewController = SetListViewController()
+    
     enum Tab: Int {
         case userList
         case mannaList

@@ -13,11 +13,13 @@ import RxOptional
 
 class AddUserViewModel: Type {
     let disposeBag = DisposeBag()
+    
     var filteredUser = BehaviorRelay(value: [UserTestStruct]())
     let friendsList = UserListTestStruct().userListTestStruct
     var searchValue: BehaviorRelay<String> = BehaviorRelay(value: "")
     lazy var itemsObservable = Observable.of(self.friendsList)
     lazy var searchValueObservable: Observable<String> = self.searchValue.asObservable()
+    
     init() {
         searchValueObservable
             .distinctUntilChanged()

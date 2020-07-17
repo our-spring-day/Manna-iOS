@@ -11,23 +11,21 @@ import SnapKit
 
 class UserListCell: UITableViewCell {
     static let identifier = "UserListCell"
+    
     let idLabel = UILabel()
     let userImageView = UIImageView()
     let checkBox = CheckBox()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addView()
         attribute()
         layout()
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func addView() {
-        addSubview(idLabel)
-        addSubview(userImageView)
-        addSubview(checkBox)
-    }
+    
     func attribute() {
         idLabel.do {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -47,6 +45,10 @@ class UserListCell: UITableViewCell {
         }
     }
     func layout() {
+        addSubview(idLabel)
+        addSubview(userImageView)
+        addSubview(checkBox)
+        
         idLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.left.equalTo(userImageView.snp.right).offset(10)
