@@ -18,7 +18,6 @@ class MannaListViewController: UIViewController {
     let mannaListViewModel = MannaListViewModel()
     
     let mannaList = UITableView()
-    let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVC))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +27,7 @@ class MannaListViewController: UIViewController {
     }
     
     func attribute() {
+        let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVC))
         navigationItem.do {
             $0.rightBarButtonItem = add
             $0.title = "약속목록"
