@@ -14,6 +14,7 @@ import Then
 
 class AddMannaViewController: UIViewController {
     let disposeBag = DisposeBag()
+    var pageflag: Bool = false
     
     let viewModel = AddMannaViewModel()
     let pageView = MannaPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
@@ -65,7 +66,7 @@ class AddMannaViewController: UIViewController {
             $0.textAlignment = .center
         }
         titleButton.do {
-            $0.setTitle("타이", for: .normal)
+            $0.setTitle("완료", for: .normal)
             $0.setTitleColor(.black, for: .normal)
             $0.layer.borderWidth = 1.0
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -76,7 +77,7 @@ class AddMannaViewController: UIViewController {
             $0.addTarget(self, action: #selector(prevBtn), for: .touchUpInside)
         }
         nextButton.do {
-            $0.setTitle("다음", for: .normal)
+            $0.setTitle("완료", for: .normal)
             $0.setTitleColor(.black, for: .normal)
             $0.layer.borderWidth = 1.0
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -108,6 +109,7 @@ class AddMannaViewController: UIViewController {
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
             $0.centerX.equalTo(view.snp.centerX)
+            $0.height.equalTo(30)
         }
         prevButton.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
@@ -161,11 +163,15 @@ class AddMannaViewController: UIViewController {
         let currentPage = pageView.pageControl.currentPage
         let prevPage = currentPage - 1
         
+        if pageView.view.isHidden == true && pageflag == false {
+            self.navigationController?.popViewController(animated: true)
+        }
+        
         if currentPage == 0 {
             self.pageView.view.isHidden = true
-            //            self.titleInput.isHidden = false
+            self.pageflag = false
+            
             UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                //                self.titleInput.transform = CGAffineTransform.identity
                 self.titleLabel.transform = CGAffineTransform.identity
                 self.nextButton.transform = CGAffineTransform.identity
             }) { _ in
@@ -175,7 +181,7 @@ class AddMannaViewController: UIViewController {
                 self.titleInput.isHidden = false
                 self.titleButton.isHidden = false
             }
-        } else {
+        } else if currentPage >= 1 {
             let prevVC = currentView[prevPage]
             self.pageView.setViewControllers([prevVC], direction: .reverse, animated: true) { _ in
                 self.pageView.pageControl.currentPage = prevPage
@@ -228,6 +234,7 @@ class AddMannaViewController: UIViewController {
             self.nextButton.transform = move
         }) { _ in
             self.pageView.view.isHidden = false
+            self.pageflag = true
         }
     }
 }
