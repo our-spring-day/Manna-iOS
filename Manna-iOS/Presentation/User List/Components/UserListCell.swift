@@ -40,7 +40,7 @@ class UserListCell: UITableViewCell {
         }
         checkBox.do {
             $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
+            $0.frame = CGRect(x: 0, y: 0, width: 300, height: 300)
             $0.setImage(UIImage(named: "unchecked"), for: .normal)
         }
     }
@@ -59,7 +59,7 @@ class UserListCell: UITableViewCell {
             $0.centerY.equalToSuperview()
         }
         checkBox.snp.makeConstraints {
-            $0.right.equalToSuperview().offset(-10)
+            $0.right.equalToSuperview().offset(-20)
             $0.centerY.equalToSuperview()
         }
     }

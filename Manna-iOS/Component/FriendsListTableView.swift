@@ -25,7 +25,6 @@ class FriendsListTableView: UIView {
         self.addSubview(tableView)
         attribute()
         layout()
-        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -46,14 +45,4 @@ class FriendsListTableView: UIView {
             $0.edges.equalToSuperview()
         }
     }
-    
-    func bind() {
-//        viewModel.filteredFriendsList
-//            .bind(to: tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: UserTestStruct, cell: UserListCell) in
-//                cell.idLabel.text = element.name
-//                cell.userImageView.image = UIImage(named: "\(element.profileImage)")
-//                cell.checkBox.userInfo = element
-//        }.disposed(by: disposeBag)
-    }
-    
 }

@@ -14,6 +14,7 @@ import SnapKit
 class SetListViewController: UIViewController {
     let disposeBag = DisposeBag()
     
+    let viewModel = UserListViewModel()
     var meetingMemberArray: [UserTestStruct] = []
     let screenSize: CGRect = UIScreen.main.bounds
     var tableView = FriendsListTableView(frame: CGRect(x: 5, y: 266, width: UIScreen.main.bounds.width-10, height: UIScreen.main.bounds.height - 266))
@@ -37,6 +38,13 @@ class SetListViewController: UIViewController {
     }
     
     func bind() {
+        viewModel.filteredFriendsList
+            .bind(to: tableView.tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: UserTestStruct, cell: UserListCell) in
+                cell.idLabel.text = element.name
+                cell.userImageView.image = UIImage(named: "\(element.profileImage)")
+                cell.checkBox.userInfo = element
+        }.disposed(by: disposeBag)
+        
         tableView.tableView.rx.modelSelected(UserTestStruct.self)
             .subscribe(onNext: { str in
                 print("이부분인가요?", str)
@@ -44,6 +52,3 @@ class SetListViewController: UIViewController {
         )
     }
 }
-//쓸모가 있을듯
-//let cell = self?.tableView.tableView.cellForRow(at: indexPath)
-//print(indexPath[1])

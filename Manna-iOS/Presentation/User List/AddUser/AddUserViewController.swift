@@ -49,6 +49,9 @@ class AddUserViewController: UIViewController {
         }
         imageView.do {
             $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.layer.cornerRadius = 10
+            $0.layer.masksToBounds = true
+            $0.contentMode = .scaleAspectFill
         }
         textLabel.do {
             $0.textAlignment = NSTextAlignment.center
@@ -57,16 +60,16 @@ class AddUserViewController: UIViewController {
     
     func layouts() {
         view.addSubview(profileView)
-        view.addSubview(imageView)
-        view.addSubview(textLabel)
+        profileView.addSubview(imageView)
+        profileView.addSubview(textLabel)
         profileView.snp.makeConstraints {
             $0.width.equalTo(400)
             $0.center.equalTo(view.center)
-            $0.top.equalTo(view).offset(200)
+            $0.top.equalTo(view).offset(130)
         }
         imageView.snp.makeConstraints {
             $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
-            $0.top.equalTo(view).offset(300)
+            $0.top.equalTo(profileView).offset(100)
             $0.width.equalTo(screenSize.width).offset(300)
             $0.height.equalTo(screenSize.height).offset(300)
         }
