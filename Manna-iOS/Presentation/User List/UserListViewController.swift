@@ -16,13 +16,14 @@ class UserListViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     var delegate: SendDataDelegate?
-    let tableView = UITableView()
+//    let tableView = UITableView()
+    var tableView = FriendsListTableView()
     let searchController = UISearchController(searchResultsController: nil)
     let viewModel = UserListViewModel()
     var selectedFriends = BehaviorRelay(value: UserTestStruct(name: "", profileImage: ""))
     
     let addFriendButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
-    
+    let screenSize: CGRect = UIScreen.main.bounds
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -47,10 +48,10 @@ class UserListViewController: UIViewController {
             $0.rightBarButtonItem = addFriendButton
             $0.rightBarButtonItem?.tintColor = UIColor(named: "default")
         }
-        tableView.do {
-            $0.register(UserListCell.self, forCellReuseIdentifier: UserListCell.identifier)
-            $0.rowHeight = 55
-        }
+//        tableView.do {
+//            $0.register(UserListCell.self, forCellReuseIdentifier: UserListCell.identifier)
+//            $0.rowHeight = 55
+//        }
         searchController.do {
             $0.obscuresBackgroundDuringPresentation = false
             $0.searchBar.placeholder = "친구 검색"
@@ -61,19 +62,19 @@ class UserListViewController: UIViewController {
     
     func layout() {
         view.addSubview(tableView)
-        
+//        tableView = FriendsListTableView(frame: CGRect(x: 5, y: 266, width: screenSize.width-10, height: screenSize.height - 266))
         tableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }
     
     func bind() {
-        viewModel.filteredFriendsList
-            .bind(to: tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: UserTestStruct, cell: UserListCell) in
-                cell.idLabel.text = element.name
-                cell.userImageView.image = UIImage(named: "\(element.profileImage)")
-                cell.checkBox.isHidden = true
-        }.disposed(by: disposeBag)
+//        viewModel.filteredFriendsList
+//            .bind(to: tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: UserTestStruct, cell: UserListCell) in
+//                cell.idLabel.text = element.name
+//                cell.userImageView.image = UIImage(named: "\(element.profileImage)")
+//                cell.checkBox.isHidden = true
+//        }.disposed(by: disposeBag)
         
         searchController.searchBar.rx.text
         .orEmpty
@@ -90,16 +91,16 @@ class UserListViewController: UIViewController {
             }
         }).disposed(by: disposeBag)
         
-        tableView.rx.modelSelected(UserTestStruct.self)
-        .subscribe(onNext: { item in
-            let detailUserViewController = DetailUserViewController()
-            detailUserViewController.do {
-                $0.sendData(data: item)
-                self.definesPresentationContext = true
-                $0.modalPresentationStyle = .overFullScreen
-                $0.modalTransitionStyle = .crossDissolve
-                self.present($0, animated: true, completion: nil)
-            }
-        }).disposed(by: disposeBag)
+//        tableView.rx.modelSelected(UserTestStruct.self)
+//        .subscribe(onNext: { item in
+//            let detailUserViewController = DetailUserViewController()
+//            detailUserViewController.do {
+//                $0.sendData(data: item)
+//                self.definesPresentationContext = true
+//                $0.modalPresentationStyle = .overFullScreen
+//                $0.modalTransitionStyle = .crossDissolve
+//                self.present($0, animated: true, completion: nil)
+//            }
+//        }).disposed(by: disposeBag)
     }
 }

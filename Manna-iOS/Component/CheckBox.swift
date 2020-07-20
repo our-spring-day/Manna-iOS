@@ -26,6 +26,7 @@ class CheckBox: UIButton {
                 self.isSelected = !self.isSelected
                 if self.isSelected == true {
                     self.flag = 1
+                    print(self.userInfo)
                     if let info = self.userInfo { print(info) }
                 } else {
                     self.flag = 0

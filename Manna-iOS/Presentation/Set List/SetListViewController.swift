@@ -20,6 +20,7 @@ class SetListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         attribute()
         layout()
         bind()
@@ -33,7 +34,10 @@ class SetListViewController: UIViewController {
     
     func layout() {
         view.addSubview(tableView)
-        tableView = FriendsListTableView(frame: CGRect(x: 5, y: 266, width: screenSize.width-10, height: screenSize.height - 266))
+        //        tableView = FriendsListTableView(frame: CGRect(x: 5, y: 266, width: screenSize.width-10, height: screenSize.height - 266))
+                tableView.snp.makeConstraints {
+                    $0.edges.equalToSuperview()
+                }
     }
     
     func bind() {

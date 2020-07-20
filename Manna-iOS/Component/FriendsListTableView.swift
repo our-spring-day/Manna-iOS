@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
+import Then
 
 class FriendsListTableView: UIView {
     let disposeBag = DisposeBag()
@@ -21,9 +22,10 @@ class FriendsListTableView: UIView {
     
     override init (frame: CGRect) {
         super.init(frame: frame)
+        self.addSubview(tableView)
         attribute()
         layout()
-        tableBind()
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -45,9 +47,9 @@ class FriendsListTableView: UIView {
         }
     }
     
-    func tableBind() {
+    func bind() {
         viewModel.filteredFriendsList
-            .bind(to: tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(index: Int, element: UserTestStruct, cell: UserListCell) in
+            .bind(to: tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: UserTestStruct, cell: UserListCell) in
                 cell.idLabel.text = element.name
                 cell.userImageView.image = UIImage(named: "\(element.profileImage)")
                 cell.checkBox.userInfo = element
