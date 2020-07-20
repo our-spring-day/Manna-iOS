@@ -48,11 +48,12 @@ class FriendsListTableView: UIView {
     }
     
     func bind() {
-        viewModel.filteredFriendsList
-            .bind(to: tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: UserTestStruct, cell: UserListCell) in
-                cell.idLabel.text = element.name
-                cell.userImageView.image = UIImage(named: "\(element.profileImage)")
-                cell.checkBox.userInfo = element
-        }.disposed(by: disposeBag)
+//        viewModel.filteredFriendsList
+//            .bind(to: tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: UserTestStruct, cell: UserListCell) in
+//                cell.idLabel.text = element.name
+//                cell.userImageView.image = UIImage(named: "\(element.profileImage)")
+//                cell.checkBox.userInfo = element
+//        }.disposed(by: disposeBag)
     }
+    
 }
