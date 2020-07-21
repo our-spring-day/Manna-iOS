@@ -32,6 +32,7 @@
 		CCB1578924AB53B400D81511 /* SearchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578824AB53B400D81511 /* SearchProtocol.swift */; };
 		CCC1F7ED24BDA70700DC8BCB /* FriendsListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1F7EC24BDA70700DC8BCB /* FriendsListTableView.swift */; };
 		CCC1F7F024BEE7B100DC8BCB /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1F7EF24BEE7B100DC8BCB /* CheckBox.swift */; };
+		CCD1C89924C6F33900C3AE3D /* FriendsListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD1C89824C6F33900C3AE3D /* FriendsListCollectionView.swift */; };
 		F69ED73508E16B9556FF55D3 /* Pods_Manna_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5434F4B54E67CE37DCF01314 /* Pods_Manna_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +66,7 @@
 		CCB1578824AB53B400D81511 /* SearchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProtocol.swift; sourceTree = "<group>"; };
 		CCC1F7EC24BDA70700DC8BCB /* FriendsListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableView.swift; sourceTree = "<group>"; };
 		CCC1F7EF24BEE7B100DC8BCB /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		CCD1C89824C6F33900C3AE3D /* FriendsListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListCollectionView.swift; sourceTree = "<group>"; };
 		F1D0975FD460DE1097C65D92 /* Pods-Manna-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manna-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -232,6 +234,7 @@
 			children = (
 				CCC1F7EF24BEE7B100DC8BCB /* CheckBox.swift */,
 				CCC1F7EC24BDA70700DC8BCB /* FriendsListTableView.swift */,
+				CCD1C89824C6F33900C3AE3D /* FriendsListCollectionView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCD1C89924C6F33900C3AE3D /* FriendsListCollectionView.swift in Sources */,
 				CC6E7D5C2487AB070050D774 /* AddUserViewController.swift in Sources */,
 				CCB1578924AB53B400D81511 /* SearchProtocol.swift in Sources */,
 				CCB1578624AB3D0E00D81511 /* UserTestStruct.swift in Sources */,

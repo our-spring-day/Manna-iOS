@@ -43,5 +43,8 @@ class SetListViewController: UIViewController {
                 cell.userImageView.image = UIImage(named: "\(element.profileImage)")
                 cell.checkBox.userInfo = element
         }.disposed(by: disposeBag)
+        
+        tableView.checkBox.rx.tap
+        
     }
 }

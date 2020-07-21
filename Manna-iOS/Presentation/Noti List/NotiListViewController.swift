@@ -10,9 +10,15 @@ import UIKit
 import RxSwift
 
 class NotiListViewController: UIViewController {
-    let disposeBag = DisposeBag()
+    
     
     let viewModel = UserListViewModel()
+    var meetingMemberArray: [UserTestStruct] = []
+    let screenSize: CGRect = UIScreen.main.bounds
+    var tableView = FriendsListTableView(frame: CGRect(x: 5, y: 266, width: UIScreen.main.bounds.width-10, height: UIScreen.main.bounds.height - 266))
+    
+    let disposeBag = DisposeBag()
+    
     var collectionView: UICollectionView!
     let layoutValue: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     
@@ -45,6 +51,7 @@ class NotiListViewController: UIViewController {
     
     func layout() {
         view.addSubview(collectionView)
+        view.addSubview(tableView)
         
         collectionView.snp.makeConstraints {
             $0.top.equalTo(view.snp.top).offset(100)
@@ -65,5 +72,18 @@ class NotiListViewController: UIViewController {
             .subscribe(onNext: { str in
                 print(str)
             }).disposed(by: disposeBag)
+        
+        viewModel.filteredFriendsList
+            .bind(to: tableView.tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: UserTestStruct, cell: UserListCell) in
+                cell.idLabel.text = element.name
+                cell.userImageView.image = UIImage(named: "\(element.profileImage)")
+                cell.checkBox.userInfo = element
+                cell.checkBox.rx.tap
+                    .subscribe(onNext: {str in
+                        print("여기서되면 진짜 된다.")
+                    }).disposed(by: self.disposeBag)
+        }.disposed(by: disposeBag)
+        
+        
     }
 }

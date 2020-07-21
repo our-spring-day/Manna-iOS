@@ -16,13 +16,11 @@ class FriendsListTableView: UIView {
     let disposeBag = DisposeBag()
     
     let tableView = UITableView()
-    let viewModel = UserListViewModel()
     let checkBox = CheckBox()
     var memberInfo = MeetingInfo()
     
     override init (frame: CGRect) {
         super.init(frame: frame)
-        self.addSubview(tableView)
         attribute()
         layout()
     }
@@ -32,6 +30,8 @@ class FriendsListTableView: UIView {
     }
     
     func attribute() {
+        self.addSubview(tableView)
+        
         tableView.do {
             $0.register(UserListCell.self, forCellReuseIdentifier: UserListCell.identifier)
             $0.rowHeight = 55

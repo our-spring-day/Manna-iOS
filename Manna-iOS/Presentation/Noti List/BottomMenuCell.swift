@@ -23,7 +23,7 @@ class BottomMenuCell: UICollectionViewCell {
         super.init(frame: frame)
         
         self.bottomImageView = UIImageView()
-        self.bottomImageView?.contentMode = .scaleAspectFit
+        self.bottomImageView?.contentMode = .scaleAspectFill
         
         self.addSubview(self.bottomImageView!)
         
