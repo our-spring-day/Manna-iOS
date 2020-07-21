@@ -24,10 +24,12 @@ class AddMannaViewModel: AddMannaViewModelType {
         let people = PublishSubject<String>()
         let time = PublishSubject<String>()
         let place = PublishSubject<String>()
+        let address = PublishSubject<String>()
     }
     
     struct Output {
-        let address = BehaviorRelay<[Address]>(value: [Address]())
+        let addressResult = BehaviorRelay<[Address]>(value: [Address]())
+        let addressRoad = BehaviorRelay<String>(value: "")
     }
     
     let input = Input()
@@ -39,6 +41,14 @@ class AddMannaViewModel: AddMannaViewModelType {
         let peopleInput = input.people
         let timeInput = input.time
         let placeInput = input.place
+        
+        let addressInput = input.address.asObserver()
+        let addressOutput = output.addressRoad.asObservable()
+        
+        addressInput
+            .debug()
+            .bind(to: output.addressRoad)
+            .disposed(by: disposeBag)
         
         Observable.zip(titleInput, peopleInput, timeInput, placeInput)
             .subscribe(onNext: { title, people, time, place in

@@ -129,11 +129,11 @@
 			isa = PBXGroup;
 			children = (
 				A5EAE114248A622100BA4E39 /* AddMannaViewController.swift */,
+				A55A80BA248FD76200EDFA99 /* AddMannaViewModel.swift */,
+				A58ADE5724B4B9E200C2E37A /* MannaPageViewController.swift */,
 				A5FCFF3424A4A2CD00641112 /* PeopleAddMannaViewController.swift */,
 				A522AD8024A2194D00B8C2F2 /* TimeAddMannaViewController.swift */,
 				A522AD8224A2196600B8C2F2 /* PlaceAddMannaViewController.swift */,
-				A55A80BA248FD76200EDFA99 /* AddMannaViewModel.swift */,
-				A58ADE5724B4B9E200C2E37A /* MannaPageViewController.swift */,
 				A5EB4A1124BCB75F0084EBE5 /* SelectPlaceViewController.swift */,
 				A528168E24C0A05900EDC4E9 /* SelectPlacePinViewController.swift */,
 			);

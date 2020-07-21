@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import RxSwift
 import SnapKit
 
 class PlaceAddMannaViewController: UIViewController {
+    let disposeBag = DisposeBag()
+    
+    let viewModel = AddMannaViewModel()
     static let shared = PlaceAddMannaViewController()
     
     let line = UIBezierPath()
@@ -22,6 +26,7 @@ class PlaceAddMannaViewController: UIViewController {
         super.viewDidLoad()
         attribute()
         layout()
+        bind()
     }
 
     func attribute() {
@@ -43,7 +48,6 @@ class PlaceAddMannaViewController: UIViewController {
             $0.setTitleColor(.black, for: .normal)
             $0.layer.borderWidth = 1.0
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-            $0.addTarget(self, action: #selector(detail), for: .touchUpInside)
         }
         selectButton.do {
             $0.setTitle("현위치로 주소설정", for: .normal)
@@ -67,14 +71,12 @@ class PlaceAddMannaViewController: UIViewController {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
             $0.leading.equalTo(view.snp.leading).offset(40)
         }
-
         mannaPlace.snp.makeConstraints {
             $0.top.equalTo(descriptLabel.snp.top).offset(70)
             $0.centerX.equalTo(view.snp.centerX)
             $0.width.equalTo(290)
             $0.height.equalTo(40)
         }
-        
         searchButton.snp.makeConstraints {
             $0.top.equalTo(mannaPlace)
             $0.leading.equalTo(mannaPlace.snp.trailing).offset(5)
@@ -82,7 +84,6 @@ class PlaceAddMannaViewController: UIViewController {
             $0.width.equalTo(50)
             $0.height.equalTo(40)
         }
-        
         selectButton.snp.makeConstraints {
             $0.top.equalTo(mannaPlace.snp.bottom).offset(40)
             $0.centerX.equalTo(view.snp.centerX)
@@ -91,9 +92,18 @@ class PlaceAddMannaViewController: UIViewController {
         }
     }
     
-    @objc func detail() {
-        let view = SelectPlaceViewController()
-        view.modalPresentationStyle = .overFullScreen 
-        self.present(view, animated: true, completion: nil)
+    func bind() {
+        searchButton.rx.tap
+            .map({ [weak self] _ in
+                (self?.mannaPlace.text)!
+            })
+            .do(onNext: { [weak self] _ in
+                let view = SelectPlaceViewController()
+                view.modalPresentationStyle = .overFullScreen
+                
+                self?.present(view, animated: true, completion: nil)
+            })
+            .bind(to: viewModel.input.address)
+            .disposed(by: disposeBag)
     }
 }

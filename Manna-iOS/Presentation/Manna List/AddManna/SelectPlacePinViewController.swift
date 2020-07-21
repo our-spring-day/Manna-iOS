@@ -84,8 +84,8 @@ class SelectPlacePinViewController: UIViewController {
             $0.height.equalTo(30)
         }
         aiming.image = #imageLiteral(resourceName: "target")
-        
     }
+    
     func buttonAutolayout() {
         view.addSubview(button)
         button.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 200).isActive = true

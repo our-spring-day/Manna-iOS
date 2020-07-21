@@ -22,7 +22,6 @@ class TimeAddMannaViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        set()
         attribute()
         layout()
     }

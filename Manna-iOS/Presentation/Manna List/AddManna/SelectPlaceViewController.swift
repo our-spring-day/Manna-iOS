@@ -76,21 +76,28 @@ class SelectPlaceViewController: UIViewController {
             $0.bottom.equalTo(view.snp.bottom)
         }
     }
-        
+    
     func bind() {
-        viewModel.output.address
+        viewModel.output.addressRoad
+            .subscribe(onNext: { str in
+                self.searchText.text = str
+            })
+//            .bind(to: searchText.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.output.addressResult
             .bind(to: searchResult.rx.items(cellIdentifier: AddressListCell.identifier, cellType: AddressListCell.self)) { _, item, cell in
                 cell.address.text = item.address
                 cell.jibunAddress.text = item.roadAddress
-        }
-        .disposed(by: disposeBag)
+            }
+            .disposed(by: disposeBag)
     }
-
+    
     @objc func result() {
         let input: String = searchText.text!
-
+        
         AddressAPI.getAddress(input).asObservable()
-            .bind(to: self.viewModel.output.address)
+            .bind(to: self.viewModel.output.addressResult)
             .disposed(by: disposeBag)
     }
 }

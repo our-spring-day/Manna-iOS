@@ -31,8 +31,8 @@ class AddMannaViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         titleInput.rx.text.orEmpty
-            .subscribe(onNext: { str in
-                self.titleLabel.text = str
+            .subscribe(onNext: { [weak self] str in
+                self?.titleLabel.text = str
             })
             .disposed(by: disposeBag)
         
