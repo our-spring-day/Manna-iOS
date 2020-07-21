@@ -21,7 +21,6 @@ class SetListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         attribute()
         layout()
         bind()
@@ -44,11 +43,5 @@ class SetListViewController: UIViewController {
                 cell.userImageView.image = UIImage(named: "\(element.profileImage)")
                 cell.checkBox.userInfo = element
         }.disposed(by: disposeBag)
-        
-        tableView.tableView.rx.modelSelected(UserTestStruct.self)
-            .subscribe(onNext: { str in
-                print("이부분인가요?", str)
-            }).disposed(by: disposeBag
-        )
     }
 }

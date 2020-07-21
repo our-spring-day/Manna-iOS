@@ -26,10 +26,12 @@ class CheckBox: UIButton {
                 self.isSelected = !self.isSelected
                 if self.isSelected == true {
                     self.flag = 1
-                    if let info = self.userInfo { print(info) }
+                    guard let info = self.userInfo else { return }
+                    print(info)
                 } else {
                     self.flag = 0
-                    if let info = self.userInfo { print("delete",info) }
+                    guard let info = self.userInfo else { return }
+                    print("delete",info)
                 }
             }).disposed(by: disposeBag)
     }

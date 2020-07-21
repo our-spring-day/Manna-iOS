@@ -16,7 +16,6 @@ class UserListViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     var delegate: SendDataDelegate?
-//    let tableView = UITableView()
     var tableView = FriendsListTableView()
     let searchController = UISearchController(searchResultsController: nil)
     let viewModel = UserListViewModel()
@@ -48,10 +47,6 @@ class UserListViewController: UIViewController {
             $0.rightBarButtonItem = addFriendButton
             $0.rightBarButtonItem?.tintColor = UIColor(named: "default")
         }
-//        tableView.do {
-//            $0.register(UserListCell.self, forCellReuseIdentifier: UserListCell.identifier)
-//            $0.rowHeight = 55
-//        }
         searchController.do {
             $0.obscuresBackgroundDuringPresentation = false
             $0.searchBar.placeholder = "친구 검색"
@@ -70,38 +65,38 @@ class UserListViewController: UIViewController {
     
     func bind() {
         viewModel.filteredFriendsList
-            .bind(to: tableView.tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: UserTestStruct, cell: UserListCell) in
+            .bind(to: tableView.tableView.rx.items(cellIdentifier: UserListCell.identifier,cellType: UserListCell.self))
+            {(_: Int, element: UserTestStruct, cell: UserListCell) in
                 cell.idLabel.text = element.name
                 cell.userImageView.image = UIImage(named: "\(element.profileImage)")
                 cell.checkBox.isHidden = true
         }.disposed(by: disposeBag)
         
         searchController.searchBar.rx.text
-        .orEmpty
-        .distinctUntilChanged()
-        .bind(to: viewModel.searchValue)
-        .disposed(by: disposeBag)
+            .orEmpty
+            .distinctUntilChanged()
+            .bind(to: viewModel.searchValue)
+            .disposed(by: disposeBag)
         
         self.addFriendButton.rx.tap
-        .subscribe(onNext: {
-            let addUserViewController = AddUserViewController()
-            addUserViewController.do {
-                $0.hidesBottomBarWhenPushed = true
-                self.navigationController?.pushViewController($0, animated: true)
-            }
-        }).disposed(by: disposeBag)
+            .subscribe(onNext: {
+                let addUserViewController = AddUserViewController()
+                addUserViewController.do {
+                    $0.hidesBottomBarWhenPushed = true
+                    self.navigationController?.pushViewController($0, animated: true)
+                }
+            }).disposed(by: disposeBag)
         
         tableView.tableView.rx.modelSelected(UserTestStruct.self)
-        .subscribe(onNext: { item in
-            let detailUserViewController = DetailUserViewController()
-            detailUserViewController.do {
-                $0.sendData(data: item)
-                self.definesPresentationContext = true
-                $0.modalPresentationStyle = .overFullScreen
-                $0.modalTransitionStyle = .crossDissolve
-                self.present($0, animated: true, completion: nil)
-            }
-        }).disposed(by: disposeBag)
-//        tableView.tableView.rx.modelSelected(<#T##modelType: T.Type##T.Type#>)
+            .subscribe(onNext: { item in
+                let detailUserViewController = DetailUserViewController()
+                detailUserViewController.do {
+                    $0.sendData(data: item)
+                    self.definesPresentationContext = true
+                    $0.modalPresentationStyle = .overFullScreen
+                    $0.modalTransitionStyle = .crossDissolve
+                    self.present($0, animated: true, completion: nil)
+                }
+            }).disposed(by: disposeBag)
     }
 }
