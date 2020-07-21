@@ -30,7 +30,7 @@ class NotiListViewController: UIViewController {
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layoutValue)
         collectionView.do {
             $0.backgroundColor = .white
-            $0.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+            $0.register(BottomMenuCell.self, forCellWithReuseIdentifier: BottomMenuCell.identifier)
             $0.isPagingEnabled = true
             $0.showsHorizontalScrollIndicator = false
         }
@@ -55,11 +55,10 @@ class NotiListViewController: UIViewController {
     }
     func bind() {
         viewModel.filteredFriendsList
-            .bind(to: collectionView.rx.items(cellIdentifier: "cell", cellType: UICollectionViewCell.self)) {
-                (index: Int, element: UserTestStruct, cell: UICollectionViewCell) in
+            .bind(to: collectionView.rx.items(cellIdentifier: BottomMenuCell.identifier, cellType: BottomMenuCell.self)) {
+                (index: Int, element: UserTestStruct, cell: BottomMenuCell) in
                 cell.backgroundColor = .lightGray
-                print(index)
-                print(element)
+                cell.bottomImageView?.image = UIImage(named: "\(element.profileImage)")
         }.disposed(by: disposeBag)
         
         collectionView.rx.modelSelected(UserTestStruct.self)

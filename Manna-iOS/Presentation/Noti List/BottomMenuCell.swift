@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Foundation
+import SnapKit
 
 class BottomMenuCell: UICollectionViewCell {
-    static  let ID = "cell"
+    static  let identifier = "cell"
     
     var bottomImageView: UIImageView?
     
@@ -22,7 +24,9 @@ class BottomMenuCell: UICollectionViewCell {
         
         self.bottomImageView = UIImageView()
         self.bottomImageView?.contentMode = .scaleAspectFit
+        
         self.addSubview(self.bottomImageView!)
+        
         self.bottomImageView?.snp.makeConstraints { make in
             make.leading.top.trailing.bottom.equalTo(0)
         }
