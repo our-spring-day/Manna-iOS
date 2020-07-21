@@ -24,15 +24,6 @@ class CheckBox: UIButton {
         self.rx.tap
             .subscribe(onNext: { item in
                 self.isSelected = !self.isSelected
-                if self.isSelected == true {
-                    self.flag = 1
-                    guard let info = self.userInfo else { return }
-                    print(info)
-                } else {
-                    self.flag = 0
-                    guard let info = self.userInfo else { return }
-                    print("delete",info)
-                }
             }).disposed(by: disposeBag)
     }
 }
