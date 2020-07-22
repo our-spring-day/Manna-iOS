@@ -79,10 +79,10 @@ class SelectPlaceViewController: UIViewController {
     
     func bind() {
         viewModel.output.addressRoad
-            .subscribe(onNext: { str in
-                self.searchText.text = str
+            .debug()
+            .subscribe(onNext: { [weak self] str in
+                self?.searchText.text = str
             })
-//            .bind(to: searchText.rx.text)
             .disposed(by: disposeBag)
         
         viewModel.output.addressResult

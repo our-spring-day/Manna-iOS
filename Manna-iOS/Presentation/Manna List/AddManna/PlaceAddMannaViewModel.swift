@@ -7,3 +7,31 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
+
+protocol PlaceAddMannaViewModelType {
+    associatedtype Input
+    associatedtype Output
+    
+    var input: Input { get }
+    var output: Output { get }
+}
+
+class PlaceAddMannaViewModel: PlaceAddMannaViewModelType {
+    struct Input {
+        let address = PublishSubject<String>()
+    }
+    
+    struct Output {
+        
+    }
+    
+    let input = Input()
+    let output = Output()
+    let disposeBag = DisposeBag()
+    
+    init() {
+        
+    }
+}

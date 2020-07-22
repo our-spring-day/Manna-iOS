@@ -11,6 +11,8 @@
 		A522AD8124A2194D00B8C2F2 /* TimeAddMannaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A522AD8024A2194D00B8C2F2 /* TimeAddMannaViewController.swift */; };
 		A522AD8324A2196600B8C2F2 /* PlaceAddMannaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A522AD8224A2196600B8C2F2 /* PlaceAddMannaViewController.swift */; };
 		A528168F24C0A05900EDC4E9 /* SelectPlacePinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528168E24C0A05900EDC4E9 /* SelectPlacePinViewController.swift */; };
+		A528169424C8522B00EDC4E9 /* PlaceAddMannaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528169324C8522B00EDC4E9 /* PlaceAddMannaViewModel.swift */; };
+		A528169624C8580200EDC4E9 /* SelectPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528169524C8580200EDC4E9 /* SelectPlaceViewModel.swift */; };
 		A54702B22486A93F0091CA55 /* Manna.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54702B12486A93F0091CA55 /* Manna.swift */; };
 		A552C78724A4ED0D00D834BF /* AddMannaView-Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A552C78624A4ED0D00D834BF /* AddMannaView-Ext.swift */; };
 		A55A80BB248FD76200EDFA99 /* AddMannaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55A80BA248FD76200EDFA99 /* AddMannaViewModel.swift */; };
@@ -51,6 +53,8 @@
 		A522AD8024A2194D00B8C2F2 /* TimeAddMannaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAddMannaViewController.swift; sourceTree = "<group>"; };
 		A522AD8224A2196600B8C2F2 /* PlaceAddMannaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAddMannaViewController.swift; sourceTree = "<group>"; };
 		A528168E24C0A05900EDC4E9 /* SelectPlacePinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlacePinViewController.swift; sourceTree = "<group>"; };
+		A528169324C8522B00EDC4E9 /* PlaceAddMannaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAddMannaViewModel.swift; sourceTree = "<group>"; };
+		A528169524C8580200EDC4E9 /* SelectPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceViewModel.swift; sourceTree = "<group>"; };
 		A54702B12486A93F0091CA55 /* Manna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manna.swift; sourceTree = "<group>"; };
 		A552C78624A4ED0D00D834BF /* AddMannaView-Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddMannaView-Ext.swift"; sourceTree = "<group>"; };
 		A55A80BA248FD76200EDFA99 /* AddMannaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMannaViewModel.swift; sourceTree = "<group>"; };
@@ -134,7 +138,9 @@
 				A5FCFF3424A4A2CD00641112 /* PeopleAddMannaViewController.swift */,
 				A522AD8024A2194D00B8C2F2 /* TimeAddMannaViewController.swift */,
 				A522AD8224A2196600B8C2F2 /* PlaceAddMannaViewController.swift */,
+				A528169324C8522B00EDC4E9 /* PlaceAddMannaViewModel.swift */,
 				A5EB4A1124BCB75F0084EBE5 /* SelectPlaceViewController.swift */,
+				A528169524C8580200EDC4E9 /* SelectPlaceViewModel.swift */,
 				A528168E24C0A05900EDC4E9 /* SelectPlacePinViewController.swift */,
 			);
 			path = AddManna;
@@ -411,6 +417,7 @@
 				A522AD8124A2194D00B8C2F2 /* TimeAddMannaViewController.swift in Sources */,
 				A55A80BB248FD76200EDFA99 /* AddMannaViewModel.swift in Sources */,
 				A522AD8324A2196600B8C2F2 /* PlaceAddMannaViewController.swift in Sources */,
+				A528169624C8580200EDC4E9 /* SelectPlaceViewModel.swift in Sources */,
 				A58ADE5824B4B9E200C2E37A /* MannaPageViewController.swift in Sources */,
 				A585F83F2482963F00A60530 /* MannaListCell.swift in Sources */,
 				A5EB4A1024BCA7310084EBE5 /* AddressListCell.swift in Sources */,
@@ -431,6 +438,7 @@
 				A5677B0E24B78D4500059EE0 /* UIView-Ext.swift in Sources */,
 				A5EAE115248A622100BA4E39 /* AddMannaViewController.swift in Sources */,
 				CC705A0B2477D28800462251 /* UserListViewController.swift in Sources */,
+				A528169424C8522B00EDC4E9 /* PlaceAddMannaViewModel.swift in Sources */,
 				CC7059ED2477B81100462251 /* AppDelegate.swift in Sources */,
 				CC7059EF2477B81100462251 /* SceneDelegate.swift in Sources */,
 				A5EB4A1224BCB75F0084EBE5 /* SelectPlaceViewController.swift in Sources */,
