@@ -132,11 +132,11 @@ class AddMannaViewController: UIViewController {
     
     func bind() {
         titleInput.rx.text.orEmpty
-            .bind(to: viewModel.input.title)
+            .bind(to: viewModel.inputs.title)
             .disposed(by: disposeBag)
         
         peopleVC.mannaPeople.rx.text.orEmpty
-            .bind(to: viewModel.input.people)
+            .bind(to: viewModel.inputs.people)
             .disposed(by: disposeBag)
         
         timeVC.onPicker.rx.date
@@ -145,11 +145,11 @@ class AddMannaViewController: UIViewController {
                 dateFormatter.dateFormat = "MM월 dd일 hh시mm분"
                 return dateFormatter.string(from: $0)
         }
-        .bind(to: viewModel.input.time)
+        .bind(to: viewModel.inputs.time)
         .disposed(by: disposeBag)
         
         placeVC.mannaPlace.rx.text.orEmpty
-            .bind(to: viewModel.input.place)
+            .bind(to: viewModel.inputs.place)
             .disposed(by: disposeBag)
         
         peopleVC.mannaPeople.text = ""

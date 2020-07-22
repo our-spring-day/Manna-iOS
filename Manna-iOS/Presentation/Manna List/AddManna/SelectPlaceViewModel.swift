@@ -32,6 +32,6 @@ class SelectPlaceViewModel: SelectPlaceViewModelType {
     let disposeBag = DisposeBag()
 
     init(_ searchAddress: String) {
-        let address = Observable.just(searchAddress)
+        _ = Observable.just(searchAddress)
     }
 }

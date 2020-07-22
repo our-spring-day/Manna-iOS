@@ -15,7 +15,8 @@ import SwiftyJSON
 class SelectPlaceViewController: UIViewController {
     let disposeBag = DisposeBag()
     
-    let viewModel = AddMannaViewModel()
+    var viewModel: AddMannaViewModelType!
+//    let viewModel = AddMannaViewModel()
     
     let backButton = UIButton()
     let resultButton = UIButton()
@@ -78,14 +79,14 @@ class SelectPlaceViewController: UIViewController {
     }
     
     func bind() {
-        viewModel.output.addressRoad
-            .debug()
-            .subscribe(onNext: { [weak self] str in
-                self?.searchText.text = str
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.output.addressResult
+//        viewModel.outputs.addressRoad
+//            .debug()
+//            .subscribe(onNext: { [weak self] str in
+//                self?.searchText.text = str
+//            })
+//            .disposed(by: disposeBag)
+
+        viewModel.outputs.addressOut
             .bind(to: searchResult.rx.items(cellIdentifier: AddressListCell.identifier, cellType: AddressListCell.self)) { _, item, cell in
                 cell.address.text = item.address
                 cell.jibunAddress.text = item.roadAddress
@@ -96,8 +97,8 @@ class SelectPlaceViewController: UIViewController {
     @objc func result() {
         let input: String = searchText.text!
         
-        AddressAPI.getAddress(input).asObservable()
-            .bind(to: self.viewModel.output.addressResult)
+        AddressAPI.getAddress(input)
+            .bind(to: viewModel.inputs.address)
             .disposed(by: disposeBag)
     }
 }

@@ -10,46 +10,55 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-protocol AddMannaViewModelType {
-    associatedtype Input
-    associatedtype Output
-    
-    var input: Input { get }
-    var output: Output { get }
+protocol AddMannaViewModelInput {
+    var title: AnyObserver<String> { get }
+    var people: AnyObserver<String> { get }
+    var time: AnyObserver<String> { get }
+    var place: AnyObserver<String> { get }
+    var address: AnyObserver<[Address]> { get }
+}
+protocol AddMannaViewModelOutput {
+    var addressOut: Observable<[Address]> { get }
 }
 
-class AddMannaViewModel: AddMannaViewModelType {
-    struct Input {
-        let title = PublishSubject<String>()
-        let people = PublishSubject<String>()
-        let time = PublishSubject<String>()
-        let place = PublishSubject<String>()
-        
-//        let address = PublishSubject<String>()
-    }
+protocol AddMannaViewModelType {
+    var inputs: AddMannaViewModelInput { get }
+    var outputs: AddMannaViewModelOutput { get }
+}
+
+class AddMannaViewModel: AddMannaViewModelType, AddMannaViewModelInput, AddMannaViewModelOutput {
     
-    struct Output {
-        let addressResult = BehaviorRelay<[Address]>(value: [Address]())
-        let addressRoad = ReplaySubject<String>.create(bufferSize: 1)
-    }
+    let title: AnyObserver<String>
+    let people: AnyObserver<String>
+    let time: AnyObserver<String>
+    let place: AnyObserver<String>
+    let address: AnyObserver<[Address]>
     
-    let input = Input()
-    let output = Output()
+    let addressOut: Observable<[Address]>
+    
     let disposeBag = DisposeBag()
     
     init() {
-        let titleInput = input.title
-        let peopleInput = input.people
-        let timeInput = input.time
-        let placeInput = input.place
+        // Input
+        let titleInput = PublishSubject<String>()
+        let peopleInput = PublishSubject<String>()
+        let timeInput = PublishSubject<String>()
+        let placeInput = PublishSubject<String>()
+        let addressInput = PublishSubject<[Address]>()
+
+        // Output
+        let addressResult = BehaviorSubject<[Address]>(value: [])
         
-//        input.address
-//            .debug()
-//            .subscribe(onNext: { [weak self] str in
-//                print("str1111 : \(str)")
-//                self?.output.addressRoad.onNext(str)
-//            })
-//            .disposed(by: disposeBag)
+        title = titleInput.asObserver()
+        people = peopleInput.asObserver()
+        time = timeInput.asObserver()
+        place = placeInput.asObserver()
+        
+        address = addressInput.asObserver()
+        
+        
+        addressOut = addressResult.asObservable()
+        
         
         Observable.zip(titleInput, peopleInput, timeInput, placeInput)
             .subscribe(onNext: { title, people, time, place in
@@ -58,4 +67,7 @@ class AddMannaViewModel: AddMannaViewModelType {
             })
             .disposed(by: disposeBag)
     }
+    
+    var inputs: AddMannaViewModelInput { return self }
+    var outputs: AddMannaViewModelOutput { return self }
 }

@@ -13,7 +13,9 @@ import SnapKit
 class PlaceAddMannaViewController: UIViewController {
     let disposeBag = DisposeBag()
     
-    let viewModel = AddMannaViewModel()
+    var viewModel: AddMannaViewModelType!
+//    let viewModel = AddMannaViewModel()
+    
     static let shared = PlaceAddMannaViewController()
     
     let line = UIBezierPath()
@@ -98,11 +100,11 @@ class PlaceAddMannaViewController: UIViewController {
                 self?.mannaPlace.text
             })
             .subscribe(onNext: { [weak self] str in
-//                self?.viewModel.input.address.onNext(str)
                 let view = SelectPlaceViewController()
                 view.modalPresentationStyle = .overFullScreen
                 view.searchText.text = str
                 self?.present(view, animated: true, completion: nil)
+//                self?.viewModel.inputs.address.onNext(str!)
             })
             .disposed(by: disposeBag)
     }
