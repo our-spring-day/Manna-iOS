@@ -1,2 +1,2 @@
 # Manna-iOS
-윤상원
+- our-spring-day
