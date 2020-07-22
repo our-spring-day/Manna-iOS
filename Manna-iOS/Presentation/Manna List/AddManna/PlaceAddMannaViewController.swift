@@ -95,15 +95,15 @@ class PlaceAddMannaViewController: UIViewController {
     func bind() {
         searchButton.rx.tap
             .map({ [weak self] _ in
-                (self?.mannaPlace.text)!
+                self?.mannaPlace.text
             })
-            .do(onNext: { [weak self] _ in
+            .subscribe(onNext: { [weak self] str in
+//                self?.viewModel.input.address.onNext(str)
                 let view = SelectPlaceViewController()
                 view.modalPresentationStyle = .overFullScreen
-                
+                view.searchText.text = str
                 self?.present(view, animated: true, completion: nil)
             })
-            .bind(to: viewModel.input.address)
             .disposed(by: disposeBag)
     }
 }
