@@ -16,13 +16,12 @@ class NotiListViewController: UIViewController {
     var checkedFriendsList: [UserTestStruct] = []
     let viewModel = UserListViewModel()
     var meetingMemberArray: BehaviorRelay<[UserTestStruct]> = BehaviorRelay(value: [])
-    lazy var itemsObservable: Observable<[UserTestStruct]> = Observable.of([UserTestStruct]())
     
     let screenSize: CGRect = UIScreen.main.bounds
     var tableView = FriendsListTableView(frame: CGRect(x: 5, y: 266, width: UIScreen.main.bounds.width-10, height: UIScreen.main.bounds.height - 266))
     var collectionView: UICollectionView!
     let layoutValue: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-    
+    lazy var itemObservable = BehaviorRelay(value: [UserTestStruct]())
     override func viewDidLoad() {
         super.viewDidLoad()
         attribute()
@@ -62,12 +61,12 @@ class NotiListViewController: UIViewController {
         }
     }
     func bind() {
-                viewModel.filteredFriendsList
-                    .bind(to: collectionView.rx.items(cellIdentifier: BottomMenuCell.identifier, cellType: BottomMenuCell.self)) {
-                        (index: Int, element: UserTestStruct, cell: BottomMenuCell) in
-                        cell.backgroundColor = .lightGray
-                        cell.bottomImageView?.image = UIImage(named: "\(element.profileImage)")
-                }.disposed(by: disposeBag)
+//        viewModel.filteredFriendsList
+//            .bind(to: collectionView.rx.items(cellIdentifier: BottomMenuCell.identifier, cellType: BottomMenuCell.self)) {
+//                (index: Int, element: UserTestStruct, cell: BottomMenuCell) in
+//                cell.backgroundColor = .lightGray
+//                cell.bottomImageView?.image = UIImage(named: "\(element.profileImage)")
+//        }.disposed(by: disposeBag)
         
         collectionView.rx.modelSelected(UserTestStruct.self)
             .subscribe(onNext: { str in
@@ -84,30 +83,16 @@ class NotiListViewController: UIViewController {
                         if cell.checkBox.isSelected {
                             self.checkedFriendsList.append(element)
                         } else {
-                            self.checkedFriendsList.remove(at: self.checkedFriendsList.index(where: { $0.name == element.name })!)
-                            print(self.checkedFriendsList)
+                            self.checkedFriendsList.remove(at: self.checkedFriendsList.firstIndex(where: { $0.name == element.name })!)
                         }
-                        
+                        Observable.just(self.checkedFriendsList).bind(to: self.meetingMemberArray).disposed(by: self.disposeBag)
                     }).disposed(by: self.disposeBag)
-//                cell.checkBox.rx.tap
-//                    .subscribe(onNext : { tap in
-//                        self.itemsObservable.map({$0.filter({
-//                            return  ($0.name.lowercased().contains(element.name.lowercased()))
-//                        })
-//                        }).bind(to: self.collectionView.rx.items(cellIdentifier: BottomMenuCell.identifier, cellType: BottomMenuCell.self)) {
-//                            (index: Int, element: UserTestStruct, cell: BottomMenuCell) in
-//                            cell.backgroundColor = .lightGray
-//                            cell.bottomImageView?.image = UIImage(named: "\(element.profileImage)")
-//                        }.disposed(by: self.disposeBag)
-//                    }).disposed(by: self.disposeBag)
         }.disposed(by: disposeBag)
-        //        searchValueObservable
-        //        .subscribe(onNext: { value in
-        //            self.itemsObservable.map({ $0.filter({
-        //                if value.isEmpty { return true }
-        //                return  ($0.name.lowercased().contains(value.lowercased()))
-        //            })
-        //            }).bind( to: self.meetingMemberArray )
-        //        }).disposed(by: disposeBag)
+        meetingMemberArray
+            .bind(to: self.collectionView.rx.items(cellIdentifier: BottomMenuCell.identifier, cellType: BottomMenuCell.self)){
+                (index: Int, element: UserTestStruct, cell: BottomMenuCell) in
+                cell.backgroundColor = .lightGray
+                cell.bottomImageView?.image = UIImage(named: "\(element.profileImage)")
+        }.disposed(by: self.disposeBag)
     }
 }
