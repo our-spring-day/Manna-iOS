@@ -61,13 +61,6 @@ class NotiListViewController: UIViewController {
         }
     }
     func bind() {
-//        viewModel.filteredFriendsList
-//            .bind(to: collectionView.rx.items(cellIdentifier: BottomMenuCell.identifier, cellType: BottomMenuCell.self)) {
-//                (index: Int, element: UserTestStruct, cell: BottomMenuCell) in
-//                cell.backgroundColor = .lightGray
-//                cell.bottomImageView?.image = UIImage(named: "\(element.profileImage)")
-//        }.disposed(by: disposeBag)
-        
         collectionView.rx.modelSelected(UserTestStruct.self)
             .subscribe(onNext: { str in
                 print(str)
@@ -80,19 +73,22 @@ class NotiListViewController: UIViewController {
                 cell.checkBox.userInfo = element
                 cell.checkBox.rx.tap
                     .subscribe(onNext: {
+                        print("tap이 몇번도는지")
                         if cell.checkBox.isSelected {
-                            self.checkedFriendsList.append(element)
+                            self.checkedFriendsList.append(cell.checkBox.userInfo!)
                         } else {
-                            self.checkedFriendsList.remove(at: self.checkedFriendsList.firstIndex(where: { $0.name == element.name })!)
+                            guard let index = self.checkedFriendsList.firstIndex(where: { $0.name == cell.checkBox.userInfo?.name }) else { return }
+                                self.checkedFriendsList.remove(at: index)
                         }
-                        Observable.just(self.checkedFriendsList).bind(to: self.meetingMemberArray).disposed(by: self.disposeBag)
+                        Observable.just(self.checkedFriendsList)
+                            .bind(to: self.meetingMemberArray).disposed(by: self.disposeBag)
                     }).disposed(by: self.disposeBag)
         }.disposed(by: disposeBag)
+        
         meetingMemberArray
             .bind(to: self.collectionView.rx.items(cellIdentifier: BottomMenuCell.identifier, cellType: BottomMenuCell.self)){
                 (index: Int, element: UserTestStruct, cell: BottomMenuCell) in
                 cell.backgroundColor = .lightGray
                 cell.bottomImageView?.image = UIImage(named: "\(element.profileImage)")
-        }.disposed(by: self.disposeBag)
-    }
+        }.disposed(by: self.disposeBag)}
 }
