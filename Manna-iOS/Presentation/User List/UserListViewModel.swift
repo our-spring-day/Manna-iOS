@@ -17,6 +17,8 @@ class UserListViewModel: Type {
     let friendsList = UserListModel().friends.sorted(by: { $0.name < $1.name })
     var filteredFriendsList = BehaviorRelay(value: [UserTestStruct]())
     var searchValue: BehaviorRelay<String> = BehaviorRelay(value: "")
+    var deletedFriends: BehaviorRelay<IndexPath> = BehaviorRelay(value: [])
+    var meetingMemberArray: BehaviorRelay<[UserTestStruct]> = BehaviorRelay(value: [])
     lazy var searchValueObservable: Observable<String> = self.searchValue.asObservable()
     lazy var itemsObservable: Observable<[UserTestStruct]> = Observable.of(self.friendsList)
     
@@ -28,6 +30,11 @@ class UserListViewModel: Type {
                     return  ($0.name.lowercased().contains(value.lowercased()))
                 })
                 }).bind( to: self.filteredFriendsList )
+            }).disposed(by: disposeBag)
+        
+        deletedFriends
+            .subscribe(onNext: {index in
+                UserListModel().friends.remove(at: index[1])
             }).disposed(by: disposeBag)
     }
 }

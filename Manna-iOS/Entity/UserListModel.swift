@@ -9,5 +9,8 @@
 import Foundation
 
 struct UserListModel {
-    let friends = [namjihyeon, juyeon,  bomin, mino, beenzino, gdragon, iuzzang, jenny, jisoo, jpark, crush, bloo, rain, kimwoobin, kingkihoon, munchan2]
+    var friends = [namjihyeon, juyeon,  bomin, mino, beenzino, gdragon, iuzzang, jenny, jisoo, jpark, crush, bloo, rain, kimwoobin, kingkihoon, munchan2]
+//    mutating func append(b: UserTestStruct) {
+//        self.friends = friends.append(b)
+//    }
 }

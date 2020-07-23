@@ -36,7 +36,6 @@ class UserListViewController: UIViewController {
         attribute()
         layout()
         bind()
-        
     }
     
     func attribute() {
@@ -99,5 +98,9 @@ class UserListViewController: UIViewController {
                     self.present($0, animated: true, completion: nil)
                 }
             }).disposed(by: disposeBag)
+        
+        tableView.tableView.rx.itemDeleted
+            .bind(to: viewModel.deletedFriends)
+            .disposed(by: disposeBag)
     }
 }

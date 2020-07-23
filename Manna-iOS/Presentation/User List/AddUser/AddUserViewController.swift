@@ -23,6 +23,7 @@ class AddUserViewController: UIViewController {
     let screenSize: CGRect = UIScreen.main.bounds
     let textLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     let addFriendButton = UIButton()
+    var addFriendID: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,14 +111,15 @@ class AddUserViewController: UIViewController {
             .subscribe(onNext: { item in
                 self.textLabel.text = item[0].name
                 self.imageView.image = UIImage(named: item[0].profileImage)
+                self.addFriendID = item[0].profileImage
                 self.addFriendButton.isHidden = false
             }).disposed(by: disposeBag)
         
         addFriendButton.rx.tap
             .subscribe(onNext: {
-                //이런식으로 하면 될듯합니다.
-                print(self.textLabel.text)
-                print(self.imageView.image)
+                print(self.addFriendID)
+//                UserListModel().friends.append(UserTestStruct(name: self.textLabel.text!, profileImage: self.addFriendID))
+//                UserListModel().friends.removeAll()
             }).disposed(by: disposeBag)
     }
 }
