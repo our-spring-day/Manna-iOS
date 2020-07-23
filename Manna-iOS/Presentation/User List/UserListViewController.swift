@@ -36,6 +36,7 @@ class UserListViewController: UIViewController {
         attribute()
         layout()
         bind()
+        
     }
     
     func attribute() {

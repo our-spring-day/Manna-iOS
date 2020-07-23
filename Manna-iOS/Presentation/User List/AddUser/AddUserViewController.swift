@@ -32,17 +32,22 @@ class AddUserViewController: UIViewController {
     }
     
     func attribute() {
+        
         view.do {
             $0.backgroundColor = .white
         }
-        navigationItem.do {
-            $0.title = "ID로 친구 추가"
+        navigationController?.do {
+            $0.navigationItem.do { item in
+                item.title = "ID로 친구 추가"
+            }
+            $0.navigationBar.do { bar  in
+                bar.tintColor = UIColor(named: "default")
+            }
         }
         searchController.do {
             $0.obscuresBackgroundDuringPresentation = false
             $0.searchBar.placeholder = "친구 ID"
             $0.searchBar.tintColor = UIColor(named: "default")
-            definesPresentationContext = true
             navigationItem.searchController = $0
         }
         profileView.do {
@@ -63,6 +68,7 @@ class AddUserViewController: UIViewController {
             $0.frame = CGRect(x: 0, y: 0, width: 100, height: 65)
             $0.layer.cornerRadius = 5
             $0.layer.masksToBounds = true
+            $0.isHidden = true
         }
     }
     
@@ -102,8 +108,9 @@ class AddUserViewController: UIViewController {
         viewModel.filteredUser
             .filterEmpty()
             .subscribe(onNext: { item in
-                    self.textLabel.text = item[0].name
-                    self.imageView.image = UIImage(named: item[0].profileImage)
+                self.textLabel.text = item[0].name
+                self.imageView.image = UIImage(named: item[0].profileImage)
+                self.addFriendButton.isHidden = false
             }).disposed(by: disposeBag)
         
         addFriendButton.rx.tap
