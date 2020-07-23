@@ -18,10 +18,11 @@ class AddUserViewController: UIViewController {
     let viewModel = AddUserViewModel()
     
     let imageView = UIImageView()
-    var profileView = UIView()
+    let profileView = UIView()
     let searchController = UISearchController(searchResultsController: nil)
     let screenSize: CGRect = UIScreen.main.bounds
-    var textLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+    let textLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+    let addFriendButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +56,13 @@ class AddUserViewController: UIViewController {
         }
         textLabel.do {
             $0.textAlignment = NSTextAlignment.center
+            $0.font = UIFont.systemFont(ofSize: 20.0)
+        }
+        addFriendButton.do {
+            $0.setImage(UIImage(named: "addfriendbuttonimage"), for: .normal)
+            $0.frame = CGRect(x: 0, y: 0, width: 100, height: 65)
+            $0.layer.cornerRadius = 5
+            $0.layer.masksToBounds = true
         }
     }
     
@@ -62,20 +70,26 @@ class AddUserViewController: UIViewController {
         view.addSubview(profileView)
         profileView.addSubview(imageView)
         profileView.addSubview(textLabel)
+        profileView.addSubview(addFriendButton)
+        
         profileView.snp.makeConstraints {
             $0.width.equalTo(400)
             $0.center.equalTo(view.center)
             $0.top.equalTo(view).offset(130)
         }
         imageView.snp.makeConstraints {
-            $0.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+            $0.centerX.equalTo(profileView.snp.centerX)
             $0.top.equalTo(profileView).offset(100)
-            $0.width.equalTo(screenSize.width).offset(300)
-            $0.height.equalTo(screenSize.height).offset(300)
+            $0.width.equalTo(screenSize.width).offset(200)
+            $0.height.equalTo(screenSize.height).offset(200)
         }
         textLabel.snp.makeConstraints {
-            $0.centerX.equalTo(view.center)
-            $0.top.equalTo(imageView.safeAreaLayoutGuide.snp.bottom).offset(50)
+            $0.centerX.equalTo(profileView.snp.centerX)
+            $0.top.equalTo(imageView.safeAreaLayoutGuide.snp.bottom).offset(25)
+        }
+        addFriendButton.snp.makeConstraints {
+            $0.centerX.equalTo(profileView.snp.centerX)
+            $0.top.equalTo(textLabel.snp.bottom).offset(50)
         }
     }
     
@@ -90,6 +104,13 @@ class AddUserViewController: UIViewController {
             .subscribe(onNext: { item in
                     self.textLabel.text = item[0].name
                     self.imageView.image = UIImage(named: item[0].profileImage)
+            }).disposed(by: disposeBag)
+        
+        addFriendButton.rx.tap
+            .subscribe(onNext: {
+                //이런식으로 하면 될듯합니다.
+                print(self.textLabel.text)
+                print(self.imageView.image)
             }).disposed(by: disposeBag)
     }
 }

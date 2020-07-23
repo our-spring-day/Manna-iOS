@@ -51,8 +51,6 @@ class FriendsListCollectionView: UIView {
             $0.width.equalTo(400)
             $0.height.equalTo(40)
             $0.centerX.equalTo(self.snp.centerX)
-            //            $0.edges.equalToSuperview()
-            
         }
     }
 }

@@ -8,9 +8,11 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 class UserListCell: UITableViewCell {
     static let identifier = "UserListCell"
+    var disposeBag = DisposeBag()
     
     let idLabel = UILabel()
     let userImageView = UIImageView()
@@ -19,7 +21,15 @@ class UserListCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         attribute()
+        
         layout()
+        
+    }
+    
+    override func prepareForReuse() {
+      super.prepareForReuse()
+          
+      disposeBag = DisposeBag()
     }
     
     required init?(coder: NSCoder) {

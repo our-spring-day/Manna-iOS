@@ -18,11 +18,14 @@ class FriendsListTableView: UIView {
     let tableView = UITableView()
     let checkBox = CheckBox()
     var memberInfo = MeetingInfo()
-    
+    var observable = Observable<Void>.empty()
+
     override init (frame: CGRect) {
         super.init(frame: frame)
         attribute()
         layout()
+//        checkBox.rx.tap
+//            .subscribe(onNext: {str in print("이거되냐",str)}).disposed(by: disposeBag)
     }
     
     required init?(coder: NSCoder) {

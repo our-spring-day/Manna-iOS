@@ -22,11 +22,13 @@ class NotiListViewController: UIViewController {
     var collectionView: UICollectionView!
     let layoutValue: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     lazy var itemObservable = BehaviorRelay(value: [UserTestStruct]())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         attribute()
         layout()
         bind()
+        print(tableView.checkBox.userInfo)
     }
     
     func attribute() {
@@ -61,28 +63,33 @@ class NotiListViewController: UIViewController {
         }
     }
     func bind() {
-        collectionView.rx.modelSelected(UserTestStruct.self)
-            .subscribe(onNext: { str in
-                print(str)
-            }).disposed(by: disposeBag)
+        //        viewModel.filteredFriendsList.take(1)
+        //            .bind(to: tableView.tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: UserTestStruct, cell: UserListCell) in
+        //                cell.idLabel.text = element.name
+        //                cell.userImageView.image = UIImage(named: "\(element.profileImage)")
+        //                cell.checkBox.userInfo = element
+        //        }.disposed(by: disposeBag)
         
         viewModel.filteredFriendsList
             .bind(to: tableView.tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: UserTestStruct, cell: UserListCell) in
                 cell.idLabel.text = element.name
                 cell.userImageView.image = UIImage(named: "\(element.profileImage)")
-                cell.checkBox.userInfo = element
+                if cell.checkBox.userInfo == nil {
+                    cell.checkBox.userInfo = element
+                }
                 cell.checkBox.rx.tap
                     .subscribe(onNext: {
-                        print("tap이 몇번도는지")
                         if cell.checkBox.isSelected {
                             self.checkedFriendsList.append(cell.checkBox.userInfo!)
                         } else {
                             guard let index = self.checkedFriendsList.firstIndex(where: { $0.name == cell.checkBox.userInfo?.name }) else { return }
-                                self.checkedFriendsList.remove(at: index)
+                            self.checkedFriendsList.remove(at: index)
                         }
                         Observable.just(self.checkedFriendsList)
-                            .bind(to: self.meetingMemberArray).disposed(by: self.disposeBag)
+                            .bind(to: self.meetingMemberArray)
+                            .disposed(by: self.disposeBag)
                     }).disposed(by: self.disposeBag)
+                print(cell.checkBox.userInfo)
         }.disposed(by: disposeBag)
         
         meetingMemberArray
@@ -90,5 +97,7 @@ class NotiListViewController: UIViewController {
                 (index: Int, element: UserTestStruct, cell: BottomMenuCell) in
                 cell.backgroundColor = .lightGray
                 cell.bottomImageView?.image = UIImage(named: "\(element.profileImage)")
-        }.disposed(by: self.disposeBag)}
+        }.disposed(by: self.disposeBag)
+        
+    }
 }
