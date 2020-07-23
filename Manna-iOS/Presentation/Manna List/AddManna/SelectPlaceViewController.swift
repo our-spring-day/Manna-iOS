@@ -51,8 +51,10 @@ class SelectPlaceViewController: UIViewController {
             $0.addTarget(self, action: #selector(result), for: .touchUpInside)
         }
         resultButton.do {
-            $0.setImage(#imageLiteral(resourceName: "Image"), for: .normal)
-            $0.addTarget(self, action: #selector(result), for: .touchUpInside)
+            $0.setTitle("완료", for: .normal)
+            $0.setTitleColor(.black, for: .normal)
+            $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            $0.layer.borderWidth = 1.0
         }
         searchText.do {
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -75,11 +77,17 @@ class SelectPlaceViewController: UIViewController {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
             $0.leading.equalTo(view.snp.leading).offset(10)
         }
+        resultButton.snp.makeConstraints {
+            $0.top.equalTo(backButton.snp.bottom).offset(20)
+            $0.leading.equalTo(searchText.snp.trailing).offset(10)
+            $0.width.equalTo(60)
+            $0.height.equalTo(40)
+        }
         searchText.snp.makeConstraints {
             $0.top.equalTo(backButton.snp.bottom).offset(20)
             $0.centerX.equalTo(view.snp.centerX)
-            $0.width.equalTo(300)
-            $0.height.equalTo(50)
+            $0.width.equalTo(240)
+            $0.height.equalTo(40)
         }
         searchResult.snp.makeConstraints {
             $0.top.equalTo(searchText.snp.bottom).offset(20)
@@ -97,16 +105,22 @@ class SelectPlaceViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.outputs.addressOut
-            .debug("좀되라좀되라좀되라 : ")
+            .debug()
             .bind(to: searchResult.rx.items(cellIdentifier: AddressListCell.identifier, cellType: AddressListCell.self)) { _, item, cell in
                 cell.address.text = item.address
                 cell.jibunAddress.text = item.roadAddress
             }
             .disposed(by: disposeBag)
+        
+        searchResult.rx.itemSelected
+            .map {$0}
+            .subscribe {
+                print("indexPath : \($0)")
+            }
+            .disposed(by: disposeBag)
     }
     
     @objc func result() {
-        let input: String = searchText.text!
         dismiss(animated: true, completion: nil)
     }
 }

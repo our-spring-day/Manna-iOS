@@ -22,9 +22,6 @@ class PeopleAddMannaViewController: UIViewController {
     }
     
     func attribute() {
-        view.do {
-            $0.backgroundColor = .brown
-        }
         mannaPeople.do {
             $0.layer.borderWidth = 1.0
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
