@@ -16,7 +16,7 @@ class AddMannaViewController: UIViewController {
     let disposeBag = DisposeBag()
     var pageflag: Bool = false
     
-    let viewModel = AddMannaViewModel()
+    let viewModel: AddMannaViewModelType
     let pageView = MannaPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     let peopleVC = PeopleAddMannaViewController.shared
     let timeVC = TimeAddMannaViewController.shared
@@ -27,6 +27,18 @@ class AddMannaViewController: UIViewController {
     let titleButton = UIButton()
     let prevButton = UIButton(type: .custom)
     let nextButton = UIButton()
+    
+    // MARK: - Life Cycle
+    
+    init(viewModel: AddMannaViewModelType = AddMannaViewModel()) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        viewModel = AddMannaViewModel()
+        super.init(coder: aDecoder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

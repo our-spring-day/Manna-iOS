@@ -15,16 +15,26 @@ import SwiftyJSON
 class SelectPlaceViewController: UIViewController {
     let disposeBag = DisposeBag()
     
-    var viewModel: AddMannaViewModelType!
-//    let viewModel = AddMannaViewModel()
+    let viewModel: AddMannaViewModelType
     
     let backButton = UIButton()
     let resultButton = UIButton()
     let searchText = UITextField()
     let searchResult = UITableView()
+
     
-    var resultList: [Address] = []
+    // MARK: - Life Cycle
     
+    init(viewModel: AddMannaViewModelType = AddMannaViewModel()) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        viewModel = AddMannaViewModel()
+        super.init(coder: aDecoder)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         attribute()
@@ -57,6 +67,7 @@ class SelectPlaceViewController: UIViewController {
     
     func layout() {
         view.addSubview(backButton)
+        view.addSubview(resultButton)
         view.addSubview(searchText)
         view.addSubview(searchResult)
         
@@ -79,14 +90,14 @@ class SelectPlaceViewController: UIViewController {
     }
     
     func bind() {
-//        viewModel.outputs.addressRoad
-//            .debug()
-//            .subscribe(onNext: { [weak self] str in
-//                self?.searchText.text = str
-//            })
-//            .disposed(by: disposeBag)
-
+        searchText.rx.text.orEmpty
+            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+            .bind(to: viewModel.inputs.address)
+            .disposed(by: disposeBag)
+        
         viewModel.outputs.addressOut
+            .debug("좀되라좀되라좀되라 : ")
             .bind(to: searchResult.rx.items(cellIdentifier: AddressListCell.identifier, cellType: AddressListCell.self)) { _, item, cell in
                 cell.address.text = item.address
                 cell.jibunAddress.text = item.roadAddress
@@ -96,9 +107,6 @@ class SelectPlaceViewController: UIViewController {
     
     @objc func result() {
         let input: String = searchText.text!
-        
-        AddressAPI.getAddress(input)
-            .bind(to: viewModel.inputs.address)
-            .disposed(by: disposeBag)
+        dismiss(animated: true, completion: nil)
     }
 }

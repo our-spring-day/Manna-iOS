@@ -10,20 +10,20 @@ import Foundation
 import RxSwift
 import RxRelay
 
-protocol MannaListViewModelInput {
+protocol MannaListViewModelOutput {
     var allMannas: Observable<[MannaSection]> { get }
 }
 
 protocol MannaListViewModelType {
-    var input: MannaListViewModelInput { get }
+    var outputs: MannaListViewModelOutput { get }
 }
 
-class MannaListViewModel: MannaListViewModelType, MannaListViewModelInput {
+class MannaListViewModel: MannaListViewModelType, MannaListViewModelOutput {
+    let allMannas: Observable<[MannaSection]>
     
     init() {
         allMannas = MannaProvider.observable()
     }
     
-    let allMannas: Observable<[MannaSection]>
-    var input: MannaListViewModelInput { return self }
+    var outputs: MannaListViewModelOutput { return self }
 }

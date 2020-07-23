@@ -35,6 +35,7 @@ class AddressAPI: AddressFetchable {
                                 let address = Address(address: item["address_name"].string!,
                                                       roadAddress: item["road_address_name"].string!)
                                 resultList.append(address)
+//                                print("address : \(address)")
                             }
                             observer.onNext(resultList)
                         }

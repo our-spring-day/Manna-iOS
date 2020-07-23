@@ -15,7 +15,7 @@ protocol AddMannaViewModelInput {
     var people: AnyObserver<String> { get }
     var time: AnyObserver<String> { get }
     var place: AnyObserver<String> { get }
-    var address: AnyObserver<[Address]> { get }
+    var address: AnyObserver<String> { get }
 }
 protocol AddMannaViewModelOutput {
     var addressOut: Observable<[Address]> { get }
@@ -32,7 +32,7 @@ class AddMannaViewModel: AddMannaViewModelType, AddMannaViewModelInput, AddManna
     let people: AnyObserver<String>
     let time: AnyObserver<String>
     let place: AnyObserver<String>
-    let address: AnyObserver<[Address]>
+    let address: AnyObserver<String>
     
     let addressOut: Observable<[Address]>
     
@@ -44,21 +44,27 @@ class AddMannaViewModel: AddMannaViewModelType, AddMannaViewModelInput, AddManna
         let peopleInput = PublishSubject<String>()
         let timeInput = PublishSubject<String>()
         let placeInput = PublishSubject<String>()
-        let addressInput = PublishSubject<[Address]>()
+        let addressInput = PublishSubject<String>()
 
         // Output
-        let addressResult = BehaviorSubject<[Address]>(value: [])
+        let addressOutput = BehaviorSubject<[Address]>(value: [])
         
         title = titleInput.asObserver()
         people = peopleInput.asObserver()
         time = timeInput.asObserver()
         place = placeInput.asObserver()
-        
         address = addressInput.asObserver()
         
-        
-        addressOut = addressResult.asObservable()
-        
+        addressInput
+            .debug()
+            .map({ "\($0)" })
+            .flatMap({ AddressAPI.getAddress($0)})
+            .subscribe(onNext: { value in
+                addressOutput.onNext(value)
+            })
+            .disposed(by: disposeBag)
+
+        addressOut = addressOutput
         
         Observable.zip(titleInput, peopleInput, timeInput, placeInput)
             .subscribe(onNext: { title, people, time, place in

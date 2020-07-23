@@ -13,8 +13,7 @@ import SnapKit
 class PlaceAddMannaViewController: UIViewController {
     let disposeBag = DisposeBag()
     
-    var viewModel: AddMannaViewModelType!
-//    let viewModel = AddMannaViewModel()
+    let viewModel: AddMannaViewModelType
     
     static let shared = PlaceAddMannaViewController()
     
@@ -23,6 +22,20 @@ class PlaceAddMannaViewController: UIViewController {
     let mannaPlace = UITextField()
     let searchButton = UIButton()
     let selectButton = UIButton()
+    
+    // MARK: - Life Cycle
+    
+    init(viewModel: AddMannaViewModelType = AddMannaViewModel()) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        print("PlaceAddMannaViewController===========")
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        viewModel = AddMannaViewModel()
+        super.init(coder: aDecoder)
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,15 +110,15 @@ class PlaceAddMannaViewController: UIViewController {
     func bind() {
         searchButton.rx.tap
             .map({ [weak self] _ in
-                self?.mannaPlace.text
+                (self?.mannaPlace.text)!
             })
-            .subscribe(onNext: { [weak self] str in
+            .do(onNext: { str in
                 let view = SelectPlaceViewController()
                 view.modalPresentationStyle = .overFullScreen
                 view.searchText.text = str
-                self?.present(view, animated: true, completion: nil)
-//                self?.viewModel.inputs.address.onNext(str!)
+                self.present(view, animated: true, completion: nil)
             })
+            .bind(to: self.viewModel.inputs.address)
             .disposed(by: disposeBag)
     }
 }

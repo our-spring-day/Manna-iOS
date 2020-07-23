@@ -15,10 +15,22 @@ import SnapKit
 class MannaListViewController: UIViewController {
     let disposeBag = DisposeBag()
     
-    let mannaListViewModel = MannaListViewModel()
+    let mannaListViewModel: MannaListViewModelType
     
     let mannaList = UITableView()
     
+    // MARK: - Life Cycle
+
+    init(viewModel: MannaListViewModelType = MannaListViewModel()) {
+        self.mannaListViewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        mannaListViewModel = MannaListViewModel()
+        super.init(coder: aDecoder)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         attribute()
@@ -64,7 +76,7 @@ class MannaListViewController: UIViewController {
             return dataSource.sectionModels[index].status
         }
         
-        mannaListViewModel.input.allMannas
+        mannaListViewModel.outputs.allMannas
             .bind(to: mannaList.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
     }
