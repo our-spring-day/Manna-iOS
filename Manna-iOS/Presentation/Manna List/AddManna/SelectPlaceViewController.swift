@@ -110,7 +110,6 @@ class SelectPlaceViewController: UIViewController {
         Observable.merge(result, result2)
             .bind(to: viewModel.inputs.address)
             .disposed(by: disposeBag)
-            
         
         viewModel.outputs.addressOut
             .debug()

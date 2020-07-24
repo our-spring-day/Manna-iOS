@@ -41,7 +41,6 @@ class PlaceAddMannaViewController: UIViewController {
         super.viewDidLoad()
         attribute()
         layout()
-        bind()
     }
 
     func attribute() {
@@ -63,6 +62,7 @@ class PlaceAddMannaViewController: UIViewController {
             $0.setTitleColor(.black, for: .normal)
             $0.layer.borderWidth = 1.0
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            $0.addTarget(self, action: #selector(searchPresnt), for: .touchUpInside)
         }
         selectButton.do {
             $0.setTitle("현위치로 주소설정", for: .normal)
@@ -107,18 +107,10 @@ class PlaceAddMannaViewController: UIViewController {
         }
     }
     
-    func bind() {
-        searchButton.rx.tap
-            .map({ [weak self] _ in
-                (self?.mannaPlace.text)!
-            })
-            .do(onNext: { [weak self] str in
-                let view = SelectPlaceViewController()
-                view.modalPresentationStyle = .overFullScreen
-                view.searchText.text = str
-                self?.present(view, animated: true, completion: nil)
-            })
-            .bind(to: viewModel.inputs.address)
-            .disposed(by: disposeBag)
+    @objc func searchPresnt() {
+        let view = SelectPlaceViewController()
+        view.modalPresentationStyle = .overFullScreen
+        view.searchText.text = mannaPlace.text
+        present(view, animated: true, completion: nil)
     }
 }
