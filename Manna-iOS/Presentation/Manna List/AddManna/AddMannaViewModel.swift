@@ -47,7 +47,8 @@ class AddMannaViewModel: AddMannaViewModelType, AddMannaViewModelInput, AddManna
         let addressInput = PublishSubject<String>()
 
         // Output
-        let addressOutput = BehaviorSubject<[Address]>(value: [])
+        let addressOutput = BehaviorRelay<[Address]>(value: [])
+//        let addressOutput = Variable<[Address]>([])
         
         title = titleInput.asObserver()
         people = peopleInput.asObserver()
@@ -58,13 +59,20 @@ class AddMannaViewModel: AddMannaViewModelType, AddMannaViewModelInput, AddManna
         addressInput
             .debug()
             .map({ "\($0)" })
+            .do(onNext: {
+                print("지나가는지 : \($0)")
+            })
             .flatMap({ AddressAPI.getAddress($0)})
             .subscribe(onNext: { value in
-                addressOutput.onNext(value)
+                addressOutput.accept(value)
             })
             .disposed(by: disposeBag)
 
-        addressOut = addressOutput
+        addressOut = addressOutput.asObservable()
+        
+        addressOut.subscribe {
+            print("아웃풋 : \($0)")
+        }
         
         Observable.zip(titleInput, peopleInput, timeInput, placeInput)
             .subscribe(onNext: { title, people, time, place in

@@ -48,13 +48,14 @@ class SelectPlaceViewController: UIViewController {
         }
         backButton.do {
             $0.setImage(#imageLiteral(resourceName: "backButton"), for: .normal)
-            $0.addTarget(self, action: #selector(result), for: .touchUpInside)
+//            $0.addTarget(self, action: #selector(result), for: .touchUpInside)
         }
         resultButton.do {
-            $0.setTitle("완료", for: .normal)
+            $0.setTitle("검색", for: .normal)
             $0.setTitleColor(.black, for: .normal)
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             $0.layer.borderWidth = 1.0
+            $0.addTarget(self, action: #selector(result), for: .touchUpInside)
         }
         searchText.do {
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -98,11 +99,18 @@ class SelectPlaceViewController: UIViewController {
     }
     
     func bind() {
-        searchText.rx.text.orEmpty
-            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
-            .distinctUntilChanged()
+        let result = searchText.rx.text.orEmpty
+            .take(1)
+
+        let result2 = resultButton.rx.tap
+            .map({ [weak self] _ in
+                (self?.searchText.text)!
+            })
+
+        Observable.merge(result, result2)
             .bind(to: viewModel.inputs.address)
             .disposed(by: disposeBag)
+            
         
         viewModel.outputs.addressOut
             .debug()
@@ -121,6 +129,8 @@ class SelectPlaceViewController: UIViewController {
     }
     
     @objc func result() {
-        dismiss(animated: true, completion: nil)
+//        guard let text = searchText.text else { return }
+//        print("text : \(text)")
+//        viewModel.inputs.address.onNext(text)
     }
 }
