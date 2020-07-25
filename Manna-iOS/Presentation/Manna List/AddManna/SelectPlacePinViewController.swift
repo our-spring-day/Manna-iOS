@@ -10,21 +10,16 @@ import UIKit
 import NMapsMap
 import SnapKit
 import Then
+import RxSwift
+import RxCocoa
 
 class SelectPlacePinViewController: UIViewController {
     var addressString: String?
     var addressText = UILabel()
+    
+    let targetImage = UIImageView()
     let pinImage = UIImageView()
-    var button: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("FLY", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.setTitleColor(.red, for: .selected)
-        button.backgroundColor = .darkGray
-        button.addTarget(self, action: #selector(go), for: .touchUpInside)
-        return button
-    }()
+    
     var authState: NMFAuthState!
     var cameraUpdate: NMFCameraUpdate?
     var nmapFView: NMFMapView?
@@ -33,10 +28,15 @@ class SelectPlacePinViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        createMapView()
-        buttonAutolayout()
+        let mapView = NMFMapView(frame: view.frame)
+        view.addSubview(mapView)
+        
+        view.addSubview(targetImage)
+        view.addSubview(pinImage)
+        
+//        createMapView()
         createImageView()
-        createAddressLabel()
+//        createAddressLabel()
     }
     func attribute() {
         
@@ -47,14 +47,7 @@ class SelectPlacePinViewController: UIViewController {
     }
     //좌표찍힐라벨(addressText)생성함수
     func createAddressLabel() {
-        view.addSubview(addressText)
-        addressText.backgroundColor = .blue
-        addressText.textColor = .white
-        addressText.translatesAutoresizingMaskIntoConstraints = false
-        addressText.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        addressText.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        addressText.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
-        addressText.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
     }
     //맵뷰(nmapFView)생성함수
     func createMapView() {
@@ -65,16 +58,6 @@ class SelectPlacePinViewController: UIViewController {
     //핀(imageView)생성함수
     func createImageView() {
         //하드로 고정해놓았기때문에 후에 화면중앙에 핀의 꼭짓점이 정확히 찍히는 방법 구상해야됨
-        
-        view.addSubview(pinImage)
-        pinImage.snp.makeConstraints {
-            $0.centerX.equalTo(view.snp.centerX)
-            $0.centerY.equalTo(view.snp.centerY).offset(-30)
-            $0.width.equalTo(35)
-            $0.height.equalTo(50)
-        }
-        pinImage.image = UIImage(named: "testmarker")
-        
         let aiming = UIImageView()
         view.addSubview(aiming)
         aiming.snp.makeConstraints {
@@ -84,15 +67,18 @@ class SelectPlacePinViewController: UIViewController {
             $0.height.equalTo(30)
         }
         aiming.image = #imageLiteral(resourceName: "target")
+
+        aiming.addSubview(pinImage)
+        pinImage.snp.makeConstraints {
+            $0.centerX.equalTo(view.snp.centerX)
+            $0.centerY.equalTo(view.snp.centerY).offset(-30)
+            $0.width.equalTo(35)
+            $0.height.equalTo(50)
+        }
+        pinImage.image = #imageLiteral(resourceName: "marker")
+        
     }
     
-    func buttonAutolayout() {
-        view.addSubview(button)
-        button.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 200).isActive = true
-        button.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 150).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        button.widthAnchor.constraint(equalToConstant: 100).isActive = true
-    }
     @objc func go() {
         //        let x = 127.105401
         //        let y = 37.361859
