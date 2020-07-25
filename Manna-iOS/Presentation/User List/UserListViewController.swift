@@ -64,13 +64,23 @@ class UserListViewController: UIViewController {
     }
     
     func bind() {
-        viewModel.filteredFriendsList
+        //        viewModel.filteredFriendsList
+        //            .bind(to: tableView.tableView.rx.items(cellIdentifier: UserListCell.identifier,cellType: UserListCell.self))
+        //             {(_: Int, element: UserTestStruct, cell: UserListCell) in
+        //                cell.idLabel.text = element.name
+        //                cell.userImageView.image = UIImage(named: "\(element.profileImage)")
+        //                cell.checkBox.isHidden = true
+        //        }.disposed(by: disposeBag)
+        
+        viewModel.friendsOB
             .bind(to: tableView.tableView.rx.items(cellIdentifier: UserListCell.identifier,cellType: UserListCell.self))
             {(_: Int, element: UserTestStruct, cell: UserListCell) in
+                print(element)
                 cell.idLabel.text = element.name
                 cell.userImageView.image = UIImage(named: "\(element.profileImage)")
                 cell.checkBox.isHidden = true
-        }.disposed(by: disposeBag)
+        }
+        .disposed(by: disposeBag)
         
         searchController.searchBar.rx.text
             .orEmpty

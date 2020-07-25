@@ -16,19 +16,21 @@ class NotiListViewController: UIViewController {
     var checkedFriendsList: [UserTestStruct] = []
     let viewModel = UserListViewModel()
     var meetingMemberArray: BehaviorRelay<[UserTestStruct]> = BehaviorRelay(value: [])
-    
     let screenSize: CGRect = UIScreen.main.bounds
-    var tableView = FriendsListTableView(frame: CGRect(x: 5, y: 266, width: UIScreen.main.bounds.width-10, height: UIScreen.main.bounds.height - 266))
     var collectionView: UICollectionView!
-    let layoutValue: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+    let layoutValue = UICollectionViewFlowLayout()
     lazy var itemObservable = BehaviorRelay(value: [UserTestStruct]())
+    var tableView = FriendsListTableView(frame: CGRect(x: 5,
+                                                       y: 266,
+                                                       width: UIScreen.main.bounds.width-10,
+                                                       height: UIScreen.main.bounds.height - 266)
+    )
     
     override func viewDidLoad() {
         super.viewDidLoad()
         attribute()
         layout()
         bind()
-        print(tableView.checkBox.userInfo)
     }
     
     func attribute() {
@@ -63,34 +65,28 @@ class NotiListViewController: UIViewController {
         }
     }
     func bind() {
-        //        viewModel.filteredFriendsList.take(1)
-        //            .bind(to: tableView.tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: UserTestStruct, cell: UserListCell) in
-        //                cell.idLabel.text = element.name
-        //                cell.userImageView.image = UIImage(named: "\(element.profileImage)")
-        //                cell.checkBox.userInfo = element
-        //        }.disposed(by: disposeBag)
-        
         viewModel.filteredFriendsList
-            .bind(to: tableView.tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: UserTestStruct, cell: UserListCell) in
+            .bind(to: tableView.tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self))
+            {(_: Int, element: UserTestStruct, cell: UserListCell) in
+                //tableview set
                 cell.idLabel.text = element.name
                 cell.userImageView.image = UIImage(named: "\(element.profileImage)")
-                if cell.checkBox.userInfo == nil {
-                    cell.checkBox.userInfo = element
-                }
-                cell.checkBox.rx.tap
-                    .subscribe(onNext: {
-                        if cell.checkBox.isSelected {
-                            self.checkedFriendsList.append(cell.checkBox.userInfo!)
-                        } else {
-                            guard let index = self.checkedFriendsList.firstIndex(where: { $0.name == cell.checkBox.userInfo?.name }) else { return }
-                            self.checkedFriendsList.remove(at: index)
-                        }
-                        Observable.just(self.checkedFriendsList)
-                            .bind(to: self.meetingMemberArray)
-                            .disposed(by: self.disposeBag)
-                    }).disposed(by: self.disposeBag)
-                print(cell.checkBox.userInfo)
         }.disposed(by: disposeBag)
+        
+        tableView.tableView.rx.modelSelected(UserTestStruct.self)
+            .subscribe(onNext: {item in
+                var newValue = self.meetingMemberArray.value
+                if newValue.contains(where: { $0.name == item.name }) {
+                    print("들어가있음이미")
+                    newValue.remove(at: newValue.firstIndex(where: {$0.name == item.name})!)
+                    self.meetingMemberArray.accept(newValue)
+                } else {
+                    print("추가함")
+                    newValue.append(item)
+                    self.meetingMemberArray.accept(newValue)
+                }
+                print(self.meetingMemberArray.value)
+            }).disposed(by: disposeBag)
         
         meetingMemberArray
             .bind(to: self.collectionView.rx.items(cellIdentifier: BottomMenuCell.identifier, cellType: BottomMenuCell.self)){
@@ -99,5 +95,11 @@ class NotiListViewController: UIViewController {
                 cell.bottomImageView?.image = UIImage(named: "\(element.profileImage)")
         }.disposed(by: self.disposeBag)
         
+        self.collectionView.rx.modelSelected(UserTestStruct.self)
+            .subscribe(onNext: {item in
+                var newValue = self.meetingMemberArray.value
+                newValue.remove(at: newValue.firstIndex(where: {$0.name == item.name})!)
+                self.meetingMemberArray.accept(newValue)
+            }).disposed(by: self.disposeBag)
     }
 }

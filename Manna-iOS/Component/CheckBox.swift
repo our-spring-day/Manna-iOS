@@ -13,18 +13,10 @@ import RxSwift
 class CheckBox: UIButton {
     let disposeBag = DisposeBag()
     
-    var userInfo: UserTestStruct?
-    
-    var flag = 0
-    
     convenience init() {
         self.init(frame: .zero)
         self.setImage(UIImage(named: "unchecked"), for: .normal)
         self.setImage(UIImage(named: "checked"), for: .selected)
-        self.rx.tap
-            .subscribe(onNext: {
-                self.isSelected = !self.isSelected
-//                print(self.userInfo)
-            }).disposed(by: disposeBag)
+        //self.isSelected = !self.isSelected
     }
 }

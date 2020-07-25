@@ -14,9 +14,10 @@ import RxOptional
 class AddUserViewModel: Type {
     let disposeBag = DisposeBag()
     
-    var filteredUser = BehaviorRelay(value: [UserTestStruct]())
+    let filteredUser = BehaviorRelay(value: [UserTestStruct]())
     let friendsList = UserListTestStruct().userListTestStruct
-    var searchValue: BehaviorRelay<String> = BehaviorRelay(value: "")
+    let searchValue: BehaviorRelay<String> = BehaviorRelay(value: "")
+    var didClick = BehaviorRelay<UserTestStruct>(value: UserTestStruct(name: "", profileImage: ""))
     lazy var itemsObservable = Observable.of(self.friendsList)
     lazy var searchValueObservable: Observable<String> = self.searchValue.asObservable()
     
@@ -35,5 +36,15 @@ class AddUserViewModel: Type {
                 })
                 }).bind(to: self.filteredUser)
             }).disposed(by: disposeBag)
+        
+//        didClick
+//            .subscribe(onNext: { str in
+//                print("되나",str)
+//            }).disposed(by: disposeBag)
+        
+//        newFriend
+//            .subscribe(onNext: { newFriend in
+////                print(newFriend)
+//            }).disposed(by: disposeBag)
     }
 }

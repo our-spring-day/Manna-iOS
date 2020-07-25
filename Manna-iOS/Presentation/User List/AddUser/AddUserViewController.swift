@@ -16,6 +16,7 @@ class AddUserViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     let viewModel = AddUserViewModel()
+    let viewModel2 = UserListViewModel()
     
     let imageView = UIImageView()
     let profileView = UIView()
@@ -23,7 +24,8 @@ class AddUserViewController: UIViewController {
     let screenSize: CGRect = UIScreen.main.bounds
     let textLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     let addFriendButton = UIButton()
-    var addFriendID: String = ""
+    var newFriend = UserTestStruct(name: "", profileImage: "")
+    lazy var newFriendObservable = Observable.just(self.newFriend)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,15 +113,15 @@ class AddUserViewController: UIViewController {
             .subscribe(onNext: { item in
                 self.textLabel.text = item[0].name
                 self.imageView.image = UIImage(named: item[0].profileImage)
-                self.addFriendID = item[0].profileImage
+                self.newFriend = item[0]
+
                 self.addFriendButton.isHidden = false
+                
             }).disposed(by: disposeBag)
         
         addFriendButton.rx.tap
-            .subscribe(onNext: {
-                print(self.addFriendID)
-//                UserListModel().friends.append(UserTestStruct(name: self.textLabel.text!, profileImage: self.addFriendID))
-//                UserListModel().friends.removeAll()
-            }).disposed(by: disposeBag)
+            .map({ self.newFriend })
+            .bind(to: viewModel2.newFriend)
+            .disposed(by: disposeBag)
     }
 }

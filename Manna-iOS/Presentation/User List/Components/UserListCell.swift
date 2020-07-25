@@ -12,24 +12,17 @@ import RxSwift
 
 class UserListCell: UITableViewCell {
     static let identifier = "UserListCell"
-    var disposeBag = DisposeBag()
     
     let idLabel = UILabel()
     let userImageView = UIImageView()
-    let checkBox = CheckBox()
+//    let checkBox = CheckBox()
+    let checkBox = UIImageView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         attribute()
-        
         layout()
         
-    }
-    
-    override func prepareForReuse() {
-      super.prepareForReuse()
-          
-      disposeBag = DisposeBag()
     }
     
     required init?(coder: NSCoder) {
@@ -38,20 +31,17 @@ class UserListCell: UITableViewCell {
     
     func attribute() {
         idLabel.do {
-            $0.translatesAutoresizingMaskIntoConstraints = false
             $0.font = .systemFont(ofSize: 14, weight: .light)
             $0.textColor = .black
         }
         userImageView.do {
-            $0.translatesAutoresizingMaskIntoConstraints = false
             $0.layer.cornerRadius = 22
             $0.layer.masksToBounds = true
             $0.contentMode = .scaleAspectFill
         }
         checkBox.do {
-            $0.translatesAutoresizingMaskIntoConstraints = false
             $0.frame = CGRect(x: 0, y: 0, width: 300, height: 300)
-            $0.setImage(UIImage(named: "unchecked"), for: .normal)
+            $0.image = UIImage(named: "unchecked")
         }
     }
     func layout() {

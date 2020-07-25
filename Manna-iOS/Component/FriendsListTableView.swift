@@ -24,8 +24,6 @@ class FriendsListTableView: UIView {
         super.init(frame: frame)
         attribute()
         layout()
-//        checkBox.rx.tap
-//            .subscribe(onNext: {str in print("이거되냐",str)}).disposed(by: disposeBag)
     }
     
     required init?(coder: NSCoder) {
