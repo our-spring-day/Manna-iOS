@@ -64,10 +64,9 @@ class UserListViewController: UIViewController {
     }
     
     func bind() {
-        viewModel.friendsOB
+        viewModel.filteredFriendsList
             .bind(to: tableView.baseTableView.rx.items(cellIdentifier: UserListCell.identifier,cellType: UserListCell.self))
             {(_: Int, element: UserTestStruct, cell: UserListCell) in
-                print(element)
                 cell.idLabel.text = element.name
                 cell.userImageView.image = UIImage(named: "\(element.profileImage)")
                 cell.checkBox.isHidden = true

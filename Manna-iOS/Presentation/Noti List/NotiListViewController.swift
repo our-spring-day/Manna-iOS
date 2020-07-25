@@ -71,17 +71,32 @@ class NotiListViewController: UIViewController {
                 //tableview set
                 cell.idLabel.text = element.name
                 cell.userImageView.image = UIImage(named: "\(element.profileImage)")
+                if self.checkedFriendsList.contains(where: {$0.name == element.name}) {
+                    cell.checkBox.image = UIImage(named: "checked")
+                    print("체크 On")
+                } else {
+                    cell.checkBox.image = UIImage(named: "unchecked")
+//                    print("체크 Off")
+                }
         }.disposed(by: disposeBag)
+        
+        tableView.baseTableView.rx.itemSelected
+            .subscribe(onNext: { index in
+                let cell = self.tableView.baseTableView.cellForRow(at: index) as? UserListCell
+                cell?.checkBox.image = UIImage(named: "checked")
+            }).disposed(by: disposeBag)
         
         tableView.baseTableView.rx.modelSelected(UserTestStruct.self)
             .subscribe(onNext: {item in
-                var newValue = self.meetingMemberArray.value
-                if newValue.contains(where: { $0.name == item.name }) {
-                    newValue.remove(at: newValue.firstIndex(where: {$0.name == item.name})!)
-                    self.meetingMemberArray.accept(newValue)
+//                let cell = self.tableView.baseTableView.cellForRow(at: index) as? UserListCell
+                var newMMValue = self.meetingMemberArray.value
+                if newMMValue.contains(where: { $0.name == item.name }) {
+                    let MMIndex = newMMValue.firstIndex(where: {$0.name == item.name})!
+                    newMMValue.remove(at: MMIndex)
+                    self.meetingMemberArray.accept(newMMValue)
                 } else {
-                    newValue.append(item)
-                    self.meetingMemberArray.accept(newValue)
+                    newMMValue.append(item)
+                    self.meetingMemberArray.accept(newMMValue)
                 }
             }).disposed(by: disposeBag)
         

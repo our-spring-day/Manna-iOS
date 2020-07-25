@@ -15,7 +15,7 @@ import Then
 class FriendsListTableView: UIView {
     let disposeBag = DisposeBag()
     
-//    var cellList
+    var cellList: [UIImageView] = []
     let baseTableView = UITableView()
 
     override init (frame: CGRect) {

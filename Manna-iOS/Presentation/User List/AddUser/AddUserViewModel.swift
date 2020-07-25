@@ -36,15 +36,5 @@ class AddUserViewModel: Type {
                 })
                 }).bind(to: self.filteredUser)
             }).disposed(by: disposeBag)
-        
-//        didClick
-//            .subscribe(onNext: { str in
-//                print("되나",str)
-//            }).disposed(by: disposeBag)
-        
-//        newFriend
-//            .subscribe(onNext: { newFriend in
-////                print(newFriend)
-//            }).disposed(by: disposeBag)
     }
 }

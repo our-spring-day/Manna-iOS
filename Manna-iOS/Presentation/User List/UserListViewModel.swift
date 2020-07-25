@@ -25,6 +25,7 @@ class UserListViewModel: Type {
         searchValueObservable
             .subscribe(onNext: { value in
                 self.friendsOB.map({ $0.filter({
+                    print($0.name.lowercased().contains(value.lowercased()))
                     if value.isEmpty { return true }
                     return  ($0.name.lowercased().contains(value.lowercased()))
                 })
@@ -37,7 +38,6 @@ class UserListViewModel: Type {
             }).disposed(by: disposeBag)
         
         newFriend
-            .debug("이거에연?")
             .subscribe(onNext:{ item in
                 var newValue = self.friendsOB.value
                 newValue.append(item)
