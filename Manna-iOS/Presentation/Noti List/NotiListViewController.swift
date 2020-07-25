@@ -66,32 +66,28 @@ class NotiListViewController: UIViewController {
     }
     func bind() {
         viewModel.filteredFriendsList
-            .bind(to: tableView.tableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self))
+            .bind(to: tableView.baseTableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self))
             {(_: Int, element: UserTestStruct, cell: UserListCell) in
                 //tableview set
                 cell.idLabel.text = element.name
                 cell.userImageView.image = UIImage(named: "\(element.profileImage)")
         }.disposed(by: disposeBag)
         
-        tableView.tableView.rx.modelSelected(UserTestStruct.self)
+        tableView.baseTableView.rx.modelSelected(UserTestStruct.self)
             .subscribe(onNext: {item in
                 var newValue = self.meetingMemberArray.value
                 if newValue.contains(where: { $0.name == item.name }) {
-                    print("들어가있음이미")
                     newValue.remove(at: newValue.firstIndex(where: {$0.name == item.name})!)
                     self.meetingMemberArray.accept(newValue)
                 } else {
-                    print("추가함")
                     newValue.append(item)
                     self.meetingMemberArray.accept(newValue)
                 }
-                print(self.meetingMemberArray.value)
             }).disposed(by: disposeBag)
         
         meetingMemberArray
             .bind(to: self.collectionView.rx.items(cellIdentifier: BottomMenuCell.identifier, cellType: BottomMenuCell.self)){
                 (index: Int, element: UserTestStruct, cell: BottomMenuCell) in
-                cell.backgroundColor = .lightGray
                 cell.bottomImageView?.image = UIImage(named: "\(element.profileImage)")
         }.disposed(by: self.disposeBag)
         

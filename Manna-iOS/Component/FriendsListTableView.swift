@@ -15,10 +15,8 @@ import Then
 class FriendsListTableView: UIView {
     let disposeBag = DisposeBag()
     
-    let tableView = UITableView()
-    let checkBox = CheckBox()
-    var memberInfo = MeetingInfo()
-    var observable = Observable<Void>.empty()
+//    var cellList
+    let baseTableView = UITableView()
 
     override init (frame: CGRect) {
         super.init(frame: frame)
@@ -31,18 +29,18 @@ class FriendsListTableView: UIView {
     }
     
     func attribute() {
-        self.addSubview(tableView)
+        self.addSubview(baseTableView)
         
-        tableView.do {
+        baseTableView.do {
             $0.register(UserListCell.self, forCellReuseIdentifier: UserListCell.identifier)
             $0.rowHeight = 55
         }
     }
     
     func layout() {
-        self.addSubview(tableView)
+        self.addSubview(baseTableView)
         
-        tableView.snp.makeConstraints {
+        baseTableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }

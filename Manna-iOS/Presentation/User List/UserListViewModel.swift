@@ -14,7 +14,6 @@ import RxOptional
 class UserListViewModel: Type {
     let disposeBag = DisposeBag()
     
-    //    var friendsList = UserListModel().friends.sorted(by: { $0.name < $1.name })
     var friendsOB = BehaviorRelay<[UserTestStruct]>(value: [namjihyeon, juyeon, bomin, mino, beenzino, gdragon, iuzzang, jenny, jisoo, jpark, crush, bloo, rain, kimwoobin, kingkihoon, munchan2])
     var filteredFriendsList = BehaviorRelay(value: [UserTestStruct]())
     var searchValue: BehaviorRelay<String> = BehaviorRelay(value: "")
@@ -29,8 +28,7 @@ class UserListViewModel: Type {
                     if value.isEmpty { return true }
                     return  ($0.name.lowercased().contains(value.lowercased()))
                 })
-                })
-                    .bind(to: self.filteredFriendsList )
+                }).bind(to: self.filteredFriendsList )
             }).disposed(by: disposeBag)
         
         deletedFriends

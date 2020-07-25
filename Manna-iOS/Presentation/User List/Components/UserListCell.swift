@@ -15,7 +15,6 @@ class UserListCell: UITableViewCell {
     
     let idLabel = UILabel()
     let userImageView = UIImageView()
-//    let checkBox = CheckBox()
     let checkBox = UIImageView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

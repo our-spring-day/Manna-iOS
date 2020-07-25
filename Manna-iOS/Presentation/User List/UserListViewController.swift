@@ -64,16 +64,8 @@ class UserListViewController: UIViewController {
     }
     
     func bind() {
-        //        viewModel.filteredFriendsList
-        //            .bind(to: tableView.tableView.rx.items(cellIdentifier: UserListCell.identifier,cellType: UserListCell.self))
-        //             {(_: Int, element: UserTestStruct, cell: UserListCell) in
-        //                cell.idLabel.text = element.name
-        //                cell.userImageView.image = UIImage(named: "\(element.profileImage)")
-        //                cell.checkBox.isHidden = true
-        //        }.disposed(by: disposeBag)
-        
         viewModel.friendsOB
-            .bind(to: tableView.tableView.rx.items(cellIdentifier: UserListCell.identifier,cellType: UserListCell.self))
+            .bind(to: tableView.baseTableView.rx.items(cellIdentifier: UserListCell.identifier,cellType: UserListCell.self))
             {(_: Int, element: UserTestStruct, cell: UserListCell) in
                 print(element)
                 cell.idLabel.text = element.name
@@ -97,11 +89,12 @@ class UserListViewController: UIViewController {
                 }
             }).disposed(by: disposeBag)
         
-        tableView.tableView.rx.modelSelected(UserTestStruct.self)
+        tableView.baseTableView.rx.modelSelected(UserTestStruct.self)
             .subscribe(onNext: { item in
                 let detailUserViewController = DetailUserViewController()
                 detailUserViewController.do {
-                    $0.sendData(data: item)
+                    detailUserViewController.userImage.image = UIImage(named: item.profileImage)
+                    detailUserViewController.userID.text = item.name
                     self.definesPresentationContext = true
                     $0.modalPresentationStyle = .overFullScreen
                     $0.modalTransitionStyle = .crossDissolve
@@ -109,7 +102,7 @@ class UserListViewController: UIViewController {
                 }
             }).disposed(by: disposeBag)
         
-        tableView.tableView.rx.itemDeleted
+        tableView.baseTableView.rx.itemDeleted
             .bind(to: viewModel.deletedFriends)
             .disposed(by: disposeBag)
     }

@@ -16,8 +16,8 @@ class DetailUserViewController: UIViewController {
     let userListViewController = UserListViewController()
     
     let backgroundView = UIView()
-    let userProfileImageView = UIImageView()
-    let nameLabel = UILabel()
+    let userImage = UIImageView()
+    let userID = UILabel()
     let screenSize: CGRect = UIScreen.main.bounds
     
     override func viewDidLoad() {
@@ -27,7 +27,6 @@ class DetailUserViewController: UIViewController {
         dismissActionSet()
     }
     func attributes() {
-        userListViewController.delegate = self
         view.do {
             $0.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
         }
@@ -36,35 +35,35 @@ class DetailUserViewController: UIViewController {
             $0.backgroundColor = .white
             $0.layer.cornerRadius = 10
         }
-        userProfileImageView.do {
+        userImage.do {
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.layer.cornerRadius = 10
             $0.layer.masksToBounds = true
             $0.contentMode = .scaleAspectFill
         }
-        nameLabel.do {
+        userID.do {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
     func layouts() {
         view.addSubview(backgroundView)
-        view.addSubview(userProfileImageView)
-        backgroundView.addSubview(nameLabel)
+        view.addSubview(userImage)
+        backgroundView.addSubview(userID)
         
         backgroundView.snp.makeConstraints {
             $0.center.equalTo(view.center)
             $0.width.equalTo(350)
             $0.height.equalTo(400)
         }
-        userProfileImageView.snp.makeConstraints {
+        userImage.snp.makeConstraints {
             $0.centerX.equalTo(backgroundView.snp.centerX)
             $0.top.equalTo(backgroundView.snp.top).offset(25)
             $0.width.equalTo(300)
             $0.height.equalTo(300)
         }
-        nameLabel.snp.makeConstraints {
+        userID.snp.makeConstraints {
             $0.centerX.equalTo(backgroundView.snp.centerX)
-            $0.top.equalTo(userProfileImageView.snp.bottom).offset(25)
+            $0.top.equalTo(userImage.snp.bottom).offset(25)
         }
     }
     
@@ -75,12 +74,5 @@ class DetailUserViewController: UIViewController {
     
     @objc func dismiss(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
-    }
-}
-
-extension DetailUserViewController: SendDataDelegate {
-    func sendData(data: UserTestStruct) {
-        userProfileImageView.image = UIImage(named: data.profileImage)
-        nameLabel.text = data.name
     }
 }
