@@ -64,7 +64,7 @@ class NotiListViewController: UIViewController {
         }
     }
     func bind() {
-        //table bind
+        //tableView set
         viewModel.filteredFriendsList
             .bind(to: tableView.baseTableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self))
             {(_: Int, element: UserTestStruct, cell: UserListCell) in
@@ -84,34 +84,30 @@ class NotiListViewController: UIViewController {
                 cell.bottomImageView?.image = UIImage(named: "\(element.profileImage)")
         }.disposed(by: self.disposeBag)
         
-        //checkedMemberArray set
-        tableView.baseTableView.rx.modelSelected(UserTestStruct.self)
-            .subscribe(onNext: {item in
-                var newMMValue = self.checkedMemberArray.value
-                if newMMValue.contains(where: { $0.name == item.name }) {
-                    let MMIndex = newMMValue.firstIndex(where: {$0.name == item.name})!
-                    newMMValue.remove(at: MMIndex)
-                    self.checkedMemberArray.accept(newMMValue)
-                    
+        //checkedMemberArray set with tableView
+        Observable
+            .zip(tableView.baseTableView.rx.itemSelected,tableView.baseTableView.rx.modelSelected(UserTestStruct.self))
+            .bind{ [unowned self] index, item in
+                //append,remove from checkList
+                var checkedValue = self.checkedMemberArray.value
+                if checkedValue.contains(where: { $0.name == item.name }) {
+                    let MMIndex = checkedValue.firstIndex(where: {$0.name == item.name})!
+                    checkedValue.remove(at: MMIndex)
+                    self.checkedMemberArray.accept(checkedValue)
                 } else {
-                    newMMValue.append(item)
-                    self.checkedMemberArray.accept(newMMValue)
+                    checkedValue.append(item)
+                    self.checkedMemberArray.accept(checkedValue)
                 }
-            }).disposed(by: disposeBag)
-        
-        //checkedMemberArray set
-        tableView.baseTableView.rx.itemSelected
-            .map({$0[1]})
-            .subscribe(onNext: {indexPath in
-                var newValue = self.viewModel.filteredFriendsList.value
-                if newValue[indexPath].checkedFlag == 0 {
-                    newValue[indexPath].checkedFlag = 1
+                //flag set
+                var flagValue = self.viewModel.filteredFriendsList.value
+                if flagValue[index[1]].checkedFlag == 0 {
+                    flagValue[index[1]].checkedFlag = 1
                 } else {
-                    newValue[indexPath].checkedFlag = 0
+                    flagValue[index[1]].checkedFlag = 0
                 }
-                self.viewModel.filteredFriendsList.accept(newValue)
-            }).disposed(by: disposeBag)
-        
+                self.viewModel.filteredFriendsList.accept(flagValue)
+        }
+        //checkedMemberArray set with collectionView
         Observable
         .zip(collectionView.rx.itemSelected, collectionView.rx.modelSelected(UserTestStruct.self))
         .bind { [unowned self] index, item in
