@@ -33,9 +33,8 @@ class AddressAPI: AddressFetchable {
                         if let addressList = JSON(value)["documents"].array {
                             for item in addressList {
                                 let address = Address(address: item["address_name"].string!,
-                                                      roadAddress: item["road_address_name"].string!)
+                                                      roadAddress: item["road_address_name"].string!, lng: item["x"].string!, lat: item["y"].string!)
                                 resultList.append(address)
-//                                print("address : \(address)")
                             }
                             observer.onNext(resultList)
                         }

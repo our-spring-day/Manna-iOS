@@ -16,7 +16,6 @@ class PeopleAddMannaViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("PeopleAddMannaViewControllerVC===============")
         attribute()
         layout()
     }

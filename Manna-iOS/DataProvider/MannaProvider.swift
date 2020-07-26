@@ -12,7 +12,6 @@ import RxCocoa
 import RxDataSources
 
 struct MannaProvider {
-    
     private static let mannaRelay = BehaviorRelay<[MannaSection]>(value:
         [ MannaSection(status: "시작전", items: []),
          MannaSection(status: "약속중", items: []),

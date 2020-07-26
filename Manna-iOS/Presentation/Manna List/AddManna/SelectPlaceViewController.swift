@@ -7,10 +7,8 @@
 //
 
 import UIKit
-import Alamofire
 import RxSwift
 import RxCocoa
-import SwiftyJSON
 
 class SelectPlaceViewController: UIViewController {
     let disposeBag = DisposeBag()
@@ -42,20 +40,21 @@ class SelectPlaceViewController: UIViewController {
         bind()
     }
     
+    // MARK: - UI Attribute
+    
     func attribute() {
         view.do {
             $0.backgroundColor = .white
         }
         backButton.do {
             $0.setImage(#imageLiteral(resourceName: "backButton"), for: .normal)
-//            $0.addTarget(self, action: #selector(result), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(back), for: .touchUpInside)
         }
         resultButton.do {
             $0.setTitle("검색", for: .normal)
             $0.setTitleColor(.black, for: .normal)
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             $0.layer.borderWidth = 1.0
-            $0.addTarget(self, action: #selector(result), for: .touchUpInside)
         }
         searchText.do {
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -67,6 +66,8 @@ class SelectPlaceViewController: UIViewController {
             $0.register(AddressListCell.self, forCellReuseIdentifier: AddressListCell.identifier)
         }
     }
+    
+    // MARK: - UI Layout
     
     func layout() {
         view.addSubview(backButton)
@@ -98,16 +99,18 @@ class SelectPlaceViewController: UIViewController {
         }
     }
     
+    // MARK: - UI Bind
+    
     func bind() {
-        let result = searchText.rx.text.orEmpty
+        let firstAddress = searchText.rx.text.orEmpty
             .take(1)
 
-        let result2 = resultButton.rx.tap
+        let elseAddress = resultButton.rx.tap
             .map({ [weak self] _ in
                 (self?.searchText.text)!
             })
 
-        Observable.merge(result, result2)
+        Observable.merge(firstAddress, elseAddress)
             .bind(to: viewModel.inputs.address)
             .disposed(by: disposeBag)
         
@@ -119,17 +122,22 @@ class SelectPlaceViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        searchResult.rx.itemSelected
-            .map {$0}
+        searchResult.rx.modelSelected(Address.self)
+            .map({ $0 })
+            .do(onNext: { [weak self] address in
+                let view = SelectPlacePinViewController()
+                view.modalPresentationStyle = .overFullScreen
+                view.lng = Double(address.lng)
+                view.lat = Double(address.lat)
+                self?.present(view, animated: true, completion: nil)
+            })
             .subscribe {
                 print("indexPath : \($0)")
             }
             .disposed(by: disposeBag)
     }
     
-    @objc func result() {
-//        guard let text = searchText.text else { return }
-//        print("text : \(text)")
-//        viewModel.inputs.address.onNext(text)
+    @objc func back() {
+        dismiss(animated: true, completion: nil)
     }
 }

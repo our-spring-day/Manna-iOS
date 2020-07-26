@@ -66,10 +66,6 @@ class TimeAddMannaViewController: UIViewController {
         let firstView = UIView()
         let secondView = UIView()
         let thirdView = UIView()
-       
-//        firstView.backgroundColor = .darkGray
-//        secondView.backgroundColor = .red
-//        thirdView.backgroundColor = .blue
 
         view.addSubview(firstView)
         view.addSubview(secondView)

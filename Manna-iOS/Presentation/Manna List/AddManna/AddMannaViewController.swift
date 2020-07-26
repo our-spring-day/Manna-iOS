@@ -17,7 +17,9 @@ class AddMannaViewController: UIViewController {
     var pageflag: Bool = false
     
     let viewModel: AddMannaViewModelType
-    let pageView = MannaPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    let pageView = MannaPageViewController(transitionStyle: .scroll,
+                                           navigationOrientation: .horizontal,
+                                           options: nil)
     let peopleVC = PeopleAddMannaViewController.shared
     let timeVC = TimeAddMannaViewController.shared
     let placeVC = PlaceAddMannaViewController.shared
@@ -34,7 +36,7 @@ class AddMannaViewController: UIViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         viewModel = AddMannaViewModel()
         super.init(coder: aDecoder)
@@ -50,16 +52,6 @@ class AddMannaViewController: UIViewController {
         
         attribute()
         layout()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     func attribute() {
@@ -139,7 +131,6 @@ class AddMannaViewController: UIViewController {
             $0.width.equalTo(80)
             $0.height.equalTo(30)
         }
-        
     }
     
     func bind() {
@@ -156,9 +147,9 @@ class AddMannaViewController: UIViewController {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MM월 dd일 hh시mm분"
                 return dateFormatter.string(from: $0)
-        }
-        .bind(to: viewModel.inputs.time)
-        .disposed(by: disposeBag)
+            }
+            .bind(to: viewModel.inputs.time)
+            .disposed(by: disposeBag)
         
         placeVC.mannaPlace.rx.text.orEmpty
             .bind(to: viewModel.inputs.place)
@@ -230,7 +221,7 @@ class AddMannaViewController: UIViewController {
                 alert(message: "타이틀을 입력하세요")
                 return
         }
-
+        self.view.endEditing(true)
         titleInput.isHidden = true
         titleButton.isHidden = true
         titleLabel.isHidden = false
@@ -248,5 +239,21 @@ class AddMannaViewController: UIViewController {
             self.pageView.view.isHidden = false
             self.pageflag = true
         }
+    }
+}
+
+extension AddMannaViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }

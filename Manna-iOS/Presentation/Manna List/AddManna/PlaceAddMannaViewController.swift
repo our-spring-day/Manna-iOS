@@ -28,14 +28,12 @@ class PlaceAddMannaViewController: UIViewController {
     init(viewModel: AddMannaViewModelType = AddMannaViewModel()) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        print("PlaceAddMannaViewController===========")
     }
 
     required init?(coder aDecoder: NSCoder) {
         viewModel = AddMannaViewModel()
         super.init(coder: aDecoder)
     }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,5 +110,11 @@ class PlaceAddMannaViewController: UIViewController {
         view.modalPresentationStyle = .overFullScreen
         view.searchText.text = mannaPlace.text
         present(view, animated: true, completion: nil)
+    }
+}
+
+extension PlaceAddMannaViewController {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }

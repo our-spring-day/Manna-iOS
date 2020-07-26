@@ -14,6 +14,10 @@ import RxSwift
 import RxCocoa
 
 class SelectPlacePinViewController: UIViewController {
+    
+    var lat: Double?
+    var lng: Double?
+    
     var addressString: String?
     var addressText = UILabel()
     
@@ -28,27 +32,13 @@ class SelectPlacePinViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let mapView = NMFMapView(frame: view.frame)
-        view.addSubview(mapView)
-        
-        view.addSubview(targetImage)
-        view.addSubview(pinImage)
-        
-//        createMapView()
+
+        createMapView()
         createImageView()
 //        createAddressLabel()
+        go()
     }
-    func attribute() {
-        
-    }
-    
-    func layout() {
-        
-    }
-    //좌표찍힐라벨(addressText)생성함수
-    func createAddressLabel() {
-        
-    }
+
     //맵뷰(nmapFView)생성함수
     func createMapView() {
         nmapFView = NMFMapView(frame: view.frame)
@@ -79,11 +69,10 @@ class SelectPlacePinViewController: UIViewController {
         
     }
     
-    @objc func go() {
-        //        let x = 127.105401
-        //        let y = 37.361859
-        //        AddressAPI.getAddress(x, y)
-        cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: 37.5670135, lng: 126.9783740))
+    func go() {
+        guard let lat = lat else { return }
+        guard let lng = lng else { return }
+        cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: lat, lng: lng))
         cameraUpdate!.animation = .fly
         cameraUpdate!.animationDuration = 1.5
         nmapFView!.moveCamera(cameraUpdate!)
@@ -108,8 +97,6 @@ extension SelectPlacePinViewController: NMFMapViewCameraDelegate {
 //            let y = self.nmapFView!.cameraPosition.target.lat
             
 //            AddressAPI.getAddress(x, y)
-            
-            //애니메이션의 시간은 0.25초 y 10 이동
             UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
                 self.pinImage.transform = CGAffineTransform(translationX: 0, y: 10)
             })

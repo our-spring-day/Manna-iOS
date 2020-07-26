@@ -11,6 +11,6 @@ import Foundation
 struct Address: Codable {
     let address: String
     let roadAddress: String
-    let lng: Double         //x longitude
-    let lat: Double         //y latitude
+    let lng: String         //x longitude
+    let lat: String         //y latitude
 }
