@@ -13,9 +13,8 @@ import RxCocoa
 class NotiListViewController: UIViewController {
     let disposeBag = DisposeBag()
     
-    var checkedFriendsList: [UserTestStruct] = []
     let viewModel = UserListViewModel()
-    var meetingMemberArray: BehaviorRelay<[UserTestStruct]> = BehaviorRelay(value: [])
+    var checkedMemberArray: BehaviorRelay<[UserTestStruct]> = BehaviorRelay(value: [])
     let screenSize: CGRect = UIScreen.main.bounds
     var collectionView: UICollectionView!
     let layoutValue = UICollectionViewFlowLayout()
@@ -65,52 +64,65 @@ class NotiListViewController: UIViewController {
         }
     }
     func bind() {
+        //table bind
         viewModel.filteredFriendsList
             .bind(to: tableView.baseTableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self))
             {(_: Int, element: UserTestStruct, cell: UserListCell) in
-                //tableview set
                 cell.idLabel.text = element.name
                 cell.userImageView.image = UIImage(named: "\(element.profileImage)")
-                if self.checkedFriendsList.contains(where: {$0.name == element.name}) {
+                if element.checkedFlag == 1 {
                     cell.checkBox.image = UIImage(named: "checked")
-                    print("체크 On")
                 } else {
                     cell.checkBox.image = UIImage(named: "unchecked")
-//                    print("체크 Off")
                 }
         }.disposed(by: disposeBag)
         
-        tableView.baseTableView.rx.itemSelected
-            .subscribe(onNext: { index in
-                let cell = self.tableView.baseTableView.cellForRow(at: index) as? UserListCell
-                cell?.checkBox.image = UIImage(named: "checked")
-            }).disposed(by: disposeBag)
-        
-        tableView.baseTableView.rx.modelSelected(UserTestStruct.self)
-            .subscribe(onNext: {item in
-//                let cell = self.tableView.baseTableView.cellForRow(at: index) as? UserListCell
-                var newMMValue = self.meetingMemberArray.value
-                if newMMValue.contains(where: { $0.name == item.name }) {
-                    let MMIndex = newMMValue.firstIndex(where: {$0.name == item.name})!
-                    newMMValue.remove(at: MMIndex)
-                    self.meetingMemberArray.accept(newMMValue)
-                } else {
-                    newMMValue.append(item)
-                    self.meetingMemberArray.accept(newMMValue)
-                }
-            }).disposed(by: disposeBag)
-        
-        meetingMemberArray
+        //collectionView set
+        checkedMemberArray
             .bind(to: self.collectionView.rx.items(cellIdentifier: BottomMenuCell.identifier, cellType: BottomMenuCell.self)){
                 (index: Int, element: UserTestStruct, cell: BottomMenuCell) in
                 cell.bottomImageView?.image = UIImage(named: "\(element.profileImage)")
         }.disposed(by: self.disposeBag)
         
-        self.collectionView.rx.modelSelected(UserTestStruct.self)
+        //checkedMemberArray set
+        tableView.baseTableView.rx.modelSelected(UserTestStruct.self)
             .subscribe(onNext: {item in
-                var newValue = self.meetingMemberArray.value
-                newValue.remove(at: newValue.firstIndex(where: {$0.name == item.name})!)
-                self.meetingMemberArray.accept(newValue)
-            }).disposed(by: self.disposeBag)
+                var newMMValue = self.checkedMemberArray.value
+                if newMMValue.contains(where: { $0.name == item.name }) {
+                    let MMIndex = newMMValue.firstIndex(where: {$0.name == item.name})!
+                    newMMValue.remove(at: MMIndex)
+                    self.checkedMemberArray.accept(newMMValue)
+                    
+                } else {
+                    newMMValue.append(item)
+                    self.checkedMemberArray.accept(newMMValue)
+                }
+            }).disposed(by: disposeBag)
+        
+        //checkedMemberArray set
+        tableView.baseTableView.rx.itemSelected
+            .map({$0[1]})
+            .subscribe(onNext: {indexPath in
+                var newValue = self.viewModel.filteredFriendsList.value
+                if newValue[indexPath].checkedFlag == 0 {
+                    newValue[indexPath].checkedFlag = 1
+                } else {
+                    newValue[indexPath].checkedFlag = 0
+                }
+                self.viewModel.filteredFriendsList.accept(newValue)
+            }).disposed(by: disposeBag)
+        
+        Observable
+        .zip(collectionView.rx.itemSelected, collectionView.rx.modelSelected(UserTestStruct.self))
+        .bind { [unowned self] index, item in
+            //flag set
+            var flagValue = self.viewModel.filteredFriendsList.value
+            flagValue[flagValue.firstIndex(where: {$0.name == item.name})!].checkedFlag = 0
+            self.viewModel.filteredFriendsList.accept(flagValue)
+            //remove from checkList
+            var checkedValue = self.checkedMemberArray.value
+            checkedValue.remove(at: index[1])
+            self.checkedMemberArray.accept(checkedValue)
+        }.disposed(by: disposeBag)
     }
 }

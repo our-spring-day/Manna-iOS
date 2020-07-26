@@ -11,14 +11,5 @@ import RxCocoa
 import RxSwift
 
 struct UserListModel {
-//    var friends = [namjihyeon, juyeon,  bomin, mino, beenzino, gdragon, iuzzang, jenny, jisoo, jpark, crush, bloo, rain, kimwoobin, kingkihoon, munchan2]
     static let friendsOB = BehaviorSubject<[UserTestStruct]>(value: [namjihyeon, juyeon,  bomin, mino, beenzino, gdragon, iuzzang, jenny, jisoo, jpark, crush, bloo, rain, kimwoobin, kingkihoon, munchan2])
-    
-
-//    mutating func append(friend: UserTestStruct) {
-//        self.friends.append(friend)
-//      }
-//    mutating func delete(index: Int) {
-//        self.friends.remove(at: index)
-//    }
 }

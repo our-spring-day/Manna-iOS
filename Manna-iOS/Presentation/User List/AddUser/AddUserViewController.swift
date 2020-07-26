@@ -24,7 +24,7 @@ class AddUserViewController: UIViewController {
     let screenSize: CGRect = UIScreen.main.bounds
     let textLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     let addFriendButton = UIButton()
-    var newFriend = UserTestStruct(name: "", profileImage: "")
+    var newFriend = UserTestStruct(name: "", profileImage: "", checkedFlag: 0)
     lazy var newFriendObservable = Observable.just(self.newFriend)
     
     override func viewDidLoad() {
@@ -114,9 +114,7 @@ class AddUserViewController: UIViewController {
                 self.textLabel.text = item[0].name
                 self.imageView.image = UIImage(named: item[0].profileImage)
                 self.newFriend = item[0]
-
                 self.addFriendButton.isHidden = false
-                
             }).disposed(by: disposeBag)
         
         addFriendButton.rx.tap

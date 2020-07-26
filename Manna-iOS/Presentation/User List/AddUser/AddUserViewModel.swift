@@ -17,7 +17,7 @@ class AddUserViewModel: Type {
     let filteredUser = BehaviorRelay(value: [UserTestStruct]())
     let friendsList = UserListTestStruct().userListTestStruct
     let searchValue: BehaviorRelay<String> = BehaviorRelay(value: "")
-    var didClick = BehaviorRelay<UserTestStruct>(value: UserTestStruct(name: "", profileImage: ""))
+    var didClick = BehaviorRelay<UserTestStruct>(value: UserTestStruct(name: "", profileImage: "", checkedFlag: 0))
     lazy var itemsObservable = Observable.of(self.friendsList)
     lazy var searchValueObservable: Observable<String> = self.searchValue.asObservable()
     

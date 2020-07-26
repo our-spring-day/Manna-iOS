@@ -19,8 +19,7 @@ class UserListViewController: UIViewController {
     var tableView = FriendsListTableView()
     let searchController = UISearchController(searchResultsController: nil)
     let viewModel = UserListViewModel()
-    var selectedFriends = BehaviorRelay(value: UserTestStruct(name: "", profileImage: ""))
-    
+    var selectedFriends = BehaviorRelay(value: UserTestStruct(name: "", profileImage: "", checkedFlag: 0))
     let addFriendButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
     let screenSize: CGRect = UIScreen.main.bounds
     init() {
