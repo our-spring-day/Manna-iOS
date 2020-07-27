@@ -21,6 +21,8 @@ class SelectPlacePinViewController: UIViewController {
     var lat: Double?
     var lng: Double?
     
+    let rootView = UIView()
+    let addressLable = UILabel()
     let backButton = UIButton()
     let pinImage = UIImageView()
     let aiming = UIImageView()
@@ -64,13 +66,28 @@ class SelectPlacePinViewController: UIViewController {
         }
         aiming.image = #imageLiteral(resourceName: "target")
         pinImage.image = #imageLiteral(resourceName: "marker")
+        rootView.backgroundColor = .white
+        addressLable.textColor = .black
+        addressLable.font = UIFont.systemFont(ofSize: CGFloat(20))
     }
     
     func layout() {
+        view.addSubview(rootView)
+        rootView.addSubview(addressLable)
         view.addSubview(backButton)
         view.addSubview(aiming)
         aiming.addSubview(pinImage)
         
+        rootView.snp.makeConstraints {
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            $0.leading.equalTo(view.snp.leading)
+            $0.trailing.equalTo(view.snp.trailing)
+            $0.height.equalTo(view.frame.height / 4)
+        }
+        addressLable.snp.makeConstraints {
+            $0.centerX.equalTo(rootView.snp.centerX)
+            $0.centerY.equalTo(rootView.snp.centerY)
+        }
         backButton.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
@@ -109,6 +126,10 @@ extension SelectPlacePinViewController: NMFMapViewCameraDelegate {
             self.viewModel.inputs.longitude.onNext(lng)
             self.viewModel.inputs.latitude.onNext(lat)
         
+            self.viewModel.outputs.address
+                .bind(to: self.addressLable.rx.text)
+                .disposed(by: self.disposeBag)
+            
             UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
                 self.pinImage.transform = CGAffineTransform(translationX: 0, y: 0)
             })
