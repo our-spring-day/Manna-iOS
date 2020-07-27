@@ -55,7 +55,7 @@ class NotiListViewController: UIViewController {
         
         tableView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-//            $0.top.equalTo(collectionView.snp.bottom)
+            //            $0.top.equalTo(collectionView.snp.bottom)
         }
         
         collectionView.snp.makeConstraints {
@@ -67,7 +67,7 @@ class NotiListViewController: UIViewController {
     }
     func bind() {
         //tableView set
-        userListViewModel.filteredFriendsList
+        UserListViewModel.filteredFriendsList
             .bind(to: tableView.baseTableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self))
             {(_: Int, element: UserTestStruct, cell: UserListCell) in
                 cell.idLabel.text = element.name
@@ -100,28 +100,28 @@ class NotiListViewController: UIViewController {
                     checkedValue.insert(item, at: 0)
                     self.checkedMemberArray.accept(checkedValue)
                 }
-                //flag set
-                var flagValue = self.userListViewModel.filteredFriendsList.value
+                //                flag set
+                var flagValue = UserListViewModel.self.filteredFriendsList.value
                 if flagValue[index[1]].checkedFlag == 0 {
                     flagValue[index[1]].checkedFlag = 1
                 } else {
                     flagValue[index[1]].checkedFlag = 0
                 }
-                self.userListViewModel.filteredFriendsList.accept(flagValue)
+                UserListViewModel.self.filteredFriendsList.accept(flagValue)
         }
         
         //checkedMemberArray set with collectionView
         Observable
-        .zip(collectionView.rx.itemSelected, collectionView.rx.modelSelected(UserTestStruct.self))
-        .bind { [unowned self] index, item in
-            //flag set
-            var flagValue = self.userListViewModel.filteredFriendsList.value
-            flagValue[flagValue.firstIndex(where: {$0.name == item.name})!].checkedFlag = 0
-            self.userListViewModel.filteredFriendsList.accept(flagValue)
-            //remove from checkList
-            var checkedValue = self.checkedMemberArray.value
-            checkedValue.remove(at: index[1])
-            self.checkedMemberArray.accept(checkedValue)
+            .zip(collectionView.rx.itemSelected, collectionView.rx.modelSelected(UserTestStruct.self))
+            .bind { [unowned self] index, item in
+                //flag set
+                var flagValue = UserListViewModel.self.filteredFriendsList.value
+                flagValue[flagValue.firstIndex(where: {$0.name == item.name})!].checkedFlag = 0
+                UserListViewModel.self.filteredFriendsList.accept(flagValue)
+                //remove from checkList
+                var checkedValue = self.checkedMemberArray.value
+                checkedValue.remove(at: index[1])
+                self.checkedMemberArray.accept(checkedValue)
         }.disposed(by: disposeBag)
         
         //Reflected tableView height with collectionView exist
@@ -140,7 +140,7 @@ class NotiListViewController: UIViewController {
                     }
                 }
                 UIView.animate(withDuration: 0.3) {
-                  self.view.layoutIfNeeded()
+                    self.view.layoutIfNeeded()
                 }
             }).disposed(by: disposeBag)
     }

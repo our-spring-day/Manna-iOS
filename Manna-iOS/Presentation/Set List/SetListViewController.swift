@@ -37,7 +37,7 @@ class SetListViewController: UIViewController {
     }
     
     func bind() {
-        viewModel.filteredFriendsList
+        UserListViewModel.filteredFriendsList
             .bind(to: tableView.baseTableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: UserTestStruct, cell: UserListCell) in
                 cell.idLabel.text = element.name
                 cell.userImageView.image = UIImage(named: "\(element.profileImage)")
