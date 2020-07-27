@@ -14,6 +14,7 @@
 		A54702B22486A93F0091CA55 /* Manna.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54702B12486A93F0091CA55 /* Manna.swift */; };
 		A552C78724A4ED0D00D834BF /* AddMannaView-Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A552C78624A4ED0D00D834BF /* AddMannaView-Ext.swift */; };
 		A55A80BB248FD76200EDFA99 /* AddMannaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55A80BA248FD76200EDFA99 /* AddMannaViewModel.swift */; };
+		A561C6A624CF3E8400E83017 /* SelectPlacePinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A561C6A524CF3E8400E83017 /* SelectPlacePinViewModel.swift */; };
 		A5677B0E24B78D4500059EE0 /* UIView-Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5677B0D24B78D4500059EE0 /* UIView-Ext.swift */; };
 		A585F8312482848200A60530 /* NotiListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F8302482848200A60530 /* NotiListViewModel.swift */; };
 		A585F8332482849500A60530 /* NotiListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F8322482849500A60530 /* NotiListModel.swift */; };
@@ -54,6 +55,7 @@
 		A54702B12486A93F0091CA55 /* Manna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manna.swift; sourceTree = "<group>"; };
 		A552C78624A4ED0D00D834BF /* AddMannaView-Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddMannaView-Ext.swift"; sourceTree = "<group>"; };
 		A55A80BA248FD76200EDFA99 /* AddMannaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMannaViewModel.swift; sourceTree = "<group>"; };
+		A561C6A524CF3E8400E83017 /* SelectPlacePinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlacePinViewModel.swift; sourceTree = "<group>"; };
 		A5677B0D24B78D4500059EE0 /* UIView-Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView-Ext.swift"; sourceTree = "<group>"; };
 		A585F8302482848200A60530 /* NotiListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiListViewModel.swift; sourceTree = "<group>"; };
 		A585F8322482849500A60530 /* NotiListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiListModel.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				A522AD8224A2196600B8C2F2 /* PlaceAddMannaViewController.swift */,
 				A5EB4A1124BCB75F0084EBE5 /* SelectPlaceViewController.swift */,
 				A528168E24C0A05900EDC4E9 /* SelectPlacePinViewController.swift */,
+				A561C6A524CF3E8400E83017 /* SelectPlacePinViewModel.swift */,
 			);
 			path = AddManna;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 				A5B92B1E2496340B008A14C3 /* MannaSection.swift in Sources */,
 				A519FFD524953C000074D554 /* MannaProvider.swift in Sources */,
 				A585F8312482848200A60530 /* NotiListViewModel.swift in Sources */,
+				A561C6A624CF3E8400E83017 /* SelectPlacePinViewModel.swift in Sources */,
 				A5677B0E24B78D4500059EE0 /* UIView-Ext.swift in Sources */,
 				A5EAE115248A622100BA4E39 /* AddMannaViewController.swift in Sources */,
 				CC705A0B2477D28800462251 /* UserListViewController.swift in Sources */,

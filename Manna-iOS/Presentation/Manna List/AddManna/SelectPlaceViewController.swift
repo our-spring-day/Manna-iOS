@@ -115,7 +115,6 @@ class SelectPlaceViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.outputs.addressOut
-            .debug()
             .bind(to: searchResult.rx.items(cellIdentifier: AddressListCell.identifier, cellType: AddressListCell.self)) { _, item, cell in
                 cell.address.text = item.address
                 cell.jibunAddress.text = item.roadAddress
@@ -132,7 +131,7 @@ class SelectPlaceViewController: UIViewController {
                 self?.present(view, animated: true, completion: nil)
             })
             .subscribe {
-                print("indexPath : \($0)")
+                print("test")
             }
             .disposed(by: disposeBag)
     }

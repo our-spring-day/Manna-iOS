@@ -14,12 +14,14 @@ import RxSwift
 import RxCocoa
 
 class SelectPlacePinViewController: UIViewController {
+    let disposeBag = DisposeBag()
+    
+    let viewModel: SelectPlacePinViewModelType
     
     var lat: Double?
     var lng: Double?
     
     let backButton = UIButton()
-    let targetImage = UIImageView()
     let pinImage = UIImageView()
     let aiming = UIImageView()
     
@@ -28,6 +30,16 @@ class SelectPlacePinViewController: UIViewController {
     var nmapFView: NMFMapView?
     var task: DispatchWorkItem?
     var markerForCenter: NMFMarker?
+    
+    init(viewModel: SelectPlacePinViewModelType = SelectPlacePinViewModel()) {
+           self.viewModel = viewModel
+           super.init(nibName: nil, bundle: nil)
+       }
+
+       required init?(coder aDecoder: NSCoder) {
+           viewModel = SelectPlacePinViewModel()
+           super.init(coder: aDecoder)
+       }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,24 +93,22 @@ class SelectPlacePinViewController: UIViewController {
     }
 }
 extension SelectPlacePinViewController: NMFMapViewCameraDelegate {
-    //카메라의 움직임이끝났을때
     func mapViewCameraIdle(_ mapView: NMFMapView) {
-        //1초뒤에 task를 실행
         task = DispatchWorkItem {
-            //핀 알파값 원래대로
             self.pinImage.alpha = 1
             //카메라포지션을 저장해줌(보기에편하게)
             _ = self.nmapFView!.cameraPosition
             //카메라포지션의 좌표값을 스트링으로 변환후 addressText 띄우줌
-            //            self.addressText.text = String(format: "%f",position.target.lat, position.target.lng)
             
-            print(self.nmapFView!.cameraPosition.target.lat)
             print(self.nmapFView!.cameraPosition.target.lng)
+//            print(self.nmapFView!.cameraPosition.target.lat)
             
-//            let x = self.nmapFView!.cameraPosition.target.lng
-//            let y = self.nmapFView!.cameraPosition.target.lat
+            let lng = Double(self.nmapFView!.cameraPosition.target.lng)
+            let lat = Double(self.nmapFView!.cameraPosition.target.lat)
             
-//            AddressAPI.getAddress(x, y)
+            self.viewModel.inputs.longitude.onNext(lng)
+            self.viewModel.inputs.latitude.onNext(lat)
+        
             UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
                 self.pinImage.transform = CGAffineTransform(translationX: 0, y: 0)
             })
@@ -106,13 +116,9 @@ extension SelectPlacePinViewController: NMFMapViewCameraDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: task!)
     }
     
-    //카메라가 움직일때
     func mapView(_ mapView: NMFMapView, cameraWillChangeByReason reason: Int, animated: Bool) {
-        //task를 취소
         task?.cancel()
-        //핀 알파값 조정
         pinImage.alpha = 0.5
-        //애니메이션의 시간은 0.25초, y -10 이동
         UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
             self.pinImage.transform = CGAffineTransform(translationX: 0, y: -10)
         })
