@@ -16,7 +16,7 @@ class UserListViewModel: Type {
     static var friendsOB = BehaviorRelay<[UserTestStruct]>(value: UserListModel.friendList)
     static var filteredFriendsList = BehaviorRelay(value: [UserTestStruct]())
     var searchValue: BehaviorRelay<String> = BehaviorRelay(value: "")
-    var deletedFriends: BehaviorRelay<IndexPath> = BehaviorRelay(value: [])
+    var deletedFriends: PublishSubject<UserTestStruct> = PublishSubject<UserTestStruct>()
     var newFriend: PublishSubject<UserTestStruct> = PublishSubject<UserTestStruct>()
     lazy var searchValueObservable: Observable<String> = self.searchValue.asObservable()
     
@@ -33,20 +33,19 @@ class UserListViewModel: Type {
         
         deletedFriends
             .skip(1)
-            .map { $0[1] }
-            .subscribe(onNext: { index in
-                var newValue = UserListViewModel.self.filteredFriendsList.value
-                newValue.remove(at: index)
-                UserListViewModel.self.filteredFriendsList.accept(newValue)
+            .subscribe(onNext: { item in
+                var newValue = UserListViewModel.self.friendsOB.value
+                newValue.remove(at: newValue.firstIndex(where: { $0.name == item.name })!)
+                UserListViewModel.self.friendsOB.accept(newValue)
             }).disposed(by: disposeBag)
         
         newFriend
             .debug()
             .subscribe(onNext: { item in
-                var newValue = UserListViewModel.self.filteredFriendsList.value
+                var newValue = UserListViewModel.self.friendsOB.value
                 newValue.append(item)
                 newValue = newValue.sorted(by: { $0.name < $1.name })
-                UserListViewModel.self.filteredFriendsList.accept(newValue)
+                UserListViewModel.self.friendsOB.accept(newValue)
             })
             .disposed(by: disposeBag)
     }

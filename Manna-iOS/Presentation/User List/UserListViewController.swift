@@ -100,6 +100,7 @@ class UserListViewController: UIViewController {
             }).disposed(by: disposeBag)
         
         tableView.baseTableView.rx.itemDeleted
+            .map { UserListViewModel.self.filteredFriendsList.value[$0[1]] }
             .bind(to: viewModel.deletedFriends)
             .disposed(by: disposeBag)
     }
