@@ -82,8 +82,11 @@ class DetailUserViewController: UIViewController {
     
     func bind() {
         mannaButton.rx.tap
+            .map { self.selectedFriend?.name }
             .subscribe(onNext: {
-                print($0)
+                let tempViewController = TempViewController()
+                tempViewController.welcomeMessage.text = $0
+                self.present(tempViewController, animated: true, completion: nil)
             }).disposed(by: disposeBag)
     }
     func dismissActionSet() {
