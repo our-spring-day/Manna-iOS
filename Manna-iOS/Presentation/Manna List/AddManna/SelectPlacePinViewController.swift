@@ -18,11 +18,10 @@ class SelectPlacePinViewController: UIViewController {
     var lat: Double?
     var lng: Double?
     
-    var addressString: String?
-    var addressText = UILabel()
-    
+    let backButton = UIButton()
     let targetImage = UIImageView()
     let pinImage = UIImageView()
+    let aiming = UIImageView()
     
     var authState: NMFAuthState!
     var cameraUpdate: NMFCameraUpdate?
@@ -34,38 +33,51 @@ class SelectPlacePinViewController: UIViewController {
         super.viewDidLoad()
 
         createMapView()
-        createImageView()
-        go()
+        attribute()
+        layout()
     }
 
     //맵뷰(nmapFView)생성함수
     func createMapView() {
         nmapFView = NMFMapView(frame: view.frame)
         nmapFView?.moveCamera(NMFCameraUpdate(scrollTo: NMGLatLng(lat: lat!, lng: lng!)))
+        nmapFView?.zoomLevel = 18
         nmapFView!.addCameraDelegate(delegate: self)
         view.addSubview(nmapFView!)
     }
-    //핀(imageView)생성함수
-    func createImageView() {
-        //하드로 고정해놓았기때문에 후에 화면중앙에 핀의 꼭짓점이 정확히 찍히는 방법 구상해야됨
-        let aiming = UIImageView()
+    func attribute() {
+        backButton.do {
+            $0.setImage(#imageLiteral(resourceName: "backButton"), for: .normal)
+            $0.addTarget(self, action: #selector(back), for: .touchUpInside)
+        }
+        aiming.image = #imageLiteral(resourceName: "target")
+        pinImage.image = #imageLiteral(resourceName: "marker")
+    }
+    
+    func layout() {
+        view.addSubview(backButton)
         view.addSubview(aiming)
+        aiming.addSubview(pinImage)
+        
+        backButton.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+        }
         aiming.snp.makeConstraints {
             $0.centerX.equalTo(view.snp.centerX)
             $0.centerY.equalTo(view.snp.centerY)
             $0.width.equalTo(30)
             $0.height.equalTo(30)
         }
-        aiming.image = #imageLiteral(resourceName: "target")
-
-        aiming.addSubview(pinImage)
         pinImage.snp.makeConstraints {
             $0.centerX.equalTo(view.snp.centerX)
-            $0.centerY.equalTo(view.snp.centerY).offset(-30)
+            $0.centerY.equalTo(view.snp.centerY).offset(-28)
             $0.width.equalTo(35)
             $0.height.equalTo(50)
         }
-        pinImage.image = #imageLiteral(resourceName: "marker")
+    }
+    @objc func back() {
+        dismiss(animated: true, completion: nil)
     }
 }
 extension SelectPlacePinViewController: NMFMapViewCameraDelegate {
@@ -79,7 +91,7 @@ extension SelectPlacePinViewController: NMFMapViewCameraDelegate {
             _ = self.nmapFView!.cameraPosition
             //카메라포지션의 좌표값을 스트링으로 변환후 addressText 띄우줌
             //            self.addressText.text = String(format: "%f",position.target.lat, position.target.lng)
-            //이건 후에 api 쏠때 필요한 코드여서 그냥 남겨둠
+            
             print(self.nmapFView!.cameraPosition.target.lat)
             print(self.nmapFView!.cameraPosition.target.lng)
             
@@ -88,7 +100,7 @@ extension SelectPlacePinViewController: NMFMapViewCameraDelegate {
             
 //            AddressAPI.getAddress(x, y)
             UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-                self.pinImage.transform = CGAffineTransform(translationX: 0, y: 10)
+                self.pinImage.transform = CGAffineTransform(translationX: 0, y: 0)
             })
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: task!)
