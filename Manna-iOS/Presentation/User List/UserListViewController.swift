@@ -91,8 +91,9 @@ class UserListViewController: UIViewController {
             .subscribe(onNext: { item in
                 let detailUserViewController = DetailUserViewController()
                 detailUserViewController.do {
-                    detailUserViewController.userImage.image = UIImage(named: item.profileImage)
-                    detailUserViewController.userID.text = item.name
+//                    detailUserViewController.userImage.image = UIImage(named: item.profileImage)
+//                    detailUserViewController.userID.text = item.name
+                    detailUserViewController.selectedFriend = item
                     self.definesPresentationContext = true
                     $0.modalPresentationStyle = .overFullScreen
                     $0.modalTransitionStyle = .crossDissolve

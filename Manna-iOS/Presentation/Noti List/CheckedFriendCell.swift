@@ -13,35 +13,38 @@ import SnapKit
 class CheckedFriendCell: UICollectionViewCell {
     static  let identifier = "cell"
     
-    var bottomImageView: UIImageView?
-    var testImageView: UIImageView?
+    var profileImage = UIImageView()
+    var XImage = UIImageView()
     override func layoutSubviews() {
         super.layoutSubviews()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        attribute()
+        layout()
         
-        self.bottomImageView = UIImageView()
-        bottomImageView?.do {
+//        UIView.animate(withDuration: 0.3) {
+//          self.layoutIfNeeded()
+//        }
+    }
+    func attribute() {
+        profileImage.do {
             $0.layer.cornerRadius = 10
             $0.layer.masksToBounds = true
             $0.contentMode = .scaleAspectFill
         }
+        XImage.image = UIImage(named: "Xmark")
+    }
+    
+    func layout() {
+        self.addSubview(self.profileImage)
+        self.addSubview(self.XImage)
         
-        self.testImageView = UIImageView()
-//        self.testImageView?.contentMode = .scaleAspectFill
-        
-        self.addSubview(self.bottomImageView!)
-        self.addSubview(self.testImageView!)
-        
-        testImageView?.image = UIImage(named: "Xmark")
-        
-        self.bottomImageView?.snp.makeConstraints { make in
+        self.profileImage.snp.makeConstraints { make in
             make.leading.top.trailing.bottom.equalTo(0)
         }
-        self.testImageView?.snp.makeConstraints {
-//            make.leading.top.trailing.bottom.equalTo(30)
+        self.XImage.snp.makeConstraints {
             $0.top.equalTo(-5)
             $0.trailing.equalTo(10)
             $0.width.height.equalTo(20)

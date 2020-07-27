@@ -13,8 +13,7 @@ import RxOptional
 
 class UserListViewModel: Type {
     let disposeBag = DisposeBag()
-    
-    var friendsOB = BehaviorRelay<[UserTestStruct]>(value: [namjihyeon, juyeon, bomin, mino, beenzino, gdragon, iuzzang, jenny, jisoo, jpark, crush, bloo, rain, kimwoobin, kingkihoon, munchan2])
+    var friendsOB = BehaviorRelay<[UserTestStruct]>(value: UserListModel.friendList)
     var filteredFriendsList = BehaviorRelay(value: [UserTestStruct]())
     var searchValue: BehaviorRelay<String> = BehaviorRelay(value: "")
     var deletedFriends: BehaviorRelay<IndexPath> = BehaviorRelay(value: [])
@@ -25,7 +24,6 @@ class UserListViewModel: Type {
         searchValueObservable
             .subscribe(onNext: { value in
                 self.friendsOB.map({ $0.filter({
-                    print($0.name.lowercased().contains(value.lowercased()))
                     if value.isEmpty { return true }
                     return  ($0.name.lowercased().contains(value.lowercased()))})
                 })
@@ -34,15 +32,23 @@ class UserListViewModel: Type {
             }).disposed(by: disposeBag)
         
         deletedFriends
+            .skip(1)
+            .map { $0[1] }
             .subscribe(onNext: { index in
-                //                self.friendsList.remove(at: index[1])
+                var newValue = self.filteredFriendsList.value
+                newValue.remove(at: index)
+                self.filteredFriendsList.accept(newValue)
             }).disposed(by: disposeBag)
         
         newFriend
+            .debug()
             .subscribe(onNext: { item in
-                var newValue = self.friendsOB.value
+                print(item)
+                var newValue = self.filteredFriendsList.value
                 newValue.append(item)
-                self.friendsOB.accept(newValue)
+                print(newValue.append(item))
+                self.filteredFriendsList.accept(newValue)
+                print(self.filteredFriendsList.value)
             })
             .disposed(by: disposeBag)
     }

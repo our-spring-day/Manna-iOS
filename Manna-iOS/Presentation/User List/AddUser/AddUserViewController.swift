@@ -15,8 +15,8 @@ import UIKit
 class AddUserViewController: UIViewController {
     let disposeBag = DisposeBag()
     
-    let viewModel = AddUserViewModel()
-    let viewModel2 = UserListViewModel()
+    let addUserViewModel = AddUserViewModel()
+    let userListViewModel = UserListViewModel()
     
     let imageView = UIImageView()
     let profileView = UIView()
@@ -105,10 +105,10 @@ class AddUserViewController: UIViewController {
     func bind() {
         searchController.searchBar.rx.searchButtonClicked
             .withLatestFrom(searchController.searchBar.rx.text) { "\($1!)"}
-            .bind(to: self.viewModel.searchValue)
+            .bind(to: self.addUserViewModel.searchValue)
             .disposed(by: disposeBag)
         
-        viewModel.filteredUser
+        addUserViewModel.filteredUser
             .filterEmpty()
             .subscribe(onNext: { item in
                 self.textLabel.text = item[0].name
@@ -119,7 +119,7 @@ class AddUserViewController: UIViewController {
         
         addFriendButton.rx.tap
             .map({ self.newFriend })
-            .bind(to: viewModel2.newFriend)
+            .bind(to: userListViewModel.newFriend)
             .disposed(by: disposeBag)
     }
 }

@@ -14,18 +14,13 @@ import RxDataSources
 class NotiListViewController: UIViewController {
     let disposeBag = DisposeBag()
     
-    let viewModel = UserListViewModel()
+    let userListViewModel = UserListViewModel()
     var checkedMemberArray: BehaviorRelay<[UserTestStruct]> = BehaviorRelay(value: [])
     let screenSize: CGRect = UIScreen.main.bounds
     var collectionView: UICollectionView!
     let layoutValue = UICollectionViewFlowLayout()
     lazy var itemObservable = BehaviorRelay(value: [UserTestStruct]())
     var tableView = FriendsListTableView()
-//    var tableView = FriendsListTableView(frame: CGRect(x: view.safeAreaLayoutGuide.topAnchor.,
-//                                                       y: 200,
-//                                                       width: UIScreen.main.bounds.width-10,
-//                                                       height: UIScreen.main.bounds.height - 200)
-//    )
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +67,7 @@ class NotiListViewController: UIViewController {
     }
     func bind() {
         //tableView set
-        viewModel.filteredFriendsList
+        userListViewModel.filteredFriendsList
             .bind(to: tableView.baseTableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self))
             {(_: Int, element: UserTestStruct, cell: UserListCell) in
                 cell.idLabel.text = element.name
@@ -88,7 +83,7 @@ class NotiListViewController: UIViewController {
         checkedMemberArray
             .bind(to: self.collectionView.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)){
                 (index: Int, element: UserTestStruct, cell: CheckedFriendCell) in
-                cell.bottomImageView?.image = UIImage(named: "\(element.profileImage)")
+                cell.profileImage.image = UIImage(named: "\(element.profileImage)")
         }.disposed(by: self.disposeBag)
         
         //checkedMemberArray set with tableView
@@ -106,13 +101,13 @@ class NotiListViewController: UIViewController {
                     self.checkedMemberArray.accept(checkedValue)
                 }
                 //flag set
-                var flagValue = self.viewModel.filteredFriendsList.value
+                var flagValue = self.userListViewModel.filteredFriendsList.value
                 if flagValue[index[1]].checkedFlag == 0 {
                     flagValue[index[1]].checkedFlag = 1
                 } else {
                     flagValue[index[1]].checkedFlag = 0
                 }
-                self.viewModel.filteredFriendsList.accept(flagValue)
+                self.userListViewModel.filteredFriendsList.accept(flagValue)
         }
         
         //checkedMemberArray set with collectionView
@@ -120,9 +115,9 @@ class NotiListViewController: UIViewController {
         .zip(collectionView.rx.itemSelected, collectionView.rx.modelSelected(UserTestStruct.self))
         .bind { [unowned self] index, item in
             //flag set
-            var flagValue = self.viewModel.filteredFriendsList.value
+            var flagValue = self.userListViewModel.filteredFriendsList.value
             flagValue[flagValue.firstIndex(where: {$0.name == item.name})!].checkedFlag = 0
-            self.viewModel.filteredFriendsList.accept(flagValue)
+            self.userListViewModel.filteredFriendsList.accept(flagValue)
             //remove from checkList
             var checkedValue = self.checkedMemberArray.value
             checkedValue.remove(at: index[1])
@@ -131,24 +126,21 @@ class NotiListViewController: UIViewController {
         
         //Reflected tableView height with collectionView exist
         checkedMemberArray
+            .skip(1)
             .map { $0.count }
             .filter { $0 <= 1 }
             .subscribe(onNext: { count in
-                print("이거 언제 들어오냐")
                 if count == 0 {
                     self.tableView.snp.updateConstraints {
                         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-                    }
-                    UIView.animate(withDuration: 0.3) {
-                      self.view.layoutIfNeeded()
                     }
                 } else {
                     self.tableView.snp.updateConstraints {
                         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(100)
                     }
-                    UIView.animate(withDuration: 0.3) {
-                      self.view.layoutIfNeeded()
-                    }
+                }
+                UIView.animate(withDuration: 0.3) {
+                  self.view.layoutIfNeeded()
                 }
             }).disposed(by: disposeBag)
     }
