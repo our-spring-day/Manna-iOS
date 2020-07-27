@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxDataSources
 
 class NotiListViewController: UIViewController {
     let disposeBag = DisposeBag()
@@ -19,11 +20,12 @@ class NotiListViewController: UIViewController {
     var collectionView: UICollectionView!
     let layoutValue = UICollectionViewFlowLayout()
     lazy var itemObservable = BehaviorRelay(value: [UserTestStruct]())
-    var tableView = FriendsListTableView(frame: CGRect(x: 5,
-                                                       y: 266,
-                                                       width: UIScreen.main.bounds.width-10,
-                                                       height: UIScreen.main.bounds.height - 266)
-    )
+    var tableView = FriendsListTableView()
+//    var tableView = FriendsListTableView(frame: CGRect(x: view.safeAreaLayoutGuide.topAnchor.,
+//                                                       y: 200,
+//                                                       width: UIScreen.main.bounds.width-10,
+//                                                       height: UIScreen.main.bounds.height - 200)
+//    )
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +41,7 @@ class NotiListViewController: UIViewController {
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layoutValue)
         collectionView.do {
             $0.backgroundColor = .white
-            $0.register(BottomMenuCell.self, forCellWithReuseIdentifier: BottomMenuCell.identifier)
+            $0.register(CheckedFriendCell.self, forCellWithReuseIdentifier: CheckedFriendCell.identifier)
             $0.isPagingEnabled = true
             $0.showsHorizontalScrollIndicator = false
         }
@@ -47,7 +49,7 @@ class NotiListViewController: UIViewController {
             $0.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             $0.minimumLineSpacing = 10
             $0.minimumInteritemSpacing = 10
-            $0.itemSize = CGSize(width: 40, height: 40)
+            $0.itemSize = CGSize(width: 50, height: 50)
             $0.scrollDirection = .horizontal
         }
     }
@@ -56,10 +58,15 @@ class NotiListViewController: UIViewController {
         view.addSubview(collectionView)
         view.addSubview(tableView)
         
+        tableView.snp.makeConstraints {
+            $0.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+//            $0.top.equalTo(collectionView.snp.bottom)
+        }
+        
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(view.snp.top).offset(100)
+            $0.top.equalTo(view.snp.top).offset(70)
             $0.width.equalTo(400)
-            $0.height.equalTo(40)
+            $0.height.equalTo(100)
             $0.centerX.equalTo(view.snp.centerX)
         }
     }
@@ -79,8 +86,8 @@ class NotiListViewController: UIViewController {
         
         //collectionView set
         checkedMemberArray
-            .bind(to: self.collectionView.rx.items(cellIdentifier: BottomMenuCell.identifier, cellType: BottomMenuCell.self)){
-                (index: Int, element: UserTestStruct, cell: BottomMenuCell) in
+            .bind(to: self.collectionView.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)){
+                (index: Int, element: UserTestStruct, cell: CheckedFriendCell) in
                 cell.bottomImageView?.image = UIImage(named: "\(element.profileImage)")
         }.disposed(by: self.disposeBag)
         
@@ -95,7 +102,7 @@ class NotiListViewController: UIViewController {
                     checkedValue.remove(at: MMIndex)
                     self.checkedMemberArray.accept(checkedValue)
                 } else {
-                    checkedValue.append(item)
+                    checkedValue.insert(item, at: 0)
                     self.checkedMemberArray.accept(checkedValue)
                 }
                 //flag set
@@ -107,6 +114,7 @@ class NotiListViewController: UIViewController {
                 }
                 self.viewModel.filteredFriendsList.accept(flagValue)
         }
+        
         //checkedMemberArray set with collectionView
         Observable
         .zip(collectionView.rx.itemSelected, collectionView.rx.modelSelected(UserTestStruct.self))
@@ -120,5 +128,28 @@ class NotiListViewController: UIViewController {
             checkedValue.remove(at: index[1])
             self.checkedMemberArray.accept(checkedValue)
         }.disposed(by: disposeBag)
+        
+        //Reflected tableView height with collectionView exist
+        checkedMemberArray
+            .map { $0.count }
+            .filter { $0 <= 1 }
+            .subscribe(onNext: { count in
+                print("이거 언제 들어오냐")
+                if count == 0 {
+                    self.tableView.snp.updateConstraints {
+                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+                    }
+                    UIView.animate(withDuration: 0.3) {
+                      self.view.layoutIfNeeded()
+                    }
+                } else {
+                    self.tableView.snp.updateConstraints {
+                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(100)
+                    }
+                    UIView.animate(withDuration: 0.3) {
+                      self.view.layoutIfNeeded()
+                    }
+                }
+            }).disposed(by: disposeBag)
     }
 }

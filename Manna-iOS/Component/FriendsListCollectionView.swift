@@ -29,7 +29,7 @@ class FriendsListCollectionView: UIView {
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layoutValue)
         collectionView.do {
             $0.backgroundColor = .white
-            $0.register(BottomMenuCell.self, forCellWithReuseIdentifier: BottomMenuCell.identifier)
+            $0.register(CheckedFriendCell.self, forCellWithReuseIdentifier: CheckedFriendCell.identifier)
             $0.isPagingEnabled = true
             $0.showsHorizontalScrollIndicator = false
             $0.isUserInteractionEnabled = false

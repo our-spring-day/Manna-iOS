@@ -27,19 +27,19 @@ class UserListViewModel: Type {
                 self.friendsOB.map({ $0.filter({
                     print($0.name.lowercased().contains(value.lowercased()))
                     if value.isEmpty { return true }
-                    return  ($0.name.lowercased().contains(value.lowercased()))
+                    return  ($0.name.lowercased().contains(value.lowercased()))})
                 })
-                    return $0.sorted(by: {$0.name < $1.name})
-                }).bind(to: self.filteredFriendsList )
+                    .map({$0.sorted(by: {$0.name < $1.name})})
+                    .bind(to: self.filteredFriendsList )
             }).disposed(by: disposeBag)
         
         deletedFriends
-            .subscribe(onNext: {index in
+            .subscribe(onNext: { index in
                 //                self.friendsList.remove(at: index[1])
             }).disposed(by: disposeBag)
         
         newFriend
-            .subscribe(onNext:{ item in
+            .subscribe(onNext: { item in
                 var newValue = self.friendsOB.value
                 newValue.append(item)
                 self.friendsOB.accept(newValue)

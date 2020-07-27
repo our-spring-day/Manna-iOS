@@ -1,10 +1,15 @@
 PODS:
+  - Differentiator (4.0.1)
   - RxAppState (1.6.0):
     - RxCocoa (~> 5.0)
     - RxSwift (~> 5.0)
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
+  - RxDataSources (4.0.1):
+    - Differentiator (~> 4.0)
+    - RxCocoa (~> 5.0)
+    - RxSwift (~> 5.0)
   - RxOptional (4.1.0):
     - RxCocoa (~> 5)
     - RxSwift (~> 5)
@@ -19,6 +24,7 @@ PODS:
 DEPENDENCIES:
   - RxAppState
   - RxCocoa
+  - RxDataSources
   - RxOptional
   - RxSwift
   - SnapKit
@@ -28,8 +34,10 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Differentiator
     - RxAppState
     - RxCocoa
+    - RxDataSources
     - RxOptional
     - RxRelay
     - RxSwift
@@ -39,8 +47,10 @@ SPEC REPOS:
     - Toaster
 
 SPEC CHECKSUMS:
+  Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   RxAppState: b633d7370970ecb80081912ea08a7bf3eb644b4e
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
+  RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
   RxOptional: b1fcd60856807a564c0215c2184b8d33e7826dc2
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
@@ -49,6 +59,6 @@ SPEC CHECKSUMS:
   Then: 90cd104fd951cec1980a03f57704ad8f784d4d79
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
 
-PODFILE CHECKSUM: 272d633b5b6c20126b7f2df82965eb68b9bdde6b
+PODFILE CHECKSUM: 322125d685198f9083e56bc10b8ee8ada9f7d4f1
 
 COCOAPODS: 1.9.1

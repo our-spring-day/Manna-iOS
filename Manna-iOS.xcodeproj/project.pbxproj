@@ -27,7 +27,7 @@
 		CC986DD124A5DB95004450B7 /* AddUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC986DD024A5DB95004450B7 /* AddUserViewModel.swift */; };
 		CCAC1F2D24B2FD28007C21ED /* UserListTestStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAC1F2C24B2FD28007C21ED /* UserListTestStruct.swift */; };
 		CCAD9CFE249CD06300E639BF /* DetailUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAD9CFD249CD06300E639BF /* DetailUserViewController.swift */; };
-		CCB0F24924C6EDDE00BBEAFC /* BottomMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB0F24824C6EDDE00BBEAFC /* BottomMenuCell.swift */; };
+		CCB0F24924C6EDDE00BBEAFC /* CheckedFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB0F24824C6EDDE00BBEAFC /* CheckedFriendCell.swift */; };
 		CCB1578624AB3D0E00D81511 /* UserTestStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578524AB3D0E00D81511 /* UserTestStruct.swift */; };
 		CCB1578924AB53B400D81511 /* SearchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578824AB53B400D81511 /* SearchProtocol.swift */; };
 		CCC1F7ED24BDA70700DC8BCB /* FriendsListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1F7EC24BDA70700DC8BCB /* FriendsListTableView.swift */; };
@@ -60,7 +60,7 @@
 		CC986DD024A5DB95004450B7 /* AddUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserViewModel.swift; sourceTree = "<group>"; };
 		CCAC1F2C24B2FD28007C21ED /* UserListTestStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListTestStruct.swift; sourceTree = "<group>"; };
 		CCAD9CFD249CD06300E639BF /* DetailUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUserViewController.swift; sourceTree = "<group>"; };
-		CCB0F24824C6EDDE00BBEAFC /* BottomMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuCell.swift; sourceTree = "<group>"; };
+		CCB0F24824C6EDDE00BBEAFC /* CheckedFriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckedFriendCell.swift; sourceTree = "<group>"; };
 		CCB1578524AB3D0E00D81511 /* UserTestStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTestStruct.swift; sourceTree = "<group>"; };
 		CCB1578824AB53B400D81511 /* SearchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProtocol.swift; sourceTree = "<group>"; };
 		CCC1F7EC24BDA70700DC8BCB /* FriendsListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableView.swift; sourceTree = "<group>"; };
@@ -188,7 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				CC705A0E2477D2D200462251 /* NotiListViewController.swift */,
-				CCB0F24824C6EDDE00BBEAFC /* BottomMenuCell.swift */,
+				CCB0F24824C6EDDE00BBEAFC /* CheckedFriendCell.swift */,
 			);
 			path = "Noti List";
 			sourceTree = "<group>";
@@ -386,7 +386,7 @@
 				CC705A0F2477D2D200462251 /* NotiListViewController.swift in Sources */,
 				CC705A0B2477D28800462251 /* UserListViewController.swift in Sources */,
 				CC7059ED2477B81100462251 /* AppDelegate.swift in Sources */,
-				CCB0F24924C6EDDE00BBEAFC /* BottomMenuCell.swift in Sources */,
+				CCB0F24924C6EDDE00BBEAFC /* CheckedFriendCell.swift in Sources */,
 				CC629D4024B736D100C0C165 /* SendDataDelegate.swift in Sources */,
 				CCAD9CFE249CD06300E639BF /* DetailUserViewController.swift in Sources */,
 				CC7059EF2477B81100462251 /* SceneDelegate.swift in Sources */,

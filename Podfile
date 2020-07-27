@@ -12,6 +12,7 @@ target 'Manna-iOS' do
   pod 'RxAppState'
   pod 'Then'
   pod 'RxOptional'
+  pod 'RxDataSources'
   # Pods for Manna-iOS
 
 end
