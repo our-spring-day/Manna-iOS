@@ -35,13 +35,13 @@ class SelectPlacePinViewController: UIViewController {
 
         createMapView()
         createImageView()
-//        createAddressLabel()
         go()
     }
 
     //맵뷰(nmapFView)생성함수
     func createMapView() {
         nmapFView = NMFMapView(frame: view.frame)
+        nmapFView?.moveCamera(NMFCameraUpdate(scrollTo: NMGLatLng(lat: lat!, lng: lng!)))
         nmapFView!.addCameraDelegate(delegate: self)
         view.addSubview(nmapFView!)
     }
@@ -66,16 +66,6 @@ class SelectPlacePinViewController: UIViewController {
             $0.height.equalTo(50)
         }
         pinImage.image = #imageLiteral(resourceName: "marker")
-        
-    }
-    
-    func go() {
-        guard let lat = lat else { return }
-        guard let lng = lng else { return }
-        cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: lat, lng: lng))
-        cameraUpdate!.animation = .fly
-        cameraUpdate!.animationDuration = 1.5
-        nmapFView!.moveCamera(cameraUpdate!)
     }
 }
 extension SelectPlacePinViewController: NMFMapViewCameraDelegate {
