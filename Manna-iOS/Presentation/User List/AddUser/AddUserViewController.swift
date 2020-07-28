@@ -119,7 +119,8 @@ class AddUserViewController: UIViewController {
         
         addFriendButton.rx.tap
             .map({ self.newFriend })
-            .bind(to: userListViewModel.newFriend)
+            .do {self.navigationController?.popViewController(animated: true)}
+            .bind(to: userListViewModel.inputs.newFriend)
             .disposed(by: disposeBag)
     }
 }

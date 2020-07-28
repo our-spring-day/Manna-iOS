@@ -23,10 +23,6 @@ class CheckedFriendCell: UICollectionViewCell {
         super.init(frame: frame)
         attribute()
         layout()
-        
-//        UIView.animate(withDuration: 0.3) {
-//          self.layoutIfNeeded()
-//        }
     }
     func attribute() {
         profileImage.do {

@@ -11,17 +11,43 @@ import RxSwift
 import RxCocoa
 import RxOptional
 
-class UserListViewModel: Type {
+protocol UserListViewModelInput {
+    var searchValue: AnyObserver<String> { get }
+    var deletedFriend: AnyObserver<UserTestStruct> { get }
+    var newFriend: AnyObserver<UserTestStruct> { get }
+}
+
+protocol UserListViewModelOutput {
+    static var filteredFriendsList: BehaviorRelay<[UserTestStruct]> { get }
+}
+
+protocol UserListViewModelType {
+    var inputs: UserListViewModelInput { get }
+    var outputs: UserListViewModelOutput { get }
+}
+
+class UserListViewModel: UserListViewModelType,UserListViewModelInput,UserListViewModelOutput {
     let disposeBag = DisposeBag()
+    
+    var searchValue: AnyObserver<String>
+    var deletedFriend: AnyObserver<UserTestStruct>
+    var newFriend: AnyObserver<UserTestStruct>
     static var friendsOB = BehaviorRelay<[UserTestStruct]>(value: UserListModel.friendList)
     static var filteredFriendsList = BehaviorRelay(value: [UserTestStruct]())
-    var searchValue: BehaviorRelay<String> = BehaviorRelay(value: "")
-    var deletedFriends: PublishSubject<UserTestStruct> = PublishSubject<UserTestStruct>()
-    var newFriend: PublishSubject<UserTestStruct> = PublishSubject<UserTestStruct>()
-    lazy var searchValueObservable: Observable<String> = self.searchValue.asObservable()
     
     init() {
-        searchValueObservable
+        //input
+        let searchValueInput = PublishSubject<String>()
+        let deletedFriendInput = PublishSubject<UserTestStruct>()
+        let newFriendInput = PublishSubject<UserTestStruct>()
+        
+        //output
+        //searchValue 가 searchValueInput의 옵져버니까 searchvaluinput이 옵져버블이 되는 그런건가?
+        searchValue = searchValueInput.asObserver()
+        deletedFriend = deletedFriendInput.asObserver()
+        newFriend = newFriendInput.asObserver()
+        
+        searchValueInput
             .subscribe(onNext: { value in
                 UserListViewModel.self.friendsOB.map({ $0.filter({
                     if value.isEmpty { return true }
@@ -31,16 +57,14 @@ class UserListViewModel: Type {
                     .bind(to: UserListViewModel.self.filteredFriendsList )
             }).disposed(by: disposeBag)
         
-        deletedFriends
-            .skip(1)
+        deletedFriendInput
             .subscribe(onNext: { item in
                 var newValue = UserListViewModel.self.friendsOB.value
                 newValue.remove(at: newValue.firstIndex(where: { $0.name == item.name })!)
                 UserListViewModel.self.friendsOB.accept(newValue)
             }).disposed(by: disposeBag)
         
-        newFriend
-            .debug()
+        newFriendInput
             .subscribe(onNext: { item in
                 var newValue = UserListViewModel.self.friendsOB.value
                 newValue.append(item)
@@ -49,4 +73,6 @@ class UserListViewModel: Type {
             })
             .disposed(by: disposeBag)
     }
+    var inputs: UserListViewModelInput { return self }
+    var outputs: UserListViewModelOutput { return self }
 }
