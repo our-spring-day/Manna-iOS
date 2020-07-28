@@ -15,7 +15,7 @@ protocol SelectPlacePinViewModelInput {
     var latitude: AnyObserver<Double> { get }
 }
 protocol SelectPlacePinViewModelOutput {
-    var address: Observable<String> { get }
+    var address: Observable<Address> { get }
 }
 
 protocol SelectPlacePinViewModelType {
@@ -28,24 +28,22 @@ class SelectPlacePinViewModel: SelectPlacePinViewModelType, SelectPlacePinViewMo
     let latitude: AnyObserver<Double>
     
     // output
-    let address: Observable<String>
+    let address: Observable<Address>
     
     let disposeBag = DisposeBag()
     
     init() {
         let lngInput = PublishSubject<Double>()
         let latInput = PublishSubject<Double>()
-        
-        let addressOut = BehaviorRelay<String>(value: "")
+        let addressOut = BehaviorRelay<Address>(value: Address(address: "", roadAddress: "", lng: "", lat: ""))
         
         longitude = lngInput.asObserver()
         latitude = latInput.asObserver()
         
         Observable.combineLatest(lngInput, latInput)
             .flatMap { AddressAPI.getAddress($0, $1) }
-            .map { $0.address }
-            .subscribe(onNext: { str in
-            addressOut.accept(str)
+            .subscribe(onNext: { address in
+                addressOut.accept(address)
             })
             .disposed(by: disposeBag)
         

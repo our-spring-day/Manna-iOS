@@ -128,6 +128,8 @@ class SelectPlaceViewController: UIViewController {
                 view.modalPresentationStyle = .overFullScreen
                 view.lng = Double(address.lng)
                 view.lat = Double(address.lat)
+                view.addressLable.text = address.address
+                view.roadAddressLable.text = address.roadAddress
                 self?.present(view, animated: true, completion: nil)
             })
             .subscribe {
