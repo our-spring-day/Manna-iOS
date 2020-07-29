@@ -14,12 +14,10 @@ import RxDataSources
 class NotiListViewController: UIViewController {
     let disposeBag = DisposeBag()
     
-    let userListViewModel = UserListViewModel()
     var checkedMemberArray: BehaviorRelay<[UserTestStruct]> = BehaviorRelay(value: [])
-    let screenSize: CGRect = UIScreen.main.bounds
+    let userListViewModel = UserListViewModel()
     var collectionView: UICollectionView!
     let layoutValue = UICollectionViewFlowLayout()
-    lazy var itemObservable = BehaviorRelay(value: [UserTestStruct]())
     var tableView = FriendsListTableView()
     
     override func viewDidLoad() {
@@ -55,7 +53,6 @@ class NotiListViewController: UIViewController {
         
         tableView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-            //            $0.top.equalTo(collectionView.snp.bottom)
         }
         
         collectionView.snp.makeConstraints {
@@ -81,22 +78,20 @@ class NotiListViewController: UIViewController {
         
         //collectionView set
         checkedMemberArray
-            .bind(to: self.collectionView.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)){
+            .bind(to: self.collectionView.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)) {
                 (index: Int, element: UserTestStruct, cell: CheckedFriendCell) in
                 cell.profileImage.image = UIImage(named: "\(element.profileImage)")
         }.disposed(by: self.disposeBag)
         
         //bind checkedMemberArray with filteredFriendsList checkedFlag Value
         UserListViewModel.filteredFriendsList
-            .map{ $0.filter({ $0.checkedFlag == 1})}
+            .map { $0.filter({ $0.checkedFlag == 1 }) }
             .bind(to: checkedMemberArray)
             .disposed(by: disposeBag)
         
         //checkedMemberArray update with tableView
-        Observable
-            .zip(tableView.baseTableView.rx.itemSelected, tableView.baseTableView.rx.modelSelected(UserTestStruct.self))
-            .bind { index, item in
-                //flag set
+        tableView.baseTableView.rx.itemSelected
+            .subscribe(onNext: { index in
                 var flagValue = UserListViewModel.self.filteredFriendsList.value
                 if flagValue[index[1]].checkedFlag == 0 {
                     flagValue[index[1]].checkedFlag = 1
@@ -104,19 +99,18 @@ class NotiListViewController: UIViewController {
                     flagValue[index[1]].checkedFlag = 0
                 }
                 UserListViewModel.self.filteredFriendsList.accept(flagValue)
-        }
+            }).disposed(by: disposeBag)
         
         //checkedMemberArray update with collectionView
-        Observable
-            .zip(collectionView.rx.itemSelected, collectionView.rx.modelSelected(UserTestStruct.self))
-            .bind { index, item in
+        collectionView.rx.modelSelected(UserTestStruct.self)
+            .subscribe(onNext: { item in
                 //flag set
                 var flagValue = UserListViewModel.self.filteredFriendsList.value
                 flagValue[flagValue.firstIndex(where: {$0.name == item.name})!].checkedFlag = 0
                 UserListViewModel.self.filteredFriendsList.accept(flagValue)
-        }.disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
         
-        //Reflected tableView height with collectionView exist
+        //Reflected tableView height with checkedFriends are exist
         checkedMemberArray
             .skip(1)
             .map { $0.count }
