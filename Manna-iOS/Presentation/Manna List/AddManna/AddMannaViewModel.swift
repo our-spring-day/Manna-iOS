@@ -14,11 +14,15 @@ protocol AddMannaViewModelInput {
     var title: AnyObserver<String> { get }
     var people: AnyObserver<String> { get }
     var time: AnyObserver<String> { get }
-    var place: AnyObserver<String> { get }
+    var place: AnyObserver<Address> { get }
+    var detailPlace: AnyObserver<String> { get }
     var address: AnyObserver<String> { get }
+    var longitude: AnyObserver<Double> { get }
+    var latitude: AnyObserver<Double> { get }
 }
 protocol AddMannaViewModelOutput {
-    var addressOut: Observable<[Address]> { get }
+    var addressArr: Observable<[Address]> { get }
+    var addressSingle: Observable<Address> { get }
 }
 
 protocol AddMannaViewModelType {
@@ -28,32 +32,51 @@ protocol AddMannaViewModelType {
 
 class AddMannaViewModel: AddMannaViewModelType, AddMannaViewModelInput, AddMannaViewModelOutput {
     
+    let disposeBag = DisposeBag()
+    
     let title: AnyObserver<String>
     let people: AnyObserver<String>
     let time: AnyObserver<String>
-    let place: AnyObserver<String>
+    let place: AnyObserver<Address>
+    let detailPlace: AnyObserver<String>
+    let longitude: AnyObserver<Double>
+    let latitude: AnyObserver<Double>
     let address: AnyObserver<String>
     
-    let addressOut: Observable<[Address]>
-    
-    let disposeBag = DisposeBag()
+    let addressArr: Observable<[Address]>
+    let addressSingle: Observable<Address>
     
     init() {
         // Input
         let titleInput = PublishSubject<String>()
         let peopleInput = PublishSubject<String>()
         let timeInput = PublishSubject<String>()
-        let placeInput = PublishSubject<String>()
+        let placeInput = PublishSubject<Address>()
+        let detailPlaceInput = PublishSubject<String>()
+        let lngInput = PublishSubject<Double>()
+        let latInput = PublishSubject<Double>()
         let addressInput = PublishSubject<String>()
 
         // Output
         let addressOutput = BehaviorRelay<[Address]>(value: [])
+        let addressSingleOutput = BehaviorRelay<Address>(value: Address(address: "", roadAddress: "", lng: "", lat: ""))
         
         title = titleInput.asObserver()
         people = peopleInput.asObserver()
         time = timeInput.asObserver()
         place = placeInput.asObserver()
+        detailPlace = detailPlaceInput.asObserver()
+        longitude = lngInput.asObserver()
+        latitude = latInput.asObserver()
         address = addressInput.asObserver()
+        
+        let mainPlace = placeInput.takeLast(1)
+            .map { "\($0.address)"}
+        
+        let detailPlace = detailPlaceInput.takeLast(1)
+        
+        let totalPlace = Observable.zip(mainPlace, detailPlace)
+            .map { "\($0) \($1)" }
         
         addressInput
             .debug()
@@ -64,9 +87,18 @@ class AddMannaViewModel: AddMannaViewModelType, AddMannaViewModelInput, AddManna
             })
             .disposed(by: disposeBag)
 
-        addressOut = addressOutput.asObservable()
+        addressArr = addressOutput.asObservable()
+
+        Observable.combineLatest(lngInput, latInput)
+            .flatMap { AddressAPI.getAddress($0, $1) }
+            .subscribe(onNext: { address in
+                addressSingleOutput.accept(address)
+            })
+            .disposed(by: disposeBag)
         
-        Observable.zip(titleInput, peopleInput, timeInput, placeInput)
+        addressSingle = addressSingleOutput.asObservable()
+        
+        Observable.zip(titleInput, peopleInput, timeInput, totalPlace)
             .subscribe(onNext: { title, people, time, place in
                 let manna = Manna(title: title, numberPeople: people, appointmentTime: time, place: place)
                 MannaProvider.addManna(data: manna)
