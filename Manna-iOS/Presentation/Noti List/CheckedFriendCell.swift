@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Foundation
 import SnapKit
 
 class CheckedFriendCell: UICollectionViewCell {

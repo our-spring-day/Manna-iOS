@@ -15,7 +15,6 @@ import Then
 class UserListViewController: UIViewController {
     let disposeBag = DisposeBag()
     
-    var delegate: SendDataDelegate?
     var tableView = FriendsListTableView()
     let searchController = UISearchController(searchResultsController: nil)
     let viewModel = UserListViewModel()

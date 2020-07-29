@@ -17,11 +17,11 @@ class UserListCell: UITableViewCell {
     let userImageView = UIImageView()
     let checkBox = UIImageView()
     var flag = 0
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         attribute()
         layout()
-        
     }
     
     required init?(coder: NSCoder) {

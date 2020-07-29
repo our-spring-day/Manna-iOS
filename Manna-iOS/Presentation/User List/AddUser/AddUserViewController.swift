@@ -115,6 +115,9 @@ class AddUserViewController: UIViewController {
                 self.imageView.image = UIImage(named: item[0].profileImage)
                 self.newFriend = item[0]
                 self.addFriendButton.isHidden = false
+                UIView.animate(withDuration: 0.5) {
+                    self.view.layoutIfNeeded()
+                }
             }).disposed(by: disposeBag)
         
         addFriendButton.rx.tap
