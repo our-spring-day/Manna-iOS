@@ -14,7 +14,8 @@ import RxDataSources
 class NotiListViewController: UIViewController {
     let disposeBag = DisposeBag()
     
-    var checkedMemberArray: BehaviorRelay<[UserTestStruct]> = BehaviorRelay(value: [])
+    let inviteFriendsViewModel = InviteFriendsViewModel()
+    let checkedMemberArray: BehaviorRelay<[UserTestStruct]> = BehaviorRelay(value: [])
     let userListViewModel = FriendListViewModel()
     var collectionView: UICollectionView!
     let layoutValue = UICollectionViewFlowLayout()
@@ -64,7 +65,7 @@ class NotiListViewController: UIViewController {
     }
     func bind() {
         //tableView set
-        FriendListViewModel.myFriendList
+        inviteFriendsViewModel.outputs.friendList
             .bind(to: tableView.baseTableView.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self))
             {(_: Int, element: UserTestStruct, cell: FriendListCell) in
                 cell.friendIdLabel.text = element.name
@@ -77,42 +78,21 @@ class NotiListViewController: UIViewController {
         }.disposed(by: disposeBag)
         
         //collectionView set
-        checkedMemberArray
+        inviteFriendsViewModel.outputs.checkedFriendList
             .bind(to: self.collectionView.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)) {
                 (index: Int, element: UserTestStruct, cell: CheckedFriendCell) in
                 cell.profileImage.image = UIImage(named: "\(element.profileImage)")
         }.disposed(by: self.disposeBag)
         
-        //bind checkedMemberArray with filteredFriendsList checkedFlag Value
-//        FriendListViewModel.myFriendList
-//            .map { $0.filter({ $0.checkedFlag == 1 }) }
-//            .bind(to: checkedMemberArray)
-//            .disposed(by: disposeBag)
-        
-        //checkedMemberArray update with tableView
         tableView.baseTableView.rx.itemSelected
-            .subscribe(onNext: { index in
-                var flagValue = FriendListViewModel.self.myFriendList.value
-                if flagValue[index[1]].checkedFlag == 0 {
-                    flagValue[index[1]].checkedFlag = 1
-                } else {
-                    flagValue[index[1]].checkedFlag = 0
-                }
-                FriendListViewModel.self.myFriendList.accept(flagValue)
-            }).disposed(by: disposeBag)
+            .bind(to: inviteFriendsViewModel.inputs.indexFromTableView)
+            .disposed(by: disposeBag)
         
-        //checkedMemberArray update with collectionView
         collectionView.rx.modelSelected(UserTestStruct.self)
-            .subscribe(onNext: { item in
-                //flag set
-                var flagValue = FriendListViewModel.self.myFriendList.value
-                flagValue[flagValue.firstIndex(where: {$0.name == item.name})!].checkedFlag = 0
-                FriendListViewModel.self.myFriendList.accept(flagValue)
-            }).disposed(by: disposeBag)
+            .bind(to: inviteFriendsViewModel.inputs.itemFromCollectionView)
+            .disposed(by: disposeBag)
         
-        //Reflected tableView height with checkedFriends are exist
-        checkedMemberArray
-            .skip(1)
+        inviteFriendsViewModel.outputs.checkedFriendList
             .map { $0.count }
             .filter { $0 <= 1 }
             .subscribe(onNext: { count in

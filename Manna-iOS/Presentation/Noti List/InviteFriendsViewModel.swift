@@ -55,6 +55,26 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
             .map { $0.filter { $0.checkedFlag == 1 } }
             .bind(to: checkedFriendListOutput)
             .disposed(by: disposeBag)
+        
+        //checkedFriendList update with tableView
+        INDXInput
+            .subscribe(onNext: { index in
+                var flagValue = FriendListViewModel.self.myFriendList.value
+                if flagValue[index[1]].checkedFlag == 0 {
+                    flagValue[index[1]].checkedFlag = 1
+                } else {
+                    flagValue[index[1]].checkedFlag = 0
+                }
+                FriendListViewModel.self.myFriendList.accept(flagValue)
+            }).disposed(by: disposeBag)
+        
+        //checkedMemberArray update with collectionView
+        ITMInput
+            .subscribe(onNext: { item in
+                var flagValue = FriendListViewModel.self.myFriendList.value
+                flagValue[flagValue.firstIndex(where: {$0.name == item.name})!].checkedFlag = 0
+                FriendListViewModel.self.myFriendList.accept(flagValue)
+            }).disposed(by: disposeBag)
     }
     var inputs: InviteFriendsViewModellInput { return self }
     var outputs: InviteFriendsViewModelOutput { return self }
