@@ -74,7 +74,7 @@ class FriendListViewController: UIViewController {
         searchController.searchBar.rx.text
             .orEmpty
             .distinctUntilChanged()
-            .bind(to: viewModel.searchedUserID)
+            .bind(to: viewModel.inputs.searchedFriendID)
             .disposed(by: disposeBag)
         
         self.addFriendButton.rx.tap

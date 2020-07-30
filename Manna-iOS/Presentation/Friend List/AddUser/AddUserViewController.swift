@@ -104,13 +104,12 @@ class AddUserViewController: UIViewController {
     
     func bind() {
         //text 가 비어있을 때 return 버튼 disabled 필요
-        
         searchController.searchBar.rx.searchButtonClicked
             .withLatestFrom(searchController.searchBar.rx.text) { "\($1!)"}
-            .bind(to: self.addUserViewModel.searchValue)
+            .bind(to: self.addUserViewModel.inputs.searchedUserID)
             .disposed(by: disposeBag)
         
-        addUserViewModel.filteredUser
+        addUserViewModel.outputs.filteredUser
             .bind(to: self.newFriend)
             .disposed(by: disposeBag)
         

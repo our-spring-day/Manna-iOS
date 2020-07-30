@@ -11,18 +11,36 @@ import RxSwift
 import RxCocoa
 import RxOptional
 
-class AddUserViewModel: Type {
+protocol AddUserViewModelInput {
+    var searchedUserID: AnyObserver<String> { get }
+}
+
+protocol AddUserViewModelOutput {
+    var filteredUser: Observable<UserTestStruct> { get }
+}
+
+protocol AddUserViewModelType {
+    var inputs: AddUserViewModelInput { get }
+    var outputs: AddUserViewModelOutput { get }
+}
+
+class AddUserViewModel: AddUserViewModelType, AddUserViewModelInput, AddUserViewModelOutput {
     let disposeBag = DisposeBag()
-    
-    let filteredUser = BehaviorRelay(value: UserTestStruct(name: "", profileImage: "", checkedFlag: 0))
-    let friendsList = UserListTestStruct().userListTestStruct
-    let searchValue: BehaviorRelay<String> = BehaviorRelay(value: "")
-    var didClick = BehaviorRelay<UserTestStruct>(value: UserTestStruct(name: "", profileImage: "", checkedFlag: 0))
-    lazy var itemsObservable = Observable.of(self.friendsList)
-    lazy var searchValueObservable: Observable<String> = self.searchValue.asObservable()
+    //input
+    let searchedUserID: AnyObserver<String>
+    //output
+    var filteredUser: Observable<UserTestStruct>
+    var itemsObservable = Observable.of(UserListTestStruct().userListTestStruct)
     
     init() {
-        searchValueObservable
+        let searchedUserIDInput = PublishSubject<String>()
+        var filteredUserOutput = PublishSubject<UserTestStruct>()
+        
+        searchedUserID = searchedUserIDInput.asObserver()
+        filteredUser = filteredUserOutput.asObservable()
+        
+        searchedUserIDInput
+            .filterEmpty()
             .skip(1)
             .distinctUntilChanged()
             .subscribe(onNext: { value in
@@ -39,8 +57,10 @@ class AddUserViewModel: Type {
                 }
                 .filterEmpty()
                 .map({ $0[0] })
-                .bind(to: self.filteredUser)
+                .bind(to: filteredUserOutput)
             }).disposed(by: disposeBag)
-        
     }
+    
+    var inputs: AddUserViewModelInput { return self }
+    var outputs: AddUserViewModelOutput { return self }
 }

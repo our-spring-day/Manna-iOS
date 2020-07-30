@@ -12,7 +12,7 @@ import RxCocoa
 import RxOptional
 
 protocol FriendListViewModelInput {
-    var searchedUserID: AnyObserver<String> { get }
+    var searchedFriendID: AnyObserver<String> { get }
     var deletedFriend: AnyObserver<UserTestStruct> { get }
     var requestingFriend: AnyObserver<UserTestStruct> { get }
 }
@@ -29,15 +29,12 @@ protocol FriendListViewModelType {
 class FriendListViewModel: FriendListViewModelType,FriendListViewModelInput, FriendListViewModelOutput {
     
     let disposeBag = DisposeBag()
-    
     //input
-    var searchedUserID: AnyObserver<String>
+    var searchedFriendID: AnyObserver<String>
     var deletedFriend: AnyObserver<UserTestStruct>
     var requestingFriend: AnyObserver<UserTestStruct>
-    
     //output
     static var myFriendList = BehaviorRelay(value: [UserTestStruct]())
-    
     static var originalFriendList = BehaviorRelay<[UserTestStruct]>(value: UserListModel.originalFriendList)
     
     init() {
@@ -45,7 +42,7 @@ class FriendListViewModel: FriendListViewModelType,FriendListViewModelInput, Fri
         let deletedFriendInput = PublishSubject<UserTestStruct>()
         let requestingFriendInput = PublishSubject<UserTestStruct>()
         
-        searchedUserID = searchedUserIDInput.asObserver()
+        searchedFriendID = searchedUserIDInput.asObserver()
         deletedFriend = deletedFriendInput.asObserver()
         requestingFriend = requestingFriendInput.asObserver()
         
