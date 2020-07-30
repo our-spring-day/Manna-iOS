@@ -14,10 +14,10 @@ import SnapKit
 class SetListViewController: UIViewController {
     let disposeBag = DisposeBag()
     
-    let viewModel = UserListViewModel()
+    let viewModel = FriendListViewModel()
     var meetingMemberArray: [UserTestStruct] = []
     let screenSize: CGRect = UIScreen.main.bounds
-    var tableView = FriendsListTableView(frame: CGRect(x: 5, y: 266, width: UIScreen.main.bounds.width-10, height: UIScreen.main.bounds.height - 266))
+    var tableView = FriendListTableView(frame: CGRect(x: 5, y: 266, width: UIScreen.main.bounds.width-10, height: UIScreen.main.bounds.height - 266))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,10 +37,10 @@ class SetListViewController: UIViewController {
     }
     
     func bind() {
-        UserListViewModel.filteredFriendsList
-            .bind(to: tableView.baseTableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self)) {(_: Int, element: UserTestStruct, cell: UserListCell) in
-                cell.idLabel.text = element.name
-                cell.userImageView.image = UIImage(named: "\(element.profileImage)")
+        FriendListViewModel.self.myFriendList
+            .bind(to: tableView.baseTableView.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self)) {(_: Int, element: UserTestStruct, cell: FriendListCell) in
+                cell.friendIdLabel.text = element.name
+                cell.friendImageView.image = UIImage(named: "\(element.profileImage)")
         }.disposed(by: disposeBag)
         
     }

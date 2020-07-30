@@ -9,7 +9,7 @@
 import UIKit
 
 class FriendsListCollectionView: UIView {
-    var collectionView: UICollectionView!
+    var baseCollectionView: UICollectionView!
     let layoutValue: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     
     override init(frame: CGRect) {
@@ -26,8 +26,8 @@ class FriendsListCollectionView: UIView {
         self.do {
             $0.backgroundColor = .white
         }
-        collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layoutValue)
-        collectionView.do {
+        baseCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layoutValue)
+        baseCollectionView.do {
             $0.backgroundColor = .white
             $0.register(CheckedFriendCell.self, forCellWithReuseIdentifier: CheckedFriendCell.identifier)
             $0.isPagingEnabled = true
@@ -44,9 +44,9 @@ class FriendsListCollectionView: UIView {
     }
     
     func layout() {
-        self.addSubview(collectionView)
+        self.addSubview(baseCollectionView)
         
-        collectionView.snp.makeConstraints {
+        baseCollectionView.snp.makeConstraints {
             $0.top.equalTo(self.snp.top).offset(100)
             $0.width.equalTo(400)
             $0.height.equalTo(40)

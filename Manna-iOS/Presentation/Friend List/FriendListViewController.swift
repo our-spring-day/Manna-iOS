@@ -12,12 +12,12 @@ import RxSwift
 import SnapKit
 import Then
 
-class UserListViewController: UIViewController {
+class FriendListViewController: UIViewController {
     let disposeBag = DisposeBag()
     
-    var tableView = FriendsListTableView()
+    var friendListtableView = FriendListTableView()
     let searchController = UISearchController(searchResultsController: nil)
-    let viewModel = UserListViewModel()
+    let viewModel = FriendListViewModel()
     var selectedFriends = BehaviorRelay(value: UserTestStruct(name: "", profileImage: "", checkedFlag: 0))
     let addFriendButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
     let screenSize: CGRect = UIScreen.main.bounds
@@ -54,27 +54,27 @@ class UserListViewController: UIViewController {
     }
     
     func layout() {
-        view.addSubview(tableView)
+        view.addSubview(friendListtableView)
         
-        tableView.snp.makeConstraints {
+        friendListtableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }
     
     func bind() {
-        UserListViewModel.filteredFriendsList
-            .bind(to: tableView.baseTableView.rx.items(cellIdentifier: UserListCell.identifier,cellType: UserListCell.self))
-            {(_: Int, element: UserTestStruct, cell: UserListCell) in
-                cell.idLabel.text = element.name
-                cell.userImageView.image = UIImage(named: "\(element.profileImage)")
-                cell.checkBox.isHidden = true
+        FriendListViewModel.self.myFriendList
+            .bind(to: friendListtableView.baseTableView.rx.items(cellIdentifier: FriendListCell.identifier,cellType: FriendListCell.self))
+            {(_: Int, element: UserTestStruct, cell: FriendListCell) in
+                cell.friendIdLabel.text = element.name
+                cell.friendImageView.image = UIImage(named: "\(element.profileImage)")
+                cell.checkBoxImageView.isHidden = true
         }
         .disposed(by: disposeBag)
         
         searchController.searchBar.rx.text
             .orEmpty
             .distinctUntilChanged()
-            .bind(to: viewModel.searchValue)
+            .bind(to: viewModel.searchedUserID)
             .disposed(by: disposeBag)
         
         self.addFriendButton.rx.tap
@@ -86,9 +86,9 @@ class UserListViewController: UIViewController {
                 }
             }).disposed(by: disposeBag)
         
-        tableView.baseTableView.rx.modelSelected(UserTestStruct.self)
+        friendListtableView.baseTableView.rx.modelSelected(UserTestStruct.self)
             .subscribe(onNext: { item in
-                let detailUserViewController = DetailUserViewController()
+                let detailUserViewController = FriendDetailViewController()
                 detailUserViewController.do {
                     detailUserViewController.selectedFriend = item
                     self.definesPresentationContext = true
@@ -98,8 +98,8 @@ class UserListViewController: UIViewController {
                 }
             }).disposed(by: disposeBag)
         
-        tableView.baseTableView.rx.itemDeleted
-            .map { UserListViewModel.self.filteredFriendsList.value[$0[1]] }
+        friendListtableView.baseTableView.rx.itemDeleted
+            .map { FriendListViewModel.self.myFriendList.value[$0[1]] }
             .bind(to: viewModel.inputs.deletedFriend)
             .disposed(by: disposeBag)
     }

@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UITabBarController {
     
-    let userListViewController = UserListViewController()
+    let userListViewController = FriendListViewController()
     let mannaListViewController = MannaListViewController()
     let notiListViewController = NotiListViewController()
     let setListViewController = SetListViewController()

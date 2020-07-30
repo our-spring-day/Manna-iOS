@@ -12,10 +12,9 @@ import RxCocoa
 import SnapKit
 import Then
 
-class FriendsListTableView: UIView {
+class FriendListTableView: UIView {
     let disposeBag = DisposeBag()
     
-    var cellList: [UIImageView] = []
     let baseTableView = UITableView()
 
     override init (frame: CGRect) {
@@ -32,7 +31,7 @@ class FriendsListTableView: UIView {
         self.addSubview(baseTableView)
         
         baseTableView.do {
-            $0.register(UserListCell.self, forCellReuseIdentifier: UserListCell.identifier)
+            $0.register(FriendListCell.self, forCellReuseIdentifier: FriendListCell.identifier)
             $0.rowHeight = 55
         }
     }

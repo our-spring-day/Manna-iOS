@@ -10,13 +10,13 @@ import UIKit
 import SnapKit
 import RxSwift
 
-class UserListCell: UITableViewCell {
+class FriendListCell: UITableViewCell {
     static let identifier = "UserListCell"
     
-    let idLabel = UILabel()
-    let userImageView = UIImageView()
-    let checkBox = UIImageView()
-    var flag = 0
+    let friendIdLabel = UILabel()
+    let friendImageView = UIImageView()
+    let checkBoxImageView = UIImageView()
+    var checkFlag = 0
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -29,35 +29,35 @@ class UserListCell: UITableViewCell {
     }
     
     func attribute() {
-        idLabel.do {
+        friendIdLabel.do {
             $0.font = .systemFont(ofSize: 14, weight: .light)
             $0.textColor = .black
         }
-        userImageView.do {
+        friendImageView.do {
             $0.layer.cornerRadius = 22
             $0.layer.masksToBounds = true
             $0.contentMode = .scaleAspectFill
         }
-        checkBox.do {
+        checkBoxImageView.do {
             $0.frame = CGRect(x: 0, y: 0, width: 300, height: 300)
             $0.image = UIImage(named: "unchecked")
         }
     }
     func layout() {
-        addSubview(idLabel)
-        addSubview(userImageView)
-        addSubview(checkBox)
+        addSubview(friendIdLabel)
+        addSubview(friendImageView)
+        addSubview(checkBoxImageView)
         
-        idLabel.snp.makeConstraints {
+        friendIdLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.left.equalTo(userImageView.snp.right).offset(10)
+            $0.left.equalTo(friendImageView.snp.right).offset(10)
         }
-        userImageView.snp.makeConstraints {
+        friendImageView.snp.makeConstraints {
             $0.left.equalToSuperview().offset(22)
             $0.width.height.equalTo(50)
             $0.centerY.equalToSuperview()
         }
-        checkBox.snp.makeConstraints {
+        checkBoxImageView.snp.makeConstraints {
             $0.right.equalToSuperview().offset(-20)
             $0.centerY.equalToSuperview()
         }

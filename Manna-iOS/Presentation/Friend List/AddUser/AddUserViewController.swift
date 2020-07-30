@@ -16,15 +16,15 @@ class AddUserViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     let addUserViewModel = AddUserViewModel()
-    let userListViewModel = UserListViewModel()
+    let friendListViewModel = FriendListViewModel()
     
-    let imageView = UIImageView()
-    let profileView = UIView()
-    let searchController = UISearchController(searchResultsController: nil)
     let screenSize: CGRect = UIScreen.main.bounds
-    let textLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+    let searchController = UISearchController(searchResultsController: nil)
+    let backgroundView = UIView()
+    let searchedUserImageView = UIImageView()
+    let searchedUserIdLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     let addFriendButton = UIButton()
-    var newFriend = UserTestStruct(name: "", profileImage: "", checkedFlag: 0)
+    var newFriend =  BehaviorRelay(value: UserTestStruct(name: "", profileImage: "", checkedFlag: 0))
     lazy var newFriendObservable = Observable.just(self.newFriend)
     
     override func viewDidLoad() {
@@ -53,16 +53,16 @@ class AddUserViewController: UIViewController {
             $0.searchBar.tintColor = UIColor(named: "default")
             navigationItem.searchController = $0
         }
-        profileView.do {
+        backgroundView.do {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-        imageView.do {
+        searchedUserImageView.do {
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.layer.cornerRadius = 10
             $0.layer.masksToBounds = true
             $0.contentMode = .scaleAspectFill
         }
-        textLabel.do {
+        searchedUserIdLabel.do {
             $0.textAlignment = NSTextAlignment.center
             $0.font = UIFont.systemFont(ofSize: 20.0)
         }
@@ -76,54 +76,59 @@ class AddUserViewController: UIViewController {
     }
     
     func layouts() {
-        view.addSubview(profileView)
-        profileView.addSubview(imageView)
-        profileView.addSubview(textLabel)
-        profileView.addSubview(addFriendButton)
+        view.addSubview(backgroundView)
+        backgroundView.addSubview(searchedUserImageView)
+        backgroundView.addSubview(searchedUserIdLabel)
+        backgroundView.addSubview(addFriendButton)
         
-        profileView.snp.makeConstraints {
+        backgroundView.snp.makeConstraints {
             $0.width.equalTo(400)
             $0.center.equalTo(view.center)
             $0.top.equalTo(view).offset(130)
         }
-        imageView.snp.makeConstraints {
-            $0.centerX.equalTo(profileView.snp.centerX)
-            $0.top.equalTo(profileView).offset(100)
+        searchedUserImageView.snp.makeConstraints {
+            $0.centerX.equalTo(backgroundView.snp.centerX)
+            $0.top.equalTo(backgroundView).offset(100)
             $0.width.equalTo(screenSize.width).offset(200)
             $0.height.equalTo(screenSize.height).offset(200)
         }
-        textLabel.snp.makeConstraints {
-            $0.centerX.equalTo(profileView.snp.centerX)
-            $0.top.equalTo(imageView.safeAreaLayoutGuide.snp.bottom).offset(25)
+        searchedUserIdLabel.snp.makeConstraints {
+            $0.centerX.equalTo(backgroundView.snp.centerX)
+            $0.top.equalTo(searchedUserImageView.safeAreaLayoutGuide.snp.bottom).offset(25)
         }
         addFriendButton.snp.makeConstraints {
-            $0.centerX.equalTo(profileView.snp.centerX)
-            $0.top.equalTo(textLabel.snp.bottom).offset(50)
+            $0.centerX.equalTo(backgroundView.snp.centerX)
+            $0.top.equalTo(searchedUserIdLabel.snp.bottom).offset(50)
         }
     }
     
     func bind() {
+        //text 가 비어있을 때 return 버튼 disabled 필요
+        
         searchController.searchBar.rx.searchButtonClicked
             .withLatestFrom(searchController.searchBar.rx.text) { "\($1!)"}
             .bind(to: self.addUserViewModel.searchValue)
             .disposed(by: disposeBag)
         
         addUserViewModel.filteredUser
-            .filterEmpty()
+            .bind(to: self.newFriend)
+            .disposed(by: disposeBag)
+        
+        newFriend
+            .skip(1)
             .subscribe(onNext: { item in
-                self.textLabel.text = item[0].name
-                self.imageView.image = UIImage(named: item[0].profileImage)
-                self.newFriend = item[0]
+                self.searchedUserIdLabel.text = item.name
+                self.searchedUserImageView.image = UIImage(named: item.profileImage)
                 self.addFriendButton.isHidden = false
                 UIView.animate(withDuration: 0.5) {
                     self.view.layoutIfNeeded()
                 }
             }).disposed(by: disposeBag)
         
+        //pop 시켜주고 새로 들어온 친구로 포커스 맞춰주면 좋을듯
         addFriendButton.rx.tap
-            .map({ self.newFriend })
-            .do {self.navigationController?.popViewController(animated: true)}
-            .bind(to: userListViewModel.inputs.newFriend)
+            .map({ self.newFriend.value })
+            .bind(to: friendListViewModel.inputs.requestingFriend)
             .disposed(by: disposeBag)
     }
 }

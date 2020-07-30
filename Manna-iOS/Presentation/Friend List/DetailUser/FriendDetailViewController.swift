@@ -10,15 +10,13 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class DetailUserViewController: UIViewController {
+class FriendDetailViewController: UIViewController {
     let disposeBag = DisposeBag()
-    
-    let userListViewController = UserListViewController()
+
     var selectedFriend: UserTestStruct?
     let backgroundView = UIView()
-    let userImage = UIImageView()
-    let userID = UILabel()
-    let screenSize: CGRect = UIScreen.main.bounds
+    let friendImageView = UIImageView()
+    let friendIDLabel = UILabel()
     let mannaButton = UIButton()
     
     override func viewDidLoad() {
@@ -36,13 +34,13 @@ class DetailUserViewController: UIViewController {
             $0.backgroundColor = .white
             $0.layer.cornerRadius = 10
         }
-        userImage.do {
+        friendImageView.do {
             $0.layer.cornerRadius = 10
             $0.layer.masksToBounds = true
             $0.contentMode = .scaleAspectFill
             $0.image = UIImage(named: selectedFriend!.profileImage)
         }
-        userID.do {
+        friendIDLabel.do {
             $0.font = UIFont.systemFont(ofSize: 20.0)
             $0.text = selectedFriend!.name
         }
@@ -55,8 +53,8 @@ class DetailUserViewController: UIViewController {
     }
     func layouts() {
         view.addSubview(backgroundView)
-        view.addSubview(userImage)
-        backgroundView.addSubview(userID)
+        view.addSubview(friendImageView)
+        backgroundView.addSubview(friendIDLabel)
         backgroundView.addSubview(mannaButton)
         
         backgroundView.snp.makeConstraints {
@@ -64,19 +62,19 @@ class DetailUserViewController: UIViewController {
             $0.width.equalTo(350)
             $0.height.equalTo(450)
         }
-        userImage.snp.makeConstraints {
+        friendImageView.snp.makeConstraints {
             $0.centerX.equalTo(backgroundView.snp.centerX)
             $0.top.equalTo(backgroundView.snp.top).offset(25)
             $0.width.equalTo(300)
             $0.height.equalTo(300)
         }
-        userID.snp.makeConstraints {
+        friendIDLabel.snp.makeConstraints {
             $0.centerX.equalTo(backgroundView.snp.centerX)
-            $0.top.equalTo(userImage.snp.bottom).offset(25)
+            $0.top.equalTo(friendImageView.snp.bottom).offset(25)
         }
         mannaButton.snp.makeConstraints {
             $0.centerX.equalTo(backgroundView.snp.centerX)
-            $0.top.equalTo(userID.snp.bottom).offset(25)
+            $0.top.equalTo(friendIDLabel.snp.bottom).offset(25)
         }
     }
     

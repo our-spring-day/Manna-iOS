@@ -15,10 +15,10 @@ class NotiListViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     var checkedMemberArray: BehaviorRelay<[UserTestStruct]> = BehaviorRelay(value: [])
-    let userListViewModel = UserListViewModel()
+    let userListViewModel = FriendListViewModel()
     var collectionView: UICollectionView!
     let layoutValue = UICollectionViewFlowLayout()
-    var tableView = FriendsListTableView()
+    var tableView = FriendListTableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,15 +64,15 @@ class NotiListViewController: UIViewController {
     }
     func bind() {
         //tableView set
-        UserListViewModel.filteredFriendsList
-            .bind(to: tableView.baseTableView.rx.items(cellIdentifier: UserListCell.identifier, cellType: UserListCell.self))
-            {(_: Int, element: UserTestStruct, cell: UserListCell) in
-                cell.idLabel.text = element.name
-                cell.userImageView.image = UIImage(named: "\(element.profileImage)")
+        FriendListViewModel.myFriendList
+            .bind(to: tableView.baseTableView.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self))
+            {(_: Int, element: UserTestStruct, cell: FriendListCell) in
+                cell.friendIdLabel.text = element.name
+                cell.friendImageView.image = UIImage(named: "\(element.profileImage)")
                 if element.checkedFlag == 1 {
-                    cell.checkBox.image = UIImage(named: "checked")
+                    cell.checkBoxImageView.image = UIImage(named: "checked")
                 } else {
-                    cell.checkBox.image = UIImage(named: "unchecked")
+                    cell.checkBoxImageView.image = UIImage(named: "unchecked")
                 }
         }.disposed(by: disposeBag)
         
@@ -84,7 +84,7 @@ class NotiListViewController: UIViewController {
         }.disposed(by: self.disposeBag)
         
         //bind checkedMemberArray with filteredFriendsList checkedFlag Value
-        UserListViewModel.filteredFriendsList
+        FriendListViewModel.myFriendList
             .map { $0.filter({ $0.checkedFlag == 1 }) }
             .bind(to: checkedMemberArray)
             .disposed(by: disposeBag)
@@ -92,22 +92,22 @@ class NotiListViewController: UIViewController {
         //checkedMemberArray update with tableView
         tableView.baseTableView.rx.itemSelected
             .subscribe(onNext: { index in
-                var flagValue = UserListViewModel.self.filteredFriendsList.value
+                var flagValue = FriendListViewModel.self.myFriendList.value
                 if flagValue[index[1]].checkedFlag == 0 {
                     flagValue[index[1]].checkedFlag = 1
                 } else {
                     flagValue[index[1]].checkedFlag = 0
                 }
-                UserListViewModel.self.filteredFriendsList.accept(flagValue)
+                FriendListViewModel.self.myFriendList.accept(flagValue)
             }).disposed(by: disposeBag)
         
         //checkedMemberArray update with collectionView
         collectionView.rx.modelSelected(UserTestStruct.self)
             .subscribe(onNext: { item in
                 //flag set
-                var flagValue = UserListViewModel.self.filteredFriendsList.value
+                var flagValue = FriendListViewModel.self.myFriendList.value
                 flagValue[flagValue.firstIndex(where: {$0.name == item.name})!].checkedFlag = 0
-                UserListViewModel.self.filteredFriendsList.accept(flagValue)
+                FriendListViewModel.self.myFriendList.accept(flagValue)
             }).disposed(by: disposeBag)
         
         //Reflected tableView height with checkedFriends are exist

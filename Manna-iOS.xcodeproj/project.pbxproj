@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CC384C0C24852AD0005F34AE /* UserListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C0B24852AD0005F34AE /* UserListViewModel.swift */; };
+		CC384C0C24852AD0005F34AE /* FriendListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C0B24852AD0005F34AE /* FriendListViewModel.swift */; };
 		CC384C0E24852ADB005F34AE /* UserListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C0D24852ADB005F34AE /* UserListModel.swift */; };
-		CC384C1124862613005F34AE /* UserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C1024862613005F34AE /* UserListCell.swift */; };
+		CC384C1124862613005F34AE /* FriendListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C1024862613005F34AE /* FriendListCell.swift */; };
 		CC4FCA0724C0207500FEE302 /* MeetingMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4FCA0624C0207500FEE302 /* MeetingMember.swift */; };
 		CC6E7D5C2487AB070050D774 /* AddUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */; };
 		CC7059ED2477B81100462251 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7059EC2477B81100462251 /* AppDelegate.swift */; };
@@ -19,14 +19,14 @@
 		CC7059F62477B81200462251 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC7059F52477B81200462251 /* Assets.xcassets */; };
 		CC7059F92477B81200462251 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC7059F72477B81200462251 /* LaunchScreen.storyboard */; };
 		CC705A022477BBAB00462251 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = CC705A012477BBAB00462251 /* .swiftlint.yml */; };
-		CC705A0B2477D28800462251 /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A0A2477D28800462251 /* UserListViewController.swift */; };
+		CC705A0B2477D28800462251 /* FriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A0A2477D28800462251 /* FriendListViewController.swift */; };
 		CC705A0D2477D2BA00462251 /* MannaListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A0C2477D2BA00462251 /* MannaListViewController.swift */; };
 		CC705A0F2477D2D200462251 /* NotiListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A0E2477D2D200462251 /* NotiListViewController.swift */; };
 		CC705A112477D2E000462251 /* SetListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A102477D2E000462251 /* SetListViewController.swift */; };
 		CC8DB2F024CEE09B0003B3D2 /* TempViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8DB2EF24CEE09B0003B3D2 /* TempViewController.swift */; };
 		CC986DD124A5DB95004450B7 /* AddUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC986DD024A5DB95004450B7 /* AddUserViewModel.swift */; };
 		CCAC1F2D24B2FD28007C21ED /* UserListTestStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAC1F2C24B2FD28007C21ED /* UserListTestStruct.swift */; };
-		CCAD9CFE249CD06300E639BF /* DetailUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAD9CFD249CD06300E639BF /* DetailUserViewController.swift */; };
+		CCAD9CFE249CD06300E639BF /* FriendDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAD9CFD249CD06300E639BF /* FriendDetailViewController.swift */; };
 		CCB0F24924C6EDDE00BBEAFC /* CheckedFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB0F24824C6EDDE00BBEAFC /* CheckedFriendCell.swift */; };
 		CCB1578624AB3D0E00D81511 /* UserTestStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578524AB3D0E00D81511 /* UserTestStruct.swift */; };
 		CCB1578924AB53B400D81511 /* SearchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578824AB53B400D81511 /* SearchProtocol.swift */; };
@@ -38,9 +38,9 @@
 /* Begin PBXFileReference section */
 		4DFAEF44CF70735D62CB19F6 /* Pods-Manna-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manna-iOS.release.xcconfig"; path = "Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		5434F4B54E67CE37DCF01314 /* Pods_Manna_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Manna_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CC384C0B24852AD0005F34AE /* UserListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewModel.swift; sourceTree = "<group>"; };
+		CC384C0B24852AD0005F34AE /* FriendListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewModel.swift; sourceTree = "<group>"; };
 		CC384C0D24852ADB005F34AE /* UserListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListModel.swift; sourceTree = "<group>"; };
-		CC384C1024862613005F34AE /* UserListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListCell.swift; sourceTree = "<group>"; };
+		CC384C1024862613005F34AE /* FriendListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListCell.swift; sourceTree = "<group>"; };
 		CC4FCA0624C0207500FEE302 /* MeetingMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingMember.swift; sourceTree = "<group>"; };
 		CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserViewController.swift; sourceTree = "<group>"; };
 		CC7059E92477B81100462251 /* Manna-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Manna-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,14 +52,14 @@
 		CC7059F82477B81200462251 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CC7059FA2477B81200462251 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC705A012477BBAB00462251 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		CC705A0A2477D28800462251 /* UserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
+		CC705A0A2477D28800462251 /* FriendListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewController.swift; sourceTree = "<group>"; };
 		CC705A0C2477D2BA00462251 /* MannaListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaListViewController.swift; sourceTree = "<group>"; };
 		CC705A0E2477D2D200462251 /* NotiListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiListViewController.swift; sourceTree = "<group>"; };
 		CC705A102477D2E000462251 /* SetListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetListViewController.swift; sourceTree = "<group>"; };
 		CC8DB2EF24CEE09B0003B3D2 /* TempViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempViewController.swift; sourceTree = "<group>"; };
 		CC986DD024A5DB95004450B7 /* AddUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserViewModel.swift; sourceTree = "<group>"; };
 		CCAC1F2C24B2FD28007C21ED /* UserListTestStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListTestStruct.swift; sourceTree = "<group>"; };
-		CCAD9CFD249CD06300E639BF /* DetailUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUserViewController.swift; sourceTree = "<group>"; };
+		CCAD9CFD249CD06300E639BF /* FriendDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailViewController.swift; sourceTree = "<group>"; };
 		CCB0F24824C6EDDE00BBEAFC /* CheckedFriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckedFriendCell.swift; sourceTree = "<group>"; };
 		CCB1578524AB3D0E00D81511 /* UserTestStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTestStruct.swift; sourceTree = "<group>"; };
 		CCB1578824AB53B400D81511 /* SearchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProtocol.swift; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 		CC384C0F248625EC005F34AE /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				CC384C1024862613005F34AE /* UserListCell.swift */,
+				CC384C1024862613005F34AE /* FriendListCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -155,7 +155,7 @@
 		CC705A032477CEAA00462251 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				CC705A042477CECF00462251 /* User List */,
+				CC705A042477CECF00462251 /* Friend List */,
 				CC705A052477CEF900462251 /* Manna List */,
 				CC705A062477D18100462251 /* Noti List */,
 				CC705A072477D1E600462251 /* Set List */,
@@ -164,16 +164,16 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		CC705A042477CECF00462251 /* User List */ = {
+		CC705A042477CECF00462251 /* Friend List */ = {
 			isa = PBXGroup;
 			children = (
-				CC705A0A2477D28800462251 /* UserListViewController.swift */,
-				CC384C0B24852AD0005F34AE /* UserListViewModel.swift */,
+				CC705A0A2477D28800462251 /* FriendListViewController.swift */,
+				CC384C0B24852AD0005F34AE /* FriendListViewModel.swift */,
 				CC384C0F248625EC005F34AE /* Components */,
 				CCAD9CFC249CD01900E639BF /* DetailUser */,
 				CC6E7D5A2487AA7E0050D774 /* AddUser */,
 			);
-			path = "User List";
+			path = "Friend List";
 			sourceTree = "<group>";
 		};
 		CC705A052477CEF900462251 /* Manna List */ = {
@@ -204,7 +204,7 @@
 		CCAD9CFC249CD01900E639BF /* DetailUser */ = {
 			isa = PBXGroup;
 			children = (
-				CCAD9CFD249CD06300E639BF /* DetailUserViewController.swift */,
+				CCAD9CFD249CD06300E639BF /* FriendDetailViewController.swift */,
 				CC8DB2EF24CEE09B0003B3D2 /* TempViewController.swift */,
 			);
 			path = DetailUser;
@@ -375,20 +375,20 @@
 				CCB1578924AB53B400D81511 /* SearchProtocol.swift in Sources */,
 				CCB1578624AB3D0E00D81511 /* UserTestStruct.swift in Sources */,
 				CCAC1F2D24B2FD28007C21ED /* UserListTestStruct.swift in Sources */,
-				CC384C1124862613005F34AE /* UserListCell.swift in Sources */,
+				CC384C1124862613005F34AE /* FriendListCell.swift in Sources */,
 				CCC1F7ED24BDA70700DC8BCB /* FriendsListTableView.swift in Sources */,
 				CC986DD124A5DB95004450B7 /* AddUserViewModel.swift in Sources */,
 				CC705A0D2477D2BA00462251 /* MannaListViewController.swift in Sources */,
-				CC384C0C24852AD0005F34AE /* UserListViewModel.swift in Sources */,
+				CC384C0C24852AD0005F34AE /* FriendListViewModel.swift in Sources */,
 				CC705A112477D2E000462251 /* SetListViewController.swift in Sources */,
 				CC384C0E24852ADB005F34AE /* UserListModel.swift in Sources */,
 				CC7059F12477B81100462251 /* ViewController.swift in Sources */,
 				CC705A0F2477D2D200462251 /* NotiListViewController.swift in Sources */,
-				CC705A0B2477D28800462251 /* UserListViewController.swift in Sources */,
+				CC705A0B2477D28800462251 /* FriendListViewController.swift in Sources */,
 				CC7059ED2477B81100462251 /* AppDelegate.swift in Sources */,
 				CC8DB2F024CEE09B0003B3D2 /* TempViewController.swift in Sources */,
 				CCB0F24924C6EDDE00BBEAFC /* CheckedFriendCell.swift in Sources */,
-				CCAD9CFE249CD06300E639BF /* DetailUserViewController.swift in Sources */,
+				CCAD9CFE249CD06300E639BF /* FriendDetailViewController.swift in Sources */,
 				CC7059EF2477B81100462251 /* SceneDelegate.swift in Sources */,
 				CC4FCA0724C0207500FEE302 /* MeetingMember.swift in Sources */,
 			);
