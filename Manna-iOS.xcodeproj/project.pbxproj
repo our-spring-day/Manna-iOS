@@ -31,6 +31,7 @@
 		CCB1578624AB3D0E00D81511 /* UserTestStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578524AB3D0E00D81511 /* UserTestStruct.swift */; };
 		CCB1578924AB53B400D81511 /* SearchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578824AB53B400D81511 /* SearchProtocol.swift */; };
 		CCC1F7ED24BDA70700DC8BCB /* FriendsListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1F7EC24BDA70700DC8BCB /* FriendsListTableView.swift */; };
+		CCC2705224D32B19008D3C15 /* InviteFriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC2705124D32B19008D3C15 /* InviteFriendsViewModel.swift */; };
 		CCD1C89924C6F33900C3AE3D /* FriendsListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD1C89824C6F33900C3AE3D /* FriendsListCollectionView.swift */; };
 		F69ED73508E16B9556FF55D3 /* Pods_Manna_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5434F4B54E67CE37DCF01314 /* Pods_Manna_iOS.framework */; };
 /* End PBXBuildFile section */
@@ -64,6 +65,7 @@
 		CCB1578524AB3D0E00D81511 /* UserTestStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTestStruct.swift; sourceTree = "<group>"; };
 		CCB1578824AB53B400D81511 /* SearchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProtocol.swift; sourceTree = "<group>"; };
 		CCC1F7EC24BDA70700DC8BCB /* FriendsListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableView.swift; sourceTree = "<group>"; };
+		CCC2705124D32B19008D3C15 /* InviteFriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteFriendsViewModel.swift; sourceTree = "<group>"; };
 		CCD1C89824C6F33900C3AE3D /* FriendsListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListCollectionView.swift; sourceTree = "<group>"; };
 		F1D0975FD460DE1097C65D92 /* Pods-Manna-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manna-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -188,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				CC705A0E2477D2D200462251 /* NotiListViewController.swift */,
+				CCC2705124D32B19008D3C15 /* InviteFriendsViewModel.swift */,
 				CCB0F24824C6EDDE00BBEAFC /* CheckedFriendCell.swift */,
 			);
 			path = "Noti List";
@@ -373,6 +376,7 @@
 				CCD1C89924C6F33900C3AE3D /* FriendsListCollectionView.swift in Sources */,
 				CC6E7D5C2487AB070050D774 /* AddUserViewController.swift in Sources */,
 				CCB1578924AB53B400D81511 /* SearchProtocol.swift in Sources */,
+				CCC2705224D32B19008D3C15 /* InviteFriendsViewModel.swift in Sources */,
 				CCB1578624AB3D0E00D81511 /* UserTestStruct.swift in Sources */,
 				CCAC1F2D24B2FD28007C21ED /* UserListTestStruct.swift in Sources */,
 				CC384C1124862613005F34AE /* FriendListCell.swift in Sources */,

@@ -47,10 +47,8 @@ class AddUserViewModel: AddUserViewModelType, AddUserViewModelInput, AddUserView
                 self.itemsObservable.map{
                     $0.filter{ key in
                         if key.name == value {
-                            //검색어와 일치하는 아이디가 있을 때
                             return true
                         } else {
-                            //검색어와 일치하는 아이디가 없을 때
                             return false
                         }
                     }
