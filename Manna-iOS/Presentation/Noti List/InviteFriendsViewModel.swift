@@ -46,7 +46,6 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         
         indexFromTableView = INDXInput.asObserver()
         itemFromCollectionView = ITMInput.asObserver()
-        
         friendList = friendListOutput.asObservable()
         checkedFriendList = checkedFriendListOutput.asObservable()
         

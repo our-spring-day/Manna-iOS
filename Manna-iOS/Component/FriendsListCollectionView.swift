@@ -32,13 +32,12 @@ class FriendsListCollectionView: UIView {
             $0.register(CheckedFriendCell.self, forCellWithReuseIdentifier: CheckedFriendCell.identifier)
             $0.isPagingEnabled = true
             $0.showsHorizontalScrollIndicator = false
-            $0.isUserInteractionEnabled = false
         }
         layoutValue.do {
             $0.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             $0.minimumLineSpacing = 10
             $0.minimumInteritemSpacing = 10
-            $0.itemSize = CGSize(width: 30, height: 30)
+            $0.itemSize = CGSize(width: 50, height: 50)
             $0.scrollDirection = .horizontal
         }
     }
@@ -47,9 +46,8 @@ class FriendsListCollectionView: UIView {
         self.addSubview(baseCollectionView)
         
         baseCollectionView.snp.makeConstraints {
-            $0.top.equalTo(self.snp.top).offset(100)
             $0.width.equalTo(400)
-            $0.height.equalTo(40)
+            $0.height.equalTo(100)
             $0.centerX.equalTo(self.snp.centerX)
         }
     }
