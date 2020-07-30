@@ -26,7 +26,7 @@ protocol UserListViewModelType {
     var outputs: UserListViewModelOutput { get }
 }
 
-class UserListViewModel: UserListViewModelType,UserListViewModelInput,UserListViewModelOutput {
+class FriendListViewModel: UserListViewModelType,UserListViewModelInput,UserListViewModelOutput {
     let disposeBag = DisposeBag()
     
     var searchValue: AnyObserver<String>
@@ -49,27 +49,27 @@ class UserListViewModel: UserListViewModelType,UserListViewModelInput,UserListVi
         
         searchValueInput
             .subscribe(onNext: { value in
-                UserListViewModel.self.friendsOB.map({ $0.filter({
+                FriendListViewModel.self.friendsOB.map({ $0.filter({
                     if value.isEmpty { return true }
                     return  ($0.name.lowercased().contains(value.lowercased()))})
                 })
                     .map({$0.sorted(by: {$0.name < $1.name})})
-                    .bind(to: UserListViewModel.self.filteredFriendsList )
+                    .bind(to: FriendListViewModel.self.filteredFriendsList )
             }).disposed(by: disposeBag)
         
         deletedFriendInput
             .subscribe(onNext: { item in
-                var newValue = UserListViewModel.self.friendsOB.value
+                var newValue = FriendListViewModel.self.friendsOB.value
                 newValue.remove(at: newValue.firstIndex(where: { $0.name == item.name })!)
-                UserListViewModel.self.friendsOB.accept(newValue)
+                FriendListViewModel.self.friendsOB.accept(newValue)
             }).disposed(by: disposeBag)
         
         newFriendInput
             .subscribe(onNext: { item in
-                var newValue = UserListViewModel.self.friendsOB.value
+                var newValue = FriendListViewModel.self.friendsOB.value
                 newValue.append(item)
                 newValue = newValue.sorted(by: { $0.name < $1.name })
-                UserListViewModel.self.friendsOB.accept(newValue)
+                FriendListViewModel.self.friendsOB.accept(newValue)
             })
             .disposed(by: disposeBag)
     }
