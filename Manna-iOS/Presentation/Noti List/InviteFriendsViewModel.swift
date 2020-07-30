@@ -16,7 +16,7 @@ protocol InviteFriendsViewModellInput {
 }
 
 protocol InviteFriendsViewModelOutput {
-    var FriendList: Observable<[UserTestStruct]> { get }
+    var friendList: Observable<[UserTestStruct]> { get }
     var checkedFriendList: Observable<[UserTestStruct]> { get }
 }
 
@@ -27,17 +27,34 @@ protocol InviteFriendsViewModelType {
 
 class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModellInput, InviteFriendsViewModelOutput {
     
+    let disposeBag = DisposeBag()
     //inputs
     var indexFromTableView: AnyObserver<IndexPath>
     var itemFromCollectionView: AnyObserver<UserTestStruct>
     
     //outputs
-    var FriendList: Observable<[UserTestStruct]>
+    var friendList: Observable<[UserTestStruct]>
     var checkedFriendList: Observable<[UserTestStruct]>
     
     
     init() {
-        <#statements#>
+        var INDXInput = PublishSubject<IndexPath>()
+        var ITMInput = PublishSubject<UserTestStruct>()
+        
+        var friendListOutput = FriendListViewModel.self.myFriendList
+        var checkedFriendListOutput = PublishSubject<[UserTestStruct]>()
+        
+        indexFromTableView = INDXInput.asObserver()
+        itemFromCollectionView = ITMInput.asObserver()
+        
+        friendList = friendListOutput.asObservable()
+        checkedFriendList = checkedFriendListOutput.asObservable()
+        
+        //friendList <-bind-> checkedFriendList
+        friendListOutput
+            .map { $0.filter { $0.checkedFlag == 1 } }
+            .bind(to: checkedFriendListOutput)
+            .disposed(by: disposeBag)
     }
     var inputs: InviteFriendsViewModellInput { return self }
     var outputs: InviteFriendsViewModelOutput { return self }

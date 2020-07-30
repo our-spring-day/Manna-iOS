@@ -84,10 +84,10 @@ class NotiListViewController: UIViewController {
         }.disposed(by: self.disposeBag)
         
         //bind checkedMemberArray with filteredFriendsList checkedFlag Value
-        FriendListViewModel.myFriendList
-            .map { $0.filter({ $0.checkedFlag == 1 }) }
-            .bind(to: checkedMemberArray)
-            .disposed(by: disposeBag)
+//        FriendListViewModel.myFriendList
+//            .map { $0.filter({ $0.checkedFlag == 1 }) }
+//            .bind(to: checkedMemberArray)
+//            .disposed(by: disposeBag)
         
         //checkedMemberArray update with tableView
         tableView.baseTableView.rx.itemSelected
