@@ -14,7 +14,7 @@ protocol AddMannaViewModelInput {
     var title: AnyObserver<String> { get }
     var people: AnyObserver<String> { get }
     var time: AnyObserver<String> { get }
-    var place: AnyObserver<Address> { get }
+    var place: AnyObserver<String> { get }
     var detailPlace: AnyObserver<String> { get }
     var address: AnyObserver<String> { get }
     var longitude: AnyObserver<Double> { get }
@@ -37,7 +37,7 @@ class AddMannaViewModel: AddMannaViewModelType, AddMannaViewModelInput, AddManna
     let title: AnyObserver<String>
     let people: AnyObserver<String>
     let time: AnyObserver<String>
-    let place: AnyObserver<Address>
+    let place: AnyObserver<String>
     let detailPlace: AnyObserver<String>
     let longitude: AnyObserver<Double>
     let latitude: AnyObserver<Double>
@@ -51,7 +51,7 @@ class AddMannaViewModel: AddMannaViewModelType, AddMannaViewModelInput, AddManna
         let titleInput = PublishSubject<String>()
         let peopleInput = PublishSubject<String>()
         let timeInput = PublishSubject<String>()
-        let placeInput = PublishSubject<Address>()
+        let placeInput = PublishSubject<String>()
         let detailPlaceInput = PublishSubject<String>()
         let lngInput = PublishSubject<Double>()
         let latInput = PublishSubject<Double>()
@@ -70,13 +70,13 @@ class AddMannaViewModel: AddMannaViewModelType, AddMannaViewModelInput, AddManna
         latitude = latInput.asObserver()
         address = addressInput.asObserver()
         
-        let mainPlace = placeInput.takeLast(1)
-            .map { "\($0.address)"}
-        
-        let detailPlace = detailPlaceInput.takeLast(1)
-        
-        let totalPlace = Observable.zip(mainPlace, detailPlace)
-            .map { "\($0) \($1)" }
+//        let mainPlace = placeInput.takeLast(1)
+//            .map { "\($0.address)"}
+//
+//        let detailPlace = detailPlaceInput.takeLast(1)
+//
+//        let totalPlace = Observable.zip(mainPlace, detailPlace)
+//            .map { "\($0) \($1)" }
         
         addressInput
             .debug()
@@ -98,7 +98,8 @@ class AddMannaViewModel: AddMannaViewModelType, AddMannaViewModelInput, AddManna
         
         addressSingle = addressSingleOutput.asObservable()
         
-        Observable.zip(titleInput, peopleInput, timeInput, totalPlace)
+
+        Observable.zip(titleInput, peopleInput, timeInput, placeInput)
             .subscribe(onNext: { title, people, time, place in
                 let manna = Manna(title: title, numberPeople: people, appointmentTime: time, place: place)
                 MannaProvider.addManna(data: manna)

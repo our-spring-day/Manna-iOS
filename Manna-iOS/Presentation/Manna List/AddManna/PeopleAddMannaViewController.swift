@@ -7,17 +7,32 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 import SnapKit
 
 class PeopleAddMannaViewController: UIViewController {
     static let shared = PeopleAddMannaViewController()
+    let viewModel: AddMannaViewModelType
     
     lazy var mannaPeople = UITextField()
+    
+    let disposeBag = DisposeBag()
+    init(viewModel: AddMannaViewModelType = AddMannaViewModel()) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        viewModel = AddMannaViewModel()
+        super.init(coder: aDecoder)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         attribute()
         layout()
+        bind()
     }
     
     func attribute() {
@@ -35,5 +50,14 @@ class PeopleAddMannaViewController: UIViewController {
             $0.width.equalTo(200)
             $0.height.equalTo(40)
         }
+    }
+    
+    func bind() {
+        AddMannaViewController.shared.nextButton.rx.tap
+            .map { [weak self] _ in
+                (self?.mannaPeople.text)!
+            }
+            .bind(to: viewModel.inputs.people)
+            .disposed(by: disposeBag)
     }
 }

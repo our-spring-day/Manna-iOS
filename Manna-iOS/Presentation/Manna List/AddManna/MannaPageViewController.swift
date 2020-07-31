@@ -10,6 +10,9 @@ import UIKit
 import SnapKit
 
 class MannaPageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+    static let shared = MannaPageViewController(transitionStyle: .scroll,
+                                                navigationOrientation: .horizontal,
+                                                options: nil)
     
     var pageControl = UIPageControl()
     let VCArr: [UIViewController] = [PeopleAddMannaViewController.shared,

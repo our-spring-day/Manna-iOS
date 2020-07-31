@@ -16,6 +16,8 @@ class AddMannaViewController: UIViewController {
     let disposeBag = DisposeBag()
     var pageflag: Bool = false
     
+    static let shared = AddMannaViewController()
+    
     let viewModel: AddMannaViewModelType
     let pageView = MannaPageViewController(transitionStyle: .scroll,
                                            navigationOrientation: .horizontal,
@@ -138,10 +140,10 @@ class AddMannaViewController: UIViewController {
             .bind(to: viewModel.inputs.title)
             .disposed(by: disposeBag)
         
-        peopleVC.mannaPeople.rx.text.orEmpty
-            .bind(to: viewModel.inputs.people)
-            .disposed(by: disposeBag)
-        
+//        peopleVC.mannaPeople.rx.text.orEmpty
+//            .bind(to: viewModel.inputs.people)
+//            .disposed(by: disposeBag)
+//        
         timeVC.onPicker.rx.date
             .map {
                 let dateFormatter = DateFormatter()
@@ -151,9 +153,9 @@ class AddMannaViewController: UIViewController {
             .bind(to: viewModel.inputs.time)
             .disposed(by: disposeBag)
         
-        placeVC.mannaPlace.rx.text.orEmpty
-            .bind(to: viewModel.inputs.place)
-            .disposed(by: disposeBag)
+//        placeVC.mannaPlace.rx.text.orEmpty
+//            .bind(to: viewModel.inputs.place)
+//            .disposed(by: disposeBag)
         
         peopleVC.mannaPeople.text = ""
         placeVC.mannaPlace.text = ""

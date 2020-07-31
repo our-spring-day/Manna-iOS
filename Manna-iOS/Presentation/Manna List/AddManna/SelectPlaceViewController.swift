@@ -114,7 +114,7 @@ class SelectPlaceViewController: UIViewController {
             .bind(to: viewModel.inputs.address)
             .disposed(by: disposeBag)
         
-        viewModel.outputs.addressOut
+        viewModel.outputs.addressArr
             .bind(to: searchResult.rx.items(cellIdentifier: AddressListCell.identifier, cellType: AddressListCell.self)) { _, item, cell in
                 cell.address.text = item.address
                 cell.jibunAddress.text = item.roadAddress

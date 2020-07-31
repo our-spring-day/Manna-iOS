@@ -15,8 +15,6 @@ class PlaceAddMannaViewController: UIViewController {
     
     let viewModel: AddMannaViewModelType
     
-    static let shared = PlaceAddMannaViewController()
-    
     let line = UIBezierPath()
     let descriptLabel = UILabel()
     let mannaPlace = UITextField()
@@ -103,6 +101,15 @@ class PlaceAddMannaViewController: UIViewController {
             $0.width.equalTo(290)
             $0.height.equalTo(40)
         }
+    }
+    
+    func bind() {
+        AddMannaViewController.shared.nextButton.rx.tap
+            .map { [weak self] _ in
+                (self?.mannaPlace.text)!
+            }
+            .bind(to: viewModel.inputs.place)
+            .disposed(by: disposeBag)
     }
     
     @objc func searchPresnt() {
