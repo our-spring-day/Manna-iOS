@@ -41,7 +41,6 @@ class AddUserViewModel: AddUserViewModelType, AddUserViewModelInput, AddUserView
         
         searchedUserIDInput
             .filterEmpty()
-            .skip(1)
             .distinctUntilChanged()
             .subscribe(onNext: { value in
                 self.itemsObservable.map{

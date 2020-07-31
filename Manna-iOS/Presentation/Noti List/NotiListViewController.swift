@@ -76,6 +76,7 @@ class NotiListViewController: UIViewController {
             .disposed(by: disposeBag)
         
         //dynamic tableView's height by checkedFriend exist
+        //2->1 해결
         inviteFriendsViewModel.outputs.checkedFriendList
             .map { $0.count }
             .filter { $0 <= 1 }
