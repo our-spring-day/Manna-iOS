@@ -4,42 +4,66 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+<<<<<<< Updated upstream
 		<key>Differentiator.xcscheme</key>
+=======
+		<key>Alamofire.xcscheme</key>
+>>>>>>> Stashed changes
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+<<<<<<< Updated upstream
 		<key>Pods-Manna-iOS.xcscheme</key>
+=======
+		<key>Differentiator.xcscheme</key>
+>>>>>>> Stashed changes
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+<<<<<<< Updated upstream
 		<key>RxAppState.xcscheme</key>
+=======
+		<key>NMapsMap.xcscheme</key>
+>>>>>>> Stashed changes
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+<<<<<<< Updated upstream
 		<key>RxCocoa.xcscheme</key>
+=======
+		<key>Pods-Manna-iOS.xcscheme</key>
+>>>>>>> Stashed changes
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
+<<<<<<< Updated upstream
 		<key>RxDataSources.xcscheme</key>
+=======
+		<key>RxCocoa.xcscheme</key>
+>>>>>>> Stashed changes
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
+<<<<<<< Updated upstream
 		<key>RxOptional.xcscheme</key>
+=======
+		<key>RxDataSources.xcscheme</key>
+>>>>>>> Stashed changes
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -74,14 +98,22 @@
 			<key>orderHint</key>
 			<integer>9</integer>
 		</dict>
+<<<<<<< Updated upstream
 		<key>Then.xcscheme</key>
+=======
+		<key>SwiftyJSON.xcscheme</key>
+>>>>>>> Stashed changes
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>10</integer>
 		</dict>
+<<<<<<< Updated upstream
 		<key>Toaster.xcscheme</key>
+=======
+		<key>Then.xcscheme</key>
+>>>>>>> Stashed changes
 		<dict>
 			<key>isShown</key>
 			<false/>
