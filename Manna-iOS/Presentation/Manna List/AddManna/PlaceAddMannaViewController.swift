@@ -12,7 +12,7 @@ import SnapKit
 
 class PlaceAddMannaViewController: UIViewController {
     let disposeBag = DisposeBag()
-    
+    static let shared = PlaceAddMannaViewController()
     let viewModel: AddMannaViewModelType
     
     let line = UIBezierPath()

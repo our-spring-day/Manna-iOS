@@ -163,12 +163,12 @@
 			path = "Extensions-Utillities";
 			sourceTree = "<group>";
 		};
-		A585F834248295BD00A60530 /* Components */ = {
+		A585F834248295BD00A60530 /* AddManna */ = {
 			isa = PBXGroup;
 			children = (
 				A585F835248295EE00A60530 /* NotiListCell.swift */,
 			);
-			path = Components;
+			path = AddManna;
 			sourceTree = "<group>";
 		};
 		A585F83D2482962B00A60530 /* Components */ = {
@@ -258,7 +258,7 @@
 		CC705A062477D18100462251 /* Noti List */ = {
 			isa = PBXGroup;
 			children = (
-				A585F834248295BD00A60530 /* Components */,
+				A585F834248295BD00A60530 /* AddManna */,
 				CC705A0E2477D2D200462251 /* NotiListViewController.swift */,
 				A585F8302482848200A60530 /* NotiListViewModel.swift */,
 				A585F8322482849500A60530 /* NotiListModel.swift */,
