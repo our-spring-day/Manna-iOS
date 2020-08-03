@@ -14,11 +14,13 @@
 		A54702B22486A93F0091CA55 /* Manna.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54702B12486A93F0091CA55 /* Manna.swift */; };
 		A552C78724A4ED0D00D834BF /* AddMannaView-Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A552C78624A4ED0D00D834BF /* AddMannaView-Ext.swift */; };
 		A55A80BB248FD76200EDFA99 /* AddMannaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55A80BA248FD76200EDFA99 /* AddMannaViewModel.swift */; };
+		A55B0F1B24D5B7D300211AEA /* PeopleAddManna.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55B0F1A24D5B7D300211AEA /* PeopleAddManna.swift */; };
+		A55B0F1D24D5B8B000211AEA /* TimeAddManna.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55B0F1C24D5B8B000211AEA /* TimeAddManna.swift */; };
+		A55B0F1F24D5EBED00211AEA /* PlaceAddManna.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55B0F1E24D5EBED00211AEA /* PlaceAddManna.swift */; };
 		A561C6A624CF3E8400E83017 /* SelectPlacePinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A561C6A524CF3E8400E83017 /* SelectPlacePinViewModel.swift */; };
 		A5677B0E24B78D4500059EE0 /* UIView-Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5677B0D24B78D4500059EE0 /* UIView-Ext.swift */; };
 		A585F8312482848200A60530 /* NotiListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F8302482848200A60530 /* NotiListViewModel.swift */; };
 		A585F8332482849500A60530 /* NotiListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F8322482849500A60530 /* NotiListModel.swift */; };
-		A585F836248295EE00A60530 /* NotiListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F835248295EE00A60530 /* NotiListCell.swift */; };
 		A585F83A2482961A00A60530 /* MannaListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F8392482961A00A60530 /* MannaListViewModel.swift */; };
 		A585F83C2482962600A60530 /* MannaListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F83B2482962600A60530 /* MannaListModel.swift */; };
 		A585F83F2482963F00A60530 /* MannaListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F83E2482963F00A60530 /* MannaListCell.swift */; };
@@ -55,11 +57,13 @@
 		A54702B12486A93F0091CA55 /* Manna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manna.swift; sourceTree = "<group>"; };
 		A552C78624A4ED0D00D834BF /* AddMannaView-Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddMannaView-Ext.swift"; sourceTree = "<group>"; };
 		A55A80BA248FD76200EDFA99 /* AddMannaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMannaViewModel.swift; sourceTree = "<group>"; };
+		A55B0F1A24D5B7D300211AEA /* PeopleAddManna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleAddManna.swift; sourceTree = "<group>"; };
+		A55B0F1C24D5B8B000211AEA /* TimeAddManna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAddManna.swift; sourceTree = "<group>"; };
+		A55B0F1E24D5EBED00211AEA /* PlaceAddManna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAddManna.swift; sourceTree = "<group>"; };
 		A561C6A524CF3E8400E83017 /* SelectPlacePinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlacePinViewModel.swift; sourceTree = "<group>"; };
 		A5677B0D24B78D4500059EE0 /* UIView-Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView-Ext.swift"; sourceTree = "<group>"; };
 		A585F8302482848200A60530 /* NotiListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiListViewModel.swift; sourceTree = "<group>"; };
 		A585F8322482849500A60530 /* NotiListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiListModel.swift; sourceTree = "<group>"; };
-		A585F835248295EE00A60530 /* NotiListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiListCell.swift; sourceTree = "<group>"; };
 		A585F8392482961A00A60530 /* MannaListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaListViewModel.swift; sourceTree = "<group>"; };
 		A585F83B2482962600A60530 /* MannaListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaListModel.swift; sourceTree = "<group>"; };
 		A585F83E2482963F00A60530 /* MannaListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaListCell.swift; sourceTree = "<group>"; };
@@ -163,12 +167,14 @@
 			path = "Extensions-Utillities";
 			sourceTree = "<group>";
 		};
-		A585F834248295BD00A60530 /* AddManna */ = {
+		A55B0F1724D5B76F00211AEA /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
-				A585F835248295EE00A60530 /* NotiListCell.swift */,
+				A55B0F1A24D5B7D300211AEA /* PeopleAddManna.swift */,
+				A55B0F1C24D5B8B000211AEA /* TimeAddManna.swift */,
+				A55B0F1E24D5EBED00211AEA /* PlaceAddManna.swift */,
 			);
-			path = AddManna;
+			path = UIComponents;
 			sourceTree = "<group>";
 		};
 		A585F83D2482962B00A60530 /* Components */ = {
@@ -258,7 +264,7 @@
 		CC705A062477D18100462251 /* Noti List */ = {
 			isa = PBXGroup;
 			children = (
-				A585F834248295BD00A60530 /* AddManna */,
+				A55B0F1724D5B76F00211AEA /* UIComponents */,
 				CC705A0E2477D2D200462251 /* NotiListViewController.swift */,
 				A585F8302482848200A60530 /* NotiListViewModel.swift */,
 				A585F8322482849500A60530 /* NotiListModel.swift */,
@@ -410,6 +416,7 @@
 			files = (
 				CC705A0D2477D2BA00462251 /* MannaListViewController.swift in Sources */,
 				A5FCFF3524A4A2CD00641112 /* PeopleAddMannaViewController.swift in Sources */,
+				A55B0F1B24D5B7D300211AEA /* PeopleAddManna.swift in Sources */,
 				CC705A112477D2E000462251 /* SetListViewController.swift in Sources */,
 				A522AD8124A2194D00B8C2F2 /* TimeAddMannaViewController.swift in Sources */,
 				A55A80BB248FD76200EDFA99 /* AddMannaViewModel.swift in Sources */,
@@ -419,10 +426,12 @@
 				A5EB4A1024BCA7310084EBE5 /* AddressListCell.swift in Sources */,
 				A5EB4A1624BDD62D0084EBE5 /* AddressAPI.swift in Sources */,
 				A528168F24C0A05900EDC4E9 /* SelectPlacePinViewController.swift in Sources */,
+				A55B0F1F24D5EBED00211AEA /* PlaceAddManna.swift in Sources */,
 				A585F8332482849500A60530 /* NotiListModel.swift in Sources */,
 				A5EB4A0E24BCA6BD0084EBE5 /* Address.swift in Sources */,
 				A585F83C2482962600A60530 /* MannaListModel.swift in Sources */,
 				A54702B22486A93F0091CA55 /* Manna.swift in Sources */,
+				A55B0F1D24D5B8B000211AEA /* TimeAddManna.swift in Sources */,
 				CC7059F12477B81100462251 /* ViewController.swift in Sources */,
 				CC705A0F2477D2D200462251 /* NotiListViewController.swift in Sources */,
 				A5EB4A1424BCC6F30084EBE5 /* DrawLine.swift in Sources */,
@@ -438,7 +447,6 @@
 				CC7059ED2477B81100462251 /* AppDelegate.swift in Sources */,
 				CC7059EF2477B81100462251 /* SceneDelegate.swift in Sources */,
 				A5EB4A1224BCB75F0084EBE5 /* SelectPlaceViewController.swift in Sources */,
-				A585F836248295EE00A60530 /* NotiListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

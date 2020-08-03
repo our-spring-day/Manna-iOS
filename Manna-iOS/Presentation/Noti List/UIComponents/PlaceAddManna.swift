@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Then
 
 class PlaceAddManna: UIView {
     
@@ -57,8 +58,8 @@ class PlaceAddManna: UIView {
         addSubview(selectButton)
         
         descriptLabel.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(20)
-            $0.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(40)
+            $0.top.equalTo(self.snp.top).offset(20)
+            $0.leading.equalTo(self.snp.leading).offset(40)
         }
         mannaPlace.snp.makeConstraints {
             $0.top.equalTo(descriptLabel.snp.top).offset(70)

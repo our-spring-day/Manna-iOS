@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 import Then
 
 class PeopleAddManna: UIView {
@@ -34,8 +35,8 @@ class PeopleAddManna: UIView {
     func layout() {
         addSubview(mannaPeople)
         mannaPeople.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(20)
+            $0.centerX.equalTo(self.snp.centerX)
+            $0.top.equalTo(self.snp.top).offset(20)
             $0.width.equalTo(200)
             $0.height.equalTo(40)
         }
