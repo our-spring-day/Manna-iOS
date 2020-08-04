@@ -55,7 +55,7 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         checkedFriendList = checkedFriendListOutput.asObservable()
         
         //friendList <-bind-> checkedFriendList
-        friendListOutput
+        originalFriendList
             .map { $0.filter { $0.checkedFlag == 1 } }
             .bind(to: checkedFriendListOutput)
             .disposed(by: disposeBag)
@@ -81,15 +81,25 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
             }).disposed(by: disposeBag)
         
         //friendList update with searchValue
+        //문제가 너무 많음 .........
         SRCHInput
             .subscribe(onNext: { value in
                 originalFriendList.map { $0.filter {
                     if value.isEmpty { return true }
                     return ($0.name.lowercased().contains(value.lowercased()))
                     }}
-                    .map { $0.sorted(by: { $0.name < $1.name })}
-                    .bind( to: friendListOutput)
+                    .map { $0.sorted(by: { $0.name < $1.name }) }
+                    .bind(to: friendListOutput)
             }).disposed(by: disposeBag)
+        //            .subscribe(onNext: { value in
+        //                print("이거 클릭만 해도 지납니까?")
+        //                originalFriendList.map { $0.filter {
+        //                    if value.isEmpty { return true }
+        //                    return ($0.name.lowercased().contains(value.lowercased()))
+        //                    }}
+        //                    .map { $0.sorted(by: { $0.name < $1.name })}
+        //                    .bind( to: friendListOutput)
+        //            }).disposed(by: disposeBag)
     }
     var inputs: InviteFriendsViewModellInput { return self }
     var outputs: InviteFriendsViewModelOutput { return self }

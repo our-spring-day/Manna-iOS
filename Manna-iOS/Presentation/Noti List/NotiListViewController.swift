@@ -91,7 +91,7 @@ class NotiListViewController: UIViewController {
         
         //searchID bind
         textField.rx.text
-            .orEmpty
+            .filterNil()
             .distinctUntilChanged()
             .bind(to: inviteFriendsViewModel.inputs.searchedFriendID)
             .disposed(by: disposeBag)
@@ -100,10 +100,10 @@ class NotiListViewController: UIViewController {
         //2->1 해결
         inviteFriendsViewModel.outputs.checkedFriendList
             .map { $0.count }
-            .do(onNext: {print($0)})
+            .do(onNext: { print($0) })
             .filter { $0 <= 1 }
             .subscribe(onNext: { count in
-                if count == 0 {
+                if count < 1 {
                     self.textField.snp.updateConstraints {
                         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
                     }
