@@ -22,6 +22,7 @@ class NotiListViewController: UIViewController {
     var collectionView = FriendsListCollectionView()
     var textField = UITextField()
     var tableView = FriendListTableView()
+//    let stackView = UIStackView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +35,11 @@ class NotiListViewController: UIViewController {
         view.do {
             $0.backgroundColor = .white
         }
+//        stackView.do {
+//            $0.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
+//        }
         textField.do {
-            $0.frame = CGRect(x: 0, y: 200, width: 300, height: 100)
+            $0.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
             $0.backgroundColor = .red
         }
     }
@@ -49,12 +53,16 @@ class NotiListViewController: UIViewController {
             $0.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         textField.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(100)
-//            $0.bottom.equalTo(tableView.snp.top)
+            $0.centerX.equalTo(view.snp.centerX)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.width.equalTo(view.safeAreaLayoutGuide).offset(-50)
+            $0.height.equalTo(40)
         }
         tableView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(200)
-            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+//            $0.top.equalTo(textField.snp.bottom)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(40)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
     func bind() {
@@ -94,11 +102,18 @@ class NotiListViewController: UIViewController {
             .filter { $0 <= 1 }
             .subscribe(onNext: { count in
                 if count == 0 {
-                    self.tableView.snp.updateConstraints {
-                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(200)
+                    self.textField.snp.updateConstraints {
+                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
                     }
-                } else { self.tableView.snp.updateConstraints {
-                    $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(300)
+                    self.tableView.snp.updateConstraints {
+                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(40)
+                    }
+                } else {
+                    self.textField.snp.updateConstraints {
+                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(100)
+                    }
+                    self.tableView.snp.updateConstraints {
+                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(140)
                     }
                 }
                 UIView.animate(withDuration: 0.3) {
