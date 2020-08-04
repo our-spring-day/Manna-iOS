@@ -18,8 +18,10 @@ class NotiListViewController: UIViewController {
     let checkedMemberArray: BehaviorRelay<[UserTestStruct]> = BehaviorRelay(value: [])
     let userListViewModel = FriendListViewModel()
     let layoutValue = UICollectionViewFlowLayout()
-    var tableView = FriendListTableView()
+    
     var collectionView = FriendsListCollectionView()
+    var textField = UITextField()
+    var tableView = FriendListTableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,17 +34,27 @@ class NotiListViewController: UIViewController {
         view.do {
             $0.backgroundColor = .white
         }
+        textField.do {
+            $0.frame = CGRect(x: 0, y: 200, width: 300, height: 100)
+            $0.backgroundColor = .red
+        }
     }
     
     func layout() {
         view.addSubview(collectionView)
+        view.addSubview(textField)
         view.addSubview(tableView)
         
-        tableView.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
         collectionView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        textField.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(100)
+//            $0.bottom.equalTo(tableView.snp.top)
+        }
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(200)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
     func bind() {
@@ -51,6 +63,7 @@ class NotiListViewController: UIViewController {
             .bind(to: tableView.baseTableView.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self)) { (_: Int, element: UserTestStruct, cell: FriendListCell) in
                 cell.friendIdLabel.text = element.name
                 cell.friendImageView.image = UIImage(named: "\(element.profileImage)")
+                
                 if element.checkedFlag == 1 {
                     cell.checkBoxImageView.image = UIImage(named: "checked")
                 } else {
@@ -71,7 +84,6 @@ class NotiListViewController: UIViewController {
         
         //selected Friend at collectionView
         collectionView.baseCollectionView.rx.modelSelected(UserTestStruct.self)
-        .debug()
             .bind(to: inviteFriendsViewModel.inputs.itemFromCollectionView)
             .disposed(by: disposeBag)
         
@@ -83,10 +95,10 @@ class NotiListViewController: UIViewController {
             .subscribe(onNext: { count in
                 if count == 0 {
                     self.tableView.snp.updateConstraints {
-                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(200)
                     }
                 } else { self.tableView.snp.updateConstraints {
-                    $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(100)
+                    $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(300)
                     }
                 }
                 UIView.animate(withDuration: 0.3) {

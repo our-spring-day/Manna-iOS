@@ -40,7 +40,6 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
     init() {
         var INDXInput = PublishSubject<IndexPath>()
         var ITMInput = PublishSubject<UserTestStruct>()
-        
         var friendListOutput = FriendListViewModel.self.myFriendList
         var checkedFriendListOutput = PublishSubject<[UserTestStruct]>()
         
@@ -48,7 +47,7 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         itemFromCollectionView = ITMInput.asObserver()
         friendList = friendListOutput.asObservable()
         checkedFriendList = checkedFriendListOutput.asObservable()
-        
+    
         //friendList <-bind-> checkedFriendList
         friendListOutput
             .map { $0.filter { $0.checkedFlag == 1 } }
