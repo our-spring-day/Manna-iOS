@@ -80,8 +80,8 @@ class NotiListViewController: UIViewController {
         }.disposed(by: self.disposeBag)
         
         //checked Friend at tableView
-        tableView.baseTableView.rx.itemSelected
-            .bind(to: inviteFriendsViewModel.inputs.indexFromTableView)
+        tableView.baseTableView.rx.modelSelected(UserTestStruct.self)
+            .bind(to: inviteFriendsViewModel.inputs.itemFromTableView)
             .disposed(by: disposeBag)
         
         //selected Friend at collectionView

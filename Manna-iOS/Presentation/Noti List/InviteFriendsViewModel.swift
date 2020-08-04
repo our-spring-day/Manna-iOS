@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 
 protocol InviteFriendsViewModellInput {
-    var indexFromTableView: AnyObserver<IndexPath> { get }
+    var itemFromTableView: AnyObserver<UserTestStruct> { get }
     var itemFromCollectionView: AnyObserver<UserTestStruct> { get }
     var searchedFriendID: AnyObserver<String> { get }
 }
@@ -29,7 +29,7 @@ protocol InviteFriendsViewModelType {
 class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModellInput, InviteFriendsViewModelOutput {
     let disposeBag = DisposeBag()
     //inputs
-    var indexFromTableView: AnyObserver<IndexPath>
+    var itemFromTableView: AnyObserver<UserTestStruct>
     var itemFromCollectionView: AnyObserver<UserTestStruct>
     var searchedFriendID: AnyObserver<String>
     
@@ -39,40 +39,40 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
     
     
     init() {
-        let INDXInput = PublishSubject<IndexPath>()
-        let ITMInput = PublishSubject<UserTestStruct>()
+        let itemFromTableViewInput = PublishSubject<UserTestStruct>()
+        let itemFromCollectionViewInput = PublishSubject<UserTestStruct>()
         let SRCHInput = PublishSubject<String>()
         
         let originalFriendList = FriendListViewModel.self.myFriendList
         let friendListOutput = PublishSubject<[UserTestStruct]>()
         let checkedFriendListOutput = BehaviorRelay<[UserTestStruct]>(value: [])
         
-        indexFromTableView = INDXInput.asObserver()
-        itemFromCollectionView = ITMInput.asObserver()
+        itemFromTableView = itemFromTableViewInput.asObserver()
+        itemFromCollectionView = itemFromCollectionViewInput.asObserver()
         searchedFriendID = SRCHInput.asObserver()
         
         friendList = friendListOutput.asObservable()
         checkedFriendList = checkedFriendListOutput.asObservable()
         
         //checkedFriendList update with tableView
-        INDXInput
-            .subscribe(onNext: { index in
+        itemFromTableViewInput
+            .subscribe(onNext: { item in
                 var newOriginalValue = originalFriendList.value
                 var newCheckValue = checkedFriendListOutput.value
-                
-                if newOriginalValue[index[1]].checkedFlag == 0 {
-                    newOriginalValue[index[1]].checkedFlag = 1
-                    newCheckValue.append(newOriginalValue[index[1]])
+               
+                if newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag == 0 {
+                    newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag = 1
+                    newCheckValue.insert(newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!], at: 0)
                 } else {
-                    newOriginalValue[index[1]].checkedFlag = 0
-                    newCheckValue.remove(at: newCheckValue.firstIndex(where: { $0.name == newOriginalValue[index[1]].name })!)
+                    newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag = 0
+                    newCheckValue.remove(at: newCheckValue.firstIndex(where: { $0.name == item.name })!)
                 }
                 originalFriendList.accept(newOriginalValue)
                 checkedFriendListOutput.accept(newCheckValue)
             }).disposed(by: disposeBag)
         
         //checkedMemberArray update with collectionView
-        ITMInput
+        itemFromCollectionViewInput
             .subscribe(onNext: { item in
                 var newOriginalValue = originalFriendList.value
                 var newCheckValue = checkedFriendListOutput.value
