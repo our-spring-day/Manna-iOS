@@ -11,62 +11,58 @@ import SnapKit
 
 class NotiListViewController: UIViewController {
 
-    lazy var scrollView = UIScrollView()
-    lazy var tempView = UIView()
-    lazy var tempView2 = UIView()
-    lazy var tempView3 = UIView()
+    let scrollView = UIScrollView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         navigationController?.isNavigationBarHidden = true
         attribute()
         setup()
     }
 
     func attribute() {
+        
+        scrollView.contentSize.width = self.view.frame.width * 3
         scrollView.backgroundColor = .red
-        scrollView.do {
-            $0.backgroundColor = .red
-            $0.contentSize.width = self.view.frame.width * 3
-        }
-        tempView.backgroundColor = .gray
-        tempView2.backgroundColor = .systemOrange
-        tempView3.backgroundColor = .systemBlue
     }
 
     func setup() {
-        let view1 = PeopleAddManna()
-        let view2 = TimeAddManna()
-        let view3 = PlaceAddManna()
+        let people = PeopleAddManna()
+        let time = TimeAddManna()
+        let place = PlaceAddManna()
+        
         view.addSubview(scrollView)
         
         scrollView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(60)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            $0.left.equalTo(view.snp.left)
-            $0.right.equalTo(view.snp.right)
+            $0.leading.trailing.equalToSuperview()
         }
-        scrollView.addSubview(view1)
-        view1.snp.makeConstraints {
+        scrollView.addSubview(people)
+        people.snp.makeConstraints {
             $0.top.equalTo(scrollView.snp.top)
             $0.leading.equalTo(scrollView.snp.leading)
-            $0.width.equalTo(self.view.frame.width)
-            $0.height.equalTo(self.view.safeAreaLayoutGuide.snp.height)
+//            $0.width.equalTo(view.frame.width)
+            $0.width.equalToSuperview()
+            $0.height.equalToSuperview()
+//            $0.bottom.equalTo(scrollView.snp.bottom)
         }
-        
-        scrollView.addSubview(view2)
-        view2.snp.makeConstraints {
-            $0.top.equalTo(view1)
-            $0.leading.equalTo(view1.snp.trailing)
-            $0.width.equalTo(self.view.frame.width)
-            $0.height.equalTo(self.view.safeAreaLayoutGuide.snp.height)
+        scrollView.addSubview(time)
+        time.snp.makeConstraints {
+            $0.top.equalTo(people)
+            $0.leading.equalTo(people.snp.trailing)
+            $0.width.equalToSuperview()
+
+            $0.height.equalToSuperview()
         }
-        scrollView.addSubview(view3)
-        view3.snp.makeConstraints {
-            $0.top.equalTo(view1)
-            $0.leading.equalTo(view2.snp.trailing)
-            $0.width.equalTo(self.view.frame.width)
-            $0.height.equalTo(self.view.frame.height)
+        scrollView.addSubview(place)
+        place.snp.makeConstraints {
+            $0.top.equalTo(people)
+            $0.leading.equalTo(time.snp.trailing)
+            $0.width.equalToSuperview()
+            $0.height.equalToSuperview()
+
         }
     }
 }
