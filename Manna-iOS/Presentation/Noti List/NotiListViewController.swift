@@ -55,7 +55,7 @@ class NotiListViewController: UIViewController {
             $0.height.equalTo(40)
         }
         tableView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(40)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(50)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
@@ -108,14 +108,14 @@ class NotiListViewController: UIViewController {
                         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
                     }
                     self.tableView.snp.updateConstraints {
-                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(40)
+                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(50)
                     }
                 } else {
                     self.textField.snp.updateConstraints {
                         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(100)
                     }
                     self.tableView.snp.updateConstraints {
-                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(140)
+                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(150)
                     }
                 }
                 UIView.animate(withDuration: 0.3) {

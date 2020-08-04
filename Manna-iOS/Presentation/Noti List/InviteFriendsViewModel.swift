@@ -45,7 +45,7 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         
         let originalFriendList = FriendListViewModel.self.myFriendList
         let friendListOutput = PublishSubject<[UserTestStruct]>()
-        let checkedFriendListOutput = PublishSubject<[UserTestStruct]>()
+        let checkedFriendListOutput = BehaviorRelay<[UserTestStruct]>(value: [])
         
         indexFromTableView = INDXInput.asObserver()
         itemFromCollectionView = ITMInput.asObserver()
@@ -54,34 +54,37 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         friendList = friendListOutput.asObservable()
         checkedFriendList = checkedFriendListOutput.asObservable()
         
-        //friendList <-bind-> checkedFriendList
-        originalFriendList
-            .map { $0.filter { $0.checkedFlag == 1 } }
-            .bind(to: checkedFriendListOutput)
-            .disposed(by: disposeBag)
-        
         //checkedFriendList update with tableView
         INDXInput
             .subscribe(onNext: { index in
-                var flagValue = originalFriendList.value
-                if flagValue[index[1]].checkedFlag == 0 {
-                    flagValue[index[1]].checkedFlag = 1
+                var newOriginalValue = originalFriendList.value
+                var newCheckValue = checkedFriendListOutput.value
+                
+                if newOriginalValue[index[1]].checkedFlag == 0 {
+                    newOriginalValue[index[1]].checkedFlag = 1
+                    newCheckValue.append(newOriginalValue[index[1]])
                 } else {
-                    flagValue[index[1]].checkedFlag = 0
+                    newOriginalValue[index[1]].checkedFlag = 0
+                    newCheckValue.remove(at: newCheckValue.firstIndex(where: { $0.name == newOriginalValue[index[1]].name })!)
                 }
-                originalFriendList.accept(flagValue)
+                originalFriendList.accept(newOriginalValue)
+                checkedFriendListOutput.accept(newCheckValue)
             }).disposed(by: disposeBag)
         
         //checkedMemberArray update with collectionView
         ITMInput
             .subscribe(onNext: { item in
-                var flagValue = originalFriendList.value
-                flagValue[flagValue.firstIndex(where: {$0.name == item.name})!].checkedFlag = 0
-                originalFriendList.accept(flagValue)
+                var newOriginalValue = originalFriendList.value
+                var newCheckValue = checkedFriendListOutput.value
+                
+                newOriginalValue[newOriginalValue.firstIndex(where: {$0.name == item.name})!].checkedFlag = 0
+                newCheckValue.remove(at: newCheckValue.firstIndex(where: { $0.name == item.name})!)
+                
+                originalFriendList.accept(newOriginalValue)
+                checkedFriendListOutput.accept(newCheckValue)
             }).disposed(by: disposeBag)
         
         //friendList update with searchValue
-        //문제가 너무 많음 .........
         SRCHInput
             .subscribe(onNext: { value in
                 originalFriendList.map { $0.filter {
@@ -91,15 +94,6 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
                     .map { $0.sorted(by: { $0.name < $1.name }) }
                     .bind(to: friendListOutput)
             }).disposed(by: disposeBag)
-        //            .subscribe(onNext: { value in
-        //                print("이거 클릭만 해도 지납니까?")
-        //                originalFriendList.map { $0.filter {
-        //                    if value.isEmpty { return true }
-        //                    return ($0.name.lowercased().contains(value.lowercased()))
-        //                    }}
-        //                    .map { $0.sorted(by: { $0.name < $1.name })}
-        //                    .bind( to: friendListOutput)
-        //            }).disposed(by: disposeBag)
     }
     var inputs: InviteFriendsViewModellInput { return self }
     var outputs: InviteFriendsViewModelOutput { return self }
