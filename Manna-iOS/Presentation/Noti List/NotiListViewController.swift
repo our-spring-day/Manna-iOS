@@ -22,7 +22,7 @@ class NotiListViewController: UIViewController {
     var collectionView = FriendsListCollectionView()
     var textField = UITextField()
     var tableView = FriendListTableView()
-//    let stackView = UIStackView()
+    //    let stackView = UIStackView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,12 +35,12 @@ class NotiListViewController: UIViewController {
         view.do {
             $0.backgroundColor = .white
         }
-//        stackView.do {
-//            $0.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
-//        }
+        //        stackView.do {
+        //            $0.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
+        //        }
         textField.do {
             $0.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-            $0.backgroundColor = .red
+            $0.backgroundColor = .lightGray
         }
     }
     
@@ -59,7 +59,6 @@ class NotiListViewController: UIViewController {
             $0.height.equalTo(40)
         }
         tableView.snp.makeConstraints {
-//            $0.top.equalTo(textField.snp.bottom)
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(40)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
@@ -93,6 +92,13 @@ class NotiListViewController: UIViewController {
         //selected Friend at collectionView
         collectionView.baseCollectionView.rx.modelSelected(UserTestStruct.self)
             .bind(to: inviteFriendsViewModel.inputs.itemFromCollectionView)
+            .disposed(by: disposeBag)
+        
+        //searchID bind
+        textField.rx.text
+            .orEmpty
+            .distinctUntilChanged()
+            .bind(to: inviteFriendsViewModel.inputs.searchedFriendID)
             .disposed(by: disposeBag)
         
         //dynamic tableView's height by checkedFriend exist
