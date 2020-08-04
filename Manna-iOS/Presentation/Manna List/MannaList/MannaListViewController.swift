@@ -82,7 +82,7 @@ class MannaListViewController: UIViewController {
     }
     
     @objc func addVC() {
-        let view = NotiListViewController()
+        let view = AddMannaViewController()
         view.hidesBottomBarWhenPushed = true
         view.navigationController?.isNavigationBarHidden = true
         view.modalPresentationStyle = .fullScreen

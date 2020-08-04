@@ -104,7 +104,7 @@ class PlaceAddMannaViewController: UIViewController {
     }
     
     func bind() {
-        AddMannaViewController.shared.nextButton.rx.tap
+        AddMannaViewControll.shared.nextButton.rx.tap
             .map { [weak self] _ in
                 (self?.mannaPlace.text)!
             }
