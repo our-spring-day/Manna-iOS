@@ -22,7 +22,6 @@ class NotiListViewController: UIViewController {
     var collectionView = FriendsListCollectionView()
     var textField = UITextField()
     var tableView = FriendListTableView()
-    //    let stackView = UIStackView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,9 +34,6 @@ class NotiListViewController: UIViewController {
         view.do {
             $0.backgroundColor = .white
         }
-        //        stackView.do {
-        //            $0.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
-        //        }
         textField.do {
             $0.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
             $0.backgroundColor = .lightGray
@@ -70,7 +66,6 @@ class NotiListViewController: UIViewController {
             .bind(to: tableView.baseTableView.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self)) { (_: Int, element: UserTestStruct, cell: FriendListCell) in
                 cell.friendIdLabel.text = element.name
                 cell.friendImageView.image = UIImage(named: "\(element.profileImage)")
-                
                 if element.checkedFlag == 1 {
                     cell.checkBoxImageView.image = UIImage(named: "checked")
                 } else {
@@ -105,6 +100,7 @@ class NotiListViewController: UIViewController {
         //2->1 해결
         inviteFriendsViewModel.outputs.checkedFriendList
             .map { $0.count }
+            .do(onNext: {print($0)})
             .filter { $0 <= 1 }
             .subscribe(onNext: { count in
                 if count == 0 {

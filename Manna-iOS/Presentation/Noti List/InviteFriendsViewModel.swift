@@ -39,12 +39,13 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
     
     
     init() {
-        var INDXInput = PublishSubject<IndexPath>()
-        var ITMInput = PublishSubject<UserTestStruct>()
-        var SRCHInput = PublishSubject<String>()
+        let INDXInput = PublishSubject<IndexPath>()
+        let ITMInput = PublishSubject<UserTestStruct>()
+        let SRCHInput = PublishSubject<String>()
         
-        var friendListOutput = FriendListViewModel.self.myFriendList
-        var checkedFriendListOutput = PublishSubject<[UserTestStruct]>()
+        let originalFriendList = FriendListViewModel.self.myFriendList
+        let friendListOutput = PublishSubject<[UserTestStruct]>()
+        let checkedFriendListOutput = PublishSubject<[UserTestStruct]>()
         
         indexFromTableView = INDXInput.asObserver()
         itemFromCollectionView = ITMInput.asObserver()
@@ -62,31 +63,32 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         //checkedFriendList update with tableView
         INDXInput
             .subscribe(onNext: { index in
-                var flagValue = FriendListViewModel.self.myFriendList.value
+                var flagValue = originalFriendList.value
                 if flagValue[index[1]].checkedFlag == 0 {
                     flagValue[index[1]].checkedFlag = 1
                 } else {
                     flagValue[index[1]].checkedFlag = 0
                 }
-                FriendListViewModel.self.myFriendList.accept(flagValue)
+                originalFriendList.accept(flagValue)
             }).disposed(by: disposeBag)
         
         //checkedMemberArray update with collectionView
         ITMInput
             .subscribe(onNext: { item in
-                var flagValue = FriendListViewModel.self.myFriendList.value
+                var flagValue = originalFriendList.value
                 flagValue[flagValue.firstIndex(where: {$0.name == item.name})!].checkedFlag = 0
-                FriendListViewModel.self.myFriendList.accept(flagValue)
+                originalFriendList.accept(flagValue)
             }).disposed(by: disposeBag)
         
+        //friendList update with searchValue
         SRCHInput
             .subscribe(onNext: { value in
-                FriendListViewModel.self.originalFriendList.map({ $0.filter({
+                originalFriendList.map { $0.filter {
                     if value.isEmpty { return true }
-                    return  ($0.name.lowercased().contains(value.lowercased()))})
-                })
-                    .map({$0.sorted(by: {$0.name < $1.name})})
-                    .bind( to: FriendListViewModel.self.myFriendList )
+                    return ($0.name.lowercased().contains(value.lowercased()))
+                    }}
+                    .map { $0.sorted(by: { $0.name < $1.name })}
+                    .bind( to: friendListOutput)
             }).disposed(by: disposeBag)
     }
     var inputs: InviteFriendsViewModellInput { return self }
