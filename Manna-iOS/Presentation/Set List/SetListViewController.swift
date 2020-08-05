@@ -13,19 +13,33 @@ import SnapKit
 import NMapsMap
 
 class SetListViewController: UIViewController {
+    let disposeBag = DisposeBag()
+    
     var authState: NMFAuthState!
+    var nmapFView = NMFMapView()
+    let cameraPosition = NMFCameraPosition()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let nmapFView = NMFMapView(frame: view.frame)
-        view.addSubview(nmapFView)
+        
+        
+        
         attribute()
         layout()
         bind()
+        //현재 카메라의 포지션이고 유용하게 사용할듯
+        let cameraPosition2 = nmapFView.cameraPosition
+        print(cameraPosition2)
     }
     func attribute() {
+        nmapFView = NMFMapView(frame: view.frame)
+        nmapFView.do {
+            $0.mapType = .basic
+            $0.symbolScale = 0.7
+        }
     }
     func layout() {
+        view.addSubview(nmapFView)
     }
     func bind() {
     }

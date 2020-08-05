@@ -126,5 +126,11 @@ class NotiListViewController: UIViewController {
                     self.view.layoutIfNeeded()
                 }
             }).disposed(by: disposeBag)
+    
+        //keyboard hide when tableView,collectionView scrolling
+        Observable.of(tableView.baseTableView.rx.didScroll.asObservable(),collectionView.baseCollectionView.rx.didScroll.asObservable()).merge()
+            .subscribe(onNext: {
+                self.view.endEditing(true)
+            }).disposed(by: disposeBag)
     }
 }
