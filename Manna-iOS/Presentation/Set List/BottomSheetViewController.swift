@@ -56,16 +56,20 @@ class BottomSheetViewController: UIViewController {
     
     @objc private func panGesture(_ recognizer: UIPanGestureRecognizer) {
         moveView(panGestureRecognizer: recognizer)
+        var changedY = view.center.y + recognizer.location(in: view).y
         
         if recognizer.state == .ended {
-            UIView.animate(withDuration: 1, delay: 0.0, options: [.allowUserInteraction], animations: { let state: State = recognizer.velocity(in: self.view).y >= 0 ? .partial : .full
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: { let state: State = recognizer.velocity(in: self.view).y >= 0 ? .partial : .full
                 self.moveView(state: state)
-            }, completion: nil)
+                self.view.isUserInteractionEnabled = false
+            },completion: { bool in
+                self.view.isUserInteractionEnabled = true
+            })
         } else if recognizer.state == .changed {
-            let changedY = view.center.y + recognizer.location(in: view).y
-
+            changedY = view.center.y + recognizer.location(in: view).y
             view.center = CGPoint(x: view.center.x, y: changedY)
         }
+        
     }
     
     func roundViews() {
@@ -73,4 +77,3 @@ class BottomSheetViewController: UIViewController {
         view.clipsToBounds = true
     }
 }
-
