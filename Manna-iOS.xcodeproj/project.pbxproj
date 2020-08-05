@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC0BFAAC24DAAD2900A9D437 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0BFAAB24DAAD2900A9D437 /* BottomSheetViewController.swift */; };
 		CC384C0C24852AD0005F34AE /* FriendListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C0B24852AD0005F34AE /* FriendListViewModel.swift */; };
 		CC384C0E24852ADB005F34AE /* UserListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C0D24852ADB005F34AE /* UserListModel.swift */; };
 		CC384C1124862613005F34AE /* FriendListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C1024862613005F34AE /* FriendListCell.swift */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		4DFAEF44CF70735D62CB19F6 /* Pods-Manna-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manna-iOS.release.xcconfig"; path = "Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		5434F4B54E67CE37DCF01314 /* Pods_Manna_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Manna_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC0BFAAB24DAAD2900A9D437 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		CC384C0B24852AD0005F34AE /* FriendListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewModel.swift; sourceTree = "<group>"; };
 		CC384C0D24852ADB005F34AE /* UserListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListModel.swift; sourceTree = "<group>"; };
 		CC384C1024862613005F34AE /* FriendListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListCell.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				CC705A102477D2E000462251 /* SetListViewController.swift */,
+				CC0BFAAB24DAAD2900A9D437 /* BottomSheetViewController.swift */,
 			);
 			path = "Set List";
 			sourceTree = "<group>";
@@ -387,6 +390,7 @@
 				CC705A112477D2E000462251 /* SetListViewController.swift in Sources */,
 				CC384C0E24852ADB005F34AE /* UserListModel.swift in Sources */,
 				CC7059F12477B81100462251 /* ViewController.swift in Sources */,
+				CC0BFAAC24DAAD2900A9D437 /* BottomSheetViewController.swift in Sources */,
 				CC705A0F2477D2D200462251 /* NotiListViewController.swift in Sources */,
 				CC705A0B2477D28800462251 /* FriendListViewController.swift in Sources */,
 				CC7059ED2477B81100462251 /* AppDelegate.swift in Sources */,

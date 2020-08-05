@@ -21,15 +21,24 @@ class SetListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
         attribute()
         layout()
         bind()
         //현재 카메라의 포지션이고 유용하게 사용할듯
         let cameraPosition2 = nmapFView.cameraPosition
         print(cameraPosition2)
+        
+        let bottomSheet = BottomSheetViewController()
+        
+        self.addChild(bottomSheet)
+        self.view.addSubview(bottomSheet.view)
+        bottomSheet.didMove(toParent: self)
+        
+        let height = view.frame.height
+        let width = view.frame.width
+        bottomSheet.view.frame = CGRect(x: 0, y: view.frame.maxY, width: width, height: height)
+        
+        bottomSheet.view.backgroundColor = .red
     }
     func attribute() {
         nmapFView = NMFMapView(frame: view.frame)
