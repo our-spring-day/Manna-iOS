@@ -10,38 +10,23 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
+import NMapsMap
 
 class SetListViewController: UIViewController {
-    let disposeBag = DisposeBag()
-    
-    let viewModel = FriendListViewModel()
-    var meetingMemberArray: [UserTestStruct] = []
-    let screenSize: CGRect = UIScreen.main.bounds
-    var tableView = FriendListTableView(frame: CGRect(x: 5, y: 266, width: UIScreen.main.bounds.width-10, height: UIScreen.main.bounds.height - 266))
+    var authState: NMFAuthState!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let nmapFView = NMFMapView(frame: view.frame)
+        view.addSubview(nmapFView)
         attribute()
         layout()
         bind()
     }
-    
     func attribute() {
-        view.do {
-            $0.backgroundColor = .white
-        }
     }
-    
     func layout() {
-        view.addSubview(tableView)
     }
-    
     func bind() {
-        FriendListViewModel.self.myFriendList
-            .bind(to: tableView.baseTableView.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self)) {(_: Int, element: UserTestStruct, cell: FriendListCell) in
-                cell.friendIdLabel.text = element.name
-                cell.friendImageView.image = UIImage(named: "\(element.profileImage)")
-        }.disposed(by: disposeBag)
-        
     }
 }

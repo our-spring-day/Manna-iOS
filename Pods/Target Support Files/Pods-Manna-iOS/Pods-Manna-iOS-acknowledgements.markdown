@@ -26,6 +26,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
+## NMapsMap
+
+Copyright © 2018 NAVER Corp.
+All rights reserved.
+
+
 ## RxAppState
 
 Copyright (c) 2016 Jörn Schoppe <joern@pixeldock.com>

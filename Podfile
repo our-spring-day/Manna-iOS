@@ -13,6 +13,7 @@ target 'Manna-iOS' do
   pod 'Then'
   pod 'RxOptional'
   pod 'RxDataSources'
+  pod 'NMapsMap'
   # Pods for Manna-iOS
 
 end

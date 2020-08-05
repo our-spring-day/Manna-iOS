@@ -71,12 +71,16 @@ class NotiListViewController: UIViewController {
                 } else {
                     cell.checkBoxImageView.image = UIImage(named: "unchecked")
                 }
+                
         }.disposed(by: disposeBag)
         
         //collectionView set
         inviteFriendsViewModel.outputs.checkedFriendList
             .bind(to: self.collectionView.baseCollectionView.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)) { (_: Int, element: UserTestStruct, cell: CheckedFriendCell) in
                 cell.profileImage.image = UIImage(named: "\(element.profileImage)")
+                UIView.animate(withDuration: 0.3) {
+                    self.view.layoutIfNeeded()
+                }
         }.disposed(by: self.disposeBag)
         
         //checked Friend at tableView
@@ -97,8 +101,8 @@ class NotiListViewController: UIViewController {
             .disposed(by: disposeBag)
         
         //dynamic tableView's height by checkedFriend exist
-        //2->1 해결
         inviteFriendsViewModel.outputs.checkedFriendList
+            .skip(1)
             .map { $0.count }
             .do(onNext: { print($0) })
             .filter { $0 <= 1 }

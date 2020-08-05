@@ -1,5 +1,6 @@
 PODS:
   - Differentiator (4.0.1)
+  - NMapsMap (3.8.0)
   - RxAppState (1.6.0):
     - RxCocoa (~> 5.0)
     - RxSwift (~> 5.0)
@@ -22,6 +23,7 @@ PODS:
   - Toaster (2.2.0)
 
 DEPENDENCIES:
+  - NMapsMap
   - RxAppState
   - RxCocoa
   - RxDataSources
@@ -35,6 +37,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Differentiator
+    - NMapsMap
     - RxAppState
     - RxCocoa
     - RxDataSources
@@ -48,6 +51,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
+  NMapsMap: b3633ad688483a318be9293aeddd323a714fb08b
   RxAppState: b633d7370970ecb80081912ea08a7bf3eb644b4e
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
@@ -59,6 +63,6 @@ SPEC CHECKSUMS:
   Then: 90cd104fd951cec1980a03f57704ad8f784d4d79
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
 
-PODFILE CHECKSUM: 322125d685198f9083e56bc10b8ee8ada9f7d4f1
+PODFILE CHECKSUM: cae52b1cfbb808e81d1fe470022fb5ab3d25249c
 
 COCOAPODS: 1.9.1
