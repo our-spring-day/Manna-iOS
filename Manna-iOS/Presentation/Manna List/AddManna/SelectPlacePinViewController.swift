@@ -183,7 +183,6 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -196,20 +195,28 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
     }
     @objc func changeState() {
         marker.hidden = true
-        pinSelectBtn.isHidden = false
+        detailAddress.isHidden = true
         completeBtn.isHidden = true
+        
+        pinSelectBtn.isHidden = false
         aiming.isHidden = false
         pinImage.isHidden = false
         viewState = false
+        
+        navigationController?.isNavigationBarHidden = true
     }
     @objc func pinSelected() {
         marker.hidden = false
         marker.position = NMGLatLng(lat: self.lat!, lng: self.lng!)
-        pinSelectBtn.isHidden = true
+        detailAddress.isHidden = false
         completeBtn.isHidden = false
+        
+        pinSelectBtn.isHidden = true
         aiming.isHidden = true
         pinImage.isHidden = true
         viewState = true
+        
+        navigationController?.isNavigationBarHidden = false
     }
 }
 
@@ -233,8 +240,6 @@ extension SelectPlacePinViewController: NMFMapViewCameraDelegate {
                         self.roadAddressLable.text = String(value.roadAddress)
                         self.lat = Double(value.lat)
                         self.lng = Double(value.lng)
-//                        print(value.lat)
-//                        print(value.lng)
                     })
                     .disposed(by: self.disposeBag)
                 
