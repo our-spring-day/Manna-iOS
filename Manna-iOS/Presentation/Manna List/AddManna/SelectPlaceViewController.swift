@@ -35,6 +35,7 @@ class SelectPlaceViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.isNavigationBarHidden = false
         attribute()
         layout()
         bind()
@@ -125,12 +126,15 @@ class SelectPlaceViewController: UIViewController {
             .map({ $0 })
             .do(onNext: { [weak self] address in
                 let view = SelectPlacePinViewController()
-                view.modalPresentationStyle = .overFullScreen
+//                view.modalPresentationStyle = .overFullScreen
+                view.initLng = Double(address.lng)
+                view.initLat = Double(address.lat)
                 view.lng = Double(address.lng)
                 view.lat = Double(address.lat)
                 view.addressLable.text = address.address
                 view.roadAddressLable.text = address.roadAddress
-                self?.present(view, animated: true, completion: nil)
+                self?.navigationController?.pushViewController(view, animated: true)
+//                self?.present(view, animated: true, completion: nil)
             })
             .subscribe {
                 print("test")

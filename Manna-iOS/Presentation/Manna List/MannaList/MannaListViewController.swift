@@ -38,6 +38,11 @@ class MannaListViewController: UIViewController {
         bind()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
     func attribute() {
         let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVC))
         navigationItem.do {

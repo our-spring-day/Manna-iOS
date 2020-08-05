@@ -9,19 +9,33 @@
 import UIKit
 import SnapKit
 
-class AddMannaViewController: UIViewController {
+class AddMannaViewController: UIViewController, UITextFieldDelegate {
     
     let people = PeopleAddManna()
     let time = TimeAddManna()
     let place = PlaceAddManna()
+    let finalAdd = FinalAddManna()
     
+    let viewModel: AddMannaViewModelType
     
     let scrollView = UIScrollView()
     let titleLabel = UILabel()
     let titleInput = UITextField()
     let titleButton = UIButton()
+    
+    let prevButton = UIButton(type: .custom)
     let nextButton = UIButton()
     
+    init(viewModel: AddMannaViewModelType = AddMannaViewModel()) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        viewModel = AddMannaViewModel()
+        super.init(coder: aDecoder)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         attribute()
@@ -33,6 +47,7 @@ class AddMannaViewController: UIViewController {
         
         place.searchButton.addTarget(self, action: #selector(gogogo), for: .touchUpInside)
         
+        people.mannaPeople.delegate = people
         scrollView.do {
             $0.isHidden = true
             $0.backgroundColor = .red
@@ -45,6 +60,7 @@ class AddMannaViewController: UIViewController {
             $0.layer.borderWidth = 1.0
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             $0.textAlignment = .center
+            $0.delegate = self
         }
         titleButton.do {
             $0.setTitle("완료", for: .normal)
@@ -52,6 +68,10 @@ class AddMannaViewController: UIViewController {
             $0.layer.borderWidth = 1.0
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             $0.addTarget(self, action: #selector(titleBtn), for: .touchUpInside)
+        }
+        prevButton.do {
+            $0.setImage(#imageLiteral(resourceName: "backButton"), for: .normal)
+            $0.addTarget(self, action: #selector(prevBtn), for: .touchUpInside)
         }
         nextButton.do {
             $0.setTitle("다음", for: .normal)
@@ -67,10 +87,12 @@ class AddMannaViewController: UIViewController {
         view.addSubview(titleButton)
         view.addSubview(titleInput)
         view.addSubview(scrollView)
+        view.addSubview(prevButton)
         view.addSubview(nextButton)
         scrollView.addSubview(people)
         scrollView.addSubview(time)
         scrollView.addSubview(place)
+        scrollView.addSubview(finalAdd)
         
         titleInput.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
@@ -83,6 +105,10 @@ class AddMannaViewController: UIViewController {
             $0.trailing.equalTo(view.snp.trailing).offset(-10)
             $0.width.equalTo(80)
             $0.height.equalTo(30)
+        }
+        prevButton.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
+            $0.leading.equalTo(view.snp.leading).offset(10)
         }
         nextButton.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
@@ -113,6 +139,12 @@ class AddMannaViewController: UIViewController {
             $0.width.equalToSuperview()
             $0.height.equalToSuperview()
         }
+        finalAdd.snp.makeConstraints {
+            $0.top.equalTo(people)
+            $0.leading.equalTo(place.snp.trailing)
+            $0.width.equalToSuperview()
+            $0.height.equalToSuperview()
+        }
     }
     
     @objc func titleBtn(_ sender: Any) {
@@ -126,19 +158,35 @@ class AddMannaViewController: UIViewController {
         nextButton.isHidden = false
         titleButton.isHidden = true
     }
+    @objc func prevBtn(_ sender: Any) {
+        if scrollView.isHidden == true {
+            navigationController?.popViewController(animated: true)
+        } else if scrollView.isHidden == false && scrollView.contentOffset.x == 0 {
+            scrollView.isHidden = true
+        } else if scrollView.isHidden == false {
+            let minWidth = max(scrollView.contentOffset.x - view.frame.width, 0)
+            let newOffset = CGPoint(x: minWidth, y: 0)
+            scrollView.contentOffset = newOffset
+        }
+    }
     
     @objc func nextBtn(_ sender: Any) {
         if scrollView.isHidden == false {
-            let maxWidth = min(scrollView.contentOffset.x + view.frame.width, view.frame.width * 2)
+            let maxWidth = min(scrollView.contentOffset.x + view.frame.width, view.frame.width * 3)
             let newOffset = CGPoint(x: maxWidth, y: 0)
             scrollView.contentOffset = newOffset
         }
     }
     @objc func gogogo(_ sender: Any) {
         let view = SelectPlaceViewController()
-        view.modalPresentationStyle = .overFullScreen
         view.searchText.text = place.mannaPlace.text
-        present(view, animated: true, completion: nil)
+        navigationController?.pushViewController(view, animated: true)
     }
 
+}
+
+extension AddMannaViewController {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }

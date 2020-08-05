@@ -18,6 +18,9 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
     
     let viewModel: SelectPlacePinViewModelType
     
+    var viewState: Bool = true
+    var initLat: Double?
+    var initLng: Double?
     var lat: Double?
     var lng: Double?
     
@@ -34,7 +37,6 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
     var cameraUpdate: NMFCameraUpdate?
     var nmapFView: NMFMapView?
     var task: DispatchWorkItem?
-    var markerForCenter: NMFMarker?
     
     // MARK: - Life cycle
     
@@ -50,7 +52,6 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        detailAddress.delegate = self
         createMapView()
         attribute()
         layout()
@@ -58,11 +59,14 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-          self.view.endEditing(true)
+        self.view.endEditing(true)
     }
     
     func createMapView() {
+        let marker = NMFMarker()
         nmapFView = NMFMapView(frame: view.frame)
+        marker.position = NMGLatLng(lat: initLat!, lng: initLng!)
+        marker.mapView = nmapFView
         nmapFView?.moveCamera(NMFCameraUpdate(scrollTo: NMGLatLng(lat: lat!, lng: lng!)))
         nmapFView?.zoomLevel = 18
         nmapFView!.addCameraDelegate(delegate: self)
@@ -104,8 +108,8 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
         rootView.addSubview(detailAddress)
         rootView.addSubview(completeBtn)
         view.addSubview(backButton)
-        view.addSubview(aiming)
-        aiming.addSubview(pinImage)
+        //        view.addSubview(aiming)
+        //        aiming.addSubview(pinImage)
         
         rootView.snp.makeConstraints {
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
@@ -137,74 +141,73 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
             $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
         }
-        aiming.snp.makeConstraints {
-            $0.centerX.equalTo(view.snp.centerX)
-            $0.centerY.equalTo(view.snp.centerY)
-            $0.width.equalTo(30)
-            $0.height.equalTo(30)
-        }
-        pinImage.snp.makeConstraints {
-            $0.centerX.equalTo(view.snp.centerX)
-            $0.centerY.equalTo(view.snp.centerY).offset(-28)
-            $0.width.equalTo(35)
-            $0.height.equalTo(50)
-        }
+        //        aiming.snp.makeConstraints {
+        //            $0.centerX.equalTo(view.snp.centerX)
+        //            $0.centerY.equalTo(view.snp.centerY)
+        //            $0.width.equalTo(30)
+        //            $0.height.equalTo(30)
+        //        }
+        //        pinImage.snp.makeConstraints {
+        //            $0.centerX.equalTo(view.snp.centerX)
+        //            $0.centerY.equalTo(view.snp.centerY).offset(-28)
+        //            $0.width.equalTo(35)
+        //            $0.height.equalTo(50)
+        //        }
     }
     @objc func back() {
         dismiss(animated: true, completion: nil)
     }
     
     func keyboardAction() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-
+    
     @objc func keyboardWillShow(_ sender: Notification) {
-        self.view.frame.origin.y = -255 // Move view 150 points upward
+        self.view.frame.origin.y = -255
+//        self.rootView.frame.origin.y = 320
     }
-
+    
     @objc func keyboardWillHide(_ sender: Notification) {
-        self.view.frame.origin.y = 0 // Move view to original position
+        self.view.frame.origin.y = 0
+//        self.rootView.frame.origin.y = 0
     }
 }
 
-
-
-
-
 extension SelectPlacePinViewController: NMFMapViewCameraDelegate {
     func mapViewCameraIdle(_ mapView: NMFMapView) {
-        task = DispatchWorkItem {
-            self.pinImage.alpha = 1
-            //카메라포지션을 저장해줌(보기에편하게)
-            _ = self.nmapFView!.cameraPosition
-            //카메라포지션의 좌표값을 스트링으로 변환후 addressText 띄우줌
-            
-            let lng = Double(self.nmapFView!.cameraPosition.target.lng)
-            let lat = Double(self.nmapFView!.cameraPosition.target.lat)
-            
-            self.viewModel.inputs.longitude.onNext(lng)
-            self.viewModel.inputs.latitude.onNext(lat)
-            
-            self.viewModel.outputs.address
-                .subscribe(onNext: { value in
-                    self.addressLable.text = String(value.address)
-                    self.roadAddressLable.text = String(value.roadAddress)
+        if viewState == false {
+            task = DispatchWorkItem {
+                self.pinImage.alpha = 1
+                //카메라포지션을 저장해줌(보기에편하게)
+                _ = self.nmapFView!.cameraPosition
+                //카메라포지션의 좌표값을 스트링으로 변환후 addressText 띄우줌
+                
+                let lng = Double(self.nmapFView!.cameraPosition.target.lng)
+                let lat = Double(self.nmapFView!.cameraPosition.target.lat)
+                
+                self.viewModel.inputs.longitude.onNext(lng)
+                self.viewModel.inputs.latitude.onNext(lat)
+                
+                self.viewModel.outputs.address
+                    .subscribe(onNext: { value in
+                        self.addressLable.text = String(value.address)
+                        self.roadAddressLable.text = String(value.roadAddress)
+                    })
+                    .disposed(by: self.disposeBag)
+                
+                UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+                    self.pinImage.transform = CGAffineTransform(translationX: 0, y: 0)
                 })
-                //                .bind(to: self.addressLable.rx.text)
-                .disposed(by: self.disposeBag)
-            
-            UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-                self.pinImage.transform = CGAffineTransform(translationX: 0, y: 0)
-            })
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: task!)
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: task!)
     }
     
     func mapView(_ mapView: NMFMapView, cameraWillChangeByReason reason: Int, animated: Bool) {

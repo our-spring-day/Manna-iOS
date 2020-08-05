@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A50412FF24DAF9AE00C02F6A /* FinalAddManna.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50412FE24DAF9AE00C02F6A /* FinalAddManna.swift */; };
 		A519FFD524953C000074D554 /* MannaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A519FFD424953C000074D554 /* MannaProvider.swift */; };
 		A522AD8124A2194D00B8C2F2 /* TimeAddMannaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A522AD8024A2194D00B8C2F2 /* TimeAddMannaViewController.swift */; };
 		A522AD8324A2196600B8C2F2 /* PlaceAddMannaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A522AD8224A2196600B8C2F2 /* PlaceAddMannaViewController.swift */; };
@@ -51,6 +52,7 @@
 /* Begin PBXFileReference section */
 		4DFAEF44CF70735D62CB19F6 /* Pods-Manna-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manna-iOS.release.xcconfig"; path = "Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		5434F4B54E67CE37DCF01314 /* Pods_Manna_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Manna_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A50412FE24DAF9AE00C02F6A /* FinalAddManna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalAddManna.swift; sourceTree = "<group>"; };
 		A519FFD424953C000074D554 /* MannaProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaProvider.swift; sourceTree = "<group>"; };
 		A522AD8024A2194D00B8C2F2 /* TimeAddMannaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAddMannaViewController.swift; sourceTree = "<group>"; };
 		A522AD8224A2196600B8C2F2 /* PlaceAddMannaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAddMannaViewController.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				A55B0F1A24D5B7D300211AEA /* PeopleAddManna.swift */,
 				A55B0F1C24D5B8B000211AEA /* TimeAddManna.swift */,
 				A55B0F1E24D5EBED00211AEA /* PlaceAddManna.swift */,
+				A50412FE24DAF9AE00C02F6A /* FinalAddManna.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				A5FCFF3524A4A2CD00641112 /* PeopleAddMannaViewController.swift in Sources */,
 				A55B0F1B24D5B7D300211AEA /* PeopleAddManna.swift in Sources */,
 				CC705A112477D2E000462251 /* SetListViewController.swift in Sources */,
+				A50412FF24DAF9AE00C02F6A /* FinalAddManna.swift in Sources */,
 				A522AD8124A2194D00B8C2F2 /* TimeAddMannaViewController.swift in Sources */,
 				A55A80BB248FD76200EDFA99 /* AddMannaViewModel.swift in Sources */,
 				A522AD8324A2196600B8C2F2 /* PlaceAddMannaViewController.swift in Sources */,
