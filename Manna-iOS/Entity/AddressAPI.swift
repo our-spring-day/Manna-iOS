@@ -60,8 +60,8 @@ class AddressAPI: AddressFetchable {
                         let addressList = JSON(value)["documents"].arrayValue[0]
                         let address = Address(address: "\(addressList["address"]["address_name"])",
                             roadAddress: "\(addressList["road_address"]["address_name"])",
-                            lng: "",
-                            lat: "")
+                            lng: "\(lng)",
+                            lat: "\(lat)")
                         observer.onNext(address)
                     case .failure(let err):
                         print(err)

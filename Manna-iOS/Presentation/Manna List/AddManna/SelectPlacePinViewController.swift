@@ -24,12 +24,15 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
     var lat: Double?
     var lng: Double?
     
+    let marker = NMFMarker()
+    let stateButton = UIButton()
     let backButton = UIButton()
     let rootView = UIView()
     let addressLable = UILabel()
     let roadAddressLable = UILabel()
     let detailAddress = UITextField()
     let completeBtn = UIButton()
+    let pinSelectBtn = UIButton()
     let pinImage = UIImageView()
     let aiming = UIImageView()
     
@@ -63,7 +66,6 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
     }
     
     func createMapView() {
-        let marker = NMFMarker()
         nmapFView = NMFMapView(frame: view.frame)
         marker.position = NMGLatLng(lat: initLat!, lng: initLng!)
         marker.mapView = nmapFView
@@ -73,13 +75,19 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(nmapFView!)
     }
     func attribute() {
-        aiming.image = #imageLiteral(resourceName: "target")
-        pinImage.image = #imageLiteral(resourceName: "marker")
+        title = "만날 주소"
+        aiming.do {
+            $0.image = #imageLiteral(resourceName: "target")
+            $0.isHidden = true
+        }
+        pinImage.do {
+            $0.image = #imageLiteral(resourceName: "marker")
+            $0.isHidden = true
+        }
         rootView.backgroundColor = .white
-        
-        backButton.do {
-            $0.setImage(#imageLiteral(resourceName: "backButton"), for: .normal)
-            $0.addTarget(self, action: #selector(back), for: .touchUpInside)
+        stateButton.do {
+            $0.setImage(#imageLiteral(resourceName: "Image"), for: .normal)
+            $0.addTarget(self, action: #selector(changeState), for: .touchUpInside)
         }
         roadAddressLable.do {
             $0.textColor = .black
@@ -96,26 +104,39 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
         }
         completeBtn.do {
             $0.backgroundColor = .blue
+            $0.setTitle("완료", for: .normal)
+            $0.setTitleColor( .white, for: .normal)
+        }
+        pinSelectBtn.do {
+            $0.backgroundColor = .blue
             $0.setTitle("이 위치로 주소 설정", for: .normal)
             $0.setTitleColor( .white, for: .normal)
+            $0.isHidden = true
+            $0.addTarget(self, action: #selector(pinSelected), for: .touchUpInside)
         }
     }
     
     func layout() {
         view.addSubview(rootView)
+        view.addSubview(stateButton)
         rootView.addSubview(roadAddressLable)
         rootView.addSubview(addressLable)
         rootView.addSubview(detailAddress)
         rootView.addSubview(completeBtn)
-        view.addSubview(backButton)
-        //        view.addSubview(aiming)
-        //        aiming.addSubview(pinImage)
+        rootView.addSubview(pinSelectBtn)
+        view.addSubview(aiming)
+        aiming.addSubview(pinImage)
+        
         
         rootView.snp.makeConstraints {
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             $0.leading.equalTo(view.snp.leading)
             $0.trailing.equalTo(view.snp.trailing)
             $0.height.equalTo(view.frame.height / 4)
+        }
+        stateButton.snp.makeConstraints {
+            $0.bottom.equalTo(rootView.snp.top).offset(-20)
+            $0.trailing.equalToSuperview().offset(-20)
         }
         roadAddressLable.snp.makeConstraints {
             $0.top.equalTo(rootView.snp.top).offset(20)
@@ -137,25 +158,24 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
             $0.width.equalTo(view.frame.width * 0.7)
             $0.height.equalTo(40)
         }
-        backButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
-            $0.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+        pinSelectBtn.snp.makeConstraints {
+            $0.top.equalTo(detailAddress.snp.bottom).offset(20)
+            $0.centerX.equalTo(rootView.snp.centerX)
+            $0.width.equalTo(view.frame.width * 0.7)
+            $0.height.equalTo(40)
         }
-        //        aiming.snp.makeConstraints {
-        //            $0.centerX.equalTo(view.snp.centerX)
-        //            $0.centerY.equalTo(view.snp.centerY)
-        //            $0.width.equalTo(30)
-        //            $0.height.equalTo(30)
-        //        }
-        //        pinImage.snp.makeConstraints {
-        //            $0.centerX.equalTo(view.snp.centerX)
-        //            $0.centerY.equalTo(view.snp.centerY).offset(-28)
-        //            $0.width.equalTo(35)
-        //            $0.height.equalTo(50)
-        //        }
-    }
-    @objc func back() {
-        dismiss(animated: true, completion: nil)
+        aiming.snp.makeConstraints {
+            $0.centerX.equalTo(view.snp.centerX)
+            $0.centerY.equalTo(view.snp.centerY)
+            $0.width.equalTo(30)
+            $0.height.equalTo(30)
+        }
+        pinImage.snp.makeConstraints {
+            $0.centerX.equalTo(view.snp.centerX)
+            $0.centerY.equalTo(view.snp.centerY).offset(-28)
+            $0.width.equalTo(35)
+            $0.height.equalTo(50)
+        }
     }
     
     func keyboardAction() {
@@ -168,15 +188,28 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
     @objc func keyboardWillShow(_ sender: Notification) {
         self.view.frame.origin.y = -255
-//        self.rootView.frame.origin.y = 320
     }
-    
     @objc func keyboardWillHide(_ sender: Notification) {
         self.view.frame.origin.y = 0
-//        self.rootView.frame.origin.y = 0
+    }
+    @objc func changeState() {
+        marker.hidden = true
+        pinSelectBtn.isHidden = false
+        completeBtn.isHidden = true
+        aiming.isHidden = false
+        pinImage.isHidden = false
+        viewState = false
+    }
+    @objc func pinSelected() {
+        marker.hidden = false
+        marker.position = NMGLatLng(lat: self.lat!, lng: self.lng!)
+        pinSelectBtn.isHidden = true
+        completeBtn.isHidden = false
+        aiming.isHidden = true
+        pinImage.isHidden = true
+        viewState = true
     }
 }
 
@@ -187,7 +220,6 @@ extension SelectPlacePinViewController: NMFMapViewCameraDelegate {
                 self.pinImage.alpha = 1
                 //카메라포지션을 저장해줌(보기에편하게)
                 _ = self.nmapFView!.cameraPosition
-                //카메라포지션의 좌표값을 스트링으로 변환후 addressText 띄우줌
                 
                 let lng = Double(self.nmapFView!.cameraPosition.target.lng)
                 let lat = Double(self.nmapFView!.cameraPosition.target.lat)
@@ -199,6 +231,10 @@ extension SelectPlacePinViewController: NMFMapViewCameraDelegate {
                     .subscribe(onNext: { value in
                         self.addressLable.text = String(value.address)
                         self.roadAddressLable.text = String(value.roadAddress)
+                        self.lat = Double(value.lat)
+                        self.lng = Double(value.lng)
+//                        print(value.lat)
+//                        print(value.lng)
                     })
                     .disposed(by: self.disposeBag)
                 
