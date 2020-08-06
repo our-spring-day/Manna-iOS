@@ -17,7 +17,7 @@ extension BottomSheetViewController {
     }
     
     private enum Constant {
-        static let fullViewYPosition: CGFloat = 300
+        static let fullViewYPosition: CGFloat = 500
         static var partialViewYPosition: CGFloat { UIScreen.main.bounds.height - 130 }
     }
 }
@@ -30,11 +30,10 @@ class BottomSheetViewController: UIViewController {
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
         view.addGestureRecognizer(gesture)
         roundViews()
-        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        UIView.animate(withDuration: 0.6, animations: { self.moveView(state: .partial)
+        UIView.animate(withDuration: 0.1, animations: { self.moveView(state: .partial)
         })
     }
     
@@ -56,24 +55,22 @@ class BottomSheetViewController: UIViewController {
     
     @objc private func panGesture(_ recognizer: UIPanGestureRecognizer) {
         moveView(panGestureRecognizer: recognizer)
-        var changedY = view.center.y + recognizer.location(in: view).y
-//        print(recognizer.location(ofTouch: 0, in: view))
         if recognizer.state == .ended {
             self.view.isUserInteractionEnabled = false
-            
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: [.allowUserInteraction], animations: { let state: State = recognizer.velocity(in: self.view).y >= 0 ? .partial : .full
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: .allowUserInteraction , animations: { let state: State = recognizer.velocity(in: self.view).y >= 0 ? .partial : .full
                 self.moveView(state: state)
             },completion: { bool in
                 self.view.isUserInteractionEnabled = true
             })
         } else if recognizer.state == .changed {
-            changedY = view.center.y + recognizer.location(in: view).y
-            view.center = CGPoint(x: view.center.x, y: changedY)
+            print("view.center.y: ",view.center.y,"  location :",recognizer.location(in: view).y)
+            var changedY = view.center.y + recognizer.location(in: view).y
+            view.center.y = changedY
         }
     }
     
     func roundViews() {
-        view.layer.cornerRadius = 10
+        view.layer.cornerRadius = 20
         view.clipsToBounds = true
     }
 }

@@ -18,7 +18,9 @@ class SetListViewController: UIViewController {
     var authState: NMFAuthState!
     var nmapFView = NMFMapView()
     let cameraPosition = NMFCameraPosition()
-    
+    let bottomSheet = BottomSheetViewController()
+    let collectionView = DuringMeetingCollectionView()
+    let inviteFriensViewModel = InviteFriendsViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         attribute()
@@ -27,18 +29,13 @@ class SetListViewController: UIViewController {
         //현재 카메라의 포지션이고 유용하게 사용할듯
         let cameraPosition2 = nmapFView.cameraPosition
         print(cameraPosition2)
-        
-        let bottomSheet = BottomSheetViewController()
-        
-        self.addChild(bottomSheet)
-        self.view.addSubview(bottomSheet.view)
-        bottomSheet.didMove(toParent: self)
-        
-        let height = view.frame.height
-        let width = view.frame.width
-        bottomSheet.view.frame = CGRect(x: 0, y: view.frame.maxY, width: width, height: height)
-        
-        bottomSheet.view.backgroundColor = .red
+        inviteFriendsViewModel.outputs.checkedFriendList
+            .bind(to: self.collectionView.baseCollectionView.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)) { (_: Int, element: UserTestStruct, cell: CheckedFriendCell) in
+                cell.profileImage.image = UIImage(named: "\(element.profileImage)")
+                UIView.animate(withDuration: 0.3) {
+                    self.view.layoutIfNeeded()
+                }
+        }.disposed(by: self.disposeBag)
     }
     func attribute() {
         nmapFView = NMFMapView(frame: view.frame)
@@ -46,9 +43,27 @@ class SetListViewController: UIViewController {
             $0.mapType = .basic
             $0.symbolScale = 0.7
         }
+        bottomSheet.do {
+            $0.didMove(toParent: self)
+            $0.view.backgroundColor = .white
+            $0.view.alpha = 0.9
+        }
     }
     func layout() {
         view.addSubview(nmapFView)
+        view.addSubview(bottomSheet.view)
+        self.addChild(bottomSheet)
+        bottomSheet.view.addSubview(collectionView)
+        
+        bottomSheet.view.snp.makeConstraints {
+            $0.centerX.equalTo(view.snp.centerX)
+            $0.width.equalTo(view.frame.width)
+            $0.height.equalTo(view.frame.height)
+            $0.centerY.equalTo(view.frame.maxY)
+        }
+        collectionView.snp.makeConstraints {
+            $0.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
     }
     func bind() {
     }
