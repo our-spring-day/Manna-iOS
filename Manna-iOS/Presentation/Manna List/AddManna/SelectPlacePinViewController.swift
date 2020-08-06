@@ -61,10 +61,6 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
         keyboardAction()
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
     func createMapView() {
         nmapFView = NMFMapView(frame: view.frame)
         marker.position = NMGLatLng(lat: initLat!, lng: initLng!)
@@ -74,6 +70,7 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
         nmapFView!.addCameraDelegate(delegate: self)
         view.addSubview(nmapFView!)
     }
+    
     func attribute() {
         title = "만날 주소"
         aiming.do {
@@ -106,6 +103,7 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
             $0.backgroundColor = .blue
             $0.setTitle("완료", for: .normal)
             $0.setTitleColor( .white, for: .normal)
+            $0.addTarget(self, action: #selector(completePlace), for: .touchUpInside)
         }
         pinSelectBtn.do {
             $0.backgroundColor = .blue
@@ -178,6 +176,10 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     func keyboardAction() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
@@ -217,6 +219,10 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
         viewState = true
         
         navigationController?.isNavigationBarHidden = false
+    }
+    
+    @objc func completePlace() {
+        navigationController?.popToViewController(ofClass: AddMannaViewController.self)
     }
 }
 

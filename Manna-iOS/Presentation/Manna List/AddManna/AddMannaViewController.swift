@@ -172,7 +172,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
     
     @objc func nextBtn(_ sender: Any) {
         if scrollView.isHidden == false {
-            let maxWidth = min(scrollView.contentOffset.x + view.frame.width, view.frame.width * 3)
+            let maxWidth = min(scrollView.contentOffset.x + view.frame.width, view.frame.width * 2)
             let newOffset = CGPoint(x: maxWidth, y: 0)
             scrollView.contentOffset = newOffset
         }

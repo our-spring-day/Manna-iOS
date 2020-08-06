@@ -27,6 +27,7 @@
 		A585F83C2482962600A60530 /* MannaListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F83B2482962600A60530 /* MannaListModel.swift */; };
 		A585F83F2482963F00A60530 /* MannaListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F83E2482963F00A60530 /* MannaListCell.swift */; };
 		A58ADE5824B4B9E200C2E37A /* MannaPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58ADE5724B4B9E200C2E37A /* MannaPageViewController.swift */; };
+		A595A8A824DC823000EAFAA5 /* UINavigation-Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A595A8A724DC823000EAFAA5 /* UINavigation-Ext.swift */; };
 		A5B92B1E2496340B008A14C3 /* MannaSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B92B1D2496340B008A14C3 /* MannaSection.swift */; };
 		A5EAE115248A622100BA4E39 /* AddMannaViewControll.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EAE114248A622100BA4E39 /* AddMannaViewControll.swift */; };
 		A5EB4A0E24BCA6BD0084EBE5 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EB4A0D24BCA6BD0084EBE5 /* Address.swift */; };
@@ -72,6 +73,7 @@
 		A585F83B2482962600A60530 /* MannaListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaListModel.swift; sourceTree = "<group>"; };
 		A585F83E2482963F00A60530 /* MannaListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaListCell.swift; sourceTree = "<group>"; };
 		A58ADE5724B4B9E200C2E37A /* MannaPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaPageViewController.swift; sourceTree = "<group>"; };
+		A595A8A724DC823000EAFAA5 /* UINavigation-Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigation-Ext.swift"; sourceTree = "<group>"; };
 		A5B92B1D2496340B008A14C3 /* MannaSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaSection.swift; sourceTree = "<group>"; };
 		A5EAE114248A622100BA4E39 /* AddMannaViewControll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMannaViewControll.swift; sourceTree = "<group>"; };
 		A5EB4A0D24BCA6BD0084EBE5 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 			children = (
 				A552C78624A4ED0D00D834BF /* AddMannaView-Ext.swift */,
 				A5677B0D24B78D4500059EE0 /* UIView-Ext.swift */,
+				A595A8A724DC823000EAFAA5 /* UINavigation-Ext.swift */,
 			);
 			path = "Extensions-Utillities";
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC705A0D2477D2BA00462251 /* MannaListViewController.swift in Sources */,
+				A595A8A824DC823000EAFAA5 /* UINavigation-Ext.swift in Sources */,
 				A5FCFF3524A4A2CD00641112 /* PeopleAddMannaViewController.swift in Sources */,
 				A55B0F1B24D5B7D300211AEA /* PeopleAddManna.swift in Sources */,
 				CC705A112477D2E000462251 /* SetListViewController.swift in Sources */,

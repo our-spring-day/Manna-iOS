@@ -13,6 +13,7 @@ import RxCocoa
 class SelectPlaceViewController: UIViewController {
     let disposeBag = DisposeBag()
     
+    static let shared = SelectPlaceViewController()
     let viewModel: AddMannaViewModelType
     
     let backButton = UIButton()
@@ -20,7 +21,6 @@ class SelectPlaceViewController: UIViewController {
     let searchText = UITextField()
     let searchResult = UITableView()
 
-    
     // MARK: - Life Cycle
     
     init(viewModel: AddMannaViewModelType = AddMannaViewModel()) {
