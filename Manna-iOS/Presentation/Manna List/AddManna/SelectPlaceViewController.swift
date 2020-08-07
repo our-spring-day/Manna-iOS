@@ -128,17 +128,6 @@ class SelectPlaceViewController: UIViewController {
             .disposed(by: disposeBag)
         
         searchResult.rx.modelSelected(Address.self)
-//            .do(onNext: { [weak self] address in
-//                let view = SelectPlacePinViewController.shared
-//                view.initLng = Double(address.lng)
-//                view.initLat = Double(address.lat)
-//                view.lng = Double(address.lng)
-//                view.lat = Double(address.lat)
-//                view.addressLable.text = address.address
-//                view.roadAddressLable.text = address.roadAddress
-//                view.modalPresentationStyle = .fullScreen
-//                self?.present(view, animated: true)
-//            })
             .subscribe(onNext: { [weak self] address in
                 let view = SelectPlacePinViewController.shared
                 view.initLng = Double(address.lng)

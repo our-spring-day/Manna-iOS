@@ -61,6 +61,7 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
         attribute()
         layout()
         keyboardAction()
+        bind()
     }
     
     func createMapView() {
@@ -181,6 +182,22 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
     }
     
+    func bind() {
+        
+        let address = completeBtn.rx.tap
+            .map { Address(address: self.addressLable.text!,
+                           roadAddress: self.roadAddressLable.text! + "\n" + self.detailAddress.text!,
+                           lng: "\(self.lng!)",
+                           lat: "\(self.lat!)") }
+        
+        Observable.just(address)
+            .merge()
+            .subscribe(onNext: { [weak self] in
+                self?.completePlace(address: $0)
+            })
+            .disposed(by: disposeBag)
+    }
+    
     func keyboardAction() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
@@ -222,8 +239,8 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
     
     func completePlace(address: Address) {
         dismiss(animated: true) { [weak self] in
-            SelectPlaceViewController.shared.dismiss(animated: true, completion: nil)
             AddMannaViewController.shared.scrollView.contentOffset = CGPoint(x: self!.view.frame.width*3 ,y: 0)
+            SelectPlaceViewController.shared.dismiss(animated: true, completion: nil)
             SelectPlaceViewController.shared.selectedAddressSubject.onNext(address)
             SelectPlaceViewController.shared.selectedAddressSubject.onCompleted()
         }

@@ -53,18 +53,35 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
     }
     
     func bind() {
+        people.mannaPeople.rx.text.orEmpty
+            .subscribe(onNext: { [weak self] value in
+                self?.finalAdd.finalPeople.text = value
+            })
+            .disposed(by: disposeBag)
+        
+        time.onPicker.rx.date
+            .map {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MM월 dd일 hh시mm분"
+                return dateFormatter.string(from: $0)
+            }
+            .subscribe(onNext: { [weak self] value in
+                self?.finalAdd.finalTime.text = value
+            })
+            .disposed(by: disposeBag)
+        
         place.searchButton.rx.tap
             .flatMap(selectedPlace)
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] address in
-                self?.finalAdd.finalPlace.text = address.address
+                self?.finalAdd.finalPlace.text = address.roadAddress
             })
             .disposed(by: disposeBag)
     }
 
     func attribute() {
         navigationController?.isNavigationBarHidden = true
-        
+        finalAdd.finalPlace.numberOfLines = 0
         people.mannaPeople.delegate = people
         scrollView.do {
             $0.isHidden = true

@@ -42,10 +42,7 @@ class SelectPlacePinViewModel: SelectPlacePinViewModelType, SelectPlacePinViewMo
         
         Observable.combineLatest(lngInput, latInput)
             .flatMap { AddressAPI.getAddress($0, $1) }
-            .subscribe(onNext: { address in
-                addressOut.accept(address)
-            })
-//            .bind(to: addressOut)
+            .bind(to: addressOut)
             .disposed(by: disposeBag)
         
         address = addressOut.asObservable()
