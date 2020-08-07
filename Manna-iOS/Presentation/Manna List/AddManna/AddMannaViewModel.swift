@@ -70,14 +70,6 @@ class AddMannaViewModel: AddMannaViewModelType, AddMannaViewModelInput, AddManna
         latitude = latInput.asObserver()
         address = addressInput.asObserver()
         
-//        let mainPlace = placeInput.takeLast(1)
-//            .map { "\($0.address)"}
-//
-//        let detailPlace = detailPlaceInput.takeLast(1)
-//
-//        let totalPlace = Observable.zip(mainPlace, detailPlace)
-//            .map { "\($0) \($1)" }
-        
         addressInput
             .debug()
             .map({ "\($0)" })

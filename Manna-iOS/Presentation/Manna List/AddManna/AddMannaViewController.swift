@@ -8,16 +8,20 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class AddMannaViewController: UIViewController, UITextFieldDelegate {
+    let disposeBag = DisposeBag()
+    
+    let viewModel: AddMannaViewModelType
+    static let shared = AddMannaViewController()
     
     let people = PeopleAddManna()
     let time = TimeAddManna()
     let place = PlaceAddManna()
     let finalAdd = FinalAddManna()
-    
-    let viewModel: AddMannaViewModelType
-    
+
     let scrollView = UIScrollView()
     let titleLabel = UILabel()
     let titleInput = UITextField()
@@ -36,10 +40,26 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         super.init(coder: aDecoder)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.isNavigationBarHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         attribute()
         layout()
+        bind()
+    }
+    
+    func bind() {
+        place.searchButton.rx.tap
+            .flatMap(selectedPlace)
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] address in
+                self?.finalAdd.finalPlace.text = address.address
+            })
+            .disposed(by: disposeBag)
     }
 
     func attribute() {
@@ -147,6 +167,14 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    func selectedPlace() -> Observable<Address> {
+        let view = SelectPlaceViewController.shared
+        view.searchText.text = place.mannaPlace.text
+        view.modalPresentationStyle = .fullScreen
+        present(view, animated: true)
+        return view.selectedAddress
+    }
+    
     @objc func titleBtn(_ sender: Any) {
         guard let text = titleInput.text,
             text.count > 0 else {
@@ -158,6 +186,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         nextButton.isHidden = false
         titleButton.isHidden = true
     }
+    
     @objc func prevBtn(_ sender: Any) {
         if scrollView.isHidden == true {
             navigationController?.popViewController(animated: true)
@@ -178,11 +207,11 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         }
     }
     @objc func gogogo(_ sender: Any) {
-        let view = SelectPlaceViewController()
+        let view = SelectPlaceViewController.shared
         view.searchText.text = place.mannaPlace.text
-        navigationController?.pushViewController(view, animated: true)
+        view.modalPresentationStyle = .fullScreen
+        present(view, animated: true)
     }
-
 }
 
 extension AddMannaViewController {

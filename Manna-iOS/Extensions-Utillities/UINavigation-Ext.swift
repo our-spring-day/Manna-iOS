@@ -29,9 +29,12 @@ extension UINavigationController {
             viewController.removeFromParent()
         }
     }
-    func popToViewController(ofClass: AnyClass, animated: Bool = true) {
+    func popToViewController(ofClass: AnyClass, animated: Bool = true, completion: (() -> Void)?) {
+        CATransaction.setCompletionBlock(completion)
+        CATransaction.begin()
         if let viewController = viewControllers.filter({$0.isKind(of: ofClass)}).last {
             popToViewController(viewController, animated: animated)
         }
+        CATransaction.commit()
     }
 }

@@ -16,6 +16,8 @@ import RxCocoa
 class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
     let disposeBag = DisposeBag()
     
+    static let shared = SelectPlacePinViewController()
+    
     let viewModel: SelectPlacePinViewModelType
     
     var viewState: Bool = true
@@ -103,7 +105,6 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
             $0.backgroundColor = .blue
             $0.setTitle("완료", for: .normal)
             $0.setTitleColor( .white, for: .normal)
-            $0.addTarget(self, action: #selector(completePlace), for: .touchUpInside)
         }
         pinSelectBtn.do {
             $0.backgroundColor = .blue
@@ -221,8 +222,13 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
         navigationController?.isNavigationBarHidden = false
     }
     
-    @objc func completePlace() {
-        navigationController?.popToViewController(ofClass: AddMannaViewController.self)
+    func completePlace(address: Address) {
+        dismiss(animated: true) { [weak self] in
+            SelectPlaceViewController.shared.dismiss(animated: true, completion: nil)
+            AddMannaViewController.shared.scrollView.contentOffset = CGPoint(x: self!.view.frame.width*3 ,y: 0)
+            SelectPlaceViewController.shared.selectedAddressSubject.onNext(address)
+            SelectPlaceViewController.shared.selectedAddressSubject.onCompleted()
+        }
     }
 }
 

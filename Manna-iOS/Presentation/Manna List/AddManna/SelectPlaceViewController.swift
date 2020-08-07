@@ -14,7 +14,13 @@ class SelectPlaceViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     static let shared = SelectPlaceViewController()
+    
     let viewModel: AddMannaViewModelType
+    
+    let selectedAddressSubject = PublishSubject<Address>()
+    var selectedAddress: Observable<Address> {
+      return selectedAddressSubject.asObservable()
+    }
     
     let backButton = UIButton()
     let resultButton = UIButton()
@@ -32,7 +38,7 @@ class SelectPlaceViewController: UIViewController {
         viewModel = AddMannaViewModel()
         super.init(coder: aDecoder)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = false
@@ -125,14 +131,15 @@ class SelectPlaceViewController: UIViewController {
         searchResult.rx.modelSelected(Address.self)
             .map({ $0 })
             .do(onNext: { [weak self] address in
-                let view = SelectPlacePinViewController()
+                let view = SelectPlacePinViewController.shared
                 view.initLng = Double(address.lng)
                 view.initLat = Double(address.lat)
                 view.lng = Double(address.lng)
                 view.lat = Double(address.lat)
                 view.addressLable.text = address.address
                 view.roadAddressLable.text = address.roadAddress
-                self?.navigationController?.pushViewController(view, animated: true)
+                view.modalPresentationStyle = .fullScreen
+                self?.present(view, animated: true)
             })
             .subscribe {
                 print("test")

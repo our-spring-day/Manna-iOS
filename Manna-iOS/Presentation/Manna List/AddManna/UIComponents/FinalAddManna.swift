@@ -11,6 +11,8 @@ import SnapKit
 
 class FinalAddManna: UIView {
     
+    let finalPeopleLabel = UILabel()
+    let finalPeople = UILabel()
     let finalTimeLabel = UILabel()
     let finalTime = UILabel()
     let finalPlaceLabel = UILabel()
@@ -27,6 +29,14 @@ class FinalAddManna: UIView {
     }
     
     func attribute() {
+        finalPeopleLabel.do {
+            $0.text = "초대인원 : "
+            $0.textColor = .black
+        }
+        finalPeople.do {
+            $0.text = "blah"
+            $0.textColor = .black
+        }
         finalTimeLabel.do {
             $0.text = "시간 : "
             $0.textColor = .black
@@ -46,16 +56,27 @@ class FinalAddManna: UIView {
     }
     
     func layout() {
+        addSubview(finalPeopleLabel)
+        addSubview(finalPeople)
         addSubview(finalTimeLabel)
         addSubview(finalTime)
         addSubview(finalPlaceLabel)
         addSubview(finalPlace)
-        finalTimeLabel.snp.makeConstraints {
+        
+        finalPeopleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(100)
             $0.leading.equalToSuperview().offset(40)
         }
+        finalPeople.snp.makeConstraints {
+            $0.top.equalTo(finalPeopleLabel)
+            $0.leading.equalTo(finalPeopleLabel.snp.trailing).offset(20)
+        }
+        finalTimeLabel.snp.makeConstraints {
+            $0.top.equalTo(finalPeopleLabel.snp.bottom).offset(30)
+            $0.leading.equalToSuperview().offset(40)
+        }
         finalTime.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(100)
+            $0.top.equalTo(finalTimeLabel)
             $0.leading.equalTo(finalTimeLabel.snp.trailing).offset(20)
         }
         finalPlaceLabel.snp.makeConstraints {
