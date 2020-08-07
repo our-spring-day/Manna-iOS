@@ -45,6 +45,7 @@ class SelectPlacePinViewModel: SelectPlacePinViewModelType, SelectPlacePinViewMo
             .subscribe(onNext: { address in
                 addressOut.accept(address)
             })
+//            .bind(to: addressOut)
             .disposed(by: disposeBag)
         
         address = addressOut.asObservable()

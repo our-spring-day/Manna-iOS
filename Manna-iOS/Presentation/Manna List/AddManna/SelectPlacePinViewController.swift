@@ -74,7 +74,7 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
     }
     
     func attribute() {
-        title = "만날 주소"
+        
         aiming.do {
             $0.image = #imageLiteral(resourceName: "target")
             $0.isHidden = true
@@ -201,12 +201,11 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
         detailAddress.isHidden = true
         completeBtn.isHidden = true
         
+        stateButton.isHidden = false
         pinSelectBtn.isHidden = false
         aiming.isHidden = false
         pinImage.isHidden = false
         viewState = false
-        
-        navigationController?.isNavigationBarHidden = true
     }
     @objc func pinSelected() {
         marker.hidden = false
@@ -214,12 +213,11 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
         detailAddress.isHidden = false
         completeBtn.isHidden = false
         
+        stateButton.isHidden = true
         pinSelectBtn.isHidden = true
         aiming.isHidden = true
         pinImage.isHidden = true
         viewState = true
-        
-        navigationController?.isNavigationBarHidden = false
     }
     
     func completePlace(address: Address) {
@@ -271,3 +269,4 @@ extension SelectPlacePinViewController: NMFMapViewCameraDelegate {
         })
     }
 }
+

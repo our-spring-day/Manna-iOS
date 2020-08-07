@@ -65,8 +65,6 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
     func attribute() {
         navigationController?.isNavigationBarHidden = true
         
-        place.searchButton.addTarget(self, action: #selector(gogogo), for: .touchUpInside)
-        
         people.mannaPeople.delegate = people
         scrollView.do {
             $0.isHidden = true
