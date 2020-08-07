@@ -52,33 +52,6 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         bind()
     }
     
-    func bind() {
-        people.mannaPeople.rx.text.orEmpty
-            .subscribe(onNext: { [weak self] value in
-                self?.finalAdd.finalPeople.text = value
-            })
-            .disposed(by: disposeBag)
-        
-        time.onPicker.rx.date
-            .map {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MM월 dd일 hh시mm분"
-                return dateFormatter.string(from: $0)
-            }
-            .subscribe(onNext: { [weak self] value in
-                self?.finalAdd.finalTime.text = value
-            })
-            .disposed(by: disposeBag)
-        
-        place.searchButton.rx.tap
-            .flatMap(selectedPlace)
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] address in
-                self?.finalAdd.finalPlace.text = address.roadAddress
-            })
-            .disposed(by: disposeBag)
-    }
-
     func attribute() {
         navigationController?.isNavigationBarHidden = true
         finalAdd.finalPlace.numberOfLines = 0
@@ -89,12 +62,14 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
             $0.bounces = false
         }
         titleLabel.do {
+            $0.textColor = .black
             $0.isHidden = true
         }
         titleInput.do {
             $0.layer.borderWidth = 1.0
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             $0.textAlignment = .center
+            $0.placeholder = "만남 타이틀"
             $0.delegate = self
         }
         titleButton.do {
@@ -120,6 +95,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
 
     func layout() {
         view.addSubview(titleButton)
+        view.addSubview(titleLabel)
         view.addSubview(titleInput)
         view.addSubview(scrollView)
         view.addSubview(prevButton)
@@ -129,8 +105,12 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         scrollView.addSubview(place)
         scrollView.addSubview(finalAdd)
         
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
+            $0.centerX.equalTo(view.snp.centerX)
+        }
         titleInput.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
             $0.centerX.equalTo(view.snp.centerX)
             $0.width.equalTo(200)
             $0.height.equalTo(30)
@@ -182,6 +162,38 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    func bind() {
+        titleInput.rx.text.orEmpty
+            .bind(to: titleLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        people.mannaPeople.rx.text.orEmpty
+            .subscribe(onNext: { [weak self] value in
+                self?.finalAdd.finalPeople.text = value
+            })
+            .disposed(by: disposeBag)
+        
+        time.onPicker.rx.date
+            .map {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MM월 dd일 hh시mm분"
+                return dateFormatter.string(from: $0)
+            }
+            .subscribe(onNext: { [weak self] value in
+                self?.finalAdd.finalTime.text = value
+            })
+            .disposed(by: disposeBag)
+        
+        place.searchButton.rx.tap
+            .flatMap(selectedPlace)
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] address in
+                self?.finalAdd.finalPlace.text = address.roadAddress
+            })
+            .disposed(by: disposeBag)
+    }
+
+    
     func selectedPlace() -> Observable<Address> {
         let view = SelectPlaceViewController.shared
         view.searchText.text = place.mannaPlace.text
@@ -197,9 +209,18 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
                 return
         }
         
-        scrollView.isHidden = false
-        nextButton.isHidden = false
+        titleInput.endEditing(true)
+        titleInput.isHidden = true
         titleButton.isHidden = true
+        titleLabel.isHidden = false
+        
+        UIView.animate(withDuration: 0.7, animations: {
+            let move = CGAffineTransform(translationX: 0, y: -40)
+            self.titleLabel.transform = move
+        }) { _ in
+            self.scrollView.isHidden = false
+            self.nextButton.isHidden = false
+        }
     }
     
     @objc func prevBtn(_ sender: Any) {
@@ -207,6 +228,18 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
             navigationController?.popViewController(animated: true)
         } else if scrollView.isHidden == false && scrollView.contentOffset.x == 0 {
             scrollView.isHidden = true
+            UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.titleLabel.transform = CGAffineTransform.identity
+                self.titleButton.isHidden = false
+                self.nextButton.isHidden = true
+//                self.nextButton.transform = CGAffineTransform.identity
+            }) { _ in
+                self.titleLabel.isHidden = true
+//                self.nextButton.isHidden = true
+                
+                self.titleInput.isHidden = false
+//                self.titleButton.isHidden = false
+            }
         } else if scrollView.isHidden == false {
             let minWidth = max(scrollView.contentOffset.x - view.frame.width, 0)
             let newOffset = CGPoint(x: minWidth, y: 0)

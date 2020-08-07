@@ -34,7 +34,6 @@ class FinalAddManna: UIView {
             $0.textColor = .black
         }
         finalPeople.do {
-            $0.text = "blah"
             $0.textColor = .black
         }
         finalTimeLabel.do {
@@ -42,7 +41,6 @@ class FinalAddManna: UIView {
             $0.textColor = .black
         }
         finalTime.do {
-            $0.text = "ffjfjdfkdlfjdkf"
             $0.textColor = .black
         }
         finalPlaceLabel.do {
@@ -50,7 +48,6 @@ class FinalAddManna: UIView {
             $0.textColor = .black
         }
         finalPlace.do {
-            $0.text = "bbbbb"
             $0.textColor = .black
         }
     }
