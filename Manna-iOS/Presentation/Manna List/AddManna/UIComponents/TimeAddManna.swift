@@ -67,14 +67,14 @@ class TimeAddManna: UIView {
     
     func layout() {
         let view1 = UIView().then {
-            $0.backgroundColor = .systemTeal
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         }
         let view2 = UIView().then {
-            $0.backgroundColor = .systemOrange
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         }
-        let view3 = UIView().then {
-            $0.backgroundColor = .systemBlue
-        }
+        let view3 = UIView()
         addSubview(view1)
         addSubview(view2)
         addSubview(view3)
@@ -94,7 +94,7 @@ class TimeAddManna: UIView {
             $0.height.equalTo(self).multipliedBy(0.25)
         }
         view2.snp.makeConstraints {
-            $0.top.equalTo(view1.snp.bottom)
+            $0.top.equalTo(view1.snp.bottom).offset(1)
             $0.leading.equalToSuperview()
             $0.trailing.equalToSuperview()
             $0.height.equalTo(self).multipliedBy(0.5)

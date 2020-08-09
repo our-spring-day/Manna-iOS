@@ -183,7 +183,6 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
     }
     
     func bind() {
-        
         let address = completeBtn.rx.tap
             .map { Address(address: self.addressLable.text!,
                            roadAddress: self.roadAddressLable.text! + "\n" + self.detailAddress.text!,
@@ -218,7 +217,8 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
         detailAddress.isHidden = true
         completeBtn.isHidden = true
         
-        stateButton.isHidden = false
+        nmapFView?.moveCamera(NMFCameraUpdate(scrollTo: NMGLatLng(lat: lat!, lng: lng!)))
+        stateButton.isHidden = true
         pinSelectBtn.isHidden = false
         aiming.isHidden = false
         pinImage.isHidden = false
@@ -230,7 +230,7 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
         detailAddress.isHidden = false
         completeBtn.isHidden = false
         
-        stateButton.isHidden = true
+        stateButton.isHidden = false
         pinSelectBtn.isHidden = true
         aiming.isHidden = true
         pinImage.isHidden = true

@@ -34,50 +34,53 @@ class PlaceAddManna: UIView {
             $0.textColor = .black
         }
         mannaPlace.do {
+            $0.textAlignment = .center
             $0.placeholder = "  예) 만나동12-3 또는 만나아파트"
         }
         searchButton.do {
-            $0.setTitle("검색", for: .normal)
-            $0.setTitleColor(.black, for: .normal)
-            $0.layer.borderWidth = 1.0
-            $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-            
+            $0.setImage(#imageLiteral(resourceName: "search"), for: .normal)
         }
         selectButton.do {
             $0.setTitle("현위치로 주소설정", for: .normal)
             $0.setTitleColor(.black, for: .normal)
             $0.layer.borderWidth = 1.0
-            $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            $0.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+            $0.layer.cornerRadius = 4
         }
     }
     
     func layout() {
+        let view = UIStackView().then {
+            $0.distribution = .fillEqually
+            $0.axis = .horizontal
+        }
+        addSubview(view)
+        view.addArrangedSubview(mannaPlace)
+        view.addArrangedSubview(searchButton)
         addSubview(descriptLabel)
-        addSubview(mannaPlace)
-        addSubview(searchButton)
         addSubview(selectButton)
-        
+        view.snp.makeConstraints {
+            $0.top.equalTo(descriptLabel.snp.top).offset(70)
+            $0.leading.equalToSuperview().offset(30)
+            $0.trailing.equalToSuperview().offset(-30)
+            $0.height.equalTo(40)
+        }
         descriptLabel.snp.makeConstraints {
             $0.top.equalTo(self.snp.top).offset(20)
             $0.leading.equalTo(self.snp.leading).offset(40)
         }
         mannaPlace.snp.makeConstraints {
-            $0.top.equalTo(descriptLabel.snp.top).offset(70)
-            $0.centerX.equalTo(snp.centerX)
-            $0.width.equalTo(290)
-            $0.height.equalTo(40)
+            $0.height.equalToSuperview()
+            $0.width.equalToSuperview().multipliedBy(0.9)
         }
         searchButton.snp.makeConstraints {
-            $0.top.equalTo(mannaPlace)
-            $0.leading.equalTo(mannaPlace.snp.trailing).offset(5)
-            $0.trailing.equalTo(snp.trailing).offset(-5)
-            $0.width.equalTo(50)
-            $0.height.equalTo(40)
+            $0.height.equalToSuperview()
+            $0.width.equalToSuperview().multipliedBy(0.1)
         }
         selectButton.snp.makeConstraints {
-            $0.top.equalTo(mannaPlace.snp.bottom).offset(40)
-            $0.centerX.equalTo(snp.centerX)
-            $0.width.equalTo(290)
+            $0.top.equalTo(view.snp.bottom).offset(20)
+            $0.leading.equalTo(view)
+            $0.trailing.equalTo(view)
             $0.height.equalTo(40)
         }
     }

@@ -23,6 +23,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
     let finalAdd = FinalAddManna()
 
     let scrollView = UIScrollView()
+    let pageControl = UIPageControl()
     let titleLabel = UILabel()
     let titleInput = UITextField()
     let titleButton = UIButton()
@@ -61,6 +62,11 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
             $0.backgroundColor = .red
             $0.bounces = false
         }
+        pageControl.do {
+            $0.numberOfPages = 3
+            $0.currentPage = 0
+//            $0.isUserInteractionEnabled = false
+        }
         titleLabel.do {
             $0.textColor = .black
             $0.isHidden = true
@@ -74,9 +80,9 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         }
         titleButton.do {
             $0.setTitle("완료", for: .normal)
-            $0.setTitleColor(.black, for: .normal)
-            $0.layer.borderWidth = 1.0
-            $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            $0.setTitleColor(.white, for: .normal)
+            $0.backgroundColor = UIColor(displayP3Red: 97/255, green: 196/255, blue: 174/255, alpha: 1)
+            $0.layer.cornerRadius = 8
             $0.addTarget(self, action: #selector(titleBtn), for: .touchUpInside)
         }
         prevButton.do {
@@ -85,9 +91,9 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         }
         nextButton.do {
             $0.setTitle("다음", for: .normal)
-            $0.setTitleColor(.black, for: .normal)
-            $0.layer.borderWidth = 1.0
-            $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            $0.setTitleColor(.white, for: .normal)
+            $0.backgroundColor = UIColor(displayP3Red: 97/255, green: 196/255, blue: 174/255, alpha: 1)
+            $0.layer.cornerRadius = 8
             $0.isHidden = true
             $0.addTarget(self, action: #selector(nextBtn), for: .touchUpInside)
         }
@@ -100,6 +106,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(scrollView)
         view.addSubview(prevButton)
         view.addSubview(nextButton)
+        scrollView.addSubview(pageControl)
         scrollView.addSubview(people)
         scrollView.addSubview(time)
         scrollView.addSubview(place)
@@ -135,6 +142,11 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(60)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             $0.leading.trailing.equalToSuperview()
+        }
+        pageControl.snp.makeConstraints {
+            $0.bottom.equalToSuperview().offset(-5)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(30)
         }
         people.snp.makeConstraints {
             $0.top.equalTo(scrollView.snp.top)
@@ -223,30 +235,6 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    @objc func prevBtn(_ sender: Any) {
-        if scrollView.isHidden == true {
-            navigationController?.popViewController(animated: true)
-        } else if scrollView.isHidden == false && scrollView.contentOffset.x == 0 {
-            scrollView.isHidden = true
-            UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.titleLabel.transform = CGAffineTransform.identity
-                self.titleButton.isHidden = false
-                self.nextButton.isHidden = true
-//                self.nextButton.transform = CGAffineTransform.identity
-            }) { _ in
-                self.titleLabel.isHidden = true
-//                self.nextButton.isHidden = true
-                
-                self.titleInput.isHidden = false
-//                self.titleButton.isHidden = false
-            }
-        } else if scrollView.isHidden == false {
-            let minWidth = max(scrollView.contentOffset.x - view.frame.width, 0)
-            let newOffset = CGPoint(x: minWidth, y: 0)
-            scrollView.contentOffset = newOffset
-        }
-    }
-    
     @objc func nextBtn(_ sender: Any) {
         if scrollView.isHidden == false {
             let maxWidth = min(scrollView.contentOffset.x + view.frame.width, view.frame.width * 2)
@@ -254,11 +242,28 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
             scrollView.contentOffset = newOffset
         }
     }
-    @objc func gogogo(_ sender: Any) {
-        let view = SelectPlaceViewController.shared
-        view.searchText.text = place.mannaPlace.text
-        view.modalPresentationStyle = .fullScreen
-        present(view, animated: true)
+    
+    @objc func prevBtn(_ sender: Any) {
+        if scrollView.isHidden == true {
+            titleInput.text = ""
+            people.mannaPeople.text = ""
+            place.mannaPlace.text = ""
+            navigationController?.popViewController(animated: true)
+        } else if scrollView.isHidden == false && scrollView.contentOffset.x == 0 {
+            scrollView.isHidden = true
+            UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.titleLabel.transform = CGAffineTransform.identity
+                self.titleButton.isHidden = false
+                self.nextButton.isHidden = true
+            }) { _ in
+                self.titleLabel.isHidden = true
+                self.titleInput.isHidden = false
+            }
+        } else if scrollView.isHidden == false {
+            let minWidth = max(scrollView.contentOffset.x - view.frame.width, 0)
+            let newOffset = CGPoint(x: minWidth, y: 0)
+            scrollView.contentOffset = newOffset
+        }
     }
 }
 

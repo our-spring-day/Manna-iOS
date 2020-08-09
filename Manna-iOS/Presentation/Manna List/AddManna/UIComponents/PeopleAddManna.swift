@@ -25,7 +25,6 @@ class PeopleAddManna: UIView, UITextFieldDelegate {
     }
     
     func attribute() {
-        backgroundColor = .gray
         mannaPeople.do {
             $0.layer.borderWidth = 1.0
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
