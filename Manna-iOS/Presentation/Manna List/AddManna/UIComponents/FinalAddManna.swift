@@ -17,6 +17,7 @@ class FinalAddManna: UIView {
     let finalTime = UILabel()
     let finalPlaceLabel = UILabel()
     let finalPlace = UILabel()
+    let completeButton = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,6 +51,11 @@ class FinalAddManna: UIView {
         finalPlace.do {
             $0.textColor = .black
         }
+        completeButton.do {
+            $0.setTitle("약속추가!!", for: .normal)
+            $0.layer.borderWidth = 1.0
+            $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        }
     }
     
     func layout() {
@@ -59,6 +65,7 @@ class FinalAddManna: UIView {
         addSubview(finalTime)
         addSubview(finalPlaceLabel)
         addSubview(finalPlace)
+        addSubview(completeButton)
         
         finalPeopleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(100)
@@ -83,6 +90,13 @@ class FinalAddManna: UIView {
         finalPlace.snp.makeConstraints {
             $0.top.equalTo(finalPlaceLabel)
             $0.leading.equalTo(finalPlaceLabel.snp.trailing).offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
+        }
+        completeButton.snp.makeConstraints {
+            $0.top.equalTo(finalPlace.snp.bottom).offset(30)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(100)
+            $0.height.equalTo(40)
         }
     }
 }

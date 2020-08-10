@@ -185,7 +185,7 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
     func bind() {
         let address = completeBtn.rx.tap
             .map { Address(address: self.addressLable.text!,
-                           roadAddress: self.roadAddressLable.text! + "\n" + self.detailAddress.text!,
+                           roadAddress: self.roadAddressLable.text! + " " + self.detailAddress.text!,
                            lng: "\(self.lng!)",
                            lat: "\(self.lat!)") }
         

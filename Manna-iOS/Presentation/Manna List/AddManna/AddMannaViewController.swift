@@ -56,6 +56,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
     func attribute() {
         navigationController?.isNavigationBarHidden = true
         finalAdd.finalPlace.numberOfLines = 0
+        finalAdd.completeButton.addTarget(self, action: #selector(addMeet), for: .touchUpInside)
         people.mannaPeople.delegate = people
         scrollView.do {
             $0.isHidden = true
@@ -204,7 +205,35 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
             })
             .disposed(by: disposeBag)
     }
+    
+    func meetBind() {
+        let title = titleLabel.text!
+        let people = finalAdd.finalPeople.text!
+        let time = finalAdd.finalTime.text!
+        let place = finalAdd.finalPlace.text!
+        
+        Observable.just(title)
+            .bind(to: viewModel.inputs.title)
+            .disposed(by: disposeBag)
+        
+        Observable.just(people)
+        .bind(to: viewModel.inputs.people)
+        .disposed(by: disposeBag)
+        
+        Observable.just(time)
+        .bind(to: viewModel.inputs.time)
+        .disposed(by: disposeBag)
+        
+        Observable.just(place)
+        .bind(to: viewModel.inputs.place)
+        .disposed(by: disposeBag)
+        
+        navigationController?.popViewController(animated: true)
+    }
 
+    @objc func addMeet() {
+        meetBind()
+    }
     
     func selectedPlace() -> Observable<Address> {
         let view = SelectPlaceViewController.shared
