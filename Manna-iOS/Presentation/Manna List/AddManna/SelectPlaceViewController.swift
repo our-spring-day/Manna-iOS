@@ -15,7 +15,7 @@ class SelectPlaceViewController: UIViewController {
     
     static let shared = SelectPlaceViewController()
     
-    let viewModel: AddMannaViewModelType
+    let viewModel: SelectPlaceViewModelType
     
     let selectedAddressSubject = PublishSubject<Address>()
     var selectedAddress: Observable<Address> {
@@ -29,13 +29,13 @@ class SelectPlaceViewController: UIViewController {
 
     // MARK: - Life Cycle
     
-    init(viewModel: AddMannaViewModelType = AddMannaViewModel()) {
+    init(viewModel: SelectPlaceViewModelType = SelectPlaceViewModel()) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
-        viewModel = AddMannaViewModel()
+        viewModel = SelectPlaceViewModel()
         super.init(coder: aDecoder)
     }
     

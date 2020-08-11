@@ -217,16 +217,16 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
             .disposed(by: disposeBag)
         
         Observable.just(people)
-        .bind(to: viewModel.inputs.people)
-        .disposed(by: disposeBag)
+            .bind(to: viewModel.inputs.people)
+            .disposed(by: disposeBag)
         
         Observable.just(time)
-        .bind(to: viewModel.inputs.time)
-        .disposed(by: disposeBag)
+            .bind(to: viewModel.inputs.time)
+            .disposed(by: disposeBag)
         
         Observable.just(place)
-        .bind(to: viewModel.inputs.place)
-        .disposed(by: disposeBag)
+            .bind(to: viewModel.inputs.place)
+            .disposed(by: disposeBag)
         
         navigationController?.popViewController(animated: true)
     }
