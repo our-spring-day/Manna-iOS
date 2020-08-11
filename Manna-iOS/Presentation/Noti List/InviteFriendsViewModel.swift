@@ -66,12 +66,7 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
                     newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag = 0
                     newCheckValue.remove(at: newCheckValue.firstIndex(where: { $0.name == item.name })!)
                 }
-                
-                
-                
                 originalFriendList.accept(newOriginalValue)
-                
-                
                 checkedFriendListOutput.accept(newCheckValue)
             }).disposed(by: disposeBag)
         
@@ -87,15 +82,17 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
             }).disposed(by: disposeBag)
         
         //friendList update with searchValue
+        
         SRCHInput
-            .flatMap { value in
-                //이부분
-                originalFriendList.map { list in
+            .flatMapLatest { (value) -> Observable<[UserTestStruct]> in
+                let result = originalFriendList.map { list in
                     list.filter {
                         if value.isEmpty { return true }
                         return ($0.name.lowercased().contains(value.lowercased()))
                     }}
-                .map { $0.sorted(by: { $0.name < $1.name }) }}
+                    .map { $0.sorted(by: { $0.name < $1.name }) }
+                return result
+        }
         .bind(to: friendListOutput)
         .disposed(by: disposeBag)
     }
