@@ -47,13 +47,15 @@ class FriendListViewModel: FriendListViewModelType,FriendListViewModelInput, Fri
         requestingFriend = requestingFriendInput.asObserver()
         
         searchedUserIDInput
-            .flatMap { value in
-                FriendListViewModel.self.originalFriendList.map { list in
+            .flatMapLatest { (value) -> Observable<[UserTestStruct]> in
+                let result = FriendListViewModel.self.originalFriendList.map { list in
                         list.filter {
                             if value.isEmpty { return true }
                             return ($0.name.lowercased().contains(value.lowercased()))
                         }}
-                    .map { $0.sorted(by: { $0.name < $1.name }) }}
+                        .map { $0.sorted(by: { $0.name < $1.name }) }
+                    return result
+            }
             .bind(to: FriendListViewModel.self.myFriendList)
             .disposed(by: disposeBag)
         
