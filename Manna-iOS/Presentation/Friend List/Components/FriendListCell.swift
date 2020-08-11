@@ -43,6 +43,7 @@ class FriendListCell: UITableViewCell {
             $0.image = UIImage(named: "unchecked")
         }
     }
+    
     func layout() {
         addSubview(friendIdLabel)
         addSubview(friendImageView)

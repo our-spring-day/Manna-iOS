@@ -47,13 +47,14 @@ class FriendListViewModel: FriendListViewModelType,FriendListViewModelInput, Fri
         requestingFriend = requestingFriendInput.asObserver()
         
         searchedUserIDInput
+        .debug()
             .subscribe(onNext: { value in
                 FriendListViewModel.self.originalFriendList.map({ $0.filter({
                     if value.isEmpty { return true }
                     return  ($0.name.lowercased().contains(value.lowercased()))})
                 })
                     .map({$0.sorted(by: {$0.name < $1.name})})
-                    .bind( to: FriendListViewModel.self.myFriendList )
+                    .bind( to: FriendListViewModel.self.myFriendList ).disposed(by: self.disposeBag)
             }).disposed(by: disposeBag)
         
         deletedFriendInput

@@ -21,6 +21,7 @@ class FriendListViewController: UIViewController {
     var selectedFriends = BehaviorRelay(value: UserTestStruct(name: "", profileImage: "", checkedFlag: 0))
     let addFriendButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
     let screenSize: CGRect = UIScreen.main.bounds
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -88,6 +89,7 @@ class FriendListViewController: UIViewController {
         
         friendListtableView.baseTableView.rx.modelSelected(UserTestStruct.self)
             .subscribe(onNext: { item in
+                print("이거 계속 실행되냐",self.searchController.searchBar.text)
                 let detailUserViewController = FriendDetailViewController()
                 detailUserViewController.do {
                     detailUserViewController.selectedFriend = item

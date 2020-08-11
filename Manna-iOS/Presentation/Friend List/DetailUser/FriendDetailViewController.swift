@@ -26,6 +26,7 @@ class FriendDetailViewController: UIViewController {
         dismissActionSet()
         bind()
     }
+    
     func attributes() {
         view.do {
             $0.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
@@ -51,6 +52,7 @@ class FriendDetailViewController: UIViewController {
             $0.layer.masksToBounds = true
         }
     }
+    
     func layouts() {
         view.addSubview(backgroundView)
         view.addSubview(friendImageView)
@@ -87,6 +89,7 @@ class FriendDetailViewController: UIViewController {
                 self.present(tempViewController, animated: true, completion: nil)
             }).disposed(by: disposeBag)
     }
+    
     func dismissActionSet() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(dismiss(_:)))
         self.view.addGestureRecognizer(gesture)

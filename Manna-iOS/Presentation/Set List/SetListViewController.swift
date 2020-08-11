@@ -21,6 +21,7 @@ class SetListViewController: UIViewController {
     let bottomSheet = BottomSheetViewController()
     let collectionView = DuringMeetingCollectionView()
     let inviteFriensViewModel = InviteFriendsViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         attribute()
@@ -29,7 +30,7 @@ class SetListViewController: UIViewController {
         //현재 카메라의 포지션이고 유용하게 사용할듯
         let cameraPosition2 = nmapFView.cameraPosition
         print(cameraPosition2)
-        inviteFriendsViewModel.outputs.checkedFriendList
+        inviteFriensViewModel.outputs.checkedFriendList
             .bind(to: self.collectionView.baseCollectionView.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)) { (_: Int, element: UserTestStruct, cell: CheckedFriendCell) in
                 cell.profileImage.image = UIImage(named: "\(element.profileImage)")
                 UIView.animate(withDuration: 0.3) {
@@ -37,6 +38,7 @@ class SetListViewController: UIViewController {
                 }
         }.disposed(by: self.disposeBag)
     }
+    
     func attribute() {
         nmapFView = NMFMapView(frame: view.frame)
         nmapFView.do {
@@ -49,6 +51,7 @@ class SetListViewController: UIViewController {
             $0.view.alpha = 0.9
         }
     }
+    
     func layout() {
         view.addSubview(nmapFView)
         view.addSubview(bottomSheet.view)
@@ -65,6 +68,8 @@ class SetListViewController: UIViewController {
             $0.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
+    
     func bind() {
+        
     }
 }

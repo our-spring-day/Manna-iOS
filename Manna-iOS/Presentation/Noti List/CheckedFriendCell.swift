@@ -23,6 +23,7 @@ class CheckedFriendCell: UICollectionViewCell {
         attribute()
         layout()
     }
+    
     func attribute() {
         profileImage.do {
             $0.layer.cornerRadius = 10

@@ -60,10 +60,12 @@ class NotiListViewController: UIViewController {
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
+    
     func bind() {
         //tableView set
         inviteFriendsViewModel.outputs.friendList
             .bind(to: tableView.baseTableView.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self)) { (_: Int, element: UserTestStruct, cell: FriendListCell) in
+                //                print(element)
                 cell.friendIdLabel.text = element.name
                 cell.friendImageView.image = UIImage(named: "\(element.profileImage)")
                 if element.checkedFlag == 1 {
@@ -95,7 +97,7 @@ class NotiListViewController: UIViewController {
         
         //searchID bind
         textField.rx.text
-            .filterNil()
+            .orEmpty
             .distinctUntilChanged()
             .bind(to: inviteFriendsViewModel.inputs.searchedFriendID)
             .disposed(by: disposeBag)
@@ -104,7 +106,6 @@ class NotiListViewController: UIViewController {
         inviteFriendsViewModel.outputs.checkedFriendList
             .skip(1)
             .map { $0.count }
-            .do(onNext: { print($0) })
             .filter { $0 <= 1 }
             .subscribe(onNext: { count in
                 if count < 1 {
@@ -126,7 +127,7 @@ class NotiListViewController: UIViewController {
                     self.view.layoutIfNeeded()
                 }
             }).disposed(by: disposeBag)
-    
+        
         //keyboard hide when tableView,collectionView scrolling
         Observable.of(tableView.baseTableView.rx.didScroll.asObservable(),collectionView.baseCollectionView.rx.didScroll.asObservable()).merge()
             .subscribe(onNext: {

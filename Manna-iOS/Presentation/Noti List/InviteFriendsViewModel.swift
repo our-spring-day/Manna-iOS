@@ -44,7 +44,9 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         let SRCHInput = PublishSubject<String>()
         
         let originalFriendList = FriendListViewModel.self.myFriendList
-        let friendListOutput = PublishSubject<[UserTestStruct]>()
+        var test = FriendListViewModel.self.myFriendList
+        let friendListOutput = BehaviorRelay<[UserTestStruct]>(value: originalFriendList.value)
+        //        let friendListOutput = PublishRelay<[UserTestStruct]>()
         let checkedFriendListOutput = BehaviorRelay<[UserTestStruct]>(value: [])
         
         itemFromTableView = itemFromTableViewInput.asObserver()
@@ -59,7 +61,6 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
             .subscribe(onNext: { item in
                 var newOriginalValue = originalFriendList.value
                 var newCheckValue = checkedFriendListOutput.value
-               
                 if newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag == 0 {
                     newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag = 1
                     newCheckValue.insert(newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!], at: 0)
@@ -69,6 +70,7 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
                 }
                 originalFriendList.accept(newOriginalValue)
                 checkedFriendListOutput.accept(newCheckValue)
+                
             }).disposed(by: disposeBag)
         
         //checkedMemberArray update with collectionView
@@ -86,14 +88,16 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         
         //friendList update with searchValue
         SRCHInput
-            .subscribe(onNext: { value in
-                originalFriendList.map { $0.filter {
-                    if value.isEmpty { return true }
-                    return ($0.name.lowercased().contains(value.lowercased()))
+            .flatMap { value in
+                originalFriendList.map {list in
+                    list.filter {
+                        if value.isEmpty { return true }
+                        return ($0.name.lowercased().contains(value.lowercased()))
                     }}
-                    .map { $0.sorted(by: { $0.name < $1.name }) }
-                    .bind(to: friendListOutput)
-            }).disposed(by: disposeBag)
+                    .map { $0.sorted(by: { $0.name < $1.name }) }}
+            .bind(to: friendListOutput)
+            .disposed(by: disposeBag)
+        
     }
     var inputs: InviteFriendsViewModellInput { return self }
     var outputs: InviteFriendsViewModelOutput { return self }
