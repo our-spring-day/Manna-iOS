@@ -101,6 +101,7 @@ class FriendListViewController: UIViewController {
             }).disposed(by: disposeBag)
         
         friendListtableView.baseTableView.rx.itemDeleted
+            .do{ onNext: do { print(self.searchController.searchBar.text)}}
             .map { FriendListViewModel.self.myFriendList.value[$0[1]] }
             .bind(to: viewModel.inputs.deletedFriend)
             .disposed(by: disposeBag)

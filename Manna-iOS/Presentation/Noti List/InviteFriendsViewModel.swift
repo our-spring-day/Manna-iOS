@@ -1,4 +1,4 @@
-//
+
 //  InviteFriendsViewModel.swift
 //  Manna-iOS
 //
@@ -43,10 +43,8 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         let itemFromCollectionViewInput = PublishSubject<UserTestStruct>()
         let SRCHInput = PublishSubject<String>()
         
-        let originalFriendList = FriendListViewModel.self.myFriendList
-        var test = FriendListViewModel.self.myFriendList
+        let originalFriendList = BehaviorRelay<[UserTestStruct]>(value: UserListModel.originalFriendList)
         let friendListOutput = BehaviorRelay<[UserTestStruct]>(value: originalFriendList.value)
-        //        let friendListOutput = PublishRelay<[UserTestStruct]>()
         let checkedFriendListOutput = BehaviorRelay<[UserTestStruct]>(value: [])
         
         itemFromTableView = itemFromTableViewInput.asObserver()
@@ -68,9 +66,13 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
                     newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag = 0
                     newCheckValue.remove(at: newCheckValue.firstIndex(where: { $0.name == item.name })!)
                 }
-                originalFriendList.accept(newOriginalValue)
-                checkedFriendListOutput.accept(newCheckValue)
                 
+                
+                
+                originalFriendList.accept(newOriginalValue)
+                
+                
+                checkedFriendListOutput.accept(newCheckValue)
             }).disposed(by: disposeBag)
         
         //checkedMemberArray update with collectionView
@@ -78,10 +80,8 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
             .subscribe(onNext: { item in
                 var newOriginalValue = originalFriendList.value
                 var newCheckValue = checkedFriendListOutput.value
-                
                 newOriginalValue[newOriginalValue.firstIndex(where: {$0.name == item.name})!].checkedFlag = 0
                 newCheckValue.remove(at: newCheckValue.firstIndex(where: { $0.name == item.name})!)
-                
                 originalFriendList.accept(newOriginalValue)
                 checkedFriendListOutput.accept(newCheckValue)
             }).disposed(by: disposeBag)
@@ -89,16 +89,17 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         //friendList update with searchValue
         SRCHInput
             .flatMap { value in
-                originalFriendList.map {list in
+                //이부분
+                originalFriendList.map { list in
                     list.filter {
                         if value.isEmpty { return true }
                         return ($0.name.lowercased().contains(value.lowercased()))
                     }}
-                    .map { $0.sorted(by: { $0.name < $1.name }) }}
-            .bind(to: friendListOutput)
-            .disposed(by: disposeBag)
-        
+                .map { $0.sorted(by: { $0.name < $1.name }) }}
+        .bind(to: friendListOutput)
+        .disposed(by: disposeBag)
     }
+    
     var inputs: InviteFriendsViewModellInput { return self }
     var outputs: InviteFriendsViewModelOutput { return self }
 }

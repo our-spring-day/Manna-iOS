@@ -65,7 +65,6 @@ class NotiListViewController: UIViewController {
         //tableView set
         inviteFriendsViewModel.outputs.friendList
             .bind(to: tableView.baseTableView.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self)) { (_: Int, element: UserTestStruct, cell: FriendListCell) in
-                //                print(element)
                 cell.friendIdLabel.text = element.name
                 cell.friendImageView.image = UIImage(named: "\(element.profileImage)")
                 if element.checkedFlag == 1 {
@@ -73,7 +72,6 @@ class NotiListViewController: UIViewController {
                 } else {
                     cell.checkBoxImageView.image = UIImage(named: "unchecked")
                 }
-                
         }.disposed(by: disposeBag)
         
         //collectionView set
