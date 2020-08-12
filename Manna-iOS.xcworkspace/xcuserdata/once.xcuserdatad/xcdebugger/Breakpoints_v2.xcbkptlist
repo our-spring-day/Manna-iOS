@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "0192BE5C-976A-42A9-ADE5-F9A76CFE8C18"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0B0B5848-7D5E-4931-A7A6-765C14C969E6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Manna-iOS/Presentation/Manna List/AddManna/MannaPageViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0B0B5848-7D5E-4931-A7A6-765C14C969E6 - 8dc374b8d105cbc6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Manna_iOS.MannaPageViewController.VCArr.getter : Swift.Array&lt;__C.UIViewController&gt;"
+                  moduleName = "Manna-iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/once/Documents/Manna/Manna-iOS/Manna-iOS/Presentation/Manna%20List/AddManna/MannaPageViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  uuid = "0B0B5848-7D5E-4931-A7A6-765C14C969E6 - e5215fd328a5df30"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Manna_iOS.MannaPageViewController.init(transitionStyle: __C.UIPageViewControllerTransitionStyle, navigationOrientation: __C.UIPageViewControllerNavigationOrientation, options: Swift.Optional&lt;Swift.Dictionary&lt;__C.UIPageViewControllerOptionsKey, Any&gt;&gt;) -&gt; Manna_iOS.MannaPageViewController"
+                  moduleName = "Manna-iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/once/Documents/Manna/Manna-iOS/Manna-iOS/Presentation/Manna%20List/AddManna/MannaPageViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "383">
+               </Location>
+               <Location
+                  uuid = "0B0B5848-7D5E-4931-A7A6-765C14C969E6 - df8191b55ff20cda"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Manna_iOS.MannaPageViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Manna_iOS.MannaPageViewController&gt;"
+                  moduleName = "Manna-iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/once/Documents/Manna/Manna-iOS/Manna-iOS/Presentation/Manna%20List/AddManna/MannaPageViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "309">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
