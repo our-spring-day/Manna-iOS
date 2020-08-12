@@ -163,6 +163,7 @@
 		CC705A032477CEAA00462251 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				CCB7656324E3DF1400FBBCFF /* test */,
 				CC705A042477CECF00462251 /* Friend List */,
 				CC705A052477CEF900462251 /* Manna List */,
 				CC705A062477D18100462251 /* Noti List */,
@@ -237,6 +238,13 @@
 				CCB1578824AB53B400D81511 /* SearchProtocol.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		CCB7656324E3DF1400FBBCFF /* test */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = test;
 			sourceTree = "<group>";
 		};
 		CCC1F7EE24BEE78000DC8BCB /* Component */ = {
