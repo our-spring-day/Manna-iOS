@@ -57,7 +57,6 @@ class AddUserViewModel: AddUserViewModelType, AddUserViewModelInput, AddUserView
                 .bind(to: filteredUserOutput)
             }).disposed(by: disposeBag)
     }
-    
     var inputs: AddUserViewModelInput { return self }
     var outputs: AddUserViewModelOutput { return self }
 }
