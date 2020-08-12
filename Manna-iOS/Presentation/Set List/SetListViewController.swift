@@ -29,7 +29,6 @@ class SetListViewController: UIViewController {
         bind()
         //현재 카메라의 포지션이고 유용하게 사용할듯
         let cameraPosition2 = nmapFView.cameraPosition
-        print(cameraPosition2)
         inviteFriensViewModel.outputs.checkedFriendList
             .bind(to: self.collectionView.baseCollectionView.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)) { (_: Int, element: UserTestStruct, cell: CheckedFriendCell) in
                 cell.profileImage.image = UIImage(named: "\(element.profileImage)")
