@@ -13,7 +13,6 @@ target 'Manna-iOS' do
   pod 'Alamofire'
   pod 'SwiftyJSON'
   pod 'NMapsMap'
-
   # Pods for Manna-iOS
 
 end

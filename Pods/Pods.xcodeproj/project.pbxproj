@@ -1231,7 +1231,8 @@
 				DC9C382BFB3A8BC77CBC4759E974A89B /* CFNetwork.framework */,
 				ACD70465D8351E5B1870B0E949E34264 /* Foundation.framework */,
 			);
-			name = iOS;
+			name = Then;
+			path = Then;
 			sourceTree = "<group>";
 		};
 		4D69AAF5F4F284A678C8D2603FB4FA90 /* SwiftLint */ = {
@@ -1444,7 +1445,8 @@
 			children = (
 				058F44E27E6D065C2C9E0618BD419D4C /* NMapsMap.framework */,
 			);
-			name = Frameworks;
+			name = "Support Files";
+			path = "../Target Support Files/RxSwift";
 			sourceTree = "<group>";
 		};
 		8356E8B4FA1CB83C4417DA92581C0B9C /* RxDataSources */ = {
