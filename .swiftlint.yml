@@ -1,5 +1,10 @@
+function_body_length: 200
 disabled_rules:
 - line_length
+- trailing_whitespace
+- vertical_whitespace
+- force_cast
+- multiple_closures_with_trailing_closure
 
 included:
 excluded:

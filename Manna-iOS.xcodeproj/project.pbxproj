@@ -3,10 +3,35 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A50412FF24DAF9AE00C02F6A /* FinalAddManna.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50412FE24DAF9AE00C02F6A /* FinalAddManna.swift */; };
+		A519FFD524953C000074D554 /* MannaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A519FFD424953C000074D554 /* MannaProvider.swift */; };
+		A528168F24C0A05900EDC4E9 /* SelectPlacePinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528168E24C0A05900EDC4E9 /* SelectPlacePinViewController.swift */; };
+		A52C620024E2DADA00B4C6C2 /* SelectPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52C61FF24E2DADA00B4C6C2 /* SelectPlaceViewModel.swift */; };
+		A54702B22486A93F0091CA55 /* Manna.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54702B12486A93F0091CA55 /* Manna.swift */; };
+		A552C78724A4ED0D00D834BF /* AddMannaView-Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A552C78624A4ED0D00D834BF /* AddMannaView-Ext.swift */; };
+		A55A80BB248FD76200EDFA99 /* AddMannaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55A80BA248FD76200EDFA99 /* AddMannaViewModel.swift */; };
+		A55B0F1B24D5B7D300211AEA /* PeopleAddManna.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55B0F1A24D5B7D300211AEA /* PeopleAddManna.swift */; };
+		A55B0F1D24D5B8B000211AEA /* TimeAddManna.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55B0F1C24D5B8B000211AEA /* TimeAddManna.swift */; };
+		A55B0F1F24D5EBED00211AEA /* PlaceAddManna.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55B0F1E24D5EBED00211AEA /* PlaceAddManna.swift */; };
+		A55B0F2624D9CD2400211AEA /* AddMannaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55B0F2524D9CD2400211AEA /* AddMannaViewController.swift */; };
+		A5677B0E24B78D4500059EE0 /* UIView-Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5677B0D24B78D4500059EE0 /* UIView-Ext.swift */; };
+		A585F8312482848200A60530 /* NotiListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F8302482848200A60530 /* NotiListViewModel.swift */; };
+		A585F8332482849500A60530 /* NotiListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F8322482849500A60530 /* NotiListModel.swift */; };
+		A585F83A2482961A00A60530 /* MannaListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F8392482961A00A60530 /* MannaListViewModel.swift */; };
+		A585F83C2482962600A60530 /* MannaListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F83B2482962600A60530 /* MannaListModel.swift */; };
+		A585F83F2482963F00A60530 /* MannaListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F83E2482963F00A60530 /* MannaListCell.swift */; };
+		A595A8A824DC823000EAFAA5 /* UINavigation-Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A595A8A724DC823000EAFAA5 /* UINavigation-Ext.swift */; };
+		A595A8F024DDA28F00EAFAA5 /* SelectPlacePinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A595A8EF24DDA28F00EAFAA5 /* SelectPlacePinViewModel.swift */; };
+		A5B92B1E2496340B008A14C3 /* MannaSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B92B1D2496340B008A14C3 /* MannaSection.swift */; };
+		A5EB4A0E24BCA6BD0084EBE5 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EB4A0D24BCA6BD0084EBE5 /* Address.swift */; };
+		A5EB4A1024BCA7310084EBE5 /* AddressListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EB4A0F24BCA7310084EBE5 /* AddressListCell.swift */; };
+		A5EB4A1224BCB75F0084EBE5 /* SelectPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EB4A1124BCB75F0084EBE5 /* SelectPlaceViewController.swift */; };
+		A5EB4A1424BCC6F30084EBE5 /* DrawLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EB4A1324BCC6F30084EBE5 /* DrawLine.swift */; };
+		A5EB4A1624BDD62D0084EBE5 /* AddressAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EB4A1524BDD62D0084EBE5 /* AddressAPI.swift */; };
 		CC7059ED2477B81100462251 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7059EC2477B81100462251 /* AppDelegate.swift */; };
 		CC7059EF2477B81100462251 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7059EE2477B81100462251 /* SceneDelegate.swift */; };
 		CC7059F12477B81100462251 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7059F02477B81100462251 /* ViewController.swift */; };
@@ -24,6 +49,31 @@
 /* Begin PBXFileReference section */
 		4DFAEF44CF70735D62CB19F6 /* Pods-Manna-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manna-iOS.release.xcconfig"; path = "Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		5434F4B54E67CE37DCF01314 /* Pods_Manna_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Manna_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A50412FE24DAF9AE00C02F6A /* FinalAddManna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalAddManna.swift; sourceTree = "<group>"; };
+		A519FFD424953C000074D554 /* MannaProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaProvider.swift; sourceTree = "<group>"; };
+		A528168E24C0A05900EDC4E9 /* SelectPlacePinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlacePinViewController.swift; sourceTree = "<group>"; };
+		A52C61FF24E2DADA00B4C6C2 /* SelectPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceViewModel.swift; sourceTree = "<group>"; };
+		A54702B12486A93F0091CA55 /* Manna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manna.swift; sourceTree = "<group>"; };
+		A552C78624A4ED0D00D834BF /* AddMannaView-Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddMannaView-Ext.swift"; sourceTree = "<group>"; };
+		A55A80BA248FD76200EDFA99 /* AddMannaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMannaViewModel.swift; sourceTree = "<group>"; };
+		A55B0F1A24D5B7D300211AEA /* PeopleAddManna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleAddManna.swift; sourceTree = "<group>"; };
+		A55B0F1C24D5B8B000211AEA /* TimeAddManna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAddManna.swift; sourceTree = "<group>"; };
+		A55B0F1E24D5EBED00211AEA /* PlaceAddManna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAddManna.swift; sourceTree = "<group>"; };
+		A55B0F2524D9CD2400211AEA /* AddMannaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMannaViewController.swift; sourceTree = "<group>"; };
+		A5677B0D24B78D4500059EE0 /* UIView-Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView-Ext.swift"; sourceTree = "<group>"; };
+		A585F8302482848200A60530 /* NotiListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiListViewModel.swift; sourceTree = "<group>"; };
+		A585F8322482849500A60530 /* NotiListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiListModel.swift; sourceTree = "<group>"; };
+		A585F8392482961A00A60530 /* MannaListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaListViewModel.swift; sourceTree = "<group>"; };
+		A585F83B2482962600A60530 /* MannaListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaListModel.swift; sourceTree = "<group>"; };
+		A585F83E2482963F00A60530 /* MannaListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaListCell.swift; sourceTree = "<group>"; };
+		A595A8A724DC823000EAFAA5 /* UINavigation-Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigation-Ext.swift"; sourceTree = "<group>"; };
+		A595A8EF24DDA28F00EAFAA5 /* SelectPlacePinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlacePinViewModel.swift; sourceTree = "<group>"; };
+		A5B92B1D2496340B008A14C3 /* MannaSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaSection.swift; sourceTree = "<group>"; };
+		A5EB4A0D24BCA6BD0084EBE5 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		A5EB4A0F24BCA7310084EBE5 /* AddressListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressListCell.swift; sourceTree = "<group>"; };
+		A5EB4A1124BCB75F0084EBE5 /* SelectPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceViewController.swift; sourceTree = "<group>"; };
+		A5EB4A1324BCC6F30084EBE5 /* DrawLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawLine.swift; sourceTree = "<group>"; };
+		A5EB4A1524BDD62D0084EBE5 /* AddressAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressAPI.swift; sourceTree = "<group>"; };
 		CC7059E92477B81100462251 /* Manna-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Manna-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC7059EC2477B81100462251 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC7059EE2477B81100462251 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +111,80 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		A519FFD324953BCD0074D554 /* DataProvider */ = {
+			isa = PBXGroup;
+			children = (
+				A519FFD424953C000074D554 /* MannaProvider.swift */,
+			);
+			path = DataProvider;
+			sourceTree = "<group>";
+		};
+		A522AD7C24A2112C00B8C2F2 /* MannaList */ = {
+			isa = PBXGroup;
+			children = (
+				CC705A0C2477D2BA00462251 /* MannaListViewController.swift */,
+				A585F8392482961A00A60530 /* MannaListViewModel.swift */,
+				A585F83B2482962600A60530 /* MannaListModel.swift */,
+			);
+			path = MannaList;
+			sourceTree = "<group>";
+		};
+		A522AD7D24A2114E00B8C2F2 /* AddManna */ = {
+			isa = PBXGroup;
+			children = (
+				A55B0F1724D5B76F00211AEA /* UIComponents */,
+				A55B0F2524D9CD2400211AEA /* AddMannaViewController.swift */,
+				A55A80BA248FD76200EDFA99 /* AddMannaViewModel.swift */,
+				A5EB4A1124BCB75F0084EBE5 /* SelectPlaceViewController.swift */,
+				A52C61FF24E2DADA00B4C6C2 /* SelectPlaceViewModel.swift */,
+				A528168E24C0A05900EDC4E9 /* SelectPlacePinViewController.swift */,
+				A595A8EF24DDA28F00EAFAA5 /* SelectPlacePinViewModel.swift */,
+			);
+			path = AddManna;
+			sourceTree = "<group>";
+		};
+		A54702B02486A9220091CA55 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				A54702B12486A93F0091CA55 /* Manna.swift */,
+				A5B92B1D2496340B008A14C3 /* MannaSection.swift */,
+				A5EB4A0D24BCA6BD0084EBE5 /* Address.swift */,
+				A5EB4A1524BDD62D0084EBE5 /* AddressAPI.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		A552C78524A4EC9E00D834BF /* Extensions-Utillities */ = {
+			isa = PBXGroup;
+			children = (
+				A552C78624A4ED0D00D834BF /* AddMannaView-Ext.swift */,
+				A5677B0D24B78D4500059EE0 /* UIView-Ext.swift */,
+				A595A8A724DC823000EAFAA5 /* UINavigation-Ext.swift */,
+			);
+			path = "Extensions-Utillities";
+			sourceTree = "<group>";
+		};
+		A55B0F1724D5B76F00211AEA /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				A55B0F1A24D5B7D300211AEA /* PeopleAddManna.swift */,
+				A55B0F1C24D5B8B000211AEA /* TimeAddManna.swift */,
+				A55B0F1E24D5EBED00211AEA /* PlaceAddManna.swift */,
+				A50412FE24DAF9AE00C02F6A /* FinalAddManna.swift */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		A585F83D2482962B00A60530 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				A585F83E2482963F00A60530 /* MannaListCell.swift */,
+				A5EB4A0F24BCA7310084EBE5 /* AddressListCell.swift */,
+				A5EB4A1324BCC6F30084EBE5 /* DrawLine.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		C983464E3A053C4E49BD787A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -91,9 +215,12 @@
 		CC7059EB2477B81100462251 /* Manna-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				A552C78524A4EC9E00D834BF /* Extensions-Utillities */,
+				A519FFD324953BCD0074D554 /* DataProvider */,
+				A54702B02486A9220091CA55 /* Entity */,
 				CC705A032477CEAA00462251 /* Presentation */,
-				CC7059EC2477B81100462251 /* AppDelegate.swift */,
 				CC7059EE2477B81100462251 /* SceneDelegate.swift */,
+				CC7059EC2477B81100462251 /* AppDelegate.swift */,
 				CC7059F22477B81100462251 /* Main.storyboard */,
 				CC7059F52477B81200462251 /* Assets.xcassets */,
 				CC7059F72477B81200462251 /* LaunchScreen.storyboard */,
@@ -105,11 +232,11 @@
 		CC705A032477CEAA00462251 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				CC7059F02477B81100462251 /* ViewController.swift */,
 				CC705A042477CECF00462251 /* User List */,
 				CC705A052477CEF900462251 /* Manna List */,
 				CC705A062477D18100462251 /* Noti List */,
 				CC705A072477D1E600462251 /* Set List */,
-				CC7059F02477B81100462251 /* ViewController.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -125,7 +252,9 @@
 		CC705A052477CEF900462251 /* Manna List */ = {
 			isa = PBXGroup;
 			children = (
-				CC705A0C2477D2BA00462251 /* MannaListViewController.swift */,
+				A522AD7C24A2112C00B8C2F2 /* MannaList */,
+				A522AD7D24A2114E00B8C2F2 /* AddManna */,
+				A585F83D2482962B00A60530 /* Components */,
 			);
 			path = "Manna List";
 			sourceTree = "<group>";
@@ -134,6 +263,8 @@
 			isa = PBXGroup;
 			children = (
 				CC705A0E2477D2D200462251 /* NotiListViewController.swift */,
+				A585F8302482848200A60530 /* NotiListViewModel.swift */,
+				A585F8322482849500A60530 /* NotiListModel.swift */,
 			);
 			path = "Noti List";
 			sourceTree = "<group>";
@@ -158,7 +289,7 @@
 				CC7059E62477B81100462251 /* Frameworks */,
 				CC7059E72477B81100462251 /* Resources */,
 				CC705A002477B97B00462251 /* ShellScript */,
-				15EB2D289029F8A1301D8974 /* [CP] Embed Pods Frameworks */,
+				F30879BE09B7512978970D00 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -273,6 +404,23 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n${PODS_ROOT}/SwiftLint/swiftlint\n";
 		};
+		F30879BE09B7512978970D00 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -281,12 +429,37 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC705A0D2477D2BA00462251 /* MannaListViewController.swift in Sources */,
+				A595A8A824DC823000EAFAA5 /* UINavigation-Ext.swift in Sources */,
+				A55B0F1B24D5B7D300211AEA /* PeopleAddManna.swift in Sources */,
 				CC705A112477D2E000462251 /* SetListViewController.swift in Sources */,
+				A50412FF24DAF9AE00C02F6A /* FinalAddManna.swift in Sources */,
+				A55A80BB248FD76200EDFA99 /* AddMannaViewModel.swift in Sources */,
+				A52C620024E2DADA00B4C6C2 /* SelectPlaceViewModel.swift in Sources */,
+				A585F83F2482963F00A60530 /* MannaListCell.swift in Sources */,
+				A55B0F2624D9CD2400211AEA /* AddMannaViewController.swift in Sources */,
+				A5EB4A1024BCA7310084EBE5 /* AddressListCell.swift in Sources */,
+				A5EB4A1624BDD62D0084EBE5 /* AddressAPI.swift in Sources */,
+				A528168F24C0A05900EDC4E9 /* SelectPlacePinViewController.swift in Sources */,
+				A55B0F1F24D5EBED00211AEA /* PlaceAddManna.swift in Sources */,
+				A585F8332482849500A60530 /* NotiListModel.swift in Sources */,
+				A5EB4A0E24BCA6BD0084EBE5 /* Address.swift in Sources */,
+				A585F83C2482962600A60530 /* MannaListModel.swift in Sources */,
+				A54702B22486A93F0091CA55 /* Manna.swift in Sources */,
+				A55B0F1D24D5B8B000211AEA /* TimeAddManna.swift in Sources */,
 				CC7059F12477B81100462251 /* ViewController.swift in Sources */,
 				CC705A0F2477D2D200462251 /* NotiListViewController.swift in Sources */,
+				A5EB4A1424BCC6F30084EBE5 /* DrawLine.swift in Sources */,
+				A552C78724A4ED0D00D834BF /* AddMannaView-Ext.swift in Sources */,
+				A585F83A2482961A00A60530 /* MannaListViewModel.swift in Sources */,
+				A5B92B1E2496340B008A14C3 /* MannaSection.swift in Sources */,
+				A595A8F024DDA28F00EAFAA5 /* SelectPlacePinViewModel.swift in Sources */,
+				A519FFD524953C000074D554 /* MannaProvider.swift in Sources */,
+				A585F8312482848200A60530 /* NotiListViewModel.swift in Sources */,
+				A5677B0E24B78D4500059EE0 /* UIView-Ext.swift in Sources */,
 				CC705A0B2477D28800462251 /* UserListViewController.swift in Sources */,
 				CC7059ED2477B81100462251 /* AppDelegate.swift in Sources */,
 				CC7059EF2477B81100462251 /* SceneDelegate.swift in Sources */,
+				A5EB4A1224BCB75F0084EBE5 /* SelectPlaceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,7 +535,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -416,7 +589,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -431,6 +604,7 @@
 			baseConfigurationReference = F1D0975FD460DE1097C65D92 /* Pods-Manna-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DH7PS64634;
 				INFOPLIST_FILE = "Manna-iOS/Info.plist";
@@ -438,8 +612,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Manna-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Manna-iOS-sw";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -450,6 +625,7 @@
 			baseConfigurationReference = 4DFAEF44CF70735D62CB19F6 /* Pods-Manna-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DH7PS64634;
 				INFOPLIST_FILE = "Manna-iOS/Info.plist";
@@ -457,8 +633,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Manna-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Manna-iOS-sw";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -474,7 +651,7 @@
 				CC7059FC2477B81200462251 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		CC7059FD2477B81200462251 /* Build configuration list for PBXNativeTarget "Manna-iOS" */ = {
 			isa = XCConfigurationList;
@@ -483,7 +660,7 @@
 				CC7059FF2477B81200462251 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
