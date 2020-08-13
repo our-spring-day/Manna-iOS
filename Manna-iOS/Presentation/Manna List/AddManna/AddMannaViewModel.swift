@@ -15,10 +15,9 @@ protocol AddMannaViewModelInput {
     var people: AnyObserver<String> { get }
     var time: AnyObserver<String> { get }
     var place: AnyObserver<String> { get }
-    var address: AnyObserver<String> { get }
 }
 protocol AddMannaViewModelOutput {
-    var addressOut: Observable<[Address]> { get }
+    var addressSingle: Observable<Address> { get }
 }
 
 protocol AddMannaViewModelType {
@@ -28,15 +27,14 @@ protocol AddMannaViewModelType {
 
 class AddMannaViewModel: AddMannaViewModelType, AddMannaViewModelInput, AddMannaViewModelOutput {
     
+    let disposeBag = DisposeBag()
+    
     let title: AnyObserver<String>
     let people: AnyObserver<String>
     let time: AnyObserver<String>
     let place: AnyObserver<String>
-    let address: AnyObserver<String>
     
-    let addressOut: Observable<[Address]>
-    
-    let disposeBag = DisposeBag()
+    let addressSingle: Observable<Address>
     
     init() {
         // Input
@@ -44,44 +42,16 @@ class AddMannaViewModel: AddMannaViewModelType, AddMannaViewModelInput, AddManna
         let peopleInput = PublishSubject<String>()
         let timeInput = PublishSubject<String>()
         let placeInput = PublishSubject<String>()
-        let addressInput = PublishSubject<String>()
-        
+
         // Output
-        let addressOutput = BehaviorRelay<[Address]>(value: [])
+        let addressSingleOutput = BehaviorRelay<Address>(value: Address(address: "", roadAddress: "", lng: "", lat: ""))
         
         title = titleInput.asObserver()
         people = peopleInput.asObserver()
         time = timeInput.asObserver()
         place = placeInput.asObserver()
-        address = addressInput.asObserver()
-        
-        addressInput
-            .debug()
-            .map({ "\($0)" })
-            .flatMap({ AddressAPI.getAddress($0)})
-            .subscribe(onNext: { value in
-                addressOutput.accept(value)
-            })
-            .disposed(by: disposeBag)
-        
-        addressOut = addressOutput.asObservable()
-        
-        titleInput.subscribe(onNext: { str in
-            print("뷰모델에서 받아오ㅘ짐1",str)
-        }).disposed(by: disposeBag)
-        
-        peopleInput.subscribe(onNext: { str in
-            print("뷰모델에서 받아오ㅘ짐2",str)
-        }).disposed(by: disposeBag)
-        
-        timeInput.subscribe(onNext: { str in
-            print("뷰모델에서 받아오ㅘ짐3",str)
-        }).disposed(by: disposeBag)
-        
-        placeInput.subscribe(onNext: { str in
-            print("뷰모델에서 받아오ㅘ짐4",str)
-        }).disposed(by: disposeBag)
-        
+
+        addressSingle = addressSingleOutput.asObservable()
         
         Observable.zip(titleInput, peopleInput, timeInput, placeInput)
             .subscribe(onNext: { title, people, time, place in

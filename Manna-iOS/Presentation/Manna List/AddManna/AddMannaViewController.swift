@@ -2,79 +2,87 @@
 //  AddMannaViewController.swift
 //  Manna-iOS
 //
-//  Created by once on 2020/06/05.
+//  Created by once on 2020/08/05.
 //  Copyright © 2020 정재인. All rights reserved.
 //
 
 import UIKit
+import SnapKit
 import RxSwift
 import RxCocoa
-import SnapKit
-import Then
 
-class AddMannaViewController: UIViewController {
-    static let shared = AddMannaViewController()
+class AddMannaViewController: UIViewController, UITextFieldDelegate {
     let disposeBag = DisposeBag()
-    var pageflag: Bool = false
     
     let viewModel: AddMannaViewModelType
-    let pageView = MannaPageViewController(transitionStyle: .scroll,
-                                           navigationOrientation: .horizontal,
-                                           options: nil)
-//    let peopleVC = PeopleAddMannaViewController()
-//    let timeVC = TimeAddMannaViewController()
-//    let placeVC = PlaceAddMannaViewController()
+    static let shared = AddMannaViewController()
     
+    let people = PeopleAddManna()
+    let time = TimeAddManna()
+    let place = PlaceAddManna()
+    let finalAdd = FinalAddManna()
+
+    let scrollView = UIScrollView()
+    let pageControl = UIPageControl()
     let titleLabel = UILabel()
     let titleInput = UITextField()
     let titleButton = UIButton()
+    
     let prevButton = UIButton(type: .custom)
     let nextButton = UIButton()
-    
-    // MARK: - Life Cycle
     
     init(viewModel: AddMannaViewModelType = AddMannaViewModel()) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-    
     required init?(coder aDecoder: NSCoder) {
         viewModel = AddMannaViewModel()
         super.init(coder: aDecoder)
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.isNavigationBarHidden = true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleInput.rx.text.orEmpty
-            .subscribe(onNext: { [weak self] str in
-                self?.titleLabel.text = str
-            })
-            .disposed(by: disposeBag)
-        
         attribute()
         layout()
+        bind()
     }
     
     func attribute() {
-        pageView.view.do {
+        navigationController?.isNavigationBarHidden = true
+        finalAdd.finalPlace.numberOfLines = 0
+        finalAdd.completeButton.addTarget(self, action: #selector(addMeet), for: .touchUpInside)
+        people.mannaPeople.delegate = people
+        scrollView.do {
             $0.isHidden = true
+            $0.backgroundColor = .red
+            $0.bounces = false
         }
-        view.do {
-            $0.backgroundColor = .white
+        pageControl.do {
+            $0.numberOfPages = 3
+            $0.currentPage = 0
+//            $0.isUserInteractionEnabled = false
         }
         titleLabel.do {
+            $0.textColor = .black
             $0.isHidden = true
         }
         titleInput.do {
             $0.layer.borderWidth = 1.0
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             $0.textAlignment = .center
+            $0.placeholder = "만남 타이틀"
+            $0.delegate = self
         }
         titleButton.do {
             $0.setTitle("완료", for: .normal)
-            $0.setTitleColor(.black, for: .normal)
-            $0.layer.borderWidth = 1.0
-            $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            $0.setTitleColor(.white, for: .normal)
+            $0.backgroundColor = UIColor(displayP3Red: 97/255, green: 196/255, blue: 174/255, alpha: 1)
+            $0.layer.cornerRadius = 8
             $0.addTarget(self, action: #selector(titleBtn), for: .touchUpInside)
         }
         prevButton.do {
@@ -82,28 +90,31 @@ class AddMannaViewController: UIViewController {
             $0.addTarget(self, action: #selector(prevBtn), for: .touchUpInside)
         }
         nextButton.do {
-            $0.setTitle("완료", for: .normal)
-            $0.setTitleColor(.black, for: .normal)
-            $0.layer.borderWidth = 1.0
-            $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            $0.setTitle("다음", for: .normal)
+            $0.setTitleColor(.white, for: .normal)
+            $0.backgroundColor = UIColor(displayP3Red: 97/255, green: 196/255, blue: 174/255, alpha: 1)
+            $0.layer.cornerRadius = 8
             $0.isHidden = true
             $0.addTarget(self, action: #selector(nextBtn), for: .touchUpInside)
         }
     }
-    
+
     func layout() {
         view.addSubview(titleButton)
-        view.addSubview(titleInput)
         view.addSubview(titleLabel)
+        view.addSubview(titleInput)
+        view.addSubview(scrollView)
         view.addSubview(prevButton)
-        view.addSubview(pageView.view)
         view.addSubview(nextButton)
+        scrollView.addSubview(pageControl)
+        scrollView.addSubview(people)
+        scrollView.addSubview(time)
+        scrollView.addSubview(place)
+        scrollView.addSubview(finalAdd)
         
-        titleButton.snp.makeConstraints {
+        titleLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
-            $0.trailing.equalTo(view.snp.trailing).offset(-10)
-            $0.width.equalTo(80)
-            $0.height.equalTo(30)
+            $0.centerX.equalTo(view.snp.centerX)
         }
         titleInput.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
@@ -111,110 +122,124 @@ class AddMannaViewController: UIViewController {
             $0.width.equalTo(200)
             $0.height.equalTo(30)
         }
-        titleLabel.snp.makeConstraints {
+        titleButton.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
-            $0.centerX.equalTo(view.snp.centerX)
+            $0.trailing.equalTo(view.snp.trailing).offset(-10)
+            $0.width.equalTo(80)
             $0.height.equalTo(30)
         }
         prevButton.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
             $0.leading.equalTo(view.snp.leading).offset(10)
         }
-        pageView.view.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(70)
-            $0.leading.equalTo(view.snp.leading)
-            $0.trailing.equalTo(view.snp.trailing)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-        }
         nextButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
             $0.trailing.equalTo(view.snp.trailing).offset(-10)
             $0.width.equalTo(80)
             $0.height.equalTo(30)
         }
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(60)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+        }
+        pageControl.snp.makeConstraints {
+            $0.bottom.equalToSuperview().offset(-5)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(30)
+        }
+        people.snp.makeConstraints {
+            $0.top.equalTo(scrollView.snp.top)
+            $0.leading.equalTo(scrollView.snp.leading)
+            $0.width.equalToSuperview()
+            $0.height.equalToSuperview()
+        }
+        time.snp.makeConstraints {
+            $0.top.equalTo(people)
+            $0.leading.equalTo(people.snp.trailing)
+            $0.width.equalToSuperview()
+            $0.height.equalToSuperview()
+        }
+        place.snp.makeConstraints {
+            $0.top.equalTo(people)
+            $0.leading.equalTo(time.snp.trailing)
+            $0.width.equalToSuperview()
+            $0.height.equalToSuperview()
+        }
+        finalAdd.snp.makeConstraints {
+            $0.top.equalTo(people)
+            $0.leading.equalTo(place.snp.trailing)
+            $0.width.equalToSuperview()
+            $0.height.equalToSuperview()
+        }
     }
     
     func bind() {
-        
         titleInput.rx.text.orEmpty
+            .bind(to: titleLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        people.mannaPeople.rx.text.orEmpty
+            .subscribe(onNext: { [weak self] value in
+                self?.finalAdd.finalPeople.text = value
+            })
+            .disposed(by: disposeBag)
+        
+        time.onPicker.rx.date
+            .map {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MM월 dd일 hh시mm분"
+                return dateFormatter.string(from: $0)
+            }
+            .subscribe(onNext: { [weak self] value in
+                self?.finalAdd.finalTime.text = value
+            })
+            .disposed(by: disposeBag)
+        
+        place.searchButton.rx.tap
+            .flatMap(selectedPlace)
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] address in
+                self?.finalAdd.finalPlace.text = address.roadAddress
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func meetBind() {
+        let title = titleLabel.text!
+        let people = finalAdd.finalPeople.text!
+        let time = finalAdd.finalTime.text!
+        let place = finalAdd.finalPlace.text!
+        
+        Observable.just(title)
             .bind(to: viewModel.inputs.title)
             .disposed(by: disposeBag)
         
-//        peopleVC.mannaPeople.rx.text.orEmpty
-//            .bind(to: viewModel.inputs.people)
-//            .disposed(by: disposeBag)
+        Observable.just(people)
+            .bind(to: viewModel.inputs.people)
+            .disposed(by: disposeBag)
         
-//        timeVC.onPicker.rx.date
-//            .map {
-//                let dateFormatter = DateFormatter()
-//                dateFormatter.dateFormat = "MM월 dd일 hh시mm분"
-//                return dateFormatter.string(from: $0)
-//            }
-//            .bind(to: viewModel.inputs.time)
-//            .disposed(by: disposeBag)
+        Observable.just(time)
+            .bind(to: viewModel.inputs.time)
+            .disposed(by: disposeBag)
         
-//        placeVC.mannaPlace.rx.text.orEmpty
-//            .bind(to: viewModel.inputs.place)
-//            .disposed(by: disposeBag)
+        Observable.just(place)
+            .bind(to: viewModel.inputs.place)
+            .disposed(by: disposeBag)
         
-//        peopleVC.mannaPeople.text = ""
-//        placeVC.mannaPlace.text = ""
-        
-        self.navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
+    }
+
+    @objc func addMeet() {
+        meetBind()
     }
     
-    func prevPage() {
-        let currentView = pageView.VCArr
-        let currentPage = pageView.pageControl.currentPage
-        let prevPage = currentPage - 1
-        
-        if pageView.view.isHidden == true && pageflag == false {
-            self.navigationController?.popViewController(animated: true)
-        }
-        
-        if currentPage == 0 {
-            self.pageView.view.isHidden = true
-            self.pageflag = false
-            
-            UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.titleLabel.transform = CGAffineTransform.identity
-                self.nextButton.transform = CGAffineTransform.identity
-            }) { _ in
-                self.titleLabel.isHidden = true
-                self.nextButton.isHidden = true
-                
-                self.titleInput.isHidden = false
-                self.titleButton.isHidden = false
-            }
-        } else if currentPage >= 1 {
-            let prevVC = currentView[prevPage]
-            self.pageView.setViewControllers([prevVC], direction: .reverse, animated: true) { _ in
-                self.pageView.pageControl.currentPage = prevPage
-            }
-        }
-    }
-    
-    func nextPage() {
-        let currentView = pageView.VCArr
-        let currentPage = pageView.pageControl.currentPage
-        let nextPage = currentPage + 1
-        if currentPage == 2 {
-            bind()
-        }
-        if nextPage < currentView.count {
-            let nextVC = currentView[nextPage]
-            self.pageView.setViewControllers([nextVC], direction: .forward, animated: true) { _ in
-                self.pageView.pageControl.currentPage = nextPage
-            }
-        }
-    }
-    
-    @objc func prevBtn(_ sender: Any) {
-        prevPage()
-    }
-    
-    @objc func nextBtn(_ sender: Any) {
-        nextPage()
+    func selectedPlace() -> Observable<Address> {
+        let view = SelectPlaceViewController.shared
+        view.searchText.text = place.mannaPlace.text
+        view.modalPresentationStyle = .fullScreen
+        present(view, animated: true)
+        return view.selectedAddress
     }
     
     @objc func titleBtn(_ sender: Any) {
@@ -223,38 +248,54 @@ class AddMannaViewController: UIViewController {
                 alert(message: "타이틀을 입력하세요")
                 return
         }
-        self.view.endEditing(true)
+        
+        titleInput.endEditing(true)
         titleInput.isHidden = true
         titleButton.isHidden = true
         titleLabel.isHidden = false
-        nextButton.isHidden = false
         
         UIView.animate(withDuration: 0.7, animations: {
             let move = CGAffineTransform(translationX: 0, y: -40)
             self.titleLabel.transform = move
-        })
-        
-        UIView.animate(withDuration: 0.7, animations: {
-            let move = CGAffineTransform(translationX: 0, y: -40)
-            self.nextButton.transform = move
         }) { _ in
-            self.pageView.view.isHidden = false
-            self.pageflag = true
+            self.scrollView.isHidden = false
+            self.nextButton.isHidden = false
+        }
+    }
+    
+    @objc func nextBtn(_ sender: Any) {
+        if scrollView.isHidden == false {
+            let maxWidth = min(scrollView.contentOffset.x + view.frame.width, view.frame.width * 2)
+            let newOffset = CGPoint(x: maxWidth, y: 0)
+            scrollView.contentOffset = newOffset
+        }
+    }
+    
+    @objc func prevBtn(_ sender: Any) {
+        if scrollView.isHidden == true {
+            titleInput.text = ""
+            people.mannaPeople.text = ""
+            place.mannaPlace.text = ""
+            navigationController?.popViewController(animated: true)
+        } else if scrollView.isHidden == false && scrollView.contentOffset.x == 0 {
+            scrollView.isHidden = true
+            UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.titleLabel.transform = CGAffineTransform.identity
+                self.titleButton.isHidden = false
+                self.nextButton.isHidden = true
+            }) { _ in
+                self.titleLabel.isHidden = true
+                self.titleInput.isHidden = false
+            }
+        } else if scrollView.isHidden == false {
+            let minWidth = max(scrollView.contentOffset.x - view.frame.width, 0)
+            let newOffset = CGPoint(x: minWidth, y: 0)
+            scrollView.contentOffset = newOffset
         }
     }
 }
 
 extension AddMannaViewController {
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }

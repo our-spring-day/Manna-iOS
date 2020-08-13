@@ -5,14 +5,13 @@ target 'Manna-iOS' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
   pod 'SwiftLint'
-  pod "RxSwift"
-  pod "RxCocoa"
-  pod 'SnapKit'
-  pod 'Toaster'
-  pod 'RxAppState'
-  pod 'Then'
-  pod 'RxOptional'
+  pod 'RxSwift'
+  pod 'RxCocoa'
   pod 'RxDataSources'
+  pod 'Then'
+  pod 'SnapKit'
+  pod 'Alamofire'
+  pod 'SwiftyJSON'
   pod 'NMapsMap'
   # Pods for Manna-iOS
 

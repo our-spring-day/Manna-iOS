@@ -47,17 +47,24 @@ class ViewController: UITabBarController {
         super.viewDidLoad()
         attribute()
     }
+    
     func attribute() {
-        UITabBar.appearance().tintColor = UIColor(named: "default")
-        userListViewController.tabBarItem = tabBarItems[.userList]
-        mannaListViewController.tabBarItem = tabBarItems[.mannaList]
-        notiListViewController.tabBarItem = tabBarItems[.notiList]
-        setListViewController.tabBarItem = tabBarItems[.setList]
-        self.viewControllers = [
-            UINavigationController(rootViewController: userListViewController),
-            UINavigationController(rootViewController: mannaListViewController),
-            UINavigationController(rootViewController: notiListViewController),
-            UINavigationController(rootViewController: setListViewController)
-        ]
+        self.do {
+            userListViewController.tabBarItem = tabBarItems[.userList]
+            mannaListViewController.tabBarItem = tabBarItems[.mannaList]
+            notiListViewController.tabBarItem = tabBarItems[.notiList]
+            setListViewController.tabBarItem = tabBarItems[.setList]
+            
+            $0.viewControllers = [
+                UINavigationController(rootViewController: userListViewController),
+                UINavigationController(rootViewController: mannaListViewController),
+                UINavigationController(rootViewController: notiListViewController),
+                UINavigationController(rootViewController: setListViewController)
+            ]
+        }
+
+        view.do {
+            $0.backgroundColor = .white
+        }
     }
 }
