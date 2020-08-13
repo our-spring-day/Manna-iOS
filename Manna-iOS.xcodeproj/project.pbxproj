@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC0BFAAC24DAAD2900A9D437 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0BFAAB24DAAD2900A9D437 /* BottomSheetViewController.swift */; };
+		CC384C0C24852AD0005F34AE /* FriendListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C0B24852AD0005F34AE /* FriendListViewModel.swift */; };
+		CC384C0E24852ADB005F34AE /* UserListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C0D24852ADB005F34AE /* UserListModel.swift */; };
+		CC384C1124862613005F34AE /* FriendListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C1024862613005F34AE /* FriendListCell.swift */; };
+		CC4FCA0724C0207500FEE302 /* MeetingMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4FCA0624C0207500FEE302 /* MeetingMember.swift */; };
+		CC63EC1E24DC03890029D8B1 /* DuringMeetingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63EC1D24DC03890029D8B1 /* DuringMeetingCollectionView.swift */; };
+		CC63EC2024DC04A70029D8B1 /* DurringMeetingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63EC1F24DC04A70029D8B1 /* DurringMeetingViewModel.swift */; };
+		CC6E7D5C2487AB070050D774 /* AddUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */; };
 		A50412FF24DAF9AE00C02F6A /* FinalAddManna.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50412FE24DAF9AE00C02F6A /* FinalAddManna.swift */; };
 		A519FFD524953C000074D554 /* MannaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A519FFD424953C000074D554 /* MannaProvider.swift */; };
 		A528168F24C0A05900EDC4E9 /* SelectPlacePinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528168E24C0A05900EDC4E9 /* SelectPlacePinViewController.swift */; };
@@ -39,16 +47,34 @@
 		CC7059F62477B81200462251 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC7059F52477B81200462251 /* Assets.xcassets */; };
 		CC7059F92477B81200462251 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC7059F72477B81200462251 /* LaunchScreen.storyboard */; };
 		CC705A022477BBAB00462251 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = CC705A012477BBAB00462251 /* .swiftlint.yml */; };
-		CC705A0B2477D28800462251 /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A0A2477D28800462251 /* UserListViewController.swift */; };
+		CC705A0B2477D28800462251 /* FriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A0A2477D28800462251 /* FriendListViewController.swift */; };
 		CC705A0D2477D2BA00462251 /* MannaListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A0C2477D2BA00462251 /* MannaListViewController.swift */; };
 		CC705A0F2477D2D200462251 /* NotiListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A0E2477D2D200462251 /* NotiListViewController.swift */; };
 		CC705A112477D2E000462251 /* SetListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A102477D2E000462251 /* SetListViewController.swift */; };
+		CC8DB2F024CEE09B0003B3D2 /* TempViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8DB2EF24CEE09B0003B3D2 /* TempViewController.swift */; };
+		CC986DD124A5DB95004450B7 /* AddUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC986DD024A5DB95004450B7 /* AddUserViewModel.swift */; };
+		CCAC1F2D24B2FD28007C21ED /* UserListTestStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAC1F2C24B2FD28007C21ED /* UserListTestStruct.swift */; };
+		CCAD9CFE249CD06300E639BF /* FriendDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAD9CFD249CD06300E639BF /* FriendDetailViewController.swift */; };
+		CCB0F24924C6EDDE00BBEAFC /* CheckedFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB0F24824C6EDDE00BBEAFC /* CheckedFriendCell.swift */; };
+		CCB1578624AB3D0E00D81511 /* UserTestStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578524AB3D0E00D81511 /* UserTestStruct.swift */; };
+		CCB1578924AB53B400D81511 /* SearchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578824AB53B400D81511 /* SearchProtocol.swift */; };
+		CCC1F7ED24BDA70700DC8BCB /* FriendsListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1F7EC24BDA70700DC8BCB /* FriendsListTableView.swift */; };
+		CCC2705224D32B19008D3C15 /* InviteFriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC2705124D32B19008D3C15 /* InviteFriendsViewModel.swift */; };
+		CCD1C89924C6F33900C3AE3D /* FriendsListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD1C89824C6F33900C3AE3D /* FriendsListCollectionView.swift */; };
 		F69ED73508E16B9556FF55D3 /* Pods_Manna_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5434F4B54E67CE37DCF01314 /* Pods_Manna_iOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4DFAEF44CF70735D62CB19F6 /* Pods-Manna-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manna-iOS.release.xcconfig"; path = "Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		5434F4B54E67CE37DCF01314 /* Pods_Manna_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Manna_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC0BFAAB24DAAD2900A9D437 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
+		CC384C0B24852AD0005F34AE /* FriendListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewModel.swift; sourceTree = "<group>"; };
+		CC384C0D24852ADB005F34AE /* UserListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListModel.swift; sourceTree = "<group>"; };
+		CC384C1024862613005F34AE /* FriendListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListCell.swift; sourceTree = "<group>"; };
+		CC4FCA0624C0207500FEE302 /* MeetingMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingMember.swift; sourceTree = "<group>"; };
+		CC63EC1D24DC03890029D8B1 /* DuringMeetingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringMeetingCollectionView.swift; sourceTree = "<group>"; };
+		CC63EC1F24DC04A70029D8B1 /* DurringMeetingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurringMeetingViewModel.swift; sourceTree = "<group>"; };
+		CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserViewController.swift; sourceTree = "<group>"; };
 		A50412FE24DAF9AE00C02F6A /* FinalAddManna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalAddManna.swift; sourceTree = "<group>"; };
 		A519FFD424953C000074D554 /* MannaProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaProvider.swift; sourceTree = "<group>"; };
 		A528168E24C0A05900EDC4E9 /* SelectPlacePinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlacePinViewController.swift; sourceTree = "<group>"; };
@@ -83,10 +109,20 @@
 		CC7059F82477B81200462251 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CC7059FA2477B81200462251 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC705A012477BBAB00462251 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		CC705A0A2477D28800462251 /* UserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
+		CC705A0A2477D28800462251 /* FriendListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewController.swift; sourceTree = "<group>"; };
 		CC705A0C2477D2BA00462251 /* MannaListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaListViewController.swift; sourceTree = "<group>"; };
 		CC705A0E2477D2D200462251 /* NotiListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiListViewController.swift; sourceTree = "<group>"; };
 		CC705A102477D2E000462251 /* SetListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetListViewController.swift; sourceTree = "<group>"; };
+		CC8DB2EF24CEE09B0003B3D2 /* TempViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempViewController.swift; sourceTree = "<group>"; };
+		CC986DD024A5DB95004450B7 /* AddUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserViewModel.swift; sourceTree = "<group>"; };
+		CCAC1F2C24B2FD28007C21ED /* UserListTestStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListTestStruct.swift; sourceTree = "<group>"; };
+		CCAD9CFD249CD06300E639BF /* FriendDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailViewController.swift; sourceTree = "<group>"; };
+		CCB0F24824C6EDDE00BBEAFC /* CheckedFriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckedFriendCell.swift; sourceTree = "<group>"; };
+		CCB1578524AB3D0E00D81511 /* UserTestStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTestStruct.swift; sourceTree = "<group>"; };
+		CCB1578824AB53B400D81511 /* SearchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProtocol.swift; sourceTree = "<group>"; };
+		CCC1F7EC24BDA70700DC8BCB /* FriendsListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableView.swift; sourceTree = "<group>"; };
+		CCC2705124D32B19008D3C15 /* InviteFriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteFriendsViewModel.swift; sourceTree = "<group>"; };
+		CCD1C89824C6F33900C3AE3D /* FriendsListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListCollectionView.swift; sourceTree = "<group>"; };
 		F1D0975FD460DE1097C65D92 /* Pods-Manna-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manna-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -193,6 +229,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CC384C0F248625EC005F34AE /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				CC384C1024862613005F34AE /* FriendListCell.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		CC6E7D5A2487AA7E0050D774 /* AddUser */ = {
+			isa = PBXGroup;
+			children = (
+				CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */,
+				CC986DD024A5DB95004450B7 /* AddUserViewModel.swift */,
+				CCAC1F2C24B2FD28007C21ED /* UserListTestStruct.swift */,
+				CCB1578524AB3D0E00D81511 /* UserTestStruct.swift */,
+			);
+			path = AddUser;
+			sourceTree = "<group>";
+		};
 		CC7059E02477B81100462251 = {
 			isa = PBXGroup;
 			children = (
@@ -215,6 +270,9 @@
 		CC7059EB2477B81100462251 /* Manna-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				CCC1F7EE24BEE78000DC8BCB /* Component */,
+				CCB1578724AB538C00D81511 /* Protocol */,
+				CCB1578424AB3C3000D81511 /* Entity2 */,
 				A552C78524A4EC9E00D834BF /* Extensions-Utillities */,
 				A519FFD324953BCD0074D554 /* DataProvider */,
 				A54702B02486A9220091CA55 /* Entity */,
@@ -232,6 +290,8 @@
 		CC705A032477CEAA00462251 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				CCB7656324E3DF1400FBBCFF /* test */,
+				CC705A042477CECF00462251 /* Friend List */,
 				CC7059F02477B81100462251 /* ViewController.swift */,
 				CC705A042477CECF00462251 /* User List */,
 				CC705A052477CEF900462251 /* Manna List */,
@@ -241,12 +301,16 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		CC705A042477CECF00462251 /* User List */ = {
+		CC705A042477CECF00462251 /* Friend List */ = {
 			isa = PBXGroup;
 			children = (
-				CC705A0A2477D28800462251 /* UserListViewController.swift */,
+				CC705A0A2477D28800462251 /* FriendListViewController.swift */,
+				CC384C0B24852AD0005F34AE /* FriendListViewModel.swift */,
+				CC384C0F248625EC005F34AE /* Components */,
+				CCAD9CFC249CD01900E639BF /* DetailUser */,
+				CC6E7D5A2487AA7E0050D774 /* AddUser */,
 			);
-			path = "User List";
+			path = "Friend List";
 			sourceTree = "<group>";
 		};
 		CC705A052477CEF900462251 /* Manna List */ = {
@@ -263,6 +327,8 @@
 			isa = PBXGroup;
 			children = (
 				CC705A0E2477D2D200462251 /* NotiListViewController.swift */,
+				CCC2705124D32B19008D3C15 /* InviteFriendsViewModel.swift */,
+				CCB0F24824C6EDDE00BBEAFC /* CheckedFriendCell.swift */,
 				A585F8302482848200A60530 /* NotiListViewModel.swift */,
 				A585F8322482849500A60530 /* NotiListModel.swift */,
 			);
@@ -273,8 +339,53 @@
 			isa = PBXGroup;
 			children = (
 				CC705A102477D2E000462251 /* SetListViewController.swift */,
+				CC63EC1F24DC04A70029D8B1 /* DurringMeetingViewModel.swift */,
+				CC0BFAAB24DAAD2900A9D437 /* BottomSheetViewController.swift */,
+				CC63EC1D24DC03890029D8B1 /* DuringMeetingCollectionView.swift */,
 			);
 			path = "Set List";
+			sourceTree = "<group>";
+		};
+		CCAD9CFC249CD01900E639BF /* DetailUser */ = {
+			isa = PBXGroup;
+			children = (
+				CCAD9CFD249CD06300E639BF /* FriendDetailViewController.swift */,
+				CC8DB2EF24CEE09B0003B3D2 /* TempViewController.swift */,
+			);
+			path = DetailUser;
+			sourceTree = "<group>";
+		};
+		CCB1578424AB3C3000D81511 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				CC384C0D24852ADB005F34AE /* UserListModel.swift */,
+				CC4FCA0624C0207500FEE302 /* MeetingMember.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		CCB1578724AB538C00D81511 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				CCB1578824AB53B400D81511 /* SearchProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		CCB7656324E3DF1400FBBCFF /* test */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
+		CCC1F7EE24BEE78000DC8BCB /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				CCC1F7EC24BDA70700DC8BCB /* FriendsListTableView.swift */,
+				CCD1C89824C6F33900C3AE3D /* FriendsListCollectionView.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -428,10 +539,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCD1C89924C6F33900C3AE3D /* FriendsListCollectionView.swift in Sources */,
+				CC6E7D5C2487AB070050D774 /* AddUserViewController.swift in Sources */,
+				CCB1578924AB53B400D81511 /* SearchProtocol.swift in Sources */,
+				CCC2705224D32B19008D3C15 /* InviteFriendsViewModel.swift in Sources */,
+				CCB1578624AB3D0E00D81511 /* UserTestStruct.swift in Sources */,
+				CCAC1F2D24B2FD28007C21ED /* UserListTestStruct.swift in Sources */,
+				CC384C1124862613005F34AE /* FriendListCell.swift in Sources */,
+				CC63EC1E24DC03890029D8B1 /* DuringMeetingCollectionView.swift in Sources */,
+				CCC1F7ED24BDA70700DC8BCB /* FriendsListTableView.swift in Sources */,
+				CC986DD124A5DB95004450B7 /* AddUserViewModel.swift in Sources */,
 				CC705A0D2477D2BA00462251 /* MannaListViewController.swift in Sources */,
+				CC384C0C24852AD0005F34AE /* FriendListViewModel.swift in Sources */,
+				CC705A112477D2E000462251 /* SetListViewController.swift in Sources */,
+				CC384C0E24852ADB005F34AE /* UserListModel.swift in Sources */,
 				A595A8A824DC823000EAFAA5 /* UINavigation-Ext.swift in Sources */,
 				A55B0F1B24D5B7D300211AEA /* PeopleAddManna.swift in Sources */,
-				CC705A112477D2E000462251 /* SetListViewController.swift in Sources */,
 				A50412FF24DAF9AE00C02F6A /* FinalAddManna.swift in Sources */,
 				A55A80BB248FD76200EDFA99 /* AddMannaViewModel.swift in Sources */,
 				A52C620024E2DADA00B4C6C2 /* SelectPlaceViewModel.swift in Sources */,
@@ -447,7 +570,9 @@
 				A54702B22486A93F0091CA55 /* Manna.swift in Sources */,
 				A55B0F1D24D5B8B000211AEA /* TimeAddManna.swift in Sources */,
 				CC7059F12477B81100462251 /* ViewController.swift in Sources */,
+				CC0BFAAC24DAAD2900A9D437 /* BottomSheetViewController.swift in Sources */,
 				CC705A0F2477D2D200462251 /* NotiListViewController.swift in Sources */,
+				CC705A0B2477D28800462251 /* FriendListViewController.swift in Sources */,
 				A5EB4A1424BCC6F30084EBE5 /* DrawLine.swift in Sources */,
 				A552C78724A4ED0D00D834BF /* AddMannaView-Ext.swift in Sources */,
 				A585F83A2482961A00A60530 /* MannaListViewModel.swift in Sources */,
@@ -458,7 +583,12 @@
 				A5677B0E24B78D4500059EE0 /* UIView-Ext.swift in Sources */,
 				CC705A0B2477D28800462251 /* UserListViewController.swift in Sources */,
 				CC7059ED2477B81100462251 /* AppDelegate.swift in Sources */,
+				CC8DB2F024CEE09B0003B3D2 /* TempViewController.swift in Sources */,
+				CCB0F24924C6EDDE00BBEAFC /* CheckedFriendCell.swift in Sources */,
+				CCAD9CFE249CD06300E639BF /* FriendDetailViewController.swift in Sources */,
+				CC63EC2024DC04A70029D8B1 /* DurringMeetingViewModel.swift in Sources */,
 				CC7059EF2477B81100462251 /* SceneDelegate.swift in Sources */,
+				CC4FCA0724C0207500FEE302 /* MeetingMember.swift in Sources */,
 				A5EB4A1224BCB75F0084EBE5 /* SelectPlaceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -35,7 +35,6 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-
     required init?(coder aDecoder: NSCoder) {
         viewModel = AddMannaViewModel()
         super.init(coder: aDecoder)

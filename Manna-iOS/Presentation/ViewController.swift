@@ -9,7 +9,8 @@
 import UIKit
 
 class ViewController: UITabBarController {
-    let userListViewController = UserListViewController()
+    
+    let userListViewController = FriendListViewController()
     let mannaListViewController = MannaListViewController()
     let notiListViewController = NotiListViewController()
     let setListViewController = SetListViewController()
@@ -20,7 +21,6 @@ class ViewController: UITabBarController {
         case notiList
         case setList
     }
-    
     let tabBarItems: [Tab: UITabBarItem] = [
         .userList: UITabBarItem(
             title: nil,
@@ -42,7 +42,6 @@ class ViewController: UITabBarController {
             image: #imageLiteral(resourceName: "setlistimage"),
             selectedImage: #imageLiteral(resourceName: "setlistimage")
         )
-        
     ]
     override func viewDidLoad() {
         super.viewDidLoad()
