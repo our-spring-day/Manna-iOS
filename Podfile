@@ -7,6 +7,8 @@ target 'Manna-iOS' do
   pod 'SwiftLint'
   pod 'RxSwift'
   pod 'RxCocoa'
+  pod 'RxDataSources'
+  pod 'SnapKit'
   pod 'Then'
   # Pods for Manna-iOS
 
