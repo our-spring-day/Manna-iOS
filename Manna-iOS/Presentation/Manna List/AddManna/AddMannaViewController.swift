@@ -23,7 +23,6 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
     let finalAdd = FinalAddManna()
 
     let scrollView = UIScrollView()
-    let pageControl = UIPageControl()
     let titleLabel = UILabel()
     let titleInput = UITextField()
     let titleButton = UIButton()
@@ -61,11 +60,6 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
             $0.isHidden = true
             $0.backgroundColor = .red
             $0.bounces = false
-        }
-        pageControl.do {
-            $0.numberOfPages = 3
-            $0.currentPage = 0
-//            $0.isUserInteractionEnabled = false
         }
         titleLabel.do {
             $0.textColor = .black
@@ -106,7 +100,6 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(scrollView)
         view.addSubview(prevButton)
         view.addSubview(nextButton)
-        scrollView.addSubview(pageControl)
         scrollView.addSubview(people)
         scrollView.addSubview(time)
         scrollView.addSubview(place)
@@ -142,11 +135,6 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(60)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-        }
-        pageControl.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-5)
-            $0.centerX.equalToSuperview()
-            $0.height.equalTo(30)
         }
         people.snp.makeConstraints {
             $0.top.equalTo(scrollView.snp.top)
