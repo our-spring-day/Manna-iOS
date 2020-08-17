@@ -16,7 +16,6 @@ class NotiListViewController: UIViewController {
     
     let inviteFriendsViewModel = InviteFriendsViewModel()
     let checkedMemberArray: BehaviorRelay<[UserTestStruct]> = BehaviorRelay(value: [])
-    let userListViewModel = FriendListViewModel()
     let layoutValue = UICollectionViewFlowLayout()
     
     var collectionView = FriendsListCollectionView()
@@ -127,7 +126,7 @@ class NotiListViewController: UIViewController {
             }).disposed(by: disposeBag)
         
         //keyboard hide when tableView,collectionView scrolling
-        Observable.of(tableView.baseTableView.rx.didScroll.asObservable(),collectionView.baseCollectionView.rx.didScroll.asObservable()).merge()
+        Observable.of(tableView.baseTableView.rx.didScroll.asObservable(), collectionView.baseCollectionView.rx.didScroll.asObservable()).merge()
             .subscribe(onNext: {
                 self.view.endEditing(true)
             }).disposed(by: disposeBag)

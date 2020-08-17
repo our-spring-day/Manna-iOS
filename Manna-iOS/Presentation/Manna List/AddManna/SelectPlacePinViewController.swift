@@ -239,7 +239,7 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
     
     func completePlace(address: Address) {
         dismiss(animated: true) { [weak self] in
-            AddMannaViewController.shared.scrollView.contentOffset = CGPoint(x: self!.view.frame.width*3 ,y: 0)
+            AddMannaViewController.shared.scrollView.contentOffset = CGPoint(x: self!.view.frame.width*3, y: 0)
             SelectPlaceViewController.shared.dismiss(animated: true, completion: nil)
             SelectPlaceViewController.shared.selectedAddressSubject.onNext(address)
             SelectPlaceViewController.shared.selectedAddressSubject.onCompleted()

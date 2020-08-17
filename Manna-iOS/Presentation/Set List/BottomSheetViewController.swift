@@ -60,13 +60,13 @@ class BottomSheetViewController: UIViewController {
             standardY = recognizer.location(in: view).y
         } else if recognizer.state == .changed {
             view.center.y = (view.center.y + recognizer.location(in: view).y) - standardY
-            print("view.center.y: ",view.center.y,"  location :",recognizer.location(in: view).y, "standardY : ", standardY)
+            print("view.center.y: ", view.center.y, "  location :", recognizer.location(in: view).y, "standardY : ", standardY)
             
         } else if recognizer.state == .ended {
             self.view.isUserInteractionEnabled = false
             UIView.animate(withDuration: 0.3, delay: 0.0, options: .allowUserInteraction, animations: { let state: State = recognizer.velocity(in: self.view).y >= 0 ? .partial : .full
                 self.moveView(state: state)
-            }, completion: { bool in
+            }, completion: { _ in
                 self.view.isUserInteractionEnabled = true
             })
         }

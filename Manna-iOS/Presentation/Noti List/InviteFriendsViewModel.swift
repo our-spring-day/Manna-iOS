@@ -1,4 +1,3 @@
-
 //  InviteFriendsViewModel.swift
 //  Manna-iOS
 //

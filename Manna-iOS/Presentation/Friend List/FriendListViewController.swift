@@ -64,8 +64,7 @@ class FriendListViewController: UIViewController {
     
     func bind() {
         FriendListViewModel.self.myFriendList
-            .bind(to: friendListtableView.baseTableView.rx.items(cellIdentifier: FriendListCell.identifier,cellType: FriendListCell.self))
-            {(_: Int, element: UserTestStruct, cell: FriendListCell) in
+            .bind(to: friendListtableView.baseTableView.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self)) { (_: Int, element: UserTestStruct, cell: FriendListCell) in
                 cell.friendIdLabel.text = element.name
                 cell.friendImageView.image = UIImage(named: "\(element.profileImage)")
                 cell.checkBoxImageView.isHidden = true
@@ -89,7 +88,7 @@ class FriendListViewController: UIViewController {
         
         friendListtableView.baseTableView.rx.modelSelected(UserTestStruct.self)
             .subscribe(onNext: { item in
-                print("이거 계속 실행되냐",self.searchController.searchBar.text)
+                print("이거 계속 실행되냐", self.searchController.searchBar.text)
                 let detailUserViewController = FriendDetailViewController()
                 detailUserViewController.do {
                     detailUserViewController.selectedFriend = item
@@ -101,7 +100,7 @@ class FriendListViewController: UIViewController {
             }).disposed(by: disposeBag)
         
         friendListtableView.baseTableView.rx.itemDeleted
-            .do{ onNext: do { print(self.searchController.searchBar.text)}}
+            .do { onNext: do { print(self.searchController.searchBar.text!)}}
             .map { FriendListViewModel.self.myFriendList.value[$0[1]] }
             .bind(to: viewModel.inputs.deletedFriend)
             .disposed(by: disposeBag)

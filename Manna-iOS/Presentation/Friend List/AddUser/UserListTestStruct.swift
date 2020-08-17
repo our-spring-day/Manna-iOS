@@ -9,5 +9,5 @@
 import Foundation
 
 struct UserListTestStruct {
-    let userListTestStruct = [justhis,sikk,soma,simondominic]
+    let userListTestStruct = [justhis, sikk, soma, simondominic]
 }

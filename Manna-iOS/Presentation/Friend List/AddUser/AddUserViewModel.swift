@@ -34,7 +34,7 @@ class AddUserViewModel: AddUserViewModelType, AddUserViewModelInput, AddUserView
     
     init() {
         let searchedUserIDInput = PublishSubject<String>()
-        var filteredUserOutput = PublishSubject<UserTestStruct>()
+        let filteredUserOutput = PublishSubject<UserTestStruct>()
         
         searchedUserID = searchedUserIDInput.asObserver()
         filteredUser = filteredUserOutput.asObservable()
@@ -43,8 +43,8 @@ class AddUserViewModel: AddUserViewModelType, AddUserViewModelInput, AddUserView
             .filterEmpty()
             .distinctUntilChanged()
             .subscribe(onNext: { value in
-                self.itemsObservable.map{
-                    $0.filter{ key in
+                self.itemsObservable.map {
+                    $0.filter { key in
                         if key.name == value {
                             return true
                         } else {

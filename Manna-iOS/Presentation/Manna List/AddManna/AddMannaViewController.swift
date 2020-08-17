@@ -55,7 +55,6 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         navigationController?.isNavigationBarHidden = true
         finalAdd.finalPlace.numberOfLines = 0
         finalAdd.completeButton.addTarget(self, action: #selector(addMeet), for: .touchUpInside)
-        people.mannaPeople.delegate = people
         scrollView.do {
             $0.isHidden = true
             $0.backgroundColor = .red
@@ -162,15 +161,13 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    func UIBind() {
+        
+    }
+    
     func bind() {
         titleInput.rx.text.orEmpty
             .bind(to: titleLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        people.mannaPeople.rx.text.orEmpty
-            .subscribe(onNext: { [weak self] value in
-                self?.finalAdd.finalPeople.text = value
-            })
             .disposed(by: disposeBag)
         
         time.onPicker.rx.date
@@ -262,7 +259,6 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
     @objc func prevBtn(_ sender: Any) {
         if scrollView.isHidden == true {
             titleInput.text = ""
-            people.mannaPeople.text = ""
             place.mannaPlace.text = ""
             navigationController?.popViewController(animated: true)
         } else if scrollView.isHidden == false && scrollView.contentOffset.x == 0 {

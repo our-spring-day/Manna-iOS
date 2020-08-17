@@ -7,14 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CC0BFAAC24DAAD2900A9D437 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0BFAAB24DAAD2900A9D437 /* BottomSheetViewController.swift */; };
-		CC384C0C24852AD0005F34AE /* FriendListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C0B24852AD0005F34AE /* FriendListViewModel.swift */; };
-		CC384C0E24852ADB005F34AE /* UserListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C0D24852ADB005F34AE /* UserListModel.swift */; };
-		CC384C1124862613005F34AE /* FriendListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C1024862613005F34AE /* FriendListCell.swift */; };
-		CC4FCA0724C0207500FEE302 /* MeetingMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4FCA0624C0207500FEE302 /* MeetingMember.swift */; };
-		CC63EC1E24DC03890029D8B1 /* DuringMeetingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63EC1D24DC03890029D8B1 /* DuringMeetingCollectionView.swift */; };
-		CC63EC2024DC04A70029D8B1 /* DurringMeetingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63EC1F24DC04A70029D8B1 /* DurringMeetingViewModel.swift */; };
-		CC6E7D5C2487AB070050D774 /* AddUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */; };
 		A50412FF24DAF9AE00C02F6A /* FinalAddManna.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50412FE24DAF9AE00C02F6A /* FinalAddManna.swift */; };
 		A519FFD524953C000074D554 /* MannaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A519FFD424953C000074D554 /* MannaProvider.swift */; };
 		A528168F24C0A05900EDC4E9 /* SelectPlacePinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A528168E24C0A05900EDC4E9 /* SelectPlacePinViewController.swift */; };
@@ -40,6 +32,14 @@
 		A5EB4A1224BCB75F0084EBE5 /* SelectPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EB4A1124BCB75F0084EBE5 /* SelectPlaceViewController.swift */; };
 		A5EB4A1424BCC6F30084EBE5 /* DrawLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EB4A1324BCC6F30084EBE5 /* DrawLine.swift */; };
 		A5EB4A1624BDD62D0084EBE5 /* AddressAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EB4A1524BDD62D0084EBE5 /* AddressAPI.swift */; };
+		CC0BFAAC24DAAD2900A9D437 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0BFAAB24DAAD2900A9D437 /* BottomSheetViewController.swift */; };
+		CC384C0C24852AD0005F34AE /* FriendListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C0B24852AD0005F34AE /* FriendListViewModel.swift */; };
+		CC384C0E24852ADB005F34AE /* UserListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C0D24852ADB005F34AE /* UserListModel.swift */; };
+		CC384C1124862613005F34AE /* FriendListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C1024862613005F34AE /* FriendListCell.swift */; };
+		CC4FCA0724C0207500FEE302 /* MeetingMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4FCA0624C0207500FEE302 /* MeetingMember.swift */; };
+		CC63EC1E24DC03890029D8B1 /* DuringMeetingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63EC1D24DC03890029D8B1 /* DuringMeetingCollectionView.swift */; };
+		CC63EC2024DC04A70029D8B1 /* DurringMeetingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63EC1F24DC04A70029D8B1 /* DurringMeetingViewModel.swift */; };
+		CC6E7D5C2487AB070050D774 /* AddUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */; };
 		CC7059ED2477B81100462251 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7059EC2477B81100462251 /* AppDelegate.swift */; };
 		CC7059EF2477B81100462251 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7059EE2477B81100462251 /* SceneDelegate.swift */; };
 		CC7059F12477B81100462251 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7059F02477B81100462251 /* ViewController.swift */; };
@@ -67,14 +67,6 @@
 /* Begin PBXFileReference section */
 		4DFAEF44CF70735D62CB19F6 /* Pods-Manna-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manna-iOS.release.xcconfig"; path = "Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		5434F4B54E67CE37DCF01314 /* Pods_Manna_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Manna_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CC0BFAAB24DAAD2900A9D437 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
-		CC384C0B24852AD0005F34AE /* FriendListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewModel.swift; sourceTree = "<group>"; };
-		CC384C0D24852ADB005F34AE /* UserListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListModel.swift; sourceTree = "<group>"; };
-		CC384C1024862613005F34AE /* FriendListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListCell.swift; sourceTree = "<group>"; };
-		CC4FCA0624C0207500FEE302 /* MeetingMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingMember.swift; sourceTree = "<group>"; };
-		CC63EC1D24DC03890029D8B1 /* DuringMeetingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringMeetingCollectionView.swift; sourceTree = "<group>"; };
-		CC63EC1F24DC04A70029D8B1 /* DurringMeetingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurringMeetingViewModel.swift; sourceTree = "<group>"; };
-		CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserViewController.swift; sourceTree = "<group>"; };
 		A50412FE24DAF9AE00C02F6A /* FinalAddManna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalAddManna.swift; sourceTree = "<group>"; };
 		A519FFD424953C000074D554 /* MannaProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaProvider.swift; sourceTree = "<group>"; };
 		A528168E24C0A05900EDC4E9 /* SelectPlacePinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlacePinViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +92,14 @@
 		A5EB4A1124BCB75F0084EBE5 /* SelectPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceViewController.swift; sourceTree = "<group>"; };
 		A5EB4A1324BCC6F30084EBE5 /* DrawLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawLine.swift; sourceTree = "<group>"; };
 		A5EB4A1524BDD62D0084EBE5 /* AddressAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressAPI.swift; sourceTree = "<group>"; };
+		CC0BFAAB24DAAD2900A9D437 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
+		CC384C0B24852AD0005F34AE /* FriendListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewModel.swift; sourceTree = "<group>"; };
+		CC384C0D24852ADB005F34AE /* UserListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListModel.swift; sourceTree = "<group>"; };
+		CC384C1024862613005F34AE /* FriendListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListCell.swift; sourceTree = "<group>"; };
+		CC4FCA0624C0207500FEE302 /* MeetingMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingMember.swift; sourceTree = "<group>"; };
+		CC63EC1D24DC03890029D8B1 /* DuringMeetingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringMeetingCollectionView.swift; sourceTree = "<group>"; };
+		CC63EC1F24DC04A70029D8B1 /* DurringMeetingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurringMeetingViewModel.swift; sourceTree = "<group>"; };
+		CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserViewController.swift; sourceTree = "<group>"; };
 		CC7059E92477B81100462251 /* Manna-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Manna-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC7059EC2477B81100462251 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC7059EE2477B81100462251 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -272,7 +272,7 @@
 			children = (
 				CCC1F7EE24BEE78000DC8BCB /* Component */,
 				CCB1578724AB538C00D81511 /* Protocol */,
-				CCB1578424AB3C3000D81511 /* Entity2 */,
+				CCB1578424AB3C3000D81511 /* Entity */,
 				A552C78524A4EC9E00D834BF /* Extensions-Utillities */,
 				A519FFD324953BCD0074D554 /* DataProvider */,
 				A54702B02486A9220091CA55 /* Entity */,
@@ -290,10 +290,8 @@
 		CC705A032477CEAA00462251 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				CCB7656324E3DF1400FBBCFF /* test */,
-				CC705A042477CECF00462251 /* Friend List */,
 				CC7059F02477B81100462251 /* ViewController.swift */,
-				CC705A042477CECF00462251 /* User List */,
+				CC705A042477CECF00462251 /* Friend List */,
 				CC705A052477CEF900462251 /* Manna List */,
 				CC705A062477D18100462251 /* Noti List */,
 				CC705A072477D1E600462251 /* Set List */,
@@ -370,13 +368,6 @@
 				CCB1578824AB53B400D81511 /* SearchProtocol.swift */,
 			);
 			path = Protocol;
-			sourceTree = "<group>";
-		};
-		CCB7656324E3DF1400FBBCFF /* test */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = test;
 			sourceTree = "<group>";
 		};
 		CCC1F7EE24BEE78000DC8BCB /* Component */ = {
@@ -459,23 +450,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		15EB2D289029F8A1301D8974 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7D1391115A22FCA960986AD4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -581,7 +555,7 @@
 				A519FFD524953C000074D554 /* MannaProvider.swift in Sources */,
 				A585F8312482848200A60530 /* NotiListViewModel.swift in Sources */,
 				A5677B0E24B78D4500059EE0 /* UIView-Ext.swift in Sources */,
-				CC705A0B2477D28800462251 /* UserListViewController.swift in Sources */,
+				CC705A0B2477D28800462251 /* FriendListViewController.swift in Sources */,
 				CC7059ED2477B81100462251 /* AppDelegate.swift in Sources */,
 				CC8DB2F024CEE09B0003B3D2 /* TempViewController.swift in Sources */,
 				CCB0F24924C6EDDE00BBEAFC /* CheckedFriendCell.swift in Sources */,

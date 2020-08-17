@@ -26,7 +26,7 @@ protocol FriendListViewModelType {
     var outputs: FriendListViewModelOutput { get }
 }
 
-class FriendListViewModel: FriendListViewModelType,FriendListViewModelInput, FriendListViewModelOutput {
+class FriendListViewModel: FriendListViewModelType, FriendListViewModelInput, FriendListViewModelOutput {
     
     let disposeBag = DisposeBag()
     //input
@@ -53,7 +53,7 @@ class FriendListViewModel: FriendListViewModelType,FriendListViewModelInput, Fri
                             if value.isEmpty { return true }
                             return ($0.name.lowercased().contains(value.lowercased()))
                         }}
-                    .map { $0.sorted(by: { $0.name < $1.name }) }}
+            .map { $0.sorted(by: { $0.name < $1.name }) }}
             .bind(to: FriendListViewModel.self.myFriendList)
             .disposed(by: disposeBag)
         
