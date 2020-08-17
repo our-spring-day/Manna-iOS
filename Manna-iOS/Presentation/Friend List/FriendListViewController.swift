@@ -88,7 +88,7 @@ class FriendListViewController: UIViewController {
         
         friendListtableView.baseTableView.rx.modelSelected(UserTestStruct.self)
             .subscribe(onNext: { item in
-                print("이거 계속 실행되냐", self.searchController.searchBar.text)
+                print("이거 계속 실행되냐", self.searchController.searchBar.text!)
                 let detailUserViewController = FriendDetailViewController()
                 detailUserViewController.do {
                     detailUserViewController.selectedFriend = item

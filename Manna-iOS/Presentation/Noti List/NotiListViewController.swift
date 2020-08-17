@@ -15,7 +15,6 @@ class NotiListViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     let inviteFriendsViewModel = InviteFriendsViewModel()
-    let checkedMemberArray: BehaviorRelay<[UserTestStruct]> = BehaviorRelay(value: [])
     let layoutValue = UICollectionViewFlowLayout()
     
     var collectionView = FriendsListCollectionView()

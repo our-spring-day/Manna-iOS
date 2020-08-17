@@ -14,9 +14,10 @@ import Then
 
 class PeopleAddManna: UIView, UITextFieldDelegate {
     
-    var collectionView = FriendsListCollectionView()
+    var collectionView: UICollectionView!
+    let layoutValue = UICollectionViewFlowLayout()
     var textField = UITextField()
-    var tableView = FriendListTableView()
+    var tableView = UITableView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,9 +33,27 @@ class PeopleAddManna: UIView, UITextFieldDelegate {
         self.do {
             $0.backgroundColor = .white
         }
+        collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layoutValue)
+        collectionView.do {
+            $0.backgroundColor = .white
+            $0.register(CheckedFriendCell.self, forCellWithReuseIdentifier: CheckedFriendCell.identifier)
+            $0.isPagingEnabled = true
+            $0.showsHorizontalScrollIndicator = false
+        }
+        layoutValue.do {
+            $0.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            $0.minimumLineSpacing = 10
+            $0.minimumInteritemSpacing = 10
+            $0.itemSize = CGSize(width: 50, height: 50)
+            $0.scrollDirection = .horizontal
+        }
         textField.do {
             $0.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
             $0.backgroundColor = .lightGray
+        }
+        tableView.do {
+            $0.register(FriendListCell.self, forCellReuseIdentifier: FriendListCell.identifier)
+            $0.rowHeight = 55
         }
     }
     

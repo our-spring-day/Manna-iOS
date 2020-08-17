@@ -27,9 +27,7 @@ class FriendListTableView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func attribute() {
-        self.addSubview(baseTableView)
-        
+    func attribute() {        
         baseTableView.do {
             $0.register(FriendListCell.self, forCellReuseIdentifier: FriendListCell.identifier)
             $0.rowHeight = 55

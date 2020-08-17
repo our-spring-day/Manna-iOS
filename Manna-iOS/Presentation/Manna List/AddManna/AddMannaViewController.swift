@@ -15,6 +15,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
     let disposeBag = DisposeBag()
     
     let viewModel: AddMannaViewModelType
+    let inviteViewModel = InviteFriendsViewModel()
     static let shared = AddMannaViewController()
     
     let people = PeopleAddManna()
@@ -48,6 +49,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         attribute()
         layout()
+        UIBind()
         bind()
     }
     
@@ -162,7 +164,74 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
     }
     
     func UIBind() {
+        inviteViewModel.outputs.friendList
+            .bind(to: people.tableView.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self)) { (_: Int, element: UserTestStruct, cell: FriendListCell) in
+                cell.friendIdLabel.text = element.name
+                cell.friendImageView.image = UIImage(named: "\(element.profileImage)")
+                if element.checkedFlag == 1 {
+                    cell.checkBoxImageView.image = UIImage(named: "checked")
+                } else {
+                    cell.checkBoxImageView.image = UIImage(named: "unchecked")
+                }
+        }.disposed(by: disposeBag)
         
+        //collectionView set
+        inviteViewModel.outputs.checkedFriendList
+            .bind(to: people.collectionView.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)) { (_: Int, element: UserTestStruct, cell: CheckedFriendCell) in
+                cell.profileImage.image = UIImage(named: "\(element.profileImage)")
+                UIView.animate(withDuration: 0.3) {
+                    self.scrollView.layoutIfNeeded()
+                }
+        }.disposed(by: self.disposeBag)
+        
+        //checked Friend at tableView
+        people.tableView.rx.modelSelected(UserTestStruct.self)
+            .bind(to: inviteViewModel.inputs.itemFromTableView)
+            .disposed(by: disposeBag)
+        
+        //selected Friend at collectionView
+        people.collectionView.rx.modelSelected(UserTestStruct.self)
+            .bind(to: inviteViewModel.inputs.itemFromCollectionView)
+            .disposed(by: disposeBag)
+        
+        //searchID bind
+        people.textField.rx.text
+            .orEmpty
+            .distinctUntilChanged()
+            .bind(to: inviteViewModel.inputs.searchedFriendID)
+            .disposed(by: disposeBag)
+        
+        //dynamic tableView's height by checkedFriend exist
+        inviteViewModel.outputs.checkedFriendList
+            .skip(1)
+            .map { $0.count }
+            .filter { $0 <= 1 }
+            .subscribe(onNext: { count in
+                if count < 1 {
+                    self.people.textField.snp.updateConstraints {
+                        $0.top.equalTo(self.scrollView.snp.top)
+                    }
+                    self.people.tableView.snp.updateConstraints {
+                        $0.top.equalTo(self.scrollView.snp.top).offset(50)
+                    }
+                } else {
+                    self.people.textField.snp.updateConstraints {
+                        $0.top.equalTo(self.scrollView.snp.top).offset(100)
+                    }
+                    self.people.tableView.snp.updateConstraints {
+                        $0.top.equalTo(self.scrollView.snp.top).offset(150)
+                    }
+                }
+                UIView.animate(withDuration: 0.3) {
+                    self.scrollView.layoutIfNeeded()
+                }
+            }).disposed(by: disposeBag)
+        
+        //keyboard hide when tableView,collectionView scrolling
+//        Observable.of(people.tableView.rx.didScroll.asObservable(), people.collectionView.rx.didScroll.asObservable()).merge()
+//            .subscribe(onNext: {
+//                self.view.endEditing(true)
+//            }).disposed(by: disposeBag)
     }
     
     func bind() {
