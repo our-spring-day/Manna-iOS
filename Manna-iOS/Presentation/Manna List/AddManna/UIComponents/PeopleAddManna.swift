@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 import SnapKit
 import Then
 
 class PeopleAddManna: UIView, UITextFieldDelegate {
     
-    lazy var mannaPeople = UITextField()
+    var collectionView = FriendsListCollectionView()
+    var textField = UITextField()
+    var tableView = FriendListTableView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,20 +29,33 @@ class PeopleAddManna: UIView, UITextFieldDelegate {
     }
     
     func attribute() {
-        mannaPeople.do {
-            $0.layer.borderWidth = 1.0
-            $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-            $0.delegate = self
+        self.do {
+            $0.backgroundColor = .white
+        }
+        textField.do {
+            $0.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+            $0.backgroundColor = .lightGray
         }
     }
     
     func layout() {
-        addSubview(mannaPeople)
-        mannaPeople.snp.makeConstraints {
+        addSubview(collectionView)
+        addSubview(textField)
+        addSubview(tableView)
+        
+        collectionView.snp.makeConstraints {
+            $0.top.leading.trailing.bottom.equalTo(self)
+        }
+        textField.snp.makeConstraints {
             $0.centerX.equalTo(self.snp.centerX)
-            $0.top.equalTo(self.snp.top).offset(20)
-            $0.width.equalTo(200)
+            $0.top.equalTo(self)
+            $0.width.equalTo(self).offset(-50)
             $0.height.equalTo(40)
+        }
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(self).offset(50)
+            $0.leading.trailing.equalTo(self)
+            $0.bottom.equalTo(self)
         }
     }
 }
