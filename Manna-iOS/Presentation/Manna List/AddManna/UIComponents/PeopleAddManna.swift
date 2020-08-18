@@ -63,16 +63,19 @@ class PeopleAddManna: UIView, UITextFieldDelegate {
         addSubview(tableView)
         
         collectionView.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalTo(self)
+            $0.top.equalTo(self.snp.top)
+            $0.width.equalTo(400)
+            $0.height.equalTo(100)
+            $0.centerX.equalTo(self.snp.centerX)
         }
         textField.snp.makeConstraints {
             $0.centerX.equalTo(self.snp.centerX)
-            $0.top.equalTo(self)
+            $0.top.equalTo(collectionView.snp.bottom)
             $0.width.equalTo(self).offset(-50)
             $0.height.equalTo(40)
         }
         tableView.snp.makeConstraints {
-            $0.top.equalTo(self).offset(50)
+            $0.top.equalTo(textField.snp.bottom)
             $0.leading.trailing.equalTo(self)
             $0.bottom.equalTo(self)
         }

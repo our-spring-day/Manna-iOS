@@ -202,33 +202,34 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
             .disposed(by: disposeBag)
         
         //dynamic tableView's height by checkedFriend exist
-        inviteViewModel.outputs.checkedFriendList
-            .skip(1)
-            .map { $0.count }
-            .filter { $0 <= 1 }
-            .subscribe(onNext: { count in
-                if count < 1 {
-                    self.people.textField.snp.updateConstraints {
-                        $0.top.equalTo(self.scrollView.snp.top)
-                    }
-                    self.people.tableView.snp.updateConstraints {
-                        $0.top.equalTo(self.scrollView.snp.top).offset(50)
-                    }
-                } else {
-                    self.people.textField.snp.updateConstraints {
-                        $0.top.equalTo(self.scrollView.snp.top).offset(100)
-                    }
-                    self.people.tableView.snp.updateConstraints {
-                        $0.top.equalTo(self.scrollView.snp.top).offset(150)
-                    }
-                }
-                UIView.animate(withDuration: 0.3) {
-                    self.scrollView.layoutIfNeeded()
-                }
-            }).disposed(by: disposeBag)
+//        inviteViewModel.outputs.checkedFriendList
+//            .skip(1)
+//            .map { $0.count }
+//            .filter { $0 <= 1 }
+//            .subscribe(onNext: { count in
+//                if count < 1 {
+//                    self.people.textField.snp.updateConstraints {
+//                        $0.top.equalTo(self.scrollView.snp.top)
+//                    }
+//                    self.people.tableView.snp.updateConstraints {
+//                        $0.top.equalTo(self.scrollView.snp.top).offset(50)
+//                    }
+//                } else {
+//                    self.people.textField.snp.updateConstraints {
+//                        $0.top.equalTo(self.scrollView.snp.top).offset(100)
+//                    }
+//                    self.people.tableView.snp.updateConstraints {
+//                        $0.top.equalTo(self.scrollView.snp.top).offset(150)
+//                    }
+//                }
+//                UIView.animate(withDuration: 0.3) {
+//                    self.scrollView.layoutIfNeeded()
+//                }
+//            }).disposed(by: disposeBag)
         
         //keyboard hide when tableView,collectionView scrolling
-//        Observable.of(people.tableView.rx.didScroll.asObservable(), people.collectionView.rx.didScroll.asObservable()).merge()
+//        Observable.of(people.tableView.rx.didScroll.asObservable(), people.collectionView.rx.didScroll.asObservable())
+//            .merge()
 //            .subscribe(onNext: {
 //                self.view.endEditing(true)
 //            }).disposed(by: disposeBag)

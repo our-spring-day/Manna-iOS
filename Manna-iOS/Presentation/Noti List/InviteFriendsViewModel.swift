@@ -81,7 +81,6 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
             }).disposed(by: disposeBag)
         
         //friendList update with searchValue
-        
         SRCHInput
             .flatMapLatest { (value) -> Observable<[UserTestStruct]> in
                 let result = originalFriendList.map { list in
