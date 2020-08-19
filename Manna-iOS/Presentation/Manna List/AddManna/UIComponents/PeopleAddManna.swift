@@ -65,12 +65,12 @@ class PeopleAddManna: UIView, UITextFieldDelegate {
         collectionView.snp.makeConstraints {
             $0.top.equalTo(self.snp.top)
             $0.width.equalTo(400)
-            $0.height.equalTo(100)
+            $0.height.equalTo(50)
             $0.centerX.equalTo(self.snp.centerX)
         }
         textField.snp.makeConstraints {
             $0.centerX.equalTo(self.snp.centerX)
-            $0.top.equalTo(collectionView.snp.bottom)
+            $0.top.equalTo(self.snp.top)
             $0.width.equalTo(self).offset(-50)
             $0.height.equalTo(40)
         }
