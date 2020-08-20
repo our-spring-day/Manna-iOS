@@ -69,10 +69,10 @@ class PeopleAddManna: UIView, UITextFieldDelegate {
             $0.centerX.equalTo(self.snp.centerX)
         }
         textField.snp.makeConstraints {
-            $0.centerX.equalTo(self.snp.centerX)
             $0.top.equalTo(self.snp.top)
             $0.width.equalTo(self).offset(-50)
             $0.height.equalTo(40)
+            $0.centerX.equalTo(self.snp.centerX)
         }
         tableView.snp.makeConstraints {
             $0.top.equalTo(textField.snp.bottom)

@@ -16,8 +16,10 @@ class FinalAddManna: UIView {
     let finalPlaceLabel = UILabel()
     let finalPlace = UILabel()
     let finalPeopleLabel = UILabel()
-    let finalPeople = UICollectionView()
+    var finalPeople: UICollectionView!
     let layoutValue = UICollectionViewFlowLayout()
+//    var baseCollectionView: UICollectionView!
+//    let layoutValue: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     let completeButton = UIButton()
     
     override init(frame: CGRect) {
@@ -50,19 +52,19 @@ class FinalAddManna: UIView {
             $0.text = "참여 인원"
             $0.textColor = .black
         }
-        finalPeople.do {
-            $0.collectionViewLayout = layoutValue
-            $0.backgroundColor = .white
-            $0.register(CheckedFriendCell.self, forCellWithReuseIdentifier: CheckedFriendCell.identifier)
-            $0.isPagingEnabled = true
-            $0.showsHorizontalScrollIndicator = false
-        }
         layoutValue.do {
             $0.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             $0.minimumLineSpacing = 10
             $0.minimumInteritemSpacing = 10
             $0.itemSize = CGSize(width: 50, height: 50)
-            $0.scrollDirection = .horizontal
+        }
+        finalPeople = UICollectionView(frame: CGRect.zero, collectionViewLayout: layoutValue)
+        finalPeople.do {
+//            $0.collectionViewLayout = layoutValue
+            $0.backgroundColor = .white
+            $0.register(CheckedFriendCell.self, forCellWithReuseIdentifier: CheckedFriendCell.identifier)
+            $0.isPagingEnabled = true
+            $0.showsHorizontalScrollIndicator = false
         }
         completeButton.do {
             $0.setTitle("약속추가!!", for: .normal)
@@ -103,8 +105,9 @@ class FinalAddManna: UIView {
         }
         finalPeople.snp.makeConstraints {
             $0.top.equalTo(finalPeopleLabel.snp.bottom).offset(10)
-            $0.leading.trailing.equalToSuperview().offset(40)
-            $0.bottom.equalToSuperview().offset(70)
+            $0.leading.equalToSuperview().offset(40)
+            $0.trailing.equalToSuperview().offset(-40)
+            $0.bottom.equalToSuperview().offset(-70)
         }
         completeButton.snp.makeConstraints {
             $0.top.equalTo(finalPeople.snp.bottom).offset(30)

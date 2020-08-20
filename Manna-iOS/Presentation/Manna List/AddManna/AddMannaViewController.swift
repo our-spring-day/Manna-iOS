@@ -69,6 +69,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         titleInput.do {
             $0.layer.borderWidth = 1.0
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            $0.layer.cornerRadius = 8
             $0.textAlignment = .center
             $0.placeholder = "만남 타이틀"
             $0.delegate = self
@@ -119,7 +120,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         titleButton.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
             $0.trailing.equalTo(view.snp.trailing).offset(-10)
-            $0.width.equalTo(80)
+            $0.width.equalTo(60)
             $0.height.equalTo(30)
         }
         prevButton.snp.makeConstraints {
@@ -213,7 +214,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
                     }
                 } else {
                     self.people.textField.snp.updateConstraints {
-                        $0.top.equalToSuperview().offset(50)
+                        $0.top.equalToSuperview().offset(100)
                     }
                 }
                 UIView.animate(withDuration: 0.3) {
@@ -231,10 +232,16 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
     }
     
     func bind() {
+        inviteViewModel.outputs.checkedFriendList
+            .bind(to: finalAdd.finalPeople.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)) { _, element, cell in
+                cell.profileImage.image = UIImage(named: "\(element.profileImage)")
+            }
+            .disposed(by: disposeBag)
+        
         titleInput.rx.text.orEmpty
             .bind(to: titleLabel.rx.text)
             .disposed(by: disposeBag)
-        
+    
         time.onPicker.rx.date
             .map {
                 let dateFormatter = DateFormatter()
@@ -257,16 +264,16 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
     
     func meetBind() {
         let title = titleLabel.text!
-        let people = finalAdd.finalPeople.text!
         let time = finalAdd.finalTime.text!
         let place = finalAdd.finalPlace.text!
         
-        Observable.just(title)
-            .bind(to: viewModel.inputs.title)
+        inviteViewModel.outputs.checkedFriendList
+            .map { "\($0[0].name) 외 \($0.count-1) 명" }
+            .bind(to: viewModel.inputs.people)
             .disposed(by: disposeBag)
         
-        Observable.just(people)
-            .bind(to: viewModel.inputs.people)
+        Observable.just(title)
+            .bind(to: viewModel.inputs.title)
             .disposed(by: disposeBag)
         
         Observable.just(time)

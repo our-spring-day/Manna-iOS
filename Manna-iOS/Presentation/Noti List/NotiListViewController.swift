@@ -113,10 +113,10 @@ class NotiListViewController: UIViewController {
                     }
                 } else {
                     self.textField.snp.updateConstraints {
-                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(100)
+                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(150)
                     }
                     self.tableView.snp.updateConstraints {
-                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(150)
+                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(200)
                     }
                 }
                 UIView.animate(withDuration: 0.3) {
