@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct UserListTestStruct {
-    let userListTestStruct = [justhis,sikk,soma,simondominic]
+struct UserListModel {
+    let userList = [justhis, sikk, soma, simondominic]
 }

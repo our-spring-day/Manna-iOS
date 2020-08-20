@@ -65,7 +65,7 @@ class BottomSheetViewController: UIViewController {
             self.view.isUserInteractionEnabled = false
             UIView.animate(withDuration: 0.3, delay: 0.0, options: .allowUserInteraction, animations: { let state: State = recognizer.velocity(in: self.view).y >= 0 ? .partial : .full
                 self.moveView(state: state)
-            }, completion: { bool in
+            }, completion: { _ in
                 self.view.isUserInteractionEnabled = true
             })
         }

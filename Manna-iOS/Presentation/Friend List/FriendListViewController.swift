@@ -15,12 +15,19 @@ import Then
 class FriendListViewController: UIViewController {
     let disposeBag = DisposeBag()
     
-    var friendListtableView = FriendListTableView()
+    var friendListTableView = FriendListTableView()
+    let friendListViewModel = FriendListViewModel()
     let searchController = UISearchController(searchResultsController: nil)
-    let viewModel = FriendListViewModel()
-    var selectedFriends = BehaviorRelay(value: User(name: "", profileImage: "", checkedFlag: 0))
     let addFriendButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
-    let screenSize: CGRect = UIScreen.main.bounds
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        attribute()
+        layout()
+        bind()
+    }
+    
+    // MARK: - Init
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -30,12 +37,7 @@ class FriendListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        attribute()
-        layout()
-        bind()
-    }
+    // MARK: - attribute
     
     func attribute() {
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -54,29 +56,35 @@ class FriendListViewController: UIViewController {
         }
     }
     
+    // MARK: - Layout
+    
     func layout() {
-        view.addSubview(friendListtableView)
+        view.addSubview(friendListTableView)
         
-        friendListtableView.snp.makeConstraints {
+        friendListTableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }
     
+    // MARK: - Bind
+    
     func bind() {
+        //테이블뷰 세팅
         FriendListViewModel.self.myFriendList
-            .bind(to: friendListtableView.baseTableView.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self)) { (_: Int, element: User, cell: FriendListCell) in
+            .bind(to: friendListTableView.baseTableView.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self)) { (_: Int, element: User, cell: FriendListCell) in
                 cell.friendIdLabel.text = element.name
                 cell.friendImageView.image = UIImage(named: "\(element.profileImage)")
                 cell.checkBoxImageView.isHidden = true
-        }
-        .disposed(by: disposeBag)
+        }.disposed(by: disposeBag)
         
+        //searchBar 위에 text로 teableView 실시간 필터링
         searchController.searchBar.rx.text
             .orEmpty
             .distinctUntilChanged()
-            .bind(to: viewModel.inputs.searchedFriendID)
+            .bind(to: friendListViewModel.inputs.searchedFriendID)
             .disposed(by: disposeBag)
         
+        //addFriendButton 클릭 시
         self.addFriendButton.rx.tap
             .subscribe(onNext: {
                 let addUserViewController = AddUserViewController()
@@ -86,7 +94,8 @@ class FriendListViewController: UIViewController {
                 }
             }).disposed(by: disposeBag)
         
-        friendListtableView.baseTableView.rx.modelSelected(User.self)
+        //tableView 위 item 클릭 시
+        friendListTableView.baseTableView.rx.modelSelected(User.self)
             .subscribe(onNext: { item in
                 let detailUserViewController = FriendDetailViewController()
                 detailUserViewController.do {
@@ -98,9 +107,10 @@ class FriendListViewController: UIViewController {
                 }
             }).disposed(by: disposeBag)
         
-        friendListtableView.baseTableView.rx.itemDeleted
+        //tableView 위 item 삭제 시
+        friendListTableView.baseTableView.rx.itemDeleted
             .map { FriendListViewModel.self.myFriendList.value[$0[1]] }
-            .bind(to: viewModel.inputs.deletedFriend)
+            .bind(to: friendListViewModel.inputs.deletedFriend)
             .disposed(by: disposeBag)
         
     }

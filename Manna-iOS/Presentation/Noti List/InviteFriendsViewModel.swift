@@ -1,4 +1,3 @@
-
 //  InviteFriendsViewModel.swift
 //  Manna-iOS
 //
@@ -11,14 +10,14 @@ import RxCocoa
 import RxSwift
 
 protocol InviteFriendsViewModellInput {
-    var itemFromTableView: AnyObserver<UserTestStruct> { get }
-    var itemFromCollectionView: AnyObserver<UserTestStruct> { get }
+    var itemFromTableView: AnyObserver<User> { get }
+    var itemFromCollectionView: AnyObserver<User> { get }
     var searchedFriendID: AnyObserver<String> { get }
 }
 
 protocol InviteFriendsViewModelOutput {
-    var friendList: Observable<[UserTestStruct]> { get }
-    var checkedFriendList: Observable<[UserTestStruct]> { get }
+    var friendList: Observable<[User]> { get }
+    var checkedFriendList: Observable<[User]> { get }
 }
 
 protocol InviteFriendsViewModelType {
@@ -29,23 +28,23 @@ protocol InviteFriendsViewModelType {
 class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModellInput, InviteFriendsViewModelOutput {
     let disposeBag = DisposeBag()
     //inputs
-    var itemFromTableView: AnyObserver<UserTestStruct>
-    var itemFromCollectionView: AnyObserver<UserTestStruct>
+    var itemFromTableView: AnyObserver<User>
+    var itemFromCollectionView: AnyObserver<User>
     var searchedFriendID: AnyObserver<String>
     
     //outputs
-    var friendList: Observable<[UserTestStruct]>
-    var checkedFriendList: Observable<[UserTestStruct]>
+    var friendList: Observable<[User]>
+    var checkedFriendList: Observable<[User]>
     
     
     init() {
-        let itemFromTableViewInput = PublishSubject<UserTestStruct>()
-        let itemFromCollectionViewInput = PublishSubject<UserTestStruct>()
+        let itemFromTableViewInput = PublishSubject<User>()
+        let itemFromCollectionViewInput = PublishSubject<User>()
         let SRCHInput = PublishSubject<String>()
         
-        let originalFriendList = BehaviorRelay<[UserTestStruct]>(value: UserListModel.originalFriendList)
-        let friendListOutput = BehaviorRelay<[UserTestStruct]>(value: originalFriendList.value)
-        let checkedFriendListOutput = BehaviorRelay<[UserTestStruct]>(value: [])
+        let originalFriendList = BehaviorRelay<[User]>(value: FriendListModel.originalFriendList)
+        let friendListOutput = BehaviorRelay<[User]>(value: originalFriendList.value)
+        let checkedFriendListOutput = BehaviorRelay<[User]>(value: [])
         
         itemFromTableView = itemFromTableViewInput.asObserver()
         itemFromCollectionView = itemFromCollectionViewInput.asObserver()
@@ -82,9 +81,8 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
             }).disposed(by: disposeBag)
         
         //friendList update with searchValue
-        
         SRCHInput
-            .flatMapLatest { (value) -> Observable<[UserTestStruct]> in
+            .flatMapLatest { (value) -> Observable<[User]> in
                 let result = originalFriendList.map { list in
                     list.filter {
                         if value.isEmpty { return true }

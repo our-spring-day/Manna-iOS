@@ -127,7 +127,7 @@ class AddUserViewController: UIViewController {
         //pop 시켜주고 새로 들어온 친구로 포커스 맞춰주면 좋을듯
         addFriendButton.rx.tap
             .map({ self.newFriend.value })
-            .bind(to: friendListViewModel.inputs.requestingFriend)
+            .bind(to: addUserViewModel.inputs.requestingFriend)
             .disposed(by: disposeBag)
     }
 }
