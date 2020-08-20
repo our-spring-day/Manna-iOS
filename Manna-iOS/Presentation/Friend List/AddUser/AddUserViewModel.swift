@@ -16,7 +16,7 @@ protocol AddUserViewModelInput {
 }
 
 protocol AddUserViewModelOutput {
-    var filteredUser: Observable<UserTestStruct> { get }
+    var filteredUser: Observable<User> { get }
 }
 
 protocol AddUserViewModelType {
@@ -29,12 +29,12 @@ class AddUserViewModel: AddUserViewModelType, AddUserViewModelInput, AddUserView
     //input
     let searchedUserID: AnyObserver<String>
     //output
-    var filteredUser: Observable<UserTestStruct>
+    var filteredUser: Observable<User>
     var itemsObservable = Observable.of(UserListTestStruct().userListTestStruct)
     
     init() {
         let searchedUserIDInput = PublishSubject<String>()
-        var filteredUserOutput = PublishSubject<UserTestStruct>()
+        let filteredUserOutput = PublishSubject<User>()
         
         searchedUserID = searchedUserIDInput.asObserver()
         filteredUser = filteredUserOutput.asObservable()
@@ -42,20 +42,16 @@ class AddUserViewModel: AddUserViewModelType, AddUserViewModelInput, AddUserView
         searchedUserIDInput
             .filterEmpty()
             .distinctUntilChanged()
-            .subscribe(onNext: { value in
-                self.itemsObservable.map{
-                    $0.filter{ key in
-                        if key.name == value {
-                            return true
-                        } else {
-                            return false
-                        }
+            .flatMap({ value in
+                self.itemsObservable.map {
+                    $0.filter { key in
+                        if key.name == value { return true } else { return false }
                     }
-                }
-                .filterEmpty()
-                .map({ $0[0] })
-                .bind(to: filteredUserOutput)
-            }).disposed(by: disposeBag)
+                }})
+            .filterEmpty()
+            .map { $0[0] }
+            .bind(to: filteredUserOutput)
+            .disposed(by: disposeBag)
     }
     var inputs: AddUserViewModelInput { return self }
     var outputs: AddUserViewModelOutput { return self }

@@ -242,8 +242,6 @@
 			children = (
 				CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */,
 				CC986DD024A5DB95004450B7 /* AddUserViewModel.swift */,
-				CCAC1F2C24B2FD28007C21ED /* UserListTestStruct.swift */,
-				CCB1578524AB3D0E00D81511 /* UserTestStruct.swift */,
 			);
 			path = AddUser;
 			sourceTree = "<group>";

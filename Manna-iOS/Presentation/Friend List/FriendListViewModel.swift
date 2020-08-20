@@ -13,12 +13,12 @@ import RxOptional
 
 protocol FriendListViewModelInput {
     var searchedFriendID: AnyObserver<String> { get }
-    var deletedFriend: AnyObserver<UserTestStruct> { get }
-    var requestingFriend: AnyObserver<UserTestStruct> { get }
+    var deletedFriend: AnyObserver<User> { get }
+    var requestingFriend: AnyObserver<User> { get }
 }
 
 protocol FriendListViewModelOutput {
-    static var myFriendList: BehaviorRelay<[UserTestStruct]> { get }
+    static var myFriendList: BehaviorRelay<[User]> { get }
 }
 
 protocol FriendListViewModelType {
@@ -26,21 +26,21 @@ protocol FriendListViewModelType {
     var outputs: FriendListViewModelOutput { get }
 }
 
-class FriendListViewModel: FriendListViewModelType,FriendListViewModelInput, FriendListViewModelOutput {
+class FriendListViewModel: FriendListViewModelType, FriendListViewModelInput, FriendListViewModelOutput {
     
     let disposeBag = DisposeBag()
     //input
     var searchedFriendID: AnyObserver<String>
-    var deletedFriend: AnyObserver<UserTestStruct>
-    var requestingFriend: AnyObserver<UserTestStruct>
+    var deletedFriend: AnyObserver<User>
+    var requestingFriend: AnyObserver<User>
     //output
-    static var myFriendList = BehaviorRelay(value: [UserTestStruct]())
-    static var originalFriendList = BehaviorRelay<[UserTestStruct]>(value: UserListModel.originalFriendList)
+    static var myFriendList = BehaviorRelay(value: [User]())
+    static var originalFriendList = BehaviorRelay<[User]>(value: UserListModel.originalFriendList)
     
     init() {
         let searchedUserIDInput = PublishSubject<String>()
-        let deletedFriendInput = PublishSubject<UserTestStruct>()
-        let requestingFriendInput = PublishSubject<UserTestStruct>()
+        let deletedFriendInput = PublishSubject<User>()
+        let requestingFriendInput = PublishSubject<User>()
         
         searchedFriendID = searchedUserIDInput.asObserver()
         deletedFriend = deletedFriendInput.asObserver()

@@ -24,7 +24,7 @@ class AddUserViewController: UIViewController {
     let searchedUserImageView = UIImageView()
     let searchedUserIdLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     let addFriendButton = UIButton()
-    var newFriend =  BehaviorRelay(value: UserTestStruct(name: "", profileImage: "", checkedFlag: 0))
+    var newFriend =  BehaviorRelay(value: User(name: "", profileImage: "", checkedFlag: 0))
     lazy var newFriendObservable = Observable.just(self.newFriend)
     
     override func viewDidLoad() {

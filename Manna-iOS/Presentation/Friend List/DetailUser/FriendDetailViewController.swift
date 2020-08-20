@@ -13,7 +13,7 @@ import RxCocoa
 class FriendDetailViewController: UIViewController {
     let disposeBag = DisposeBag()
 
-    var selectedFriend: UserTestStruct?
+    var selectedFriend: User?
     let backgroundView = UIView()
     let friendImageView = UIImageView()
     let friendIDLabel = UILabel()
