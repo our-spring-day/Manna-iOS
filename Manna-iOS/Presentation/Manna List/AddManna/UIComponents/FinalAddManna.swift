@@ -11,12 +11,13 @@ import SnapKit
 
 class FinalAddManna: UIView {
     
-    let finalPeopleLabel = UILabel()
-    let finalPeople = UILabel()
     let finalTimeLabel = UILabel()
     let finalTime = UILabel()
     let finalPlaceLabel = UILabel()
     let finalPlace = UILabel()
+    let finalPeopleLabel = UILabel()
+    let finalPeople = UICollectionView()
+    let layoutValue = UICollectionViewFlowLayout()
     let completeButton = UIButton()
     
     override init(frame: CGRect) {
@@ -30,13 +31,7 @@ class FinalAddManna: UIView {
     }
     
     func attribute() {
-        finalPeopleLabel.do {
-            $0.text = "초대인원 : "
-            $0.textColor = .black
-        }
-        finalPeople.do {
-            $0.textColor = .black
-        }
+        self.backgroundColor = .white
         finalTimeLabel.do {
             $0.text = "시간 : "
             $0.textColor = .black
@@ -51,6 +46,24 @@ class FinalAddManna: UIView {
         finalPlace.do {
             $0.textColor = .black
         }
+        finalPeopleLabel.do {
+            $0.text = "참여 인원"
+            $0.textColor = .black
+        }
+        finalPeople.do {
+            $0.collectionViewLayout = layoutValue
+            $0.backgroundColor = .white
+            $0.register(CheckedFriendCell.self, forCellWithReuseIdentifier: CheckedFriendCell.identifier)
+            $0.isPagingEnabled = true
+            $0.showsHorizontalScrollIndicator = false
+        }
+        layoutValue.do {
+            $0.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            $0.minimumLineSpacing = 10
+            $0.minimumInteritemSpacing = 10
+            $0.itemSize = CGSize(width: 50, height: 50)
+            $0.scrollDirection = .horizontal
+        }
         completeButton.do {
             $0.setTitle("약속추가!!", for: .normal)
             $0.layer.borderWidth = 1.0
@@ -59,24 +72,16 @@ class FinalAddManna: UIView {
     }
     
     func layout() {
-        addSubview(finalPeopleLabel)
-        addSubview(finalPeople)
         addSubview(finalTimeLabel)
         addSubview(finalTime)
         addSubview(finalPlaceLabel)
         addSubview(finalPlace)
         addSubview(completeButton)
+        addSubview(finalPeopleLabel)
+        addSubview(finalPeople)
         
-        finalPeopleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(100)
-            $0.leading.equalToSuperview().offset(40)
-        }
-        finalPeople.snp.makeConstraints {
-            $0.top.equalTo(finalPeopleLabel)
-            $0.leading.equalTo(finalPeopleLabel.snp.trailing).offset(20)
-        }
         finalTimeLabel.snp.makeConstraints {
-            $0.top.equalTo(finalPeopleLabel.snp.bottom).offset(30)
+            $0.top.equalToSuperview().offset(30)
             $0.leading.equalToSuperview().offset(40)
         }
         finalTime.snp.makeConstraints {
@@ -92,8 +97,17 @@ class FinalAddManna: UIView {
             $0.leading.equalTo(finalPlaceLabel.snp.trailing).offset(20)
             $0.trailing.equalToSuperview().offset(-20)
         }
-        completeButton.snp.makeConstraints {
+        finalPeopleLabel.snp.makeConstraints {
             $0.top.equalTo(finalPlace.snp.bottom).offset(30)
+            $0.leading.equalToSuperview().offset(40)
+        }
+        finalPeople.snp.makeConstraints {
+            $0.top.equalTo(finalPeopleLabel.snp.bottom).offset(10)
+            $0.leading.trailing.equalToSuperview().offset(40)
+            $0.bottom.equalToSuperview().offset(70)
+        }
+        completeButton.snp.makeConstraints {
+            $0.top.equalTo(finalPeople.snp.bottom).offset(30)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(100)
             $0.height.equalTo(40)

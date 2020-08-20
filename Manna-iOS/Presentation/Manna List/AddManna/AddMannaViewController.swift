@@ -211,27 +211,16 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
                     self.people.textField.snp.updateConstraints {
                         $0.top.equalToSuperview()
                     }
-//                    self.people.textField.snp.updateConstraints {
-//                        $0.top.equalTo(self.scrollView.snp.top)
-//                    }
-//                    self.people.tableView.snp.updateConstraints {
-//                        $0.top.equalTo(self.scrollView.snp.top).offset(50)
-//                    }
                 } else {
                     self.people.textField.snp.updateConstraints {
                         $0.top.equalToSuperview().offset(50)
                     }
-//                    self.people.textField.snp.updateConstraints {
-//                        $0.top.equalTo(self.scrollView.snp.top).offset(100)
-//                    }
-//                    self.people.tableView.snp.updateConstraints {
-//                        $0.top.equalTo(self.scrollView.snp.top).offset(150)
-//                    }
                 }
                 UIView.animate(withDuration: 0.3) {
                     self.view.layoutIfNeeded()
                 }
-            }).disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
         
         //keyboard hide when tableView,collectionView scrolling
         Observable.of(people.tableView.rx.didScroll.asObservable(), people.collectionView.rx.didScroll.asObservable())
