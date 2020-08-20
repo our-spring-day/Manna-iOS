@@ -22,10 +22,12 @@ class FriendDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         attributes()
-        layouts()
+        layout()
         dismissActionSet()
         bind()
     }
+    
+    // MARK: - attributes
     
     func attributes() {
         view.do {
@@ -53,7 +55,9 @@ class FriendDetailViewController: UIViewController {
         }
     }
     
-    func layouts() {
+    // MARK: - layout
+    
+    func layout() {
         view.addSubview(backgroundView)
         view.addSubview(friendImageView)
         backgroundView.addSubview(friendIDLabel)
@@ -80,6 +84,8 @@ class FriendDetailViewController: UIViewController {
         }
     }
     
+    // MARK: - bind
+    
     func bind() {
         mannaButton.rx.tap
             .map { self.selectedFriend?.name }
@@ -90,11 +96,13 @@ class FriendDetailViewController: UIViewController {
             }).disposed(by: disposeBag)
     }
     
+    // MARK: - set gesture
     func dismissActionSet() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(dismiss(_:)))
         self.view.addGestureRecognizer(gesture)
     }
     
+    // MARK: - action
     @objc func dismiss(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
