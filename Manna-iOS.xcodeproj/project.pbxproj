@@ -409,7 +409,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = "정재인";
 				TargetAttributes = {
 					CC7059E82477B81100462251 = {
@@ -555,7 +555,6 @@
 				A519FFD524953C000074D554 /* MannaProvider.swift in Sources */,
 				A585F8312482848200A60530 /* NotiListViewModel.swift in Sources */,
 				A5677B0E24B78D4500059EE0 /* UIView-Ext.swift in Sources */,
-				CC705A0B2477D28800462251 /* FriendListViewController.swift in Sources */,
 				CC7059ED2477B81100462251 /* AppDelegate.swift in Sources */,
 				CC8DB2F024CEE09B0003B3D2 /* TempViewController.swift in Sources */,
 				CCB0F24924C6EDDE00BBEAFC /* CheckedFriendCell.swift in Sources */,
