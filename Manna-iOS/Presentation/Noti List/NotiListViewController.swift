@@ -17,8 +17,7 @@ class NotiListViewController: UIViewController {
     let inviteFriendsViewModel = InviteFriendsViewModel()
     let layoutValue = UICollectionViewFlowLayout()
     
-//    var collectionView = FriendsListCollectionView()
-    var scrollview = UIScrollView()
+    var collectionView = FriendsListCollectionView()
     var textField = UITextField()
     var tableView = FriendListTableView()
     
@@ -43,19 +42,18 @@ class NotiListViewController: UIViewController {
     }
     
     func layout() {
-//        view.addSubview(collectionView)
+        view.addSubview(collectionView)
         view.addSubview(scrollview)
         view.addSubview(textField)
         view.addSubview(tableView)
-        
-//        collectionView.snp.makeConstraints {
-//            $0.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-//        }
-        scrollview.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(100)
+        collectionView.snp.makeConstraints {
+            $0.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-        
+        scrollview.snp.makeConstraints {
+            $0.top.leading.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(100)
+            $0.width.equalTo(view.frame.width * 2)
+        }
         textField.snp.makeConstraints {
             $0.centerX.equalTo(view.snp.centerX)
             $0.top.equalTo(scrollview.snp.bottom)
@@ -83,24 +81,24 @@ class NotiListViewController: UIViewController {
         }.disposed(by: disposeBag)
         
         //collectionView set
-//        inviteFriendsViewModel.outputs.checkedFriendList
-//            .bind(to: self.collectionView.baseCollectionView.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)) { (_: Int, element: UserTestStruct, cell: CheckedFriendCell) in
-//                cell.profileImage.image = UIImage(named: "\(element.profileImage)")
-//                UIView.animate(withDuration: 0.3) {
-//                    self.view.layoutIfNeeded()
-//                }
-//        }.disposed(by: self.disposeBag)
-//
+        inviteFriendsViewModel.outputs.checkedFriendList
+            .bind(to: self.collectionView.baseCollectionView.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)) { (_: Int, element: UserTestStruct, cell: CheckedFriendCell) in
+                cell.profileImage.image = UIImage(named: "\(element.profileImage)")
+                UIView.animate(withDuration: 0.3) {
+                    self.view.layoutIfNeeded()
+                }
+        }.disposed(by: self.disposeBag)
+
         //checked Friend at tableView
         tableView.baseTableView.rx.modelSelected(UserTestStruct.self)
             .bind(to: inviteFriendsViewModel.inputs.itemFromTableView)
             .disposed(by: disposeBag)
         
         //selected Friend at collectionView
-//        collectionView.baseCollectionView.rx.modelSelected(UserTestStruct.self)
-//            .bind(to: inviteFriendsViewModel.inputs.itemFromCollectionView)
-//            .disposed(by: disposeBag)
-//
+        collectionView.baseCollectionView.rx.modelSelected(UserTestStruct.self)
+            .bind(to: inviteFriendsViewModel.inputs.itemFromCollectionView)
+            .disposed(by: disposeBag)
+
         //searchID bind
         textField.rx.text
             .orEmpty
@@ -135,9 +133,9 @@ class NotiListViewController: UIViewController {
             }).disposed(by: disposeBag)
         
         //keyboard hide when tableView,collectionView scrolling
-//        Observable.of(tableView.baseTableView.rx.didScroll.asObservable(), collectionView.baseCollectionView.rx.didScroll.asObservable()).merge()
-//            .subscribe(onNext: {
-//                self.view.endEditing(true)
-//            }).disposed(by: disposeBag)
+        Observable.of(tableView.baseTableView.rx.didScroll.asObservable(), collectionView.baseCollectionView.rx.didScroll.asObservable()).merge()
+            .subscribe(onNext: {
+                self.view.endEditing(true)
+            }).disposed(by: disposeBag)
     }
 }
