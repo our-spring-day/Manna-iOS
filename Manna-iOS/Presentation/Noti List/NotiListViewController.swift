@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import RxSwift
 import RxCocoa
 import RxDataSources
+import RxSwift
 
 class NotiListViewController: UIViewController {
     let disposeBag = DisposeBag()
@@ -30,6 +30,8 @@ class NotiListViewController: UIViewController {
         bind()
     }
     
+    // MARK: - attribute
+    
     func attribute() {
         view.do {
             $0.backgroundColor = .white
@@ -39,6 +41,8 @@ class NotiListViewController: UIViewController {
             $0.backgroundColor = .lightGray
         }
     }
+    
+    // MARK: - layout
     
     func layout() {
         view.addSubview(collectionView)
@@ -60,6 +64,8 @@ class NotiListViewController: UIViewController {
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
+    
+    // MARK: - bind
     
     func bind() {
         //tableView set

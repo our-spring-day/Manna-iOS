@@ -7,8 +7,9 @@
 //
 
 import UIKit
-import SnapKit
 import RxSwift
+import SnapKit
+
 
 class FriendListCell: UITableViewCell {
     static let identifier = "UserListCell"

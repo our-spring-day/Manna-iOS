@@ -6,11 +6,10 @@
 //  Copyright © 2020 정재인. All rights reserved.
 //
 
-
+import UIKit
 import RxCocoa
 import RxSwift
 import SnapKit
-import UIKit
 
 class AddUserViewController: UIViewController {
     let disposeBag = DisposeBag()
@@ -74,7 +73,7 @@ class AddUserViewController: UIViewController {
         }
     }
     
-    // MARK: - layouts
+    // MARK: - layout
 
     func layout() {
         view.addSubview(backgroundView)

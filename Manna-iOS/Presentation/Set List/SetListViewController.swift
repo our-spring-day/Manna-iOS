@@ -7,10 +7,10 @@
 //
 
 import UIKit
+import NMapsMap
 import RxSwift
 import RxCocoa
 import SnapKit
-import NMapsMap
 
 class SetListViewController: UIViewController {
     let disposeBag = DisposeBag()

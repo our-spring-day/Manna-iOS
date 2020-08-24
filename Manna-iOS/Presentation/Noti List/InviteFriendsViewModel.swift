@@ -58,6 +58,7 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
             .subscribe(onNext: { item in
                 var newOriginalValue = originalFriendList.value
                 var newCheckValue = checkedFriendListOutput.value
+                
                 if newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag == 0 {
                     newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag = 1
                     newCheckValue.insert(newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!], at: 0)
