@@ -32,9 +32,6 @@ class NotiListViewController: UIViewController {
         view.do {
             $0.backgroundColor = .white
         }
-        scrollview.do {
-            $0.backgroundColor = .red
-        }
         textField.do {
             $0.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
             $0.backgroundColor = .lightGray
@@ -43,20 +40,14 @@ class NotiListViewController: UIViewController {
     
     func layout() {
         view.addSubview(collectionView)
-        view.addSubview(scrollview)
         view.addSubview(textField)
         view.addSubview(tableView)
         collectionView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-        scrollview.snp.makeConstraints {
-            $0.top.leading.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(100)
-            $0.width.equalTo(view.frame.width * 2)
-        }
         textField.snp.makeConstraints {
             $0.centerX.equalTo(view.snp.centerX)
-            $0.top.equalTo(scrollview.snp.bottom)
+            $0.top.equalTo(collectionView.snp.bottom)
             $0.width.equalTo(view.safeAreaLayoutGuide).offset(-50)
             $0.height.equalTo(40)
         }

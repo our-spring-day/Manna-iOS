@@ -182,6 +182,8 @@
 		A54702B02486A9220091CA55 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				CC384C0D24852ADB005F34AE /* UserListModel.swift */,
+				CC4FCA0624C0207500FEE302 /* MeetingMember.swift */,
 				A54702B12486A93F0091CA55 /* Manna.swift */,
 				A5B92B1D2496340B008A14C3 /* MannaSection.swift */,
 				A5EB4A0D24BCA6BD0084EBE5 /* Address.swift */,
@@ -272,7 +274,6 @@
 			children = (
 				CCC1F7EE24BEE78000DC8BCB /* Component */,
 				CCB1578724AB538C00D81511 /* Protocol */,
-				CCB1578424AB3C3000D81511 /* Entity */,
 				A552C78524A4EC9E00D834BF /* Extensions-Utillities */,
 				A519FFD324953BCD0074D554 /* DataProvider */,
 				A54702B02486A9220091CA55 /* Entity */,
@@ -351,15 +352,6 @@
 				CC8DB2EF24CEE09B0003B3D2 /* TempViewController.swift */,
 			);
 			path = DetailUser;
-			sourceTree = "<group>";
-		};
-		CCB1578424AB3C3000D81511 /* Entity */ = {
-			isa = PBXGroup;
-			children = (
-				CC384C0D24852ADB005F34AE /* UserListModel.swift */,
-				CC4FCA0624C0207500FEE302 /* MeetingMember.swift */,
-			);
-			path = Entity;
 			sourceTree = "<group>";
 		};
 		CCB1578724AB538C00D81511 /* Protocol */ = {
