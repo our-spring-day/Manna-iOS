@@ -53,6 +53,24 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         friendList = friendListOutput.asObservable()
         checkedFriendList = checkedFriendListOutput.asObservable()
         
+        checkedFriendListOutput
+            .map { $0.filter { $0.checkedFlag == true } }
+            .scan([User](), accumulator: { (lastValue, newValue) in
+            if lastValue.count < newValue.count {
+                print("한명 늘었네용")
+                print(newValue.filter { !lastValue.contains($0 as! User) })
+            } else {
+                print("한명 줄었네용")
+                //없어진놈
+                print(lastValue.filter { !newValue.contains($0 as! User) })
+            }
+            return newValue
+        })
+        .subscribe(onNext: {
+            print($0)
+        }).disposed(by: disposeBag)
+        
+        
         //checkedFriendList update with tableView
         itemFromTableViewInput
             .subscribe(onNext: { item in

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct User: Hashable {
+struct User: Hashable, Equatable{
     var name: String
     var profileImage: String
     var checkedFlag: Bool
