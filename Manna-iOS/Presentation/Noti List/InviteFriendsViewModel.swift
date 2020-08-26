@@ -53,50 +53,53 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         friendList = friendListOutput.asObservable()
         checkedFriendList = checkedFriendListOutput.asObservable()
         
-        checkedFriendListOutput
+        friendListOutput
+        .skip(2)
             .map { $0.filter { $0.checkedFlag == true } }
-            .scan([User](), accumulator: { (lastValue, newValue) in
+            .scan([User](), accumulator: {
+                var lastValue = $0
+                var newValue = $1
             if lastValue.count < newValue.count {
-                print("한명 늘었네용")
-                print(newValue.filter { !lastValue.contains($0 as! User) })
+                let checkedFriend = newValue.filter { !lastValue.contains($0 ) }
+                lastValue.insert(checkedFriend[0], at: 0)
+                return lastValue
             } else {
-                print("한명 줄었네용")
-                //없어진놈
-                print(lastValue.filter { !newValue.contains($0 as! User) })
+                let uncheckedFriend = lastValue.filter { !newValue.contains($0 ) }
+                if let uncheckedIndex = lastValue.firstIndex(of: uncheckedFriend[0]) {
+                    lastValue.remove(at: uncheckedIndex)
+                }
+                return lastValue
             }
-            return newValue
-        })
-        .subscribe(onNext: {
-            print($0)
-        }).disposed(by: disposeBag)
+            }).bind(to: checkedFriendListOutput)
+            .disposed(by: disposeBag)
         
         
         //checkedFriendList update with tableView
         itemFromTableViewInput
             .subscribe(onNext: { item in
                 var newOriginalValue = originalFriendList.value
-                var newCheckValue = checkedFriendListOutput.value
+//                var newCheckValue = checkedFriendListOutput.value
                 
                 if newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag == false {
                     newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag = true
-                    newCheckValue.insert(newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!], at: 0)
+//                    newCheckValue.insert(newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!], at: 0)
                 } else {
                     newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag = false
-                    newCheckValue.remove(at: newCheckValue.firstIndex(where: { $0.name == item.name })!)
+//                    newCheckValue.remove(at: newCheckValue.firstIndex(where: { $0.name == item.name })!)
                 }
                 originalFriendList.accept(newOriginalValue)
-                checkedFriendListOutput.accept(newCheckValue)
+//                checkedFriendListOutput.accept(newCheckValue)
             }).disposed(by: disposeBag)
         
         //checkedMemberArray update with collectionView
         itemFromCollectionViewInput
             .subscribe(onNext: { item in
                 var newOriginalValue = originalFriendList.value
-                var newCheckValue = checkedFriendListOutput.value
+//                var newCheckValue = checkedFriendListOutput.value
                 newOriginalValue[newOriginalValue.firstIndex(where: {$0.name == item.name})!].checkedFlag = false
-                newCheckValue.remove(at: newCheckValue.firstIndex(where: { $0.name == item.name})!)
+//                newCheckValue.remove(at: newCheckValue.firstIndex(where: { $0.name == item.name})!)
                 originalFriendList.accept(newOriginalValue)
-                checkedFriendListOutput.accept(newCheckValue)
+//                checkedFriendListOutput.accept(newCheckValue)
             }).disposed(by: disposeBag)
         
         //friendList update with searchValue
