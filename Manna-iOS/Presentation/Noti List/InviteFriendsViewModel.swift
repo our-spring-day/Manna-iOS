@@ -59,11 +59,11 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
                 var newOriginalValue = originalFriendList.value
                 var newCheckValue = checkedFriendListOutput.value
                 
-                if newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag == 0 {
-                    newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag = 1
+                if newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag == false {
+                    newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag = true
                     newCheckValue.insert(newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!], at: 0)
                 } else {
-                    newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag = 0
+                    newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag = false
                     newCheckValue.remove(at: newCheckValue.firstIndex(where: { $0.name == item.name })!)
                 }
                 originalFriendList.accept(newOriginalValue)
@@ -75,7 +75,7 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
             .subscribe(onNext: { item in
                 var newOriginalValue = originalFriendList.value
                 var newCheckValue = checkedFriendListOutput.value
-                newOriginalValue[newOriginalValue.firstIndex(where: {$0.name == item.name})!].checkedFlag = 0
+                newOriginalValue[newOriginalValue.firstIndex(where: {$0.name == item.name})!].checkedFlag = false
                 newCheckValue.remove(at: newCheckValue.firstIndex(where: { $0.name == item.name})!)
                 originalFriendList.accept(newOriginalValue)
                 checkedFriendListOutput.accept(newCheckValue)

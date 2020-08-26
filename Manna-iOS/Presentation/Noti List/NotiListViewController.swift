@@ -68,12 +68,12 @@ class NotiListViewController: UIViewController {
     // MARK: - bind
     
     func bind() {
-        //tableView set
+        //친구목록을 뿌려주고 이때 체크플래그를 확인하고 맞는 이미지를 할당
         inviteFriendsViewModel.outputs.friendList
             .bind(to: tableView.baseTableView.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self)) { (_: Int, element: User, cell: FriendListCell) in
                 cell.friendIdLabel.text = element.name
                 cell.friendImageView.image = UIImage(named: "\(element.profileImage)")
-                if element.checkedFlag == 1 {
+                if element.checkedFlag == true {
                     cell.checkBoxImageView.image = UIImage(named: "checked")
                 } else {
                     cell.checkBoxImageView.image = UIImage(named: "unchecked")
