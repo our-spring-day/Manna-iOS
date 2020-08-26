@@ -34,13 +34,13 @@ class CheckedFriendCell: UICollectionViewCell {
     }
     
     func layout() {
-        self.addSubview(self.profileImage)
-        self.addSubview(self.XImage)
+        addSubview(self.profileImage)
+        addSubview(self.XImage)
         
-        self.profileImage.snp.makeConstraints { make in
-            make.leading.top.trailing.bottom.equalTo(0)
+        profileImage.snp.makeConstraints {
+            $0.leading.top.trailing.bottom.equalTo(0)
         }
-        self.XImage.snp.makeConstraints {
+        XImage.snp.makeConstraints {
             $0.top.equalTo(-5)
             $0.trailing.equalTo(10)
             $0.width.height.equalTo(20)

@@ -95,7 +95,11 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
                 originalFriendList.accept(newOriginalValue)
             }).disposed(by: disposeBag)
         
+<<<<<<< HEAD
+        //friendList update with searchValue
+=======
         //검색어에 따른 친구목록 필터링
+>>>>>>> develop
         SRCHInput
             .flatMapLatest { (value) -> Observable<[User]> in
                 let result = originalFriendList.map { list in

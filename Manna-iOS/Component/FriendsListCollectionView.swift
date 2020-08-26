@@ -26,7 +26,7 @@ class FriendsListCollectionView: UIView {
         self.do {
             $0.backgroundColor = .white
         }
-        baseCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layoutValue)
+        baseCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: self.layoutValue)
         baseCollectionView.do {
             $0.backgroundColor = .white
             $0.register(CheckedFriendCell.self, forCellWithReuseIdentifier: CheckedFriendCell.identifier)

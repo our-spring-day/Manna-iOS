@@ -15,8 +15,11 @@ class NotiListViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     let inviteFriendsViewModel = InviteFriendsViewModel()
+<<<<<<< HEAD
+=======
     let checkedMemberArray: BehaviorRelay<[User]> = BehaviorRelay(value: [])
     let userListViewModel = FriendListViewModel()
+>>>>>>> develop
     let layoutValue = UICollectionViewFlowLayout()
     
     var collectionView = FriendsListCollectionView()
@@ -48,18 +51,17 @@ class NotiListViewController: UIViewController {
         view.addSubview(collectionView)
         view.addSubview(textField)
         view.addSubview(tableView)
-        
         collectionView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         textField.snp.makeConstraints {
             $0.centerX.equalTo(view.snp.centerX)
-            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(collectionView.snp.bottom)
             $0.width.equalTo(view.safeAreaLayoutGuide).offset(-50)
             $0.height.equalTo(40)
         }
         tableView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(50)
+            $0.top.equalTo(textField.snp.bottom)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
@@ -88,7 +90,7 @@ class NotiListViewController: UIViewController {
                     self.view.layoutIfNeeded()
                 }
         }.disposed(by: self.disposeBag)
-        
+
         //checked Friend at tableView
         tableView.baseTableView.rx.modelSelected(User.self)
             .bind(to: inviteFriendsViewModel.inputs.itemFromTableView)
@@ -98,7 +100,7 @@ class NotiListViewController: UIViewController {
         collectionView.baseCollectionView.rx.modelSelected(User.self)
             .bind(to: inviteFriendsViewModel.inputs.itemFromCollectionView)
             .disposed(by: disposeBag)
-        
+
         //searchID bind
         textField.rx.text
             .orEmpty
@@ -121,10 +123,10 @@ class NotiListViewController: UIViewController {
                     }
                 } else {
                     self.textField.snp.updateConstraints {
-                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(100)
+                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(150)
                     }
                     self.tableView.snp.updateConstraints {
-                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(150)
+                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(200)
                     }
                 }
                 UIView.animate(withDuration: 0.3) {

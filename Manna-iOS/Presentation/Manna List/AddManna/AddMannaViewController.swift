@@ -15,6 +15,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
     let disposeBag = DisposeBag()
     
     let viewModel: AddMannaViewModelType
+    let inviteViewModel = InviteFriendsViewModel()
     static let shared = AddMannaViewController()
     
     let people = PeopleAddManna()
@@ -23,7 +24,6 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
     let finalAdd = FinalAddManna()
     
     let scrollView = UIScrollView()
-    let pageControl = UIPageControl()
     let titleLabel = UILabel()
     let titleInput = UITextField()
     let titleButton = UIButton()
@@ -49,6 +49,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         attribute()
         layout()
+        UIBind()
         bind()
     }
     
@@ -56,7 +57,6 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         navigationController?.isNavigationBarHidden = true
         finalAdd.finalPlace.numberOfLines = 0
         finalAdd.completeButton.addTarget(self, action: #selector(addMeet), for: .touchUpInside)
-        people.mannaPeople.delegate = people
         scrollView.do {
             $0.isHidden = true
             $0.backgroundColor = .red
@@ -74,6 +74,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         titleInput.do {
             $0.layer.borderWidth = 1.0
             $0.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            $0.layer.cornerRadius = 8
             $0.textAlignment = .center
             $0.placeholder = "만남 타이틀"
             $0.delegate = self
@@ -106,7 +107,6 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(scrollView)
         view.addSubview(prevButton)
         view.addSubview(nextButton)
-        scrollView.addSubview(pageControl)
         scrollView.addSubview(people)
         scrollView.addSubview(time)
         scrollView.addSubview(place)
@@ -125,7 +125,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         titleButton.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
             $0.trailing.equalTo(view.snp.trailing).offset(-10)
-            $0.width.equalTo(80)
+            $0.width.equalTo(60)
             $0.height.equalTo(30)
         }
         prevButton.snp.makeConstraints {
@@ -142,11 +142,6 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(60)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-        }
-        pageControl.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-5)
-            $0.centerX.equalToSuperview()
-            $0.height.equalTo(30)
         }
         people.snp.makeConstraints {
             $0.top.equalTo(scrollView.snp.top)
@@ -174,17 +169,84 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func bind() {
-        titleInput.rx.text.orEmpty
-            .bind(to: titleLabel.rx.text)
+    func UIBind() {
+        inviteViewModel.outputs.friendList
+            .bind(to: people.tableView.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self)) { (_: Int, element: UserTestStruct, cell: FriendListCell) in
+                cell.friendIdLabel.text = element.name
+                cell.friendImageView.image = UIImage(named: "\(element.profileImage)")
+                if element.checkedFlag == 1 {
+                    cell.checkBoxImageView.image = UIImage(named: "checked")
+                } else {
+                    cell.checkBoxImageView.image = UIImage(named: "unchecked")
+                }
+        }.disposed(by: disposeBag)
+        
+        //collectionView set
+        inviteViewModel.outputs.checkedFriendList
+            .bind(to: people.collectionView.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)) { (_: Int, element: UserTestStruct, cell: CheckedFriendCell) in
+                cell.profileImage.image = UIImage(named: "\(element.profileImage)")
+                UIView.animate(withDuration: 0.3) {
+                    self.scrollView.layoutIfNeeded()
+                }
+        }.disposed(by: self.disposeBag)
+        
+        //checked Friend at tableView
+        people.tableView.rx.modelSelected(UserTestStruct.self)
+            .bind(to: inviteViewModel.inputs.itemFromTableView)
             .disposed(by: disposeBag)
         
-        people.mannaPeople.rx.text.orEmpty
-            .subscribe(onNext: { [weak self] value in
-                self?.finalAdd.finalPeople.text = value
+        //selected Friend at collectionView
+        people.collectionView.rx.modelSelected(UserTestStruct.self)
+            .bind(to: inviteViewModel.inputs.itemFromCollectionView)
+            .disposed(by: disposeBag)
+        
+        //searchID bind
+        people.textField.rx.text
+            .orEmpty
+            .distinctUntilChanged()
+            .bind(to: inviteViewModel.inputs.searchedFriendID)
+            .disposed(by: disposeBag)
+        
+        //dynamic tableView's height by checkedFriend exist
+        inviteViewModel.outputs.checkedFriendList
+            .skip(1)
+            .map { $0.count }
+            .filter { $0 <= 1 }
+            .subscribe(onNext: { count in
+                if count < 1 {
+                    self.people.textField.snp.updateConstraints {
+                        $0.top.equalToSuperview()
+                    }
+                } else {
+                    self.people.textField.snp.updateConstraints {
+                        $0.top.equalToSuperview().offset(100)
+                    }
+                }
+                UIView.animate(withDuration: 0.3) {
+                    self.view.layoutIfNeeded()
+                }
             })
             .disposed(by: disposeBag)
         
+        //keyboard hide when tableView,collectionView scrolling
+        Observable.of(people.tableView.rx.didScroll.asObservable(), people.collectionView.rx.didScroll.asObservable())
+            .merge()
+            .subscribe(onNext: {
+                self.view.endEditing(true)
+            }).disposed(by: disposeBag)
+    }
+    
+    func bind() {
+        inviteViewModel.outputs.checkedFriendList
+            .bind(to: finalAdd.finalPeople.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)) { _, element, cell in
+                cell.profileImage.image = UIImage(named: "\(element.profileImage)")
+            }
+            .disposed(by: disposeBag)
+        
+        titleInput.rx.text.orEmpty
+            .bind(to: titleLabel.rx.text)
+            .disposed(by: disposeBag)
+    
         time.onPicker.rx.date
             .map {
                 let dateFormatter = DateFormatter()
@@ -207,16 +269,16 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
     
     func meetBind() {
         let title = titleLabel.text!
-        let people = finalAdd.finalPeople.text!
         let time = finalAdd.finalTime.text!
         let place = finalAdd.finalPlace.text!
         
-        Observable.just(title)
-            .bind(to: viewModel.inputs.title)
+        inviteViewModel.outputs.checkedFriendList
+            .map { "\($0[0].name) 외 \($0.count-1) 명" }
+            .bind(to: viewModel.inputs.people)
             .disposed(by: disposeBag)
         
-        Observable.just(people)
-            .bind(to: viewModel.inputs.people)
+        Observable.just(title)
+            .bind(to: viewModel.inputs.title)
             .disposed(by: disposeBag)
         
         Observable.just(time)
@@ -274,7 +336,6 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
     @objc func prevBtn(_ sender: Any) {
         if scrollView.isHidden == true {
             titleInput.text = ""
-            people.mannaPeople.text = ""
             place.mannaPlace.text = ""
             navigationController?.popViewController(animated: true)
         } else if scrollView.isHidden == false && scrollView.contentOffset.x == 0 {
