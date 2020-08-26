@@ -58,51 +58,44 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
             .map { $0.filter { $0.checkedFlag == true } }
             .scan([User](), accumulator: {
                 var lastValue = $0
-                var newValue = $1
-            if lastValue.count < newValue.count {
-                let checkedFriend = newValue.filter { !lastValue.contains($0 ) }
-                lastValue.insert(checkedFriend[0], at: 0)
-                return lastValue
-            } else {
-                let uncheckedFriend = lastValue.filter { !newValue.contains($0 ) }
-                if let uncheckedIndex = lastValue.firstIndex(of: uncheckedFriend[0]) {
-                    lastValue.remove(at: uncheckedIndex)
+                let newValue = $1
+                
+                if lastValue.count < newValue.count {
+                    let checkedFriend = newValue.filter { !lastValue.contains($0 ) }
+                    lastValue.insert(checkedFriend[0], at: 0)
+                    return lastValue
+                } else {
+                    let uncheckedFriend = lastValue.filter { !newValue.contains($0 ) }
+                    if let uncheckedIndex = lastValue.firstIndex(of: uncheckedFriend[0]) { lastValue.remove(at: uncheckedIndex)
+                    }
+                    return lastValue
                 }
-                return lastValue
-            }
-            }).bind(to: checkedFriendListOutput)
+            })
+            .bind(to: checkedFriendListOutput)
             .disposed(by: disposeBag)
         
         
-        //checkedFriendList update with tableView
+        //테이블뷰에서 일어난 클릭으로 넘어온 유저의 플래그를 true/false 스위칭 하는 부분
         itemFromTableViewInput
             .subscribe(onNext: { item in
                 var newOriginalValue = originalFriendList.value
-//                var newCheckValue = checkedFriendListOutput.value
-                
                 if newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag == false {
                     newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag = true
-//                    newCheckValue.insert(newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!], at: 0)
                 } else {
                     newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag = false
-//                    newCheckValue.remove(at: newCheckValue.firstIndex(where: { $0.name == item.name })!)
                 }
                 originalFriendList.accept(newOriginalValue)
-//                checkedFriendListOutput.accept(newCheckValue)
             }).disposed(by: disposeBag)
         
-        //checkedMemberArray update with collectionView
+        //콜렉션뷰에서 일어난 클릭으로 넘어온 유저의 플래그를 false로 스위칭 하는 부분
         itemFromCollectionViewInput
             .subscribe(onNext: { item in
                 var newOriginalValue = originalFriendList.value
-//                var newCheckValue = checkedFriendListOutput.value
                 newOriginalValue[newOriginalValue.firstIndex(where: {$0.name == item.name})!].checkedFlag = false
-//                newCheckValue.remove(at: newCheckValue.firstIndex(where: { $0.name == item.name})!)
                 originalFriendList.accept(newOriginalValue)
-//                checkedFriendListOutput.accept(newCheckValue)
             }).disposed(by: disposeBag)
         
-        //friendList update with searchValue
+        //검색어에 따른 친구목록 필터링
         SRCHInput
             .flatMapLatest { (value) -> Observable<[User]> in
                 let result = originalFriendList.map { list in
