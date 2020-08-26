@@ -6,11 +6,10 @@
 //  Copyright © 2020 정재인. All rights reserved.
 //
 
-
+import UIKit
 import RxCocoa
 import RxSwift
 import SnapKit
-import UIKit
 
 class AddUserViewController: UIViewController {
     let disposeBag = DisposeBag()
@@ -18,22 +17,21 @@ class AddUserViewController: UIViewController {
     let addUserViewModel = AddUserViewModel()
     let friendListViewModel = FriendListViewModel()
     
-    let screenSize: CGRect = UIScreen.main.bounds
     let searchController = UISearchController(searchResultsController: nil)
     let backgroundView = UIView()
     let searchedUserImageView = UIImageView()
     let searchedUserIdLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     let addFriendButton = UIButton()
-    var newFriend =  BehaviorRelay(value: UserTestStruct(name: "", profileImage: "", checkedFlag: 0))
-    lazy var newFriendObservable = Observable.just(self.newFriend)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         attribute()
-        layouts()
+        layout()
         bind()
     }
     
+    // MARK: - attribute
+
     func attribute() {
         
         view.do {
@@ -75,7 +73,9 @@ class AddUserViewController: UIViewController {
         }
     }
     
-    func layouts() {
+    // MARK: - layout
+
+    func layout() {
         view.addSubview(backgroundView)
         backgroundView.addSubview(searchedUserImageView)
         backgroundView.addSubview(searchedUserIdLabel)
@@ -89,8 +89,8 @@ class AddUserViewController: UIViewController {
         searchedUserImageView.snp.makeConstraints {
             $0.centerX.equalTo(backgroundView.snp.centerX)
             $0.top.equalTo(backgroundView).offset(100)
-            $0.width.equalTo(screenSize.width).offset(200)
-            $0.height.equalTo(screenSize.height).offset(200)
+            $0.width.equalTo(200)
+            $0.height.equalTo(200)
         }
         searchedUserIdLabel.snp.makeConstraints {
             $0.centerX.equalTo(backgroundView.snp.centerX)
@@ -102,6 +102,8 @@ class AddUserViewController: UIViewController {
         }
     }
     
+    // MARK: - bind
+    
     func bind() {
         //text 가 비어있을 때 return 버튼 disabled 필요
         searchController.searchBar.rx.searchButtonClicked
@@ -109,12 +111,20 @@ class AddUserViewController: UIViewController {
             .bind(to: self.addUserViewModel.inputs.searchedUserID)
             .disposed(by: disposeBag)
         
+        //nil값 넘어오면 고거 무시하지말고 찾으시는 이용자가 없습니다. 안내멘트와 그전 view들 감춰줍시다.
         addUserViewModel.outputs.filteredUser
-            .bind(to: self.newFriend)
-            .disposed(by: disposeBag)
+        .skip(1)
+        .subscribe(onNext: { item in
+            self.searchedUserIdLabel.text = item.name
+            self.searchedUserImageView.image = UIImage(named: item.profileImage)
+            self.addFriendButton.isHidden = false
+            UIView.animate(withDuration: 0.5) {
+                self.view.layoutIfNeeded()
+            }
+        }).disposed(by: disposeBag)
         
-        newFriend
-            .skip(1)
+        //필터링된 유저를 뷰에 뿌려줌
+        addUserViewModel.outputs.filteredUser
             .subscribe(onNext: { item in
                 self.searchedUserIdLabel.text = item.name
                 self.searchedUserImageView.image = UIImage(named: item.profileImage)
@@ -124,10 +134,10 @@ class AddUserViewController: UIViewController {
                 }
             }).disposed(by: disposeBag)
         
-        //pop 시켜주고 새로 들어온 친구로 포커스 맞춰주면 좋을듯
+        //친구 추가 탭신호 viewModel로 보냄
+        //pop 시켜주고 새로 들어온 친구로 포커스 맞춰주면 좋을듯 -> 미완성
         addFriendButton.rx.tap
-            .map({ self.newFriend.value })
-            .bind(to: friendListViewModel.inputs.requestingFriend)
+            .bind(to: addUserViewModel.inputs.requestingFriend)
             .disposed(by: disposeBag)
     }
 }

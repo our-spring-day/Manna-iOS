@@ -9,8 +9,5 @@
 import Foundation
 
 struct MeetingInfo {
-    //about title value
-    //about time value
-    //about place value
-    var member: [UserTestStruct] = []
+    var member: [User] = []
 }

@@ -10,6 +10,7 @@ import UIKit
 import Then
 import SnapKit
 
+// MARK: - 임시 뷰컨트롤러 이며 곧 사라질 부분입니다
 class TempViewController: UIViewController {
     let welcomeMessage = UILabel()
 

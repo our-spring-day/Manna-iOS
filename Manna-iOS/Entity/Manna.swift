@@ -17,5 +17,4 @@ struct Manna {
     func setManna(_ title: String, _ people: String, _ time: String, _ place: String) -> Manna {
         return Manna(title: title, numberPeople: people, appointmentTime: time, place: place)
     }
-
 }

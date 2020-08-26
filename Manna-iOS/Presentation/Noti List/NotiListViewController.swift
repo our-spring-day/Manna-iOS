@@ -7,15 +7,15 @@
 //
 
 import UIKit
-import RxSwift
 import RxCocoa
 import RxDataSources
+import RxSwift
 
 class NotiListViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     let inviteFriendsViewModel = InviteFriendsViewModel()
-    let checkedMemberArray: BehaviorRelay<[UserTestStruct]> = BehaviorRelay(value: [])
+    let checkedMemberArray: BehaviorRelay<[User]> = BehaviorRelay(value: [])
     let userListViewModel = FriendListViewModel()
     let layoutValue = UICollectionViewFlowLayout()
     
@@ -30,6 +30,8 @@ class NotiListViewController: UIViewController {
         bind()
     }
     
+    // MARK: - attribute
+    
     func attribute() {
         view.do {
             $0.backgroundColor = .white
@@ -39,6 +41,8 @@ class NotiListViewController: UIViewController {
             $0.backgroundColor = .lightGray
         }
     }
+    
+    // MARK: - layout
     
     func layout() {
         view.addSubview(collectionView)
@@ -61,13 +65,15 @@ class NotiListViewController: UIViewController {
         }
     }
     
+    // MARK: - bind
+    
     func bind() {
-        //tableView set
+        //친구목록을 뿌려주고 이때 체크플래그를 확인하고 맞는 이미지를 할당
         inviteFriendsViewModel.outputs.friendList
-            .bind(to: tableView.baseTableView.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self)) { (_: Int, element: UserTestStruct, cell: FriendListCell) in
+            .bind(to: tableView.baseTableView.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self)) { (_: Int, element: User, cell: FriendListCell) in
                 cell.friendIdLabel.text = element.name
                 cell.friendImageView.image = UIImage(named: "\(element.profileImage)")
-                if element.checkedFlag == 1 {
+                if element.checkedFlag == true {
                     cell.checkBoxImageView.image = UIImage(named: "checked")
                 } else {
                     cell.checkBoxImageView.image = UIImage(named: "unchecked")
@@ -76,7 +82,7 @@ class NotiListViewController: UIViewController {
         
         //collectionView set
         inviteFriendsViewModel.outputs.checkedFriendList
-            .bind(to: self.collectionView.baseCollectionView.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)) { (_: Int, element: UserTestStruct, cell: CheckedFriendCell) in
+            .bind(to: self.collectionView.baseCollectionView.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)) { (_: Int, element: User, cell: CheckedFriendCell) in
                 cell.profileImage.image = UIImage(named: "\(element.profileImage)")
                 UIView.animate(withDuration: 0.3) {
                     self.view.layoutIfNeeded()
@@ -84,12 +90,12 @@ class NotiListViewController: UIViewController {
         }.disposed(by: self.disposeBag)
         
         //checked Friend at tableView
-        tableView.baseTableView.rx.modelSelected(UserTestStruct.self)
+        tableView.baseTableView.rx.modelSelected(User.self)
             .bind(to: inviteFriendsViewModel.inputs.itemFromTableView)
             .disposed(by: disposeBag)
         
         //selected Friend at collectionView
-        collectionView.baseCollectionView.rx.modelSelected(UserTestStruct.self)
+        collectionView.baseCollectionView.rx.modelSelected(User.self)
             .bind(to: inviteFriendsViewModel.inputs.itemFromCollectionView)
             .disposed(by: disposeBag)
         
@@ -127,7 +133,7 @@ class NotiListViewController: UIViewController {
             }).disposed(by: disposeBag)
         
         //keyboard hide when tableView,collectionView scrolling
-        Observable.of(tableView.baseTableView.rx.didScroll.asObservable(),collectionView.baseCollectionView.rx.didScroll.asObservable()).merge()
+        Observable.of(tableView.baseTableView.rx.didScroll.asObservable(), collectionView.baseCollectionView.rx.didScroll.asObservable()).merge()
             .subscribe(onNext: {
                 self.view.endEditing(true)
             }).disposed(by: disposeBag)
