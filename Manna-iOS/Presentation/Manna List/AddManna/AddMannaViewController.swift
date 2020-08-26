@@ -22,7 +22,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
     let time = TimeAddManna()
     let place = PlaceAddManna()
     let finalAdd = FinalAddManna()
-
+    
     let scrollView = UIScrollView()
     let titleLabel = UILabel()
     let titleInput = UITextField()
@@ -39,7 +39,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         viewModel = AddMannaViewModel()
         super.init(coder: aDecoder)
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.isNavigationBarHidden = true
@@ -61,6 +61,11 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
             $0.isHidden = true
             $0.backgroundColor = .red
             $0.bounces = false
+        }
+        pageControl.do {
+            $0.numberOfPages = 3
+            $0.currentPage = 0
+            //            $0.isUserInteractionEnabled = false
         }
         titleLabel.do {
             $0.textColor = .black
@@ -94,7 +99,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
             $0.addTarget(self, action: #selector(nextBtn), for: .touchUpInside)
         }
     }
-
+    
     func layout() {
         view.addSubview(titleButton)
         view.addSubview(titleLabel)
@@ -247,10 +252,10 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MM월 dd일 hh시mm분"
                 return dateFormatter.string(from: $0)
-            }
-            .subscribe(onNext: { [weak self] value in
-                self?.finalAdd.finalTime.text = value
-            })
+        }
+        .subscribe(onNext: { [weak self] value in
+            self?.finalAdd.finalTime.text = value
+        })
             .disposed(by: disposeBag)
         
         place.searchButton.rx.tap
@@ -286,7 +291,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         
         navigationController?.popViewController(animated: true)
     }
-
+    
     @objc func addMeet() {
         meetBind()
     }

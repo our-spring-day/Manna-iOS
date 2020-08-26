@@ -34,9 +34,8 @@
 		A5EB4A1624BDD62D0084EBE5 /* AddressAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EB4A1524BDD62D0084EBE5 /* AddressAPI.swift */; };
 		CC0BFAAC24DAAD2900A9D437 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0BFAAB24DAAD2900A9D437 /* BottomSheetViewController.swift */; };
 		CC384C0C24852AD0005F34AE /* FriendListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C0B24852AD0005F34AE /* FriendListViewModel.swift */; };
-		CC384C0E24852ADB005F34AE /* UserListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C0D24852ADB005F34AE /* UserListModel.swift */; };
+		CC384C0E24852ADB005F34AE /* FriendListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C0D24852ADB005F34AE /* FriendListModel.swift */; };
 		CC384C1124862613005F34AE /* FriendListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C1024862613005F34AE /* FriendListCell.swift */; };
-		CC4FCA0724C0207500FEE302 /* MeetingMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4FCA0624C0207500FEE302 /* MeetingMember.swift */; };
 		CC63EC1E24DC03890029D8B1 /* DuringMeetingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63EC1D24DC03890029D8B1 /* DuringMeetingCollectionView.swift */; };
 		CC63EC2024DC04A70029D8B1 /* DurringMeetingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63EC1F24DC04A70029D8B1 /* DurringMeetingViewModel.swift */; };
 		CC6E7D5C2487AB070050D774 /* AddUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */; };
@@ -56,8 +55,7 @@
 		CCAC1F2D24B2FD28007C21ED /* UserListTestStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAC1F2C24B2FD28007C21ED /* UserListTestStruct.swift */; };
 		CCAD9CFE249CD06300E639BF /* FriendDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAD9CFD249CD06300E639BF /* FriendDetailViewController.swift */; };
 		CCB0F24924C6EDDE00BBEAFC /* CheckedFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB0F24824C6EDDE00BBEAFC /* CheckedFriendCell.swift */; };
-		CCB1578624AB3D0E00D81511 /* UserTestStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578524AB3D0E00D81511 /* UserTestStruct.swift */; };
-		CCB1578924AB53B400D81511 /* SearchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578824AB53B400D81511 /* SearchProtocol.swift */; };
+		CCB1578624AB3D0E00D81511 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1578524AB3D0E00D81511 /* User.swift */; };
 		CCC1F7ED24BDA70700DC8BCB /* FriendsListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1F7EC24BDA70700DC8BCB /* FriendsListTableView.swift */; };
 		CCC2705224D32B19008D3C15 /* InviteFriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC2705124D32B19008D3C15 /* InviteFriendsViewModel.swift */; };
 		CCD1C89924C6F33900C3AE3D /* FriendsListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD1C89824C6F33900C3AE3D /* FriendsListCollectionView.swift */; };
@@ -94,9 +92,8 @@
 		A5EB4A1524BDD62D0084EBE5 /* AddressAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressAPI.swift; sourceTree = "<group>"; };
 		CC0BFAAB24DAAD2900A9D437 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		CC384C0B24852AD0005F34AE /* FriendListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewModel.swift; sourceTree = "<group>"; };
-		CC384C0D24852ADB005F34AE /* UserListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListModel.swift; sourceTree = "<group>"; };
+		CC384C0D24852ADB005F34AE /* FriendListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListModel.swift; sourceTree = "<group>"; };
 		CC384C1024862613005F34AE /* FriendListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListCell.swift; sourceTree = "<group>"; };
-		CC4FCA0624C0207500FEE302 /* MeetingMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingMember.swift; sourceTree = "<group>"; };
 		CC63EC1D24DC03890029D8B1 /* DuringMeetingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringMeetingCollectionView.swift; sourceTree = "<group>"; };
 		CC63EC1F24DC04A70029D8B1 /* DurringMeetingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurringMeetingViewModel.swift; sourceTree = "<group>"; };
 		CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserViewController.swift; sourceTree = "<group>"; };
@@ -118,8 +115,7 @@
 		CCAC1F2C24B2FD28007C21ED /* UserListTestStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListTestStruct.swift; sourceTree = "<group>"; };
 		CCAD9CFD249CD06300E639BF /* FriendDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailViewController.swift; sourceTree = "<group>"; };
 		CCB0F24824C6EDDE00BBEAFC /* CheckedFriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckedFriendCell.swift; sourceTree = "<group>"; };
-		CCB1578524AB3D0E00D81511 /* UserTestStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTestStruct.swift; sourceTree = "<group>"; };
-		CCB1578824AB53B400D81511 /* SearchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProtocol.swift; sourceTree = "<group>"; };
+		CCB1578524AB3D0E00D81511 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CCC1F7EC24BDA70700DC8BCB /* FriendsListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableView.swift; sourceTree = "<group>"; };
 		CCC2705124D32B19008D3C15 /* InviteFriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteFriendsViewModel.swift; sourceTree = "<group>"; };
 		CCD1C89824C6F33900C3AE3D /* FriendsListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListCollectionView.swift; sourceTree = "<group>"; };
@@ -182,8 +178,7 @@
 		A54702B02486A9220091CA55 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				CC384C0D24852ADB005F34AE /* UserListModel.swift */,
-				CC4FCA0624C0207500FEE302 /* MeetingMember.swift */,
+				CCB765A924EE8A3800FBBCFF /* User */,
 				A54702B12486A93F0091CA55 /* Manna.swift */,
 				A5B92B1D2496340B008A14C3 /* MannaSection.swift */,
 				A5EB4A0D24BCA6BD0084EBE5 /* Address.swift */,
@@ -244,8 +239,6 @@
 			children = (
 				CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */,
 				CC986DD024A5DB95004450B7 /* AddUserViewModel.swift */,
-				CCAC1F2C24B2FD28007C21ED /* UserListTestStruct.swift */,
-				CCB1578524AB3D0E00D81511 /* UserTestStruct.swift */,
 			);
 			path = AddUser;
 			sourceTree = "<group>";
@@ -273,7 +266,6 @@
 			isa = PBXGroup;
 			children = (
 				CCC1F7EE24BEE78000DC8BCB /* Component */,
-				CCB1578724AB538C00D81511 /* Protocol */,
 				A552C78524A4EC9E00D834BF /* Extensions-Utillities */,
 				A519FFD324953BCD0074D554 /* DataProvider */,
 				A54702B02486A9220091CA55 /* Entity */,
@@ -354,12 +346,14 @@
 			path = DetailUser;
 			sourceTree = "<group>";
 		};
-		CCB1578724AB538C00D81511 /* Protocol */ = {
+		CCB765A924EE8A3800FBBCFF /* User */ = {
 			isa = PBXGroup;
 			children = (
-				CCB1578824AB53B400D81511 /* SearchProtocol.swift */,
+				CC384C0D24852ADB005F34AE /* FriendListModel.swift */,
+				CCAC1F2C24B2FD28007C21ED /* UserListTestStruct.swift */,
+				CCB1578524AB3D0E00D81511 /* User.swift */,
 			);
-			path = Protocol;
+			path = User;
 			sourceTree = "<group>";
 		};
 		CCC1F7EE24BEE78000DC8BCB /* Component */ = {
@@ -507,9 +501,8 @@
 			files = (
 				CCD1C89924C6F33900C3AE3D /* FriendsListCollectionView.swift in Sources */,
 				CC6E7D5C2487AB070050D774 /* AddUserViewController.swift in Sources */,
-				CCB1578924AB53B400D81511 /* SearchProtocol.swift in Sources */,
 				CCC2705224D32B19008D3C15 /* InviteFriendsViewModel.swift in Sources */,
-				CCB1578624AB3D0E00D81511 /* UserTestStruct.swift in Sources */,
+				CCB1578624AB3D0E00D81511 /* User.swift in Sources */,
 				CCAC1F2D24B2FD28007C21ED /* UserListTestStruct.swift in Sources */,
 				CC384C1124862613005F34AE /* FriendListCell.swift in Sources */,
 				CC63EC1E24DC03890029D8B1 /* DuringMeetingCollectionView.swift in Sources */,
@@ -518,7 +511,7 @@
 				CC705A0D2477D2BA00462251 /* MannaListViewController.swift in Sources */,
 				CC384C0C24852AD0005F34AE /* FriendListViewModel.swift in Sources */,
 				CC705A112477D2E000462251 /* SetListViewController.swift in Sources */,
-				CC384C0E24852ADB005F34AE /* UserListModel.swift in Sources */,
+				CC384C0E24852ADB005F34AE /* FriendListModel.swift in Sources */,
 				A595A8A824DC823000EAFAA5 /* UINavigation-Ext.swift in Sources */,
 				A55B0F1B24D5B7D300211AEA /* PeopleAddManna.swift in Sources */,
 				A50412FF24DAF9AE00C02F6A /* FinalAddManna.swift in Sources */,
@@ -553,7 +546,6 @@
 				CCAD9CFE249CD06300E639BF /* FriendDetailViewController.swift in Sources */,
 				CC63EC2024DC04A70029D8B1 /* DurringMeetingViewModel.swift in Sources */,
 				CC7059EF2477B81100462251 /* SceneDelegate.swift in Sources */,
-				CC4FCA0724C0207500FEE302 /* MeetingMember.swift in Sources */,
 				A5EB4A1224BCB75F0084EBE5 /* SelectPlaceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

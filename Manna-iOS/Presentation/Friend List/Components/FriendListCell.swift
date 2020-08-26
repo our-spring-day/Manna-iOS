@@ -7,8 +7,9 @@
 //
 
 import UIKit
-import SnapKit
 import RxSwift
+import SnapKit
+
 
 class FriendListCell: UITableViewCell {
     static let identifier = "UserListCell"
@@ -16,7 +17,8 @@ class FriendListCell: UITableViewCell {
     let friendIdLabel = UILabel()
     let friendImageView = UIImageView()
     let checkBoxImageView = UIImageView()
-    var checkFlag = 0
+    
+    // MARK: - Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -27,6 +29,8 @@ class FriendListCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - attribute
     
     func attribute() {
         friendIdLabel.do {
@@ -43,6 +47,8 @@ class FriendListCell: UITableViewCell {
             $0.image = UIImage(named: "unchecked")
         }
     }
+    
+    // MARK: - layout
     
     func layout() {
         addSubview(friendIdLabel)
