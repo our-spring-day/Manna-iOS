@@ -53,8 +53,7 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         friendList = friendListOutput.asObservable()
         checkedFriendList = checkedFriendListOutput.asObservable()
         
-        friendListOutput
-        .skip(2)
+        originalFriendList
             .map { $0.filter { $0.checkedFlag == true } }
             .scan([User](), accumulator: {
                 var lastValue = $0
@@ -64,12 +63,13 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
                     let checkedFriend = newValue.filter { !lastValue.contains($0) }
                     lastValue.insert(checkedFriend[0], at: 0)
                     return lastValue
-                } else {
+                } else if lastValue.count > newValue.count {
                     let uncheckedFriend = lastValue.filter { !newValue.contains($0) }
                     if let uncheckedIndex = lastValue.firstIndex(of: uncheckedFriend[0]) { lastValue.remove(at: uncheckedIndex)
                     }
                     return lastValue
                 }
+                return lastValue
             })
             .bind(to: checkedFriendListOutput)
             .disposed(by: disposeBag)
@@ -90,22 +90,26 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         //검색어에 따른 친구목록 필터링
         SRCHInput
             .flatMapLatest { (value) -> Observable<[User]> in
-                let result = originalFriendList.map { list in
-                    list.filter {
-                        if value.isEmpty { return true }
-                        return ($0.name.lowercased().contains(value.lowercased()))
-                    }}
-                    .map { $0.sorted(by: { $0.name < $1.name }) }
-                return result
+                self.filteringFriendList(friendList: originalFriendList, value: value)
         }
         .bind(to: friendListOutput)
         .disposed(by: disposeBag)
     }
     
     func toggleCheckedFlag(list: BehaviorRelay<[User]>, item: User) {
-        var newListValue = list.value
-        newListValue[newListValue.firstIndex(of: item)!].checkedFlag.toggle()
-        list.accept(newListValue)
+        var newValue = list.value
+        newValue[newValue.firstIndex(of: item)!].checkedFlag.toggle()
+        list.accept(newValue)
+    }
+    
+    func filteringFriendList(friendList: BehaviorRelay<[User]>,value: String) -> Observable<[User]> {
+        let result = friendList.map { list in
+            list.filter {
+                if value.isEmpty { return true }
+                return ($0.name.lowercased().contains(value.lowercased()))
+            }}
+            .map { $0.sorted(by: { $0.name < $1.name }) }
+        return result
     }
     
     var inputs: InviteFriendsViewModellInput { return self }
