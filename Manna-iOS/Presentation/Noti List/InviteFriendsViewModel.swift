@@ -78,17 +78,13 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         //테이블뷰에서 일어난 클릭으로 넘어온 유저의 플래그를 true/false 스위칭 하는 부분
         itemFromTableViewInput
             .subscribe(onNext: { item in
-                var newOriginalValue = originalFriendList.value
-                newOriginalValue[newOriginalValue.firstIndex(of: item)!].checkedFlag.toggle()
-                originalFriendList.accept(newOriginalValue)
+                self.toggleCheckedFlag(list: originalFriendList, item: item)
             }).disposed(by: disposeBag)
         
         //콜렉션뷰에서 일어난 클릭으로 넘어온 유저의 플래그를 false로 스위칭 하는 부분
         itemFromCollectionViewInput
             .subscribe(onNext: { item in
-                var newOriginalValue = originalFriendList.value
-                newOriginalValue[newOriginalValue.firstIndex(of: item)!].checkedFlag.toggle()
-                originalFriendList.accept(newOriginalValue)
+                self.toggleCheckedFlag(list: originalFriendList, item: item)
             }).disposed(by: disposeBag)
         
         //검색어에 따른 친구목록 필터링
@@ -104,6 +100,12 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         }
         .bind(to: friendListOutput)
         .disposed(by: disposeBag)
+    }
+    
+    func toggleCheckedFlag(list: BehaviorRelay<[User]>, item: User) {
+        var newListValue = list.value
+        newListValue[newListValue.firstIndex(of: item)!].checkedFlag.toggle()
+        list.accept(newListValue)
     }
     
     var inputs: InviteFriendsViewModellInput { return self }
