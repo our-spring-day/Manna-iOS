@@ -10,11 +10,14 @@ import Foundation
 import Alamofire
 import RxSwift
 import SwiftyJSON
+
 protocol AddressFetchable {
     static func getAddress(_ keyword: String) -> Observable<[Address]>
 }
+
 private let key2AddressURL = "https://dapi.kakao.com/v2/local/search/keyword.json"
 private let coord2AddressURL = "https://dapi.kakao.com/v2/local/geo/coord2address.json"
+
 class AddressAPI: AddressFetchable {
     static private let headers: HTTPHeaders = [
         "Authorization": "KakaoAK ec74a28d28177a706155cb8af1fb7ec8"

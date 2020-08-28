@@ -13,4 +13,11 @@ struct Address: Codable {
     let roadAddress: String
     let lng: String         //x longitude
     let lat: String         //y latitude
+    
+    enum CodingKeys: String, CodingKey {
+        case address
+        case roadAddress
+        case lng = "x"
+        case lat = "y"
+    }
 }
