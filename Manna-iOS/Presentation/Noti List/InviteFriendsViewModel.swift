@@ -53,27 +53,14 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         friendList = friendListOutput.asObservable()
         checkedFriendList = checkedFriendListOutput.asObservable()
         
+        
+        // MARK: - bind
+        
         originalFriendList
             .map { $0.filter { $0.checkedFlag == true } }
-            .scan([User](), accumulator: {
-                var lastValue = $0
-                let newValue = $1
-                
-                if lastValue.count < newValue.count {
-                    let checkedFriend = newValue.filter { !lastValue.contains($0) }
-                    lastValue.insert(checkedFriend[0], at: 0)
-                    return lastValue
-                } else if lastValue.count > newValue.count {
-                    let uncheckedFriend = lastValue.filter { !newValue.contains($0) }
-                    if let uncheckedIndex = lastValue.firstIndex(of: uncheckedFriend[0]) { lastValue.remove(at: uncheckedIndex)
-                    }
-                    return lastValue
-                }
-                return lastValue
-            })
+            .scan([User](), accumulator: { self.arrangedCheckedList(lastValue: $0, newValue: $1) })
             .bind(to: checkedFriendListOutput)
             .disposed(by: disposeBag)
-        
         
         //테이블뷰에서 일어난 클릭으로 넘어온 유저의 플래그를 true/false 스위칭 하는 부분
         itemFromTableViewInput
@@ -90,11 +77,13 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         //검색어에 따른 친구목록 필터링
         SRCHInput
             .flatMapLatest { (value) -> Observable<[User]> in
-                self.filteringFriendList(friendList: originalFriendList, value: value)
-        }
-        .bind(to: friendListOutput)
-        .disposed(by: disposeBag)
+                self.filteringFriendList(friendList: originalFriendList, value: value) }
+            .bind(to: friendListOutput)
+            .disposed(by: disposeBag)
     }
+    
+    
+    // MARK: - function
     
     func toggleCheckedFlag(list: BehaviorRelay<[User]>, item: User) {
         var newValue = list.value
@@ -102,7 +91,7 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         list.accept(newValue)
     }
     
-    func filteringFriendList(friendList: BehaviorRelay<[User]>,value: String) -> Observable<[User]> {
+    func filteringFriendList(friendList: BehaviorRelay<[User]>, value: String) -> Observable<[User]> {
         let result = friendList.map { list in
             list.filter {
                 if value.isEmpty { return true }
@@ -110,6 +99,22 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
             }}
             .map { $0.sorted(by: { $0.name < $1.name }) }
         return result
+    }
+    
+    func arrangedCheckedList(lastValue: [User], newValue: [User]) -> [User] {
+        var lastValue = lastValue
+        
+        if lastValue.count < newValue.count {
+            let checkedFriend = newValue.filter { !lastValue.contains($0) }
+            lastValue.insert(checkedFriend[0], at: 0)
+            return lastValue
+        } else if lastValue.count > newValue.count {
+            let uncheckedFriend = lastValue.filter { !newValue.contains($0) }
+            if let uncheckedIndex = lastValue.firstIndex(of: uncheckedFriend[0]) { lastValue.remove(at: uncheckedIndex)
+            }
+            return lastValue
+        }
+        return lastValue
     }
     
     var inputs: InviteFriendsViewModellInput { return self }
