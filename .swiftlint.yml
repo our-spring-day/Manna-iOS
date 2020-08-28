@@ -1,4 +1,5 @@
 function_body_length: 300
+type_body_length: 300
 disabled_rules:
 - line_length
 - trailing_whitespace
