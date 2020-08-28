@@ -11,5 +11,5 @@ import RxCocoa
 import RxSwift
 
 struct FriendListModel {
-    static let originalFriendList = [namjihyeon, juyeon, bomin, mino, beenzino, gdragon, iuzzang, jenny, jisoo, jpark, crush, bloo, rain, kimwoobin, kingkihoon, munchan2]
+    static let originalFriendList = [namjihyeon, mino, beenzino, gdragon, iuzzang, jenny, jisoo, jpark, crush, bloo, rain, kimwoobin, kingkihoon, munchan2]
 }

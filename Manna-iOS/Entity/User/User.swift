@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct User: Hashable, Equatable{
+struct User: Hashable, Equatable {
     var name: String
     var profileImage: String
     var checkedFlag: Bool
@@ -18,8 +18,6 @@ let sikk = User(name: "식케이", profileImage: "sik-k", checkedFlag: false)
 let soma = User(name: "소마", profileImage: "soma", checkedFlag: false)
 let simondominic = User(name: "쌈디", profileImage: "simondominic", checkedFlag: false)
 let namjihyeon = User(name: "남지현", profileImage: "namjihyeon", checkedFlag: false)
-let juyeon = User(name: "주연", profileImage: "juyeon", checkedFlag: false)
-let bomin = User(name: "안보민", profileImage: "bomin", checkedFlag: false)
 let mino = User(name: "송민호", profileImage: "mino", checkedFlag: false)
 let beenzino = User(name: "빈지노", profileImage: "beenzino", checkedFlag: false)
 let gdragon = User(name: "권지용", profileImage: "g-dragon", checkedFlag: false)
