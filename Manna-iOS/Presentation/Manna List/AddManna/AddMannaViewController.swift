@@ -62,11 +62,6 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
             $0.backgroundColor = .red
             $0.bounces = false
         }
-        pageControl.do {
-            $0.numberOfPages = 3
-            $0.currentPage = 0
-            //            $0.isUserInteractionEnabled = false
-        }
         titleLabel.do {
             $0.textColor = .black
             $0.isHidden = true
@@ -171,10 +166,10 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
     
     func UIBind() {
         inviteViewModel.outputs.friendList
-            .bind(to: people.tableView.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self)) { (_: Int, element: UserTestStruct, cell: FriendListCell) in
+            .bind(to: people.tableView.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self)) { (_: Int, element: User, cell: FriendListCell) in
                 cell.friendIdLabel.text = element.name
                 cell.friendImageView.image = UIImage(named: "\(element.profileImage)")
-                if element.checkedFlag == 1 {
+                if element.checkedFlag == true {
                     cell.checkBoxImageView.image = UIImage(named: "checked")
                 } else {
                     cell.checkBoxImageView.image = UIImage(named: "unchecked")
@@ -183,7 +178,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         
         //collectionView set
         inviteViewModel.outputs.checkedFriendList
-            .bind(to: people.collectionView.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)) { (_: Int, element: UserTestStruct, cell: CheckedFriendCell) in
+            .bind(to: people.collectionView.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)) { (_: Int, element: User, cell: CheckedFriendCell) in
                 cell.profileImage.image = UIImage(named: "\(element.profileImage)")
                 UIView.animate(withDuration: 0.3) {
                     self.scrollView.layoutIfNeeded()
@@ -191,12 +186,12 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         }.disposed(by: self.disposeBag)
         
         //checked Friend at tableView
-        people.tableView.rx.modelSelected(UserTestStruct.self)
+        people.tableView.rx.modelSelected(User.self)
             .bind(to: inviteViewModel.inputs.itemFromTableView)
             .disposed(by: disposeBag)
         
         //selected Friend at collectionView
-        people.collectionView.rx.modelSelected(UserTestStruct.self)
+        people.collectionView.rx.modelSelected(User.self)
             .bind(to: inviteViewModel.inputs.itemFromCollectionView)
             .disposed(by: disposeBag)
         

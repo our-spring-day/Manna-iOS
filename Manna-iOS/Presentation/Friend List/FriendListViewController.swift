@@ -71,6 +71,7 @@ class FriendListViewController: UIViewController {
     func bind() {
         //테이블뷰 세팅
         FriendListViewModel.self.myFriendList
+        .filterEmpty()
             .bind(to: friendListTableView.baseTableView.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self)) { (_: Int, element: User, cell: FriendListCell) in
                 cell.friendIdLabel.text = element.name
                 cell.friendImageView.image = UIImage(named: "\(element.profileImage)")

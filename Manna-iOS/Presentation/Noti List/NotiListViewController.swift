@@ -15,16 +15,13 @@ class NotiListViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     let inviteFriendsViewModel = InviteFriendsViewModel()
-<<<<<<< HEAD
-=======
-    let checkedMemberArray: BehaviorRelay<[User]> = BehaviorRelay(value: [])
     let userListViewModel = FriendListViewModel()
->>>>>>> develop
-    let layoutValue = UICollectionViewFlowLayout()
     
+    let layoutValue = UICollectionViewFlowLayout()
     var collectionView = FriendsListCollectionView()
     var textField = UITextField()
     var tableView = FriendListTableView()
+    let checkedMemberArray: BehaviorRelay<[User]> = BehaviorRelay(value: [])
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +38,9 @@ class NotiListViewController: UIViewController {
         }
         textField.do {
             $0.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-            $0.backgroundColor = .lightGray
+            $0.backgroundColor = UIColor.gray.withAlphaComponent(0.3)
+            $0.layer.cornerRadius = 8
+            $0.placeholder = " 친구 이름을 검색하세요"
         }
     }
     
@@ -52,16 +51,17 @@ class NotiListViewController: UIViewController {
         view.addSubview(textField)
         view.addSubview(tableView)
         collectionView.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(100)
         }
         textField.snp.makeConstraints {
-            $0.centerX.equalTo(view.snp.centerX)
-            $0.top.equalTo(collectionView.snp.bottom)
-            $0.width.equalTo(view.safeAreaLayoutGuide).offset(-50)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(40)
+            $0.width.equalTo(view.safeAreaLayoutGuide).offset(-50)
+            $0.centerX.equalTo(view.snp.centerX)
         }
         tableView.snp.makeConstraints {
-            $0.top.equalTo(textField.snp.bottom)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(50)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
@@ -82,7 +82,7 @@ class NotiListViewController: UIViewController {
                 }
         }.disposed(by: disposeBag)
         
-        //collectionView set
+        //체크된 친구목록을 뿌려줌
         inviteFriendsViewModel.outputs.checkedFriendList
             .bind(to: self.collectionView.baseCollectionView.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)) { (_: Int, element: User, cell: CheckedFriendCell) in
                 cell.profileImage.image = UIImage(named: "\(element.profileImage)")
@@ -91,29 +91,30 @@ class NotiListViewController: UIViewController {
                 }
         }.disposed(by: self.disposeBag)
 
-        //checked Friend at tableView
+        //테이블 뷰에서 선택한 친구를 뷰모델에 바인딩
         tableView.baseTableView.rx.modelSelected(User.self)
             .bind(to: inviteFriendsViewModel.inputs.itemFromTableView)
             .disposed(by: disposeBag)
         
-        //selected Friend at collectionView
+        //콜렉션 뷰에서 선택한 친구를 뷰모델에 바인딩
         collectionView.baseCollectionView.rx.modelSelected(User.self)
             .bind(to: inviteFriendsViewModel.inputs.itemFromCollectionView)
             .disposed(by: disposeBag)
 
-        //searchID bind
+        //텍스트필드에 입력된 텍스트를 뷰모델에 바인딩
         textField.rx.text
             .orEmpty
             .distinctUntilChanged()
             .bind(to: inviteFriendsViewModel.inputs.searchedFriendID)
             .disposed(by: disposeBag)
         
-        //dynamic tableView's height by checkedFriend exist
+        //체크리스트에 따른 테이블 뷰와 검색창의 움직임
         inviteFriendsViewModel.outputs.checkedFriendList
             .skip(1)
             .map { $0.count }
             .filter { $0 <= 1 }
             .subscribe(onNext: { count in
+                print(count)
                 if count < 1 {
                     self.textField.snp.updateConstraints {
                         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
@@ -123,10 +124,10 @@ class NotiListViewController: UIViewController {
                     }
                 } else {
                     self.textField.snp.updateConstraints {
-                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(150)
+                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(100)
                     }
                     self.tableView.snp.updateConstraints {
-                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(200)
+                        $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(150)
                     }
                 }
                 UIView.animate(withDuration: 0.3) {
@@ -134,7 +135,7 @@ class NotiListViewController: UIViewController {
                 }
             }).disposed(by: disposeBag)
         
-        //keyboard hide when tableView,collectionView scrolling
+//        keyboard hide when tableView,collectionView scrolling
         Observable.of(tableView.baseTableView.rx.didScroll.asObservable(), collectionView.baseCollectionView.rx.didScroll.asObservable()).merge()
             .subscribe(onNext: {
                 self.view.endEditing(true)

@@ -61,11 +61,11 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
                 let newValue = $1
                 
                 if lastValue.count < newValue.count {
-                    let checkedFriend = newValue.filter { !lastValue.contains($0 ) }
+                    let checkedFriend = newValue.filter { !lastValue.contains($0) }
                     lastValue.insert(checkedFriend[0], at: 0)
                     return lastValue
                 } else {
-                    let uncheckedFriend = lastValue.filter { !newValue.contains($0 ) }
+                    let uncheckedFriend = lastValue.filter { !newValue.contains($0) }
                     if let uncheckedIndex = lastValue.firstIndex(of: uncheckedFriend[0]) { lastValue.remove(at: uncheckedIndex)
                     }
                     return lastValue
@@ -79,11 +79,7 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         itemFromTableViewInput
             .subscribe(onNext: { item in
                 var newOriginalValue = originalFriendList.value
-                if newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag == false {
-                    newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag = true
-                } else {
-                    newOriginalValue[newOriginalValue.firstIndex(where: { $0.name == item.name })!].checkedFlag = false
-                }
+                newOriginalValue[newOriginalValue.firstIndex(of: item)!].checkedFlag.toggle()
                 originalFriendList.accept(newOriginalValue)
             }).disposed(by: disposeBag)
         
@@ -91,7 +87,7 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
         itemFromCollectionViewInput
             .subscribe(onNext: { item in
                 var newOriginalValue = originalFriendList.value
-                newOriginalValue[newOriginalValue.firstIndex(where: {$0.name == item.name})!].checkedFlag = false
+                newOriginalValue[newOriginalValue.firstIndex(of: item)!].checkedFlag.toggle()
                 originalFriendList.accept(newOriginalValue)
             }).disposed(by: disposeBag)
         
