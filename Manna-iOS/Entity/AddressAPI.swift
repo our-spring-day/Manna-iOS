@@ -23,6 +23,33 @@ class AddressAPI: AddressFetchable {
         "Authorization": "KakaoAK ec74a28d28177a706155cb8af1fb7ec8"
     ]
     
+    static func getAddress2(_ keyword: String) -> Observable<Result<[Address], Error>> {
+        let parameters: [String: String] = [
+            "query": keyword
+        ]
+        return Observable.create { observer in
+            AF.request(key2AddressURL, method: .get, parameters: parameters, headers: headers)
+                .responseJSON { response in
+                    switch response.result {
+                    case .success(let value):
+                        let data = "\(JSON(value)["documents"])".data(using: .utf8)
+                        do {
+                            if let data = data, let searchAddress = try? JSONDecoder().decode([Address].self, from: data){
+                                observer.onNext(.success(searchAddress))
+                            }
+                        } catch let err{
+                            observer.onNext(.failure(err))
+                        }
+                    case .failure(_):
+                        print("error입니다.")
+                    }
+                    observer.onCompleted()
+                }
+            return Disposables.create()
+        }
+    }
+    
+    
     static func getAddress(_ keyword: String) -> Observable<[Address]> {
         let parameters: [String: String] = [
             "query": keyword

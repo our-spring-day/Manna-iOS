@@ -38,7 +38,7 @@ class SelectPlaceViewModel: SelectPlaceViewModelType, SelectPlaceViewModelInput,
         addressInput
         .debug()
         .map({ "\($0)" })
-        .flatMap({ AddressAPI.getAddress($0)})
+        .flatMap({ AddressAPI.getAddress2($0)})
         .subscribe(onNext: { value in
             addressOutput.accept(value)
         })
