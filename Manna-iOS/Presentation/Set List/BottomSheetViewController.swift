@@ -42,20 +42,27 @@ class BottomSheetViewController: UIViewController {
     
     private func moveView(state: State) {
         let yPosition = state == .partial ? Constant.partialViewYPosition : Constant.fullViewYPosition
-        view.frame = CGRect(x: 0, y: yPosition, width: view.frame.width, height: view.frame.height)
+        view.frame = CGRect(x: 0,
+                            y: yPosition,
+                            width: view.frame.width,
+                            height: view.frame.height)
     }
     
     private func moveView(panGestureRecognizer recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: view)
         let minY = view.frame.minY
         if (minY + translation.y >= Constant.fullViewYPosition) && (minY + translation.y <= Constant.partialViewYPosition) {
-            view.frame = CGRect(x: 0, y: minY, width: view.frame.width, height: view.frame.height)
+            view.frame = CGRect(x: 0,
+                                y: minY,
+                                width: view.frame.width,
+                                height: view.frame.height)
             recognizer.setTranslation(CGPoint.zero, in: view)
         }
     }
     
     @objc private func panGesture(_ recognizer: UIPanGestureRecognizer) {
         moveView(panGestureRecognizer: recognizer)
+        
         if recognizer.state == .began {
             standardY = recognizer.location(in: view).y
         } else if recognizer.state == .changed {
@@ -63,11 +70,16 @@ class BottomSheetViewController: UIViewController {
             
         } else if recognizer.state == .ended {
             self.view.isUserInteractionEnabled = false
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: .allowUserInteraction, animations: { let state: State = recognizer.velocity(in: self.view).y >= 0 ? .partial : .full
-                self.moveView(state: state)
-            }, completion: { _ in
-                self.view.isUserInteractionEnabled = true
-            })
+            UIView.animate(withDuration: 0.3,
+                           delay: 0.0,
+                           options: .allowUserInteraction,
+                           animations: {
+                            let state: State = recognizer.velocity(in: self.view).y >= 0 ?
+                                .partial : .full
+                            self.moveView(state: state)},
+                           completion: { _ in
+                self.view.isUserInteractionEnabled = true }
+            )
         }
     }
     

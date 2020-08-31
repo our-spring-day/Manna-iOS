@@ -13,6 +13,7 @@ struct User: Hashable, Equatable {
     var profileImage: String
     var checkedFlag: Bool
 }
+
 let justhis = User(name: "저스디스", profileImage: "justhis", checkedFlag: false)
 let sikk = User(name: "식케이", profileImage: "sik-k", checkedFlag: false)
 let soma = User(name: "소마", profileImage: "soma", checkedFlag: false)
