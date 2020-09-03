@@ -12,23 +12,25 @@ import RxSwift
 import SwiftyJSON
 
 protocol AddressFetchable {
-    static func getAddress(_ keyword: String) -> Observable<[Address]>
+    func getAddress(_ keyword: String) -> Observable<[Address]>
+    func getAddress2(_ keyword: String) -> Observable<Result<[Address], Error>>
 }
 
 private let key2AddressURL = "https://dapi.kakao.com/v2/local/search/keyword.json"
 private let coord2AddressURL = "https://dapi.kakao.com/v2/local/geo/coord2address.json"
 
 class AddressAPI: AddressFetchable {
+    
     static private let headers: HTTPHeaders = [
         "Authorization": "KakaoAK ec74a28d28177a706155cb8af1fb7ec8"
     ]
     
-    static func getAddress2(_ keyword: String) -> Observable<Result<[Address], Error>> {
+    func getAddress2(_ keyword: String) -> Observable<Result<[Address], Error>> {
         let parameters: [String: String] = [
             "query": keyword
         ]
         return Observable.create { observer in
-            AF.request(key2AddressURL, method: .get, parameters: parameters, headers: headers)
+            AF.request(key2AddressURL, method: .get, parameters: parameters, headers: AddressAPI.headers)
                 .responseJSON { response in
                     switch response.result {
                     case .success(let value):
@@ -50,13 +52,13 @@ class AddressAPI: AddressFetchable {
     }
     
     
-    static func getAddress(_ keyword: String) -> Observable<[Address]> {
+    func getAddress(_ keyword: String) -> Observable<[Address]> {
         let parameters: [String: String] = [
             "query": keyword
         ]
         
         return Observable.create { observer in
-            AF.request(key2AddressURL, method: .get, parameters: parameters, headers: headers)
+            AF.request(key2AddressURL, method: .get, parameters: parameters, headers: AddressAPI.headers)
                 .responseJSON { response in
                     switch response.result {
                     case .success(let value):
