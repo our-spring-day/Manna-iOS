@@ -184,10 +184,10 @@ class SelectPlacePinViewController: UIViewController, UITextFieldDelegate {
     
     func bind() {
         let address = completeBtn.rx.tap
-            .map { Address(address: self.addressLable.text!,
-                           roadAddress: self.roadAddressLable.text! + " " + self.detailAddress.text!,
-                           lng: "\(self.lng!)",
-                           lat: "\(self.lat!)") }
+            .map { Address(roadAddress: self.roadAddressLable.text! + " " + self.detailAddress.text!,
+                           address: self.addressLable.text!,
+                           x: "\(self.lng!)",
+                           y: "\(self.lat!)") }
         
         Observable.just(address)
             .merge()
@@ -265,8 +265,8 @@ extension SelectPlacePinViewController: NMFMapViewCameraDelegate {
                     .subscribe(onNext: { value in
                         self.addressLable.text = String(value.address)
                         self.roadAddressLable.text = String(value.roadAddress)
-                        self.lat = Double(value.lat)
-                        self.lng = Double(value.lng)
+                        self.lat = Double(value.y)
+                        self.lng = Double(value.x)
                     })
                     .disposed(by: self.disposeBag)
                 

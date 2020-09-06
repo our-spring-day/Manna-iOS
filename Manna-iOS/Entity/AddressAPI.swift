@@ -12,7 +12,7 @@ import RxSwift
 import SwiftyJSON
 
 protocol AddressFetchable {
-    func getAddress(_ keyword: String) -> Observable<[Address]>
+//    func getAddress(_ keyword: String) -> Observable<[Address]>
     func getAddress2(_ keyword: String) -> Observable<Result<[Address], Error>>
 }
 
@@ -51,33 +51,33 @@ class AddressAPI: AddressFetchable {
     }
     
     
-    func getAddress(_ keyword: String) -> Observable<[Address]> {
-        let parameters: [String: String] = [
-            "query": keyword
-        ]
-        
-        return Observable.create { observer in
-            AF.request(key2AddressURL, method: .get, parameters: parameters, headers: AddressAPI.headers)
-                .responseJSON { response in
-                    switch response.result {
-                    case .success(let value):
-                        var resultList: [Address] = []
-                        if let addressList = JSON(value)["documents"].array {
-                            for item in addressList {
-                                let address = Address(address: item["address_name"].string!,
-                                                      roadAddress: item["road_address_name"].string!, lng: item["x"].string!, lat: item["y"].string!)
-                                resultList.append(address)
-                            }
-                            observer.onNext(resultList)
-                        }
-                    case .failure(let err):
-                        print(err)
-                    }
-                    observer.onCompleted()
-            }
-            return Disposables.create()
-        }
-    }
+//    func getAddress(_ keyword: String) -> Observable<[Address]> {
+//        let parameters: [String: String] = [
+//            "query": keyword
+//        ]
+//
+//        return Observable.create { observer in
+//            AF.request(key2AddressURL, method: .get, parameters: parameters, headers: AddressAPI.headers)
+//                .responseJSON { response in
+//                    switch response.result {
+//                    case .success(let value):
+//                        var resultList: [Address] = []
+//                        if let addressList = JSON(value)["documents"].array {
+//                            for item in addressList {
+//                                let address = Address(address: item["address_name"].string!,
+//                                                      roadAddress: item["road_address_name"].string!, lng: item["x"].string!, lat: item["y"].string!)
+//                                resultList.append(address)
+//                            }
+//                            observer.onNext(resultList)
+//                        }
+//                    case .failure(let err):
+//                        print(err)
+//                    }
+//                    observer.onCompleted()
+//            }
+//            return Disposables.create()
+//        }
+//    }
     
     static func getAddress(_ lng: Double, _ lat: Double) -> Observable<Address> {
         let parameters: [String: Double] = [
@@ -89,10 +89,10 @@ class AddressAPI: AddressFetchable {
                     switch response.result {
                     case .success(let value):
                         let addressList = JSON(value)["documents"].arrayValue[0]
-                        let address = Address(address: "\(addressList["address"]["address_name"])",
-                            roadAddress: "\(addressList["road_address"]["address_name"])",
-                            lng: "\(lng)",
-                            lat: "\(lat)")
+                        let address = Address(roadAddress: "\(addressList["road_address"]["address_name"])",
+                            address: "\(addressList["address"]["address_name"])",
+                            x: "\(lng)",
+                            y: "\(lat)")
                         observer.onNext(address)
                     case .failure(let err):
                         print(err)

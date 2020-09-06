@@ -44,7 +44,8 @@ class AddMannaViewModel: AddMannaViewModelType, AddMannaViewModelInput, AddManna
         let placeInput = PublishSubject<String>()
 
         // Output
-        let addressSingleOutput = BehaviorRelay<Address>(value: Address(address: "", roadAddress: "", lng: "", lat: ""))
+//        let addressSingleOutput = BehaviorRelay<Address>(value: Address(address: "", roadAddress: "", lng: "", lat: ""))
+        let addressSingleOutput = PublishRelay<Address>()
         
         title = titleInput.asObserver()
         people = peopleInput.asObserver()

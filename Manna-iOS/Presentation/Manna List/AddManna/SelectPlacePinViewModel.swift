@@ -35,7 +35,8 @@ class SelectPlacePinViewModel: SelectPlacePinViewModelType, SelectPlacePinViewMo
     init() {
         let lngInput = PublishSubject<Double>()
         let latInput = PublishSubject<Double>()
-        let addressOut = BehaviorRelay<Address>(value: Address(address: "", roadAddress: "", lng: "", lat: ""))
+//        let addressOut = BehaviorRelay<Address>(value: Address(address: "", roadAddress: "", lng: "", lat: ""))
+        let addressOut = PublishRelay<Address>()
         
         longitude = lngInput.asObserver()
         latitude = latInput.asObserver()

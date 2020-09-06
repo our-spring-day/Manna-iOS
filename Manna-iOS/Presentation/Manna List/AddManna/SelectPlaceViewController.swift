@@ -130,10 +130,10 @@ class SelectPlaceViewController: UIViewController {
         searchResult.rx.modelSelected(Address.self)
             .subscribe(onNext: { [weak self] address in
                 let view = SelectPlacePinViewController.shared
-                view.initLng = Double(address.lng)
-                view.initLat = Double(address.lat)
-                view.lng = Double(address.lng)
-                view.lat = Double(address.lat)
+                view.initLng = Double(address.x)
+                view.initLat = Double(address.y)
+                view.lng = Double(address.x)
+                view.lat = Double(address.y)
                 view.addressLable.text = address.address
                 view.roadAddressLable.text = address.roadAddress
                 view.modalPresentationStyle = .fullScreen
