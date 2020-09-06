@@ -18,8 +18,6 @@ class FinalAddManna: UIView {
     let finalPeopleLabel = UILabel()
     var finalPeople: UICollectionView!
     let layoutValue = UICollectionViewFlowLayout()
-//    var baseCollectionView: UICollectionView!
-//    let layoutValue: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     let completeButton = UIButton()
     
     override init(frame: CGRect) {
@@ -60,7 +58,6 @@ class FinalAddManna: UIView {
         }
         finalPeople = UICollectionView(frame: CGRect.zero, collectionViewLayout: layoutValue)
         finalPeople.do {
-//            $0.collectionViewLayout = layoutValue
             $0.backgroundColor = .white
             $0.register(CheckedFriendCell.self, forCellWithReuseIdentifier: CheckedFriendCell.identifier)
             $0.isPagingEnabled = true

@@ -18,6 +18,7 @@
 		A55B0F1D24D5B8B000211AEA /* TimeAddManna.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55B0F1C24D5B8B000211AEA /* TimeAddManna.swift */; };
 		A55B0F1F24D5EBED00211AEA /* PlaceAddManna.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55B0F1E24D5EBED00211AEA /* PlaceAddManna.swift */; };
 		A55B0F2624D9CD2400211AEA /* AddMannaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55B0F2524D9CD2400211AEA /* AddMannaViewController.swift */; };
+		A55B4CE2250131A7006102EB /* SelectPlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55B4CE1250131A7006102EB /* SelectPlaceModel.swift */; };
 		A5677B0E24B78D4500059EE0 /* UIView-Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5677B0D24B78D4500059EE0 /* UIView-Ext.swift */; };
 		A585F8312482848200A60530 /* NotiListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F8302482848200A60530 /* NotiListViewModel.swift */; };
 		A585F8332482849500A60530 /* NotiListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F8322482849500A60530 /* NotiListModel.swift */; };
@@ -32,6 +33,7 @@
 		A5EB4A1224BCB75F0084EBE5 /* SelectPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EB4A1124BCB75F0084EBE5 /* SelectPlaceViewController.swift */; };
 		A5EB4A1424BCC6F30084EBE5 /* DrawLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EB4A1324BCC6F30084EBE5 /* DrawLine.swift */; };
 		A5EB4A1624BDD62D0084EBE5 /* AddressAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EB4A1524BDD62D0084EBE5 /* AddressAPI.swift */; };
+		A5EE1ED3250521FD00E6E46B /* UIColor-Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EE1ED2250521FD00E6E46B /* UIColor-Ext.swift */; };
 		CC0BFAAC24DAAD2900A9D437 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0BFAAB24DAAD2900A9D437 /* BottomSheetViewController.swift */; };
 		CC384C0C24852AD0005F34AE /* FriendListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C0B24852AD0005F34AE /* FriendListViewModel.swift */; };
 		CC384C0E24852ADB005F34AE /* FriendListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C0D24852ADB005F34AE /* FriendListModel.swift */; };
@@ -76,6 +78,7 @@
 		A55B0F1C24D5B8B000211AEA /* TimeAddManna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAddManna.swift; sourceTree = "<group>"; };
 		A55B0F1E24D5EBED00211AEA /* PlaceAddManna.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAddManna.swift; sourceTree = "<group>"; };
 		A55B0F2524D9CD2400211AEA /* AddMannaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMannaViewController.swift; sourceTree = "<group>"; };
+		A55B4CE1250131A7006102EB /* SelectPlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceModel.swift; sourceTree = "<group>"; };
 		A5677B0D24B78D4500059EE0 /* UIView-Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView-Ext.swift"; sourceTree = "<group>"; };
 		A585F8302482848200A60530 /* NotiListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiListViewModel.swift; sourceTree = "<group>"; };
 		A585F8322482849500A60530 /* NotiListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiListModel.swift; sourceTree = "<group>"; };
@@ -90,6 +93,7 @@
 		A5EB4A1124BCB75F0084EBE5 /* SelectPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlaceViewController.swift; sourceTree = "<group>"; };
 		A5EB4A1324BCC6F30084EBE5 /* DrawLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawLine.swift; sourceTree = "<group>"; };
 		A5EB4A1524BDD62D0084EBE5 /* AddressAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressAPI.swift; sourceTree = "<group>"; };
+		A5EE1ED2250521FD00E6E46B /* UIColor-Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor-Ext.swift"; sourceTree = "<group>"; };
 		CC0BFAAB24DAAD2900A9D437 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		CC384C0B24852AD0005F34AE /* FriendListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewModel.swift; sourceTree = "<group>"; };
 		CC384C0D24852ADB005F34AE /* FriendListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListModel.swift; sourceTree = "<group>"; };
@@ -169,6 +173,7 @@
 				A55A80BA248FD76200EDFA99 /* AddMannaViewModel.swift */,
 				A5EB4A1124BCB75F0084EBE5 /* SelectPlaceViewController.swift */,
 				A52C61FF24E2DADA00B4C6C2 /* SelectPlaceViewModel.swift */,
+				A55B4CE1250131A7006102EB /* SelectPlaceModel.swift */,
 				A528168E24C0A05900EDC4E9 /* SelectPlacePinViewController.swift */,
 				A595A8EF24DDA28F00EAFAA5 /* SelectPlacePinViewModel.swift */,
 			);
@@ -193,6 +198,7 @@
 				A552C78624A4ED0D00D834BF /* AddMannaView-Ext.swift */,
 				A5677B0D24B78D4500059EE0 /* UIView-Ext.swift */,
 				A595A8A724DC823000EAFAA5 /* UINavigation-Ext.swift */,
+				A5EE1ED2250521FD00E6E46B /* UIColor-Ext.swift */,
 			);
 			path = "Extensions-Utillities";
 			sourceTree = "<group>";
@@ -520,6 +526,7 @@
 				A585F83F2482963F00A60530 /* MannaListCell.swift in Sources */,
 				A55B0F2624D9CD2400211AEA /* AddMannaViewController.swift in Sources */,
 				A5EB4A1024BCA7310084EBE5 /* AddressListCell.swift in Sources */,
+				A55B4CE2250131A7006102EB /* SelectPlaceModel.swift in Sources */,
 				A5EB4A1624BDD62D0084EBE5 /* AddressAPI.swift in Sources */,
 				A528168F24C0A05900EDC4E9 /* SelectPlacePinViewController.swift in Sources */,
 				A55B0F1F24D5EBED00211AEA /* PlaceAddManna.swift in Sources */,
@@ -533,6 +540,7 @@
 				CC705A0F2477D2D200462251 /* NotiListViewController.swift in Sources */,
 				CC705A0B2477D28800462251 /* FriendListViewController.swift in Sources */,
 				A5EB4A1424BCC6F30084EBE5 /* DrawLine.swift in Sources */,
+				A5EE1ED3250521FD00E6E46B /* UIColor-Ext.swift in Sources */,
 				A552C78724A4ED0D00D834BF /* AddMannaView-Ext.swift in Sources */,
 				A585F83A2482961A00A60530 /* MannaListViewModel.swift in Sources */,
 				A5B92B1E2496340B008A14C3 /* MannaSection.swift in Sources */,

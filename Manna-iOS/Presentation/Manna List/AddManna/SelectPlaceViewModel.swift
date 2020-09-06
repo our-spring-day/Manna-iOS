@@ -28,22 +28,25 @@ class SelectPlaceViewModel: SelectPlaceViewModelType, SelectPlaceViewModelInput,
     
     let addressArr: Observable<[Address]>
     
-    init() {
+    init(model: SelectPlaceModel = SelectPlaceModel()) {
         let addressInput = PublishSubject<String>()
-
+        
         let addressOutput = BehaviorRelay<[Address]>(value: [])
         
         address = addressInput.asObserver()
         
         addressInput
-        .debug()
-        .map({ "\($0)" })
-        .flatMap({ AddressAPI.getAddress2($0)})
-        .subscribe(onNext: { value in
-            addressOutput.accept(value)
-        })
-        .disposed(by: disposeBag)
-
+            .flatMap({ model.getAdress($0) })
+            .subscribe(onNext: { result in
+                switch result {
+                case .success(let address):
+                    addressOutput.accept(address)
+                case .failure(let err):
+                    print(err)
+                }
+            })
+            .disposed(by: disposeBag)
+        
         addressArr = addressOutput.asObservable()
         
     }

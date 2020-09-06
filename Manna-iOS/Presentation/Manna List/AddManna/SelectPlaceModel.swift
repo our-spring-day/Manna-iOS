@@ -16,7 +16,7 @@ class SelectPlaceModel {
         self.addressNetwork = addressNetwork
     }
     
-    func getAdress(address: String) -> Observable<Result<[Address], Error>> {
+    func getAdress(_ address: String) -> Observable<Result<[Address], Error>> {
         return addressNetwork.getAddress2(address)
     }
 }

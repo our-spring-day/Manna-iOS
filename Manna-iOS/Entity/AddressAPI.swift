@@ -29,6 +29,7 @@ class AddressAPI: AddressFetchable {
         let parameters: [String: String] = [
             "query": keyword
         ]
+    
         return Observable.create { observer in
             AF.request(key2AddressURL, method: .get, parameters: parameters, headers: AddressAPI.headers)
                 .responseJSON { response in
@@ -36,14 +37,14 @@ class AddressAPI: AddressFetchable {
                     case .success(let value):
                         let data = "\(JSON(value)["documents"])".data(using: .utf8)
                         do {
-                            if let data = data, let searchAddress = try? JSONDecoder().decode([Address].self, from: data){
+                            if let data = data, let searchAddress = try? JSONDecoder().decode([Address].self, from: data) {
                                 observer.onNext(.success(searchAddress))
                             }
-                        } catch let err{
-                            observer.onNext(.failure(err))
+                        } catch {
+                            observer.onNext(.failure(error))
                         }
-                    case .failure(_):
-                        print("error입니다.")
+                    case .failure(let err):
+                        print("\(err)입니다.")
                     }
                     observer.onCompleted()
                 }

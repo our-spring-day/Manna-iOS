@@ -77,7 +77,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         titleButton.do {
             $0.setTitle("완료", for: .normal)
             $0.setTitleColor(.white, for: .normal)
-            $0.backgroundColor = UIColor(displayP3Red: 97/255, green: 196/255, blue: 174/255, alpha: 1)
+            $0.backgroundColor = UIColor.appColor(.banksaladColor)
             $0.layer.cornerRadius = 8
             $0.addTarget(self, action: #selector(titleBtn), for: .touchUpInside)
         }
@@ -88,7 +88,7 @@ class AddMannaViewController: UIViewController, UITextFieldDelegate {
         nextButton.do {
             $0.setTitle("다음", for: .normal)
             $0.setTitleColor(.white, for: .normal)
-            $0.backgroundColor = UIColor(displayP3Red: 97/255, green: 196/255, blue: 174/255, alpha: 1)
+            $0.backgroundColor = UIColor.appColor(.banksaladColor)
             $0.layer.cornerRadius = 8
             $0.isHidden = true
             $0.addTarget(self, action: #selector(nextBtn), for: .touchUpInside)

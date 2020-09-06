@@ -15,6 +15,7 @@ enum AssetsColor {
   case selectedCellMintColor
   case selectedCellGrayColor
   case darkBgColor
+  case banksaladColor
 }
 
 extension UIColor {
@@ -32,6 +33,8 @@ extension UIColor {
       return #colorLiteral(red: 0.9384746552, green: 0.9328956604, blue: 0.9427630305, alpha: 1)
     case .darkBgColor:
       return #colorLiteral(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+    case .banksaladColor:
+      return #colorLiteral(red: 0.3802058101, green: 0.7672194839, blue: 0.6821649075, alpha: 1)
     }
   }
 }
