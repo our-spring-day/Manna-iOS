@@ -29,25 +29,23 @@ class AddressAPI: AddressFetchable {
         let parameters: [String: String] = [
             "query": keyword
         ]
-    
+        
         return Observable.create { observer in
             AF.request(key2AddressURL, method: .get, parameters: parameters, headers: AddressAPI.headers)
                 .responseJSON { response in
                     switch response.result {
                     case .success(let value):
                         let data = "\(JSON(value)["documents"])".data(using: .utf8)
-                        do {
-                            if let data = data, let searchAddress = try? JSONDecoder().decode([Address].self, from: data) {
-                                observer.onNext(.success(searchAddress))
-                            }
-                        } catch {
-                            observer.onNext(.failure(error))
+//                        print("\(JSON(value)["documents"])")
+                        if let data = data, let searchAddress = try? JSONDecoder().decode([Address].self, from: data) {
+                            print("시발 왜 결과가 안나오냐\(searchAddress)")
+                            observer.onNext(.success(searchAddress))
                         }
                     case .failure(let err):
                         print("\(err)입니다.")
                     }
                     observer.onCompleted()
-                }
+            }
             return Disposables.create()
         }
     }
