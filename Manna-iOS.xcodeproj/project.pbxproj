@@ -25,6 +25,7 @@
 		A585F83A2482961A00A60530 /* MannaListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F8392482961A00A60530 /* MannaListViewModel.swift */; };
 		A585F83C2482962600A60530 /* MannaListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F83B2482962600A60530 /* MannaListModel.swift */; };
 		A585F83F2482963F00A60530 /* MannaListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A585F83E2482963F00A60530 /* MannaListCell.swift */; };
+		A5867D4D25063B9600693E23 /* SelectPlacePinModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5867D4C25063B9600693E23 /* SelectPlacePinModel.swift */; };
 		A595A8A824DC823000EAFAA5 /* UINavigation-Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A595A8A724DC823000EAFAA5 /* UINavigation-Ext.swift */; };
 		A595A8F024DDA28F00EAFAA5 /* SelectPlacePinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A595A8EF24DDA28F00EAFAA5 /* SelectPlacePinViewModel.swift */; };
 		A5B92B1E2496340B008A14C3 /* MannaSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B92B1D2496340B008A14C3 /* MannaSection.swift */; };
@@ -85,6 +86,7 @@
 		A585F8392482961A00A60530 /* MannaListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaListViewModel.swift; sourceTree = "<group>"; };
 		A585F83B2482962600A60530 /* MannaListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaListModel.swift; sourceTree = "<group>"; };
 		A585F83E2482963F00A60530 /* MannaListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaListCell.swift; sourceTree = "<group>"; };
+		A5867D4C25063B9600693E23 /* SelectPlacePinModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlacePinModel.swift; sourceTree = "<group>"; };
 		A595A8A724DC823000EAFAA5 /* UINavigation-Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigation-Ext.swift"; sourceTree = "<group>"; };
 		A595A8EF24DDA28F00EAFAA5 /* SelectPlacePinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlacePinViewModel.swift; sourceTree = "<group>"; };
 		A5B92B1D2496340B008A14C3 /* MannaSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaSection.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				A55B4CE1250131A7006102EB /* SelectPlaceModel.swift */,
 				A528168E24C0A05900EDC4E9 /* SelectPlacePinViewController.swift */,
 				A595A8EF24DDA28F00EAFAA5 /* SelectPlacePinViewModel.swift */,
+				A5867D4C25063B9600693E23 /* SelectPlacePinModel.swift */,
 			);
 			path = AddManna;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				A55B0F2624D9CD2400211AEA /* AddMannaViewController.swift in Sources */,
 				A5EB4A1024BCA7310084EBE5 /* AddressListCell.swift in Sources */,
 				A55B4CE2250131A7006102EB /* SelectPlaceModel.swift in Sources */,
+				A5867D4D25063B9600693E23 /* SelectPlacePinModel.swift in Sources */,
 				A5EB4A1624BDD62D0084EBE5 /* AddressAPI.swift in Sources */,
 				A528168F24C0A05900EDC4E9 /* SelectPlacePinViewController.swift in Sources */,
 				A55B0F1F24D5EBED00211AEA /* PlaceAddManna.swift in Sources */,

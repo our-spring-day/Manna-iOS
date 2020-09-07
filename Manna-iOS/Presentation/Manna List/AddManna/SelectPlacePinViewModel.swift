@@ -32,21 +32,28 @@ class SelectPlacePinViewModel: SelectPlacePinViewModelType, SelectPlacePinViewMo
     
     let disposeBag = DisposeBag()
     
-    init() {
+    init(model: SelectPlacePinModel = SelectPlacePinModel()) {
         let lngInput = PublishSubject<Double>()
         let latInput = PublishSubject<Double>()
-//        let addressOut = BehaviorRelay<Address>(value: Address(address: "", roadAddress: "", lng: "", lat: ""))
-        let addressOut = PublishRelay<Address>()
+        
+        let addressOutput = PublishRelay<Address>()
         
         longitude = lngInput.asObserver()
         latitude = latInput.asObserver()
         
         Observable.combineLatest(lngInput, latInput)
-            .flatMap { AddressAPI.getAddress($0, $1) }
-            .bind(to: addressOut)
+            .flatMap({ model.getAddress($0, $1)})
+            .subscribe(onNext: { result in
+                switch result {
+                case .success(let address):
+                    addressOutput.accept(address)
+                case .failure(let err):
+                    print(err)
+                }
+            })
             .disposed(by: disposeBag)
         
-        address = addressOut.asObservable()
+        address = addressOutput.asObservable()
         
     }
     var inputs: SelectPlacePinViewModelInput { return self }

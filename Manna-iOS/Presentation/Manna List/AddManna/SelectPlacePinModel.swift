@@ -16,7 +16,7 @@ class SelectPlacePinModel {
         self.network = network
     }
     
-    func getAddress(_ lng: Double, _ lat: Double) -> Observable<Result<[Address], Error>> {
+    func getAddress(_ lng: Double, _ lat: Double) -> Observable<Result<Address, Error>> {
         return network.getAddress(lng, lat)
     }
 }

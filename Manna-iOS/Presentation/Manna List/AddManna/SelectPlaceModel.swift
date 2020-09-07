@@ -17,6 +17,6 @@ class SelectPlaceModel {
     }
     
     func getAdress(_ address: String) -> Observable<Result<[Address], Error>> {
-        return addressNetwork.getAddress2(address)
+        return addressNetwork.getAddress(address)
     }
 }

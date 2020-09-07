@@ -37,11 +37,9 @@ class SelectPlaceViewModel: SelectPlaceViewModelType, SelectPlaceViewModelInput,
         
         addressInput
             .flatMap({ model.getAdress($0) })
-            .debug()
             .subscribe(onNext: { result in
                 switch result {
                 case .success(let address):
-                    print("헤헤헤헤헤헤\(address)")
                     addressOutput.accept(address)
                 case .failure(let err):
                     print(err)
