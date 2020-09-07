@@ -57,10 +57,12 @@ class AddressAPI: AddressFetchable {
                 .responseJSON { response in
                     switch response.result {
                     case .success(let value):
-                        let data = "\(JSON(value)["document"])".data(using: .utf8)
-                        if let data = data, let searchAddress = try? JSONDecoder().decode(Address.self, from: data) {
-                            observer.onNext(.success(searchAddress))
-                        }
+                        let addressList = JSON(value)["documents"].arrayValue[0]
+                        let searchAddress = Address(roadAddress: "\(addressList["road_address"]["address_name"])",
+                            address: "\(addressList["address"]["address_name"])",
+                            x: "\(lng)",
+                            y: "\(lat)")
+                        observer.onNext(.success(searchAddress))
                     case .failure(let err):
                         print(err)
                     }
