@@ -38,9 +38,6 @@ class AddUserViewController: UIViewController {
             $0.backgroundColor = .white
         }
         navigationController?.do {
-            $0.navigationItem.do { item in
-                item.title = "ID로 친구 추가"
-            }
             $0.navigationBar.do { bar  in
                 bar.tintColor = UIColor(named: "default")
             }

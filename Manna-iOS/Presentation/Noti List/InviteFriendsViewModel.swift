@@ -103,7 +103,6 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
     
     func arrangedCheckedList(lastValue: [User], newValue: [User]) -> [User] {
         var lastValue = lastValue
-        
         if lastValue.count < newValue.count {
             let checkedFriend = newValue.filter { !lastValue.contains($0) }
             lastValue.insert(checkedFriend[0], at: 0)

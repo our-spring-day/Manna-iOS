@@ -90,7 +90,7 @@ class NotiListViewController: UIViewController {
                     self.view.layoutIfNeeded()
                 }
         }.disposed(by: self.disposeBag)
-
+        
         //테이블 뷰에서 선택한 친구를 뷰모델에 바인딩
         tableView.baseTableView.rx.modelSelected(User.self)
             .bind(to: inviteFriendsViewModel.inputs.itemFromTableView)
@@ -100,7 +100,7 @@ class NotiListViewController: UIViewController {
         collectionView.baseCollectionView.rx.modelSelected(User.self)
             .bind(to: inviteFriendsViewModel.inputs.itemFromCollectionView)
             .disposed(by: disposeBag)
-
+        
         //텍스트필드에 입력된 텍스트를 뷰모델에 바인딩
         textField.rx.text
             .orEmpty
@@ -112,17 +112,24 @@ class NotiListViewController: UIViewController {
         inviteFriendsViewModel.outputs.checkedFriendList
             .skip(1)
             .map { $0.count }
-            .filter { $0 <= 1 }
+            .scan([], accumulator: {
+                if $0.isEmpty {
+                    return [0, $1]
+                }
+                return [$0[1], $1]
+                
+            })
+            .filter { ($0[1] <= 1) && ($0[0] != 2) }
+            .map { $0[1] }
             .subscribe(onNext: { count in
-                print(count)
-                if count < 1 {
+                if count == 0 {
                     self.textField.snp.updateConstraints {
                         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
                     }
                     self.tableView.snp.updateConstraints {
                         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(50)
                     }
-                } else {
+                } else if count == 1 {
                     self.textField.snp.updateConstraints {
                         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(100)
                     }
@@ -135,7 +142,7 @@ class NotiListViewController: UIViewController {
                 }
             }).disposed(by: disposeBag)
         
-//        keyboard hide when tableView,collectionView scrolling
+        //keyboard hide when tableView,collectionView scrolling
         Observable.of(tableView.baseTableView.rx.didScroll.asObservable(), collectionView.baseCollectionView.rx.didScroll.asObservable()).merge()
             .subscribe(onNext: {
                 self.view.endEditing(true)
