@@ -30,8 +30,6 @@ class FriendsListCollectionView: UIView {
         baseCollectionView.do {
             $0.backgroundColor = .white
             $0.register(CheckedFriendCell.self, forCellWithReuseIdentifier: CheckedFriendCell.identifier)
-//            $0.isPagingEnabled = true
-//            $0.showsHorizontalScrollIndicator = false
         }
         layoutValue.do {
             $0.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)

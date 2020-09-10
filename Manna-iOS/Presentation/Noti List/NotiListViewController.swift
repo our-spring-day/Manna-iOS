@@ -50,6 +50,7 @@ class NotiListViewController: UIViewController {
         view.addSubview(collectionView)
         view.addSubview(textField)
         view.addSubview(tableView)
+        
         collectionView.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(100)
@@ -112,12 +113,8 @@ class NotiListViewController: UIViewController {
         inviteFriendsViewModel.outputs.checkedFriendList
             .skip(1)
             .map { $0.count }
-            .scan([], accumulator: {
-                if $0.isEmpty {
-                    return [0, $1]
-                }
+            .scan([0, 0], accumulator: {
                 return [$0[1], $1]
-                
             })
             .filter { ($0[1] <= 1) && ($0[0] != 2) }
             .map { $0[1] }
