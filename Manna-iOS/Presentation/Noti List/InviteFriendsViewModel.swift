@@ -36,7 +36,6 @@ class InviteFriendsViewModel: InviteFriendsViewModelType, InviteFriendsViewModel
     var friendList: Observable<[User]>
     var checkedFriendList: Observable<[User]>
     
-    
     init() {
         let itemFromTableViewInput = PublishSubject<User>()
         let itemFromCollectionViewInput = PublishSubject<User>()

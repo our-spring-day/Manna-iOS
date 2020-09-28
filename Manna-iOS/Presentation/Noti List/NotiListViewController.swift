@@ -117,16 +117,16 @@ class NotiListViewController: UIViewController {
                 return [$0[1], $1]
             })
             .filter { ($0[1] <= 1) && ($0[0] != 2) }
-            .map { $0[1] }
+//            .map { $0[1] }
             .subscribe(onNext: { count in
-                if count == 0 {
+                if count[1] == 0 {
                     self.textField.snp.updateConstraints {
                         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
                     }
                     self.tableView.snp.updateConstraints {
                         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(50)
                     }
-                } else if count == 1 {
+                } else if count[1] == 1 {
                     self.textField.snp.updateConstraints {
                         $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(100)
                     }
@@ -138,7 +138,16 @@ class NotiListViewController: UIViewController {
                     self.view.layoutIfNeeded()
                 }
             }).disposed(by: disposeBag)
-        
+//        inviteFriendsViewModel.outputs.checkedFriendList
+//            .skip(1)
+//            .scan([], accumulator: {
+//                print("$0 == ",$0)
+//                print("$1 == ",$1)
+//                return $1
+//            })
+//            .subscribe(onNext: { count in
+////                print(count)
+//            }).disposed(by: disposeBag)
         //keyboard hide when tableView,collectionView scrolling
         Observable.of(tableView.baseTableView.rx.didScroll.asObservable(), collectionView.baseCollectionView.rx.didScroll.asObservable()).merge()
             .subscribe(onNext: {
