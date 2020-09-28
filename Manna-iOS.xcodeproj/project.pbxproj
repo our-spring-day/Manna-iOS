@@ -59,6 +59,7 @@
 		CCC1F7ED24BDA70700DC8BCB /* FriendsListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1F7EC24BDA70700DC8BCB /* FriendsListTableView.swift */; };
 		CCC2705224D32B19008D3C15 /* InviteFriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC2705124D32B19008D3C15 /* InviteFriendsViewModel.swift */; };
 		CCD1C89924C6F33900C3AE3D /* FriendsListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD1C89824C6F33900C3AE3D /* FriendsListCollectionView.swift */; };
+		CCD5C9982521BA9000160646 /* DurringMeetingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD5C9972521BA9000160646 /* DurringMeetingModel.swift */; };
 		F69ED73508E16B9556FF55D3 /* Pods_Manna_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5434F4B54E67CE37DCF01314 /* Pods_Manna_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -119,6 +120,7 @@
 		CCC1F7EC24BDA70700DC8BCB /* FriendsListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableView.swift; sourceTree = "<group>"; };
 		CCC2705124D32B19008D3C15 /* InviteFriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteFriendsViewModel.swift; sourceTree = "<group>"; };
 		CCD1C89824C6F33900C3AE3D /* FriendsListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListCollectionView.swift; sourceTree = "<group>"; };
+		CCD5C9972521BA9000160646 /* DurringMeetingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurringMeetingModel.swift; sourceTree = "<group>"; };
 		F1D0975FD460DE1097C65D92 /* Pods-Manna-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manna-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Manna-iOS/Pods-Manna-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -333,6 +335,7 @@
 				CC63EC1F24DC04A70029D8B1 /* DurringMeetingViewModel.swift */,
 				CC0BFAAB24DAAD2900A9D437 /* BottomSheetViewController.swift */,
 				CC63EC1D24DC03890029D8B1 /* DuringMeetingCollectionView.swift */,
+				CCD5C9972521BA9000160646 /* DurringMeetingModel.swift */,
 			);
 			path = "Set List";
 			sourceTree = "<group>";
@@ -544,6 +547,7 @@
 				CC8DB2F024CEE09B0003B3D2 /* TempViewController.swift in Sources */,
 				CCB0F24924C6EDDE00BBEAFC /* CheckedFriendCell.swift in Sources */,
 				CCAD9CFE249CD06300E639BF /* FriendDetailViewController.swift in Sources */,
+				CCD5C9982521BA9000160646 /* DurringMeetingModel.swift in Sources */,
 				CC63EC2024DC04A70029D8B1 /* DurringMeetingViewModel.swift in Sources */,
 				CC7059EF2477B81100462251 /* SceneDelegate.swift in Sources */,
 				A5EB4A1224BCB75F0084EBE5 /* SelectPlaceViewController.swift in Sources */,

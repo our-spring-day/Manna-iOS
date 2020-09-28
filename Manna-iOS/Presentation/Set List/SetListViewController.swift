@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 import NMapsMap
 import RxSwift
 import RxCocoa
@@ -19,23 +20,30 @@ class SetListViewController: UIViewController {
     var nmapFView = NMFMapView()
     let cameraPosition = NMFCameraPosition()
     let bottomSheet = BottomSheetViewController()
-    let collectionView = DuringMeetingCollectionView()
+    var locationManager: CLLocationManager?
     let inviteFriensViewModel = InviteFriendsViewModel()
+    var locationOverlay = NMFMapView().locationOverlay
+    let marker = NMFMarker()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        marker.mapView = nmapFView
+
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.requestWhenInUseAuthorization()
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.startUpdatingLocation()
+        let coor = locationManager?.location?.coordinate
+    
+        
         attribute()
         layout()
         bind()
-        //현재 카메라의 포지션이고 유용하게 사용할듯
-//        let cameraPosition2 = nmapFView.cameraPosition
-        inviteFriensViewModel.outputs.checkedFriendList
-            .bind(to: self.collectionView.baseCollectionView.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)) { (_: Int, element: User, cell: CheckedFriendCell) in
-                cell.profileImage.image = UIImage(named: "\(element.profileImage)")
-                UIView.animate(withDuration: 0.3) {
-                    self.view.layoutIfNeeded()
-                }
-        }.disposed(by: self.disposeBag)
+        
+        nmapFView.positionMode = .direction
+        locationOverlay = nmapFView.locationOverlay
+        locationOverlay.hidden = false
     }
     
     func attribute() {
@@ -55,7 +63,6 @@ class SetListViewController: UIViewController {
         view.addSubview(nmapFView)
         view.addSubview(bottomSheet.view)
         self.addChild(bottomSheet)
-        bottomSheet.view.addSubview(collectionView)
         
         bottomSheet.view.snp.makeConstraints {
             $0.centerX.equalTo(view.snp.centerX)
@@ -63,12 +70,21 @@ class SetListViewController: UIViewController {
             $0.height.equalTo(view.frame.height)
             $0.centerY.equalTo(view.frame.maxY)
         }
-        collectionView.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
     }
     
     func bind() {
         
+    }
+}
+
+extension SetListViewController: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+            print("locations = \(locValue.latitude) \(locValue.longitude)")
+        locationOverlay.location = NMGLatLng(lat: locValue.latitude, lng: locValue.longitude)
+        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: locValue.latitude, lng: locValue.longitude))
+        cameraUpdate.animation = .easeOut
+        nmapFView.moveCamera(cameraUpdate)
     }
 }

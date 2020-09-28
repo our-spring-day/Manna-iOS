@@ -138,16 +138,7 @@ class NotiListViewController: UIViewController {
                     self.view.layoutIfNeeded()
                 }
             }).disposed(by: disposeBag)
-//        inviteFriendsViewModel.outputs.checkedFriendList
-//            .skip(1)
-//            .scan([], accumulator: {
-//                print("$0 == ",$0)
-//                print("$1 == ",$1)
-//                return $1
-//            })
-//            .subscribe(onNext: { count in
-////                print(count)
-//            }).disposed(by: disposeBag)
+        
         //keyboard hide when tableView,collectionView scrolling
         Observable.of(tableView.baseTableView.rx.didScroll.asObservable(), collectionView.baseCollectionView.rx.didScroll.asObservable()).merge()
             .subscribe(onNext: {
