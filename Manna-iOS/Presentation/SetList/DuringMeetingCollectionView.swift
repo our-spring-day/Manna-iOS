@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DuringMeetingCollectionView: UICollectionView {
+class DurringMeetingCollectionView: UICollectionView {
     let layoutValue: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     
     init(frame: CGRect) {

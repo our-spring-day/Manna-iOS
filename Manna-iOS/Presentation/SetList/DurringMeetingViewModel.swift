@@ -8,6 +8,10 @@
 
 import UIKit
 
-class DuringMeetingViewModel {
-    
+class DurringMeetingViewModel {
+    let model = DurringMeetingModel()
+    let meetInfo: [tempPeopleStruct]
+    init() {
+        
+    }
 }

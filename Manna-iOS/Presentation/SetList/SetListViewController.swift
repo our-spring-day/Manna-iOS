@@ -27,7 +27,6 @@ class SetListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         attribute()
         layout()
         bind()
@@ -42,9 +41,10 @@ class SetListViewController: UIViewController {
             $0.positionMode = .direction
         }
         bottomSheet.do {
-//            $0.didMove(toParent: self)
             $0.backgroundColor = .white
             $0.alpha = 0.9
+            $0.collectionView?.delegate = self
+            $0.collectionView?.dataSource = self
         }
         locationManager = CLLocationManager()
         locationManager?.do {
@@ -57,13 +57,11 @@ class SetListViewController: UIViewController {
         locationOverlay.do {
             $0.hidden = false
         }
-        
     }
     
     func layout() {
         view.addSubview(nmapFView)
         view.addSubview(bottomSheet)
-//        self.addChild(bottomSheet)
         
         bottomSheet.snp.makeConstraints {
             $0.centerX.equalTo(view.snp.centerX)
@@ -87,5 +85,17 @@ extension SetListViewController: CLLocationManagerDelegate {
         let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: locValue.latitude, lng: locValue.longitude))
         cameraUpdate.animation = .easeOut
         nmapFView.moveCamera(cameraUpdate)
+    }
+}
+
+extension SetListViewController: UICollectionViewDelegate,UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CheckedFriendCell.identifier, for: indexPath) as! CheckedFriendCell
+        cell.XImage.image = UIImage(named: "Image-2")
+        return cell
     }
 }
