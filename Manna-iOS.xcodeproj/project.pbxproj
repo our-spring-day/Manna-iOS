@@ -289,7 +289,7 @@
 				CC705A042477CECF00462251 /* Friend List */,
 				CC705A052477CEF900462251 /* Manna List */,
 				CC705A062477D18100462251 /* Noti List */,
-				CC705A072477D1E600462251 /* Set List */,
+				CC705A072477D1E600462251 /* SetList */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -328,16 +328,17 @@
 			path = "Noti List";
 			sourceTree = "<group>";
 		};
-		CC705A072477D1E600462251 /* Set List */ = {
+		CC705A072477D1E600462251 /* SetList */ = {
 			isa = PBXGroup;
 			children = (
 				CC705A102477D2E000462251 /* SetListViewController.swift */,
-				CC0BFAAB24DAAD2900A9D437 /* BottomSheetViewController.swift */,
 				CC63EC1F24DC04A70029D8B1 /* DurringMeetingViewModel.swift */,
-				CC63EC1D24DC03890029D8B1 /* DuringMeetingCollectionView.swift */,
 				CCD5C9972521BA9000160646 /* DurringMeetingModel.swift */,
+				CC0BFAAB24DAAD2900A9D437 /* BottomSheetViewController.swift */,
+				CC63EC1D24DC03890029D8B1 /* DuringMeetingCollectionView.swift */,
+				CCD5C99C252322FD00160646 /* Components */,
 			);
-			path = "Set List";
+			path = SetList;
 			sourceTree = "<group>";
 		};
 		CCAD9CFC249CD01900E639BF /* DetailUser */ = {
@@ -366,6 +367,13 @@
 				CCD1C89824C6F33900C3AE3D /* FriendsListCollectionView.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		CCD5C99C252322FD00160646 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

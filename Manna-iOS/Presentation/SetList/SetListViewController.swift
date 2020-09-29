@@ -24,12 +24,16 @@ class SetListViewController: UIViewController {
     let inviteFriensViewModel = InviteFriendsViewModel()
     var locationOverlay = NMFMapView().locationOverlay
     let marker = NMFMarker()
+    var viewModel = DurringMeetingViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         attribute()
         layout()
         bind()
+        viewModel.meetingInfo.subscribe(onNext: {
+            print($0)
+        }).disposed(by: disposeBag)
     }
     
     func attribute() {
@@ -97,5 +101,8 @@ extension SetListViewController: UICollectionViewDelegate,UICollectionViewDataSo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CheckedFriendCell.identifier, for: indexPath) as! CheckedFriendCell
         cell.XImage.image = UIImage(named: "Image-2")
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.searchMeetingInfo()
     }
 }
