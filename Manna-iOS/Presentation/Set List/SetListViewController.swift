@@ -31,9 +31,6 @@ class SetListViewController: UIViewController {
         attribute()
         layout()
         bind()
-        
-        
-        
     }
     
     func attribute() {

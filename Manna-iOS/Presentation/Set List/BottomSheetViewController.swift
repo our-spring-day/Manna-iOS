@@ -9,6 +9,7 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import SnapKit
 
 extension BottomSheetViewController {
     private enum State {
@@ -28,27 +29,13 @@ class BottomSheetViewController: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
-        addGestureRecognizer(gesture)
-        roundViews()
+        attribute()
+        layout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//
-//
-//    }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        UIView.animate(withDuration: 0.1, animations: { self.moveView(state: .partial)
-//        })
-//    }
     
     private func moveView(state: State) {
         let yPosition = state == .partial ? Constant.partialViewYPosition : Constant.fullViewYPosition
@@ -93,9 +80,24 @@ class BottomSheetViewController: UIView {
         }
     }
     
-    func roundViews() {
-        self.layer.cornerRadius = 20
-        self.clipsToBounds = true
+    func attribute() {
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
+        self.do {
+            $0.layer.cornerRadius = 20
+            $0.clipsToBounds = true
+            $0.addGestureRecognizer(gesture)
+        }
+        collectionView = DuringMeetingCollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        collectionView?.do {
+            $0.backgroundColor = .red
+        }
+    }
+    func layout() {
+        addSubview(collectionView!)
+        
+        collectionView?.snp.makeConstraints {
+            $0.top.width.centerX.equalTo(self)
+        }
     }
 }
 //class BottomSheetViewController: UIView {
