@@ -332,8 +332,8 @@
 			isa = PBXGroup;
 			children = (
 				CC705A102477D2E000462251 /* SetListViewController.swift */,
-				CC63EC1F24DC04A70029D8B1 /* DurringMeetingViewModel.swift */,
 				CC0BFAAB24DAAD2900A9D437 /* BottomSheetViewController.swift */,
+				CC63EC1F24DC04A70029D8B1 /* DurringMeetingViewModel.swift */,
 				CC63EC1D24DC03890029D8B1 /* DuringMeetingCollectionView.swift */,
 				CCD5C9972521BA9000160646 /* DurringMeetingModel.swift */,
 			);

@@ -8,12 +8,11 @@
 
 import UIKit
 
-class DuringMeetingCollectionView: UIView {
-    var baseCollectionView: UICollectionView!
+class DuringMeetingCollectionView: UICollectionView {
     let layoutValue: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(frame: CGRect) {
+        super.init(frame: frame,collectionViewLayout: layoutValue)
         attribute()
         layout()
     }
@@ -24,10 +23,6 @@ class DuringMeetingCollectionView: UIView {
     
     func attribute() {
         self.do {
-            $0.backgroundColor = .white
-        }
-        baseCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layoutValue)
-        baseCollectionView.do {
             $0.backgroundColor = .white
             $0.register(CheckedFriendCell.self, forCellWithReuseIdentifier: CheckedFriendCell.identifier)
             $0.isPagingEnabled = true
@@ -40,12 +35,11 @@ class DuringMeetingCollectionView: UIView {
             $0.itemSize = CGSize(width: 50, height: 50)
             $0.scrollDirection = .horizontal
         }
+        self.register(CheckedFriendCell.self, forCellWithReuseIdentifier: CheckedFriendCell.identifier)
     }
     
     func layout() {
-        self.addSubview(baseCollectionView)
-        
-        baseCollectionView.snp.makeConstraints {
+        self.snp.makeConstraints {
             $0.width.equalTo(400)
             $0.height.equalTo(100)
             $0.centerX.equalTo(self.snp.centerX)

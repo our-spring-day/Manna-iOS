@@ -19,7 +19,7 @@ class SetListViewController: UIViewController {
     var authState: NMFAuthState!
     var nmapFView = NMFMapView()
     let cameraPosition = NMFCameraPosition()
-    let bottomSheet = BottomSheetViewController()
+    let bottomSheet = BottomSheetViewController(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/2))
     var locationManager: CLLocationManager?
     let inviteFriensViewModel = InviteFriendsViewModel()
     var locationOverlay = NMFMapView().locationOverlay
@@ -27,23 +27,13 @@ class SetListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        marker.mapView = nmapFView
-
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.requestWhenInUseAuthorization()
-        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager?.startUpdatingLocation()
-        let coor = locationManager?.location?.coordinate
-    
         
         attribute()
         layout()
         bind()
         
-        nmapFView.positionMode = .direction
-        locationOverlay = nmapFView.locationOverlay
-        locationOverlay.hidden = false
+        
+        
     }
     
     func attribute() {
@@ -51,20 +41,34 @@ class SetListViewController: UIViewController {
         nmapFView.do {
             $0.mapType = .basic
             $0.symbolScale = 0.7
+            marker.mapView = $0
+            $0.positionMode = .direction
         }
         bottomSheet.do {
-            $0.didMove(toParent: self)
-            $0.view.backgroundColor = .white
-            $0.view.alpha = 0.9
+//            $0.didMove(toParent: self)
+            $0.backgroundColor = .white
+            $0.alpha = 0.9
         }
+        locationManager = CLLocationManager()
+        locationManager?.do {
+            $0.delegate = self
+            $0.requestWhenInUseAuthorization()
+            $0.desiredAccuracy = kCLLocationAccuracyBest
+            $0.startUpdatingLocation()
+        }
+        locationOverlay = nmapFView.locationOverlay
+        locationOverlay.do {
+            $0.hidden = false
+        }
+        
     }
     
     func layout() {
         view.addSubview(nmapFView)
-        view.addSubview(bottomSheet.view)
-        self.addChild(bottomSheet)
+        view.addSubview(bottomSheet)
+//        self.addChild(bottomSheet)
         
-        bottomSheet.view.snp.makeConstraints {
+        bottomSheet.snp.makeConstraints {
             $0.centerX.equalTo(view.snp.centerX)
             $0.width.equalTo(view.frame.width)
             $0.height.equalTo(view.frame.height)
