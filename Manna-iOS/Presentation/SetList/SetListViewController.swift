@@ -33,6 +33,7 @@ class SetListViewController: UIViewController {
         layout()
         bind()
         
+        //나중에 bind를 통해서 컬렉션뷰에 뿌려줄 item 
         viewModel.meetingInfo.subscribe(onNext: {
             print($0)
         }).disposed(by: disposeBag)
@@ -49,8 +50,6 @@ class SetListViewController: UIViewController {
         bottomSheet?.do {
             $0.backgroundColor = .white
             $0.alpha = 0.9
-            $0.collectionView?.delegate = self
-            $0.collectionView?.dataSource = self
         }
         locationManager = CLLocationManager()
         locationManager?.do {
@@ -94,17 +93,3 @@ extension SetListViewController: CLLocationManagerDelegate {
     }
 }
 
-extension SetListViewController: UICollectionViewDelegate,UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CheckedFriendCell.identifier, for: indexPath) as! CheckedFriendCell
-        cell.XImage.image = UIImage(named: "Image-2")
-        return cell
-    }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        viewModel.searchMeetingInfo()
-    }
-}
