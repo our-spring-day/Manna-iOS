@@ -25,11 +25,21 @@ class BottomSheetViewController: UIView {
     let disposeBag = DisposeBag()
     var collectionView: DurringMeetingCollectionView?
     var standardY = CGFloat(0)
+    var viewModel: DurringMeetingViewModel?
     
-    override init(frame: CGRect) {
+    //바텀싵 뷰안에 있는 컬렉션뷰에서
+    init(frame: CGRect, viewModel: DurringMeetingViewModel) {
         super.init(frame: frame)
+        self.viewModel = viewModel
         attribute()
         layout()
+        
+        //추후에 아이템 뿌려놓고나서 테스트해야합니다.
+        collectionView?.rx.modelSelected(User.self)
+            .debug()
+            .subscribe(onNext: { _ in
+                self.viewModel?.searchMeetingInfo()
+            }).disposed(by: disposeBag)
     }
     
     required init?(coder: NSCoder) {

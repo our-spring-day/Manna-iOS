@@ -19,7 +19,7 @@ class SetListViewController: UIViewController {
     var authState: NMFAuthState!
     var nmapFView = NMFMapView()
     let cameraPosition = NMFCameraPosition()
-    let bottomSheet = BottomSheetViewController(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/2))
+    var bottomSheet: BottomSheetViewController?
     var locationManager: CLLocationManager?
     let inviteFriensViewModel = InviteFriendsViewModel()
     var locationOverlay = NMFMapView().locationOverlay
@@ -28,9 +28,11 @@ class SetListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bottomSheet = BottomSheetViewController(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/2),viewModel: viewModel)
         attribute()
         layout()
         bind()
+        
         viewModel.meetingInfo.subscribe(onNext: {
             print($0)
         }).disposed(by: disposeBag)
@@ -44,7 +46,7 @@ class SetListViewController: UIViewController {
             marker.mapView = $0
             $0.positionMode = .direction
         }
-        bottomSheet.do {
+        bottomSheet?.do {
             $0.backgroundColor = .white
             $0.alpha = 0.9
             $0.collectionView?.delegate = self
@@ -65,9 +67,9 @@ class SetListViewController: UIViewController {
     
     func layout() {
         view.addSubview(nmapFView)
-        view.addSubview(bottomSheet)
+        view.addSubview(bottomSheet!)
         
-        bottomSheet.snp.makeConstraints {
+        bottomSheet?.snp.makeConstraints {
             $0.centerX.equalTo(view.snp.centerX)
             $0.width.equalTo(view.frame.width)
             $0.height.equalTo(view.frame.height)
@@ -103,6 +105,6 @@ extension SetListViewController: UICollectionViewDelegate,UICollectionViewDataSo
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.searchMeetingInfo()
+//        viewModel.searchMeetingInfo()
     }
 }
