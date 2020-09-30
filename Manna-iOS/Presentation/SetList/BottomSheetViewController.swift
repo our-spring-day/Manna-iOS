@@ -27,19 +27,12 @@ class BottomSheetViewController: UIView {
     var standardY = CGFloat(0)
     var viewModel: DurringMeetingViewModel?
     
-    //바텀싵 뷰안에 있는 컬렉션뷰에서
     init(frame: CGRect, viewModel: DurringMeetingViewModel) {
         super.init(frame: frame)
         self.viewModel = viewModel
         attribute()
         layout()
-        
-        //추후에 아이템 뿌려놓고나서 테스트해야합니다.
-        collectionView?.rx.modelSelected(User.self)
-            .debug()
-            .subscribe(onNext: { _ in
-                self.viewModel?.searchMeetingInfo()
-            }).disposed(by: disposeBag)
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -84,11 +77,10 @@ class BottomSheetViewController: UIView {
                                 .partial : .full
                             self.moveView(state: state)},
                            completion: { _ in
-                self.isUserInteractionEnabled = true }
+                            self.isUserInteractionEnabled = true }
             )
         }
     }
-    
     func attribute() {
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
         self.do {
@@ -107,5 +99,17 @@ class BottomSheetViewController: UIView {
         collectionView?.snp.makeConstraints {
             $0.top.width.centerX.equalTo(self)
         }
+    }
+    func bind() {
+        self.viewModel?.meetingInfo.asObservable()
+            .bind(to: (collectionView?.rx.items(cellIdentifier: CheckedFriendCell.identifier,cellType: CheckedFriendCell.self))!) {(_: Int, element: TempPeopleStruct, cell: CheckedFriendCell) in
+                cell.profileImage.image = UIImage(named: "Image-2")
+            }
+        //추후에 아이템 뿌려놓고나서 테스트해야합니다.
+        collectionView?.rx.modelSelected(TempPeopleStruct.self)
+            .debug()
+            .subscribe(onNext: { _ in
+                self.viewModel?.searchMeetingInfo()
+            }).disposed(by: disposeBag)
     }
 }

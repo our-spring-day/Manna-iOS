@@ -32,11 +32,6 @@ class SetListViewController: UIViewController {
         attribute()
         layout()
         bind()
-        
-        //나중에 bind를 통해서 컬렉션뷰에 뿌려줄 item 
-        viewModel.meetingInfo.subscribe(onNext: {
-            print($0)
-        }).disposed(by: disposeBag)
     }
     
     func attribute() {
@@ -77,7 +72,10 @@ class SetListViewController: UIViewController {
     }
     
     func bind() {
-        
+        //나중에 bind를 통해서 컬렉션뷰에 뿌려줄 item 현재는 되는지 만 확인 했고 됨
+        viewModel.meetingInfo.subscribe(onNext: {
+            print("이거 탑니까>???????",$0)
+        }).disposed(by: disposeBag)
     }
 }
 
@@ -85,11 +83,10 @@ extension SetListViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-            print("locations = \(locValue.latitude) \(locValue.longitude)")
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
         locationOverlay.location = NMGLatLng(lat: locValue.latitude, lng: locValue.longitude)
         let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: locValue.latitude, lng: locValue.longitude))
         cameraUpdate.animation = .easeOut
         nmapFView.moveCamera(cameraUpdate)
     }
 }
-
