@@ -26,6 +26,9 @@ class BottomSheetViewController: UIView {
     var collectionView: DurringMeetingCollectionView?
     var standardY = CGFloat(0)
     var viewModel: DurringMeetingViewModel?
+    var startTextField = UITextField()
+    var arriveTextField = UITextField()
+    var doneButton = UIButton()
     
     init(frame: CGRect, viewModel: DurringMeetingViewModel) {
         super.init(frame: frame)
@@ -92,12 +95,37 @@ class BottomSheetViewController: UIView {
         collectionView?.do {
             $0.backgroundColor = .red
         }
+        startTextField.do {
+            $0.placeholder = "출발지"
+        }
+        arriveTextField.do {
+            $0.placeholder = "도착지"
+        }
+        doneButton.do {
+            $0.setTitle("확인", for: .normal)
+            $0.backgroundColor = .blue
+        }
     }
     func layout() {
         addSubview(collectionView!)
+        addSubview(startTextField)
+        addSubview(arriveTextField)
+        addSubview(doneButton)
         
         collectionView?.snp.makeConstraints {
             $0.top.width.centerX.equalTo(self)
+        }
+        startTextField.snp.makeConstraints {
+            $0.top.equalTo(collectionView?.snp.bottom as! ConstraintRelatableTarget)
+            $0.width.centerX.equalTo(self)
+        }
+        arriveTextField.snp.makeConstraints {
+            $0.top.equalTo(startTextField.snp.bottom as! ConstraintRelatableTarget)
+            $0.width.centerX.equalTo(self)
+        }
+        doneButton.snp.makeConstraints {
+            $0.top.equalTo(arriveTextField.snp.bottom as! ConstraintRelatableTarget)
+            $0.width.centerX.equalTo(self)
         }
     }
     func bind() {
