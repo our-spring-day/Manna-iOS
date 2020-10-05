@@ -86,6 +86,11 @@ class SetListViewController: UIViewController {
                 cameraUpdate.animation = .easeOut
                 self.nmapFView.moveCamera(cameraUpdate)
             }).disposed(by: disposeBag)
+        
+        viewModel.meetingInfo.asObservable()
+            .subscribe(onNext: {
+                $0.map { print($0.currentLocation.lat) }
+            })
     }
 }
 
@@ -95,6 +100,5 @@ extension SetListViewController: CLLocationManagerDelegate {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         print("locations = \(locValue.latitude) \(locValue.longitude)")
         locationOverlay.location = NMGLatLng(lat: locValue.latitude, lng: locValue.longitude)
-        //해당 Update 안 파라미터 값으로 이동할 값주면 카메라 이동
     }
 }
