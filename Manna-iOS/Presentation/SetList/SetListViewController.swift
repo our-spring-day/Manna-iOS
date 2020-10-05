@@ -28,7 +28,6 @@ class SetListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bottomSheet = BottomSheetViewController(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/2),viewModel: viewModel)
         attribute()
         layout()
         bind()
@@ -42,6 +41,10 @@ class SetListViewController: UIViewController {
             marker.mapView = $0
             $0.positionMode = .direction
         }
+        bottomSheet = BottomSheetViewController(frame: CGRect(x: 0,
+                                                              y: 0,
+                                                              width: UIScreen.main.bounds.width,
+                                                              height: UIScreen.main.bounds.height/2),viewModel: viewModel)
         bottomSheet?.do {
             $0.backgroundColor = .white
             $0.alpha = 0.9
@@ -76,6 +79,13 @@ class SetListViewController: UIViewController {
         viewModel.meetingInfo.subscribe(onNext: {
             print("이거 탑니까>???????",$0)
         }).disposed(by: disposeBag)
+        
+        bottomSheet?.collectionView?.rx.modelSelected(TempPeopleStruct.self)
+            .subscribe(onNext: {
+                let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: $0.currentLocation.lat, lng: $0.currentLocation.lng))
+                cameraUpdate.animation = .easeOut
+                self.nmapFView.moveCamera(cameraUpdate)
+            }).disposed(by: disposeBag)
     }
 }
 
@@ -86,8 +96,5 @@ extension SetListViewController: CLLocationManagerDelegate {
         print("locations = \(locValue.latitude) \(locValue.longitude)")
         locationOverlay.location = NMGLatLng(lat: locValue.latitude, lng: locValue.longitude)
         //해당 Update 안 파라미터 값으로 이동할 값주면 카메라 이동
-//        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: locValue.latitude, lng: locValue.longitude))
-//        cameraUpdate.animation = .easeOut
-//        nmapFView.moveCamera(cameraUpdate)
     }
 }

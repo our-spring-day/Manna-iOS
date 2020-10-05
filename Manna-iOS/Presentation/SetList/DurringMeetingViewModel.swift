@@ -22,16 +22,16 @@ class DurringMeetingViewModel {
     }
     
     func searchMeetingInfo() {
-        if testFlag {
-            var value = meetingInfo.value
-            value.removeAll()
-            meetingInfo.accept(value)
-            testFlag.toggle()
-        } else {
-            var value = meetingInfo.value
-            value = model.getMeetingInfo()
-            meetingInfo.accept(value)
-            testFlag.toggle()
-        }
+//        if testFlag {
+//            var value = meetingInfo.value
+//            value.removeAll()
+//            meetingInfo.accept(value)
+//            testFlag.toggle()
+//        } else {
+//            var value = meetingInfo.value
+//            value = model.getMeetingInfo()
+//            meetingInfo.accept(value)
+//            testFlag.toggle()
+//        }
     }
 }

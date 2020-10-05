@@ -116,15 +116,15 @@ class BottomSheetViewController: UIView {
             $0.top.width.centerX.equalTo(self)
         }
         startTextField.snp.makeConstraints {
-            $0.top.equalTo(collectionView?.snp.bottom as! ConstraintRelatableTarget)
+            $0.top.equalTo(collectionView?.snp.bottom as! ConstraintRelatableTarget).offset(10)
             $0.width.centerX.equalTo(self)
         }
         arriveTextField.snp.makeConstraints {
-            $0.top.equalTo(startTextField.snp.bottom as! ConstraintRelatableTarget)
+            $0.top.equalTo(startTextField.snp.bottom as! ConstraintRelatableTarget).offset(10)
             $0.width.centerX.equalTo(self)
         }
         doneButton.snp.makeConstraints {
-            $0.top.equalTo(arriveTextField.snp.bottom as! ConstraintRelatableTarget)
+            $0.top.equalTo(arriveTextField.snp.bottom as! ConstraintRelatableTarget).offset(10)
             $0.width.centerX.equalTo(self)
         }
     }
@@ -133,11 +133,11 @@ class BottomSheetViewController: UIView {
             .bind(to: (collectionView?.rx.items(cellIdentifier: CheckedFriendCell.identifier,cellType: CheckedFriendCell.self))!) {(_: Int, element: TempPeopleStruct, cell: CheckedFriendCell) in
                 cell.profileImage.image = UIImage(named: "Image-2")
             }
-        //추후에 아이템 뿌려놓고나서 테스트해야합니다.
-        collectionView?.rx.modelSelected(TempPeopleStruct.self)
-            .debug()
-            .subscribe(onNext: { _ in
-                self.viewModel?.searchMeetingInfo()
+        doneButton.rx.tap
+            .map { [self.startTextField.text, self.arriveTextField.text] }
+            .debug("???")
+            .subscribe(onNext: {
+                print($0)
             }).disposed(by: disposeBag)
     }
 }
