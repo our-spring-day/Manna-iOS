@@ -25,7 +25,7 @@ class SetListViewController: UIViewController {
     var locationOverlay = NMFMapView().locationOverlay
     let marker = NMFMarker()
     var viewModel = DurringMeetingViewModel()
-    
+    var test: NMGLatLngBounds?
     override func viewDidLoad() {
         super.viewDidLoad()
         attribute()
@@ -40,8 +40,11 @@ class SetListViewController: UIViewController {
         nmapFView.do {
             $0.mapType = .basic
             $0.symbolScale = 0.7
-            marker.mapView = $0
             $0.positionMode = .direction
+        }
+        marker.do {
+            $0.position = NMGLatLng(lat: 37.411677, lng: 127.128621)
+            $0.mapView = nmapFView
         }
         bottomSheet = BottomSheetViewController(frame: CGRect(x: 0,
                                                               y: 0,
@@ -90,10 +93,10 @@ class SetListViewController: UIViewController {
                 self.nmapFView.moveCamera(cameraUpdate)
             }).disposed(by: disposeBag)
         
-        viewModel.meetingInfo.asObservable()
-            .subscribe(onNext: {
-                $0.map { print($0.currentLocation.lat) }
-            })
+//        viewModel.meetingInfo.asObservable()
+//            .subscribe(onNext: {
+//                $0.map { self.marker.position = $0.currentLocation}
+//            })
     }
 }
 
@@ -101,20 +104,21 @@ extension SetListViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
+//        print("locations = \(locValue.latitude) \(locValue.longitude)")
         locationOverlay.location = NMGLatLng(lat: locValue.latitude, lng: locValue.longitude)
     }
 }
 
 extension SetListViewController: NMFMapViewOptionDelegate {
     func mapViewOptionChanged(_ mapView: NMFMapView) {
-        print("이거는 돼요??")
+    
     }
 }
 
 extension SetListViewController: NMFMapViewCameraDelegate {
     func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
-        print(nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame))
-        print("이거 왜 계속 안타져용?")
+//        print(type(of: nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame)) )
+        test = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame)
+        print("이건아니야",test)
     }
 }
