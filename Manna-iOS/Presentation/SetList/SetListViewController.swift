@@ -32,6 +32,7 @@ class SetListViewController: UIViewController {
         layout()
         bind()
         nmapFView.addOptionDelegate(delegate: self)
+        nmapFView.addCameraDelegate(delegate: self)
     }
     
     func attribute() {
@@ -79,6 +80,7 @@ class SetListViewController: UIViewController {
         //나중에 bind를 통해서 컬렉션뷰에 뿌려줄 item 현재는 되는지 만 확인 했고 됨
         viewModel.meetingInfo.subscribe(onNext: {
             print("이거 탑니까>???????",$0)
+            
         }).disposed(by: disposeBag)
         
         bottomSheet?.collectionView?.rx.modelSelected(TempPeopleStruct.self)
@@ -92,7 +94,6 @@ class SetListViewController: UIViewController {
             .subscribe(onNext: {
                 $0.map { print($0.currentLocation.lat) }
             })
-        
     }
 }
 
@@ -113,6 +114,7 @@ extension SetListViewController: NMFMapViewOptionDelegate {
 
 extension SetListViewController: NMFMapViewCameraDelegate {
     func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
-        print("좋았어")
+        print(nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame))
+        print("이거 왜 계속 안타져용?")
     }
 }
