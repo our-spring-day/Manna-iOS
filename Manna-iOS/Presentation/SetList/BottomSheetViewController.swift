@@ -18,7 +18,7 @@ extension BottomSheetViewController {
     }
     private enum Constant {
         static let fullViewYPosition: CGFloat = 500
-        static var partialViewYPosition: CGFloat { 750 }
+        static var partialViewYPosition: CGFloat { 700 }
     }
 }
 class BottomSheetViewController: UIView {

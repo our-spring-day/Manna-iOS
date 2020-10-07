@@ -31,6 +31,7 @@ class SetListViewController: UIViewController {
         attribute()
         layout()
         bind()
+        nmapFView.addOptionDelegate(delegate: self)
     }
     
     func attribute() {
@@ -91,6 +92,7 @@ class SetListViewController: UIViewController {
             .subscribe(onNext: {
                 $0.map { print($0.currentLocation.lat) }
             })
+        
     }
 }
 
@@ -100,5 +102,17 @@ extension SetListViewController: CLLocationManagerDelegate {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         print("locations = \(locValue.latitude) \(locValue.longitude)")
         locationOverlay.location = NMGLatLng(lat: locValue.latitude, lng: locValue.longitude)
+    }
+}
+
+extension SetListViewController: NMFMapViewOptionDelegate {
+    func mapViewOptionChanged(_ mapView: NMFMapView) {
+        print("이거는 돼요??")
+    }
+}
+
+extension SetListViewController: NMFMapViewCameraDelegate {
+    func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
+        print("좋았어")
     }
 }
