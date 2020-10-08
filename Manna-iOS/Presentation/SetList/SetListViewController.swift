@@ -27,6 +27,8 @@ class SetListViewController: UIViewController {
     var viewModel = DurringMeetingViewModel()
     var test: NMGLatLngBounds?
     var cameraflag = 0.00001
+    var x: Double?
+    var y: Double?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +46,6 @@ class SetListViewController: UIViewController {
             $0.positionMode = .direction
         }
         marker.do {
-//            $0.iconImage = NMFOverlayImage(image: #imageLiteral(resourceName: "logo"))
             $0.width = 30
             $0.height = 40
             $0.position = NMGLatLng(lat: 37.411677, lng: 127.128621)
@@ -114,19 +115,38 @@ extension SetListViewController: CLLocationManagerDelegate {
 
 extension SetListViewController: NMFMapViewCameraDelegate {
     func mapView(_ mapView: NMFMapView, cameraWillChangeByReason reason: Int, animated: Bool) {
-//        print(nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lat)
-//        print(nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).northEast.lat)
-//        print(nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame - 10).northEast.lat)
-//        print(nmapFView.projection.latlng(from: CGPoint.init(x: -200, y: -200)).lat)
-        print(marker.width)
-//        marker.position = NMGLatLng(
-//            lat: nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lat - nmapFView.projection.latlng(from: CGPoint.init(x: 100, y: 100)).lat,
-//            lng: nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lng - nmapFView.projection.latlng(from: CGPoint.init(x: 100, y: 100)).lng
-//        )
-//        marker.position = NMGLatLng(
-//            lat: nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lat + 0.001,
-//            lng: nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lng + 0.001
-//        )
+        //lng = x lat = y
+        
+        
+        //테스트 좌표
+        //(lat: 37.478566, lng: 126.864476)
+        
+        
+        //이게 중앙 좌표
+        var centerLat = nmapFView.cameraPosition.target.lat
+        var centerLng = nmapFView.cameraPosition.target.lng
+        
+        //왼쪽 위
+        var leftTopLng = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lng
+        var leftTopLat = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).northEast.lat
+        
+        //왼쪽 밑
+        var leftBottomLng = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lng
+        var leftBottomLat = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lat
+        
+        //오른쪽 위
+        var rightTopLng = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).northEast.lng
+        var rightTopLat = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).northEast.lat
+        
+        //오른쪽 밑
+        var rightBottomLng = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).northEast.lng
+        var rightBottomLat = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lat
+        
+        
+        
+        
+        
+
         marker.position = NMGLatLng(
             lat: nmapFView.projection.latlng(from: CGPoint.init(x: view.frame.maxX - (marker.width / 2), y: 200)).lat,
             lng: nmapFView.projection.latlng(from: CGPoint.init(x: view.frame.maxX - (marker.width / 2), y: 200)).lng
@@ -148,7 +168,6 @@ extension SetListViewController: NMFMapViewCameraDelegate {
             lat: nmapFView.projection.latlng(from: CGPoint.init(x: view.frame.maxX - (marker.width / 2), y: 200)).lat,
             lng: nmapFView.projection.latlng(from: CGPoint.init(x: view.frame.maxX - (marker.width / 2), y: 200)).lng
         )
-
         marker.mapView = nmapFView
     }
     
@@ -165,7 +184,6 @@ extension SetListViewController: NMFMapViewCameraDelegate {
             lat: nmapFView.projection.latlng(from: CGPoint.init(x: view.frame.maxX - (marker.width / 2), y: 200)).lat,
             lng: nmapFView.projection.latlng(from: CGPoint.init(x: view.frame.maxX - (marker.width / 2), y: 200)).lng
         )
-
         marker.mapView = nmapFView
     }
 }
