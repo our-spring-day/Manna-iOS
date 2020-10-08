@@ -102,6 +102,15 @@ class SetListViewController: UIViewController {
     @objc func compareLatLng() {
         
     }
+    // x = b = 즉 위쪽 아래쪽 모서리때 사용할 함수
+    func getX(x1: Double, x2: Double, y1: Double, y2: Double) -> Double {
+        return (-(y2 - y1) / (x2 - x1))
+    }
+    
+    //y = b 즉 왼쪽 오른쪽 모서리때 사용할 함수
+    func getY(x1: Double, x2: Double, y1: Double, y2: Double) -> Double {
+        return ((y2 - y1) / (x2 - x1) * ((x2 * y1 - x1 * y2) / (x2 - x1))) + ((x2 * y1 - x1 * y2) / (x2 - x1))
+    }
 }
 
 extension SetListViewController: CLLocationManagerDelegate {
@@ -117,10 +126,9 @@ extension SetListViewController: NMFMapViewCameraDelegate {
     func mapView(_ mapView: NMFMapView, cameraWillChangeByReason reason: Int, animated: Bool) {
         //lng = x lat = y
         
-        
         //테스트 좌표
-        //(lat: 37.478566, lng: 126.864476)
-        
+        var testTargetLat = 37.478566
+        var testTargetLng = 126.864476
         
         //이게 중앙 좌표
         var centerLat = nmapFView.cameraPosition.target.lat
@@ -142,8 +150,16 @@ extension SetListViewController: NMFMapViewCameraDelegate {
         var rightBottomLng = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).northEast.lng
         var rightBottomLat = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lat
         
-        
-        
+        //좌표가 카메라 안에 들어와 있을 때
+        //두선분의 교차점이 없을 때
+        if leftTopLng < testTargetLng && testTargetLng < rightTopLng && leftBottomLat < testTargetLat && testTargetLat < leftTopLat {
+            
+        }else {
+            //좌표가 카메라 밖에 있을 때
+            //두선분의 하나의 교차점이 있을 때
+        }
+            
+    
         
         
 
@@ -155,15 +171,6 @@ extension SetListViewController: NMFMapViewCameraDelegate {
     }
     
     func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
-//        marker.position = NMGLatLng(
-//            lat: nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lat - nmapFView.projection.latlng(from: CGPoint.init(x: 100, y: 100)).lat,
-//            lng: nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lng - nmapFView.projection.latlng(from: CGPoint.init(x: 100, y: 100)).lng
-//        )
-//        marker.position = NMGLatLng(
-//            lat: nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lat + 0.001,
-//            lng: nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lng + 0.001
-//        )
-        
         marker.position = NMGLatLng(
             lat: nmapFView.projection.latlng(from: CGPoint.init(x: view.frame.maxX - (marker.width / 2), y: 200)).lat,
             lng: nmapFView.projection.latlng(from: CGPoint.init(x: view.frame.maxX - (marker.width / 2), y: 200)).lng
@@ -172,14 +179,6 @@ extension SetListViewController: NMFMapViewCameraDelegate {
     }
     
     func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
-//        marker.position = NMGLatLng(
-//            lat: nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lat - nmapFView.projection.latlng(from: CGPoint.init(x: 100, y: 100)).lat,
-//            lng: nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lng - nmapFView.projection.latlng(from: CGPoint.init(x: 100, y: 100)).lng
-//        )
-//        marker.position = NMGLatLng(
-//            lat: nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lat + 0.001,
-//            lng: nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lng + 0.001
-//        )
         marker.position = NMGLatLng(
             lat: nmapFView.projection.latlng(from: CGPoint.init(x: view.frame.maxX - (marker.width / 2), y: 200)).lat,
             lng: nmapFView.projection.latlng(from: CGPoint.init(x: view.frame.maxX - (marker.width / 2), y: 200)).lng
