@@ -33,7 +33,6 @@ class SetListViewController: UIViewController {
         attribute()
         layout()
         bind()
-        nmapFView.addOptionDelegate(delegate: self)
         nmapFView.addCameraDelegate(delegate: self)
     }
     
@@ -95,16 +94,9 @@ class SetListViewController: UIViewController {
                 self.nmapFView.moveCamera(cameraUpdate)
                 cameraflag.toggle()
             }).disposed(by: disposeBag)
-        
-//        viewModel.meetingInfo.asObservable()
-//            .subscribe(onNext: {
-//                $0.map { self.marker.position = $0.currentLocation}
-//            })
-//        Timer.scheduledTimer(timeInterval: 20.0, target: self, selector: #selector(), userInfo: nil, repeats: true)
-        Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(compareLatLng) , userInfo: nil, repeats: cameraflag)
     }
     @objc func compareLatLng() {
-        print("이거되나?")
+        
     }
 }
 
@@ -117,25 +109,21 @@ extension SetListViewController: CLLocationManagerDelegate {
     }
 }
 
-extension SetListViewController: NMFMapViewOptionDelegate {
-    func mapViewOptionChanged(_ mapView: NMFMapView) {
-    
-    }
-}
-
 extension SetListViewController: NMFMapViewCameraDelegate {
     func mapView(_ mapView: NMFMapView, cameraWillChangeByReason reason: Int, animated: Bool) {
-        print("시작")
-        cameraflag = false
+        
+        marker.position = NMGLatLng(lat: nmapFView.cameraPosition.target.lat, lng: nmapFView.cameraPosition.target.lng)
+        marker.mapView = nmapFView
+
     }
     func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
-        print("끝")
-        cameraflag = true
+        marker.position = NMGLatLng(lat: nmapFView.cameraPosition.target.lat, lng: nmapFView.cameraPosition.target.lng)
+        marker.mapView = nmapFView
+
     }
     func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
-//        print(type(of: nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame)) )
-//        test = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame)
-//        print("이건아니야",test)
-//        print(marker.position.bounds)
+        marker.position = NMGLatLng(lat: nmapFView.cameraPosition.target.lat, lng: nmapFView.cameraPosition.target.lng)
+        marker.mapView = nmapFView
+
     }
 }
