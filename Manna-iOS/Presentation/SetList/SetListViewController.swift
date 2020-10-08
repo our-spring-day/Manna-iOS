@@ -153,10 +153,28 @@ extension SetListViewController: NMFMapViewCameraDelegate {
         //좌표가 카메라 안에 들어와 있을 때
         //두선분의 교차점이 없을 때
         if leftTopLng < testTargetLng && testTargetLng < rightTopLng && leftBottomLat < testTargetLat && testTargetLat < leftTopLat {
-            
+            marker.position = NMGLatLng(lat: testTargetLat, lng: testTargetLng)
+            marker.mapView = nmapFView
+        }
+        //좌표가 카메라 밖에 있을 때
+        //교차점이 있을 때
+        else if testTargetLng < leftBottomLng {
+            //좌표가 카메라보다 왼쪽에 있을 때
+            if testTargetLat < leftBottomLat {
+                //1
+                //좌표가 카메라보다 왼쪽에 있고 밑에 있을 때
+            }else {
+                //2
+                //좌표가 카메라보다 왼쪽에 있고 위에 있을 때
+            }
         }else {
-            //좌표가 카메라 밖에 있을 때
-            //두선분의 하나의 교차점이 있을 때
+            if testTargetLat < rightBottomLat {
+                //3
+                //좌표가 카메라보다 오른쪽에 있고 밑에 있을 때
+            }else {
+                //4
+                //좌표가 카메라보다 오른쪽에 있고 위에 있을 때
+            }
         }
             
     
