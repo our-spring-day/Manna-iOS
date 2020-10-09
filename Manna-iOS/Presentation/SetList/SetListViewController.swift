@@ -9,22 +9,35 @@
 import UIKit
 
 class SetListViewController: UIViewController {
-
+    var button = UIButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        attribute()
+        layout()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func attribute() {
+        view.backgroundColor = .cyan
+        
+        button.do {
+            $0.setTitle("네이버 맵 ㄱㄱ", for: .normal)
+            $0.backgroundColor = .black
+            $0.addTarget(self, action: #selector(goToMapView), for: .touchUpInside)
+            $0.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
+        }
     }
-    */
-
+    
+    func layout() {
+        view.addSubview(button)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        button .centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
+    @objc func goToMapView() {
+        let mapView = MapView()
+        self.present(mapView, animated: true, completion: nil)
+    }
 }
