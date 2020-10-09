@@ -169,16 +169,28 @@ extension MapView: NMFMapViewCameraDelegate {
         if leftTopLng < testTargetLng && testTargetLng < rightTopLng && leftBottomLat < testTargetLat && testTargetLat < leftTopLat {
             marker.position = NMGLatLng(lat: testTargetLat, lng: testTargetLng)
             marker.mapView = nmapFView
-        } else if testTargetLng < leftBottomLng {
+        }
+        
+        
+        else if testTargetLng < nmapFView.cameraPosition.target.lng {
+            
             if testTargetLat < leftBottomLat {
+                
                 let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftBottomLng)
+                print(getYResult,leftBottomLat)
                 if getYResult < leftBottomLat {
+                    
                     marker.position = NMGLatLng(lat: leftBottomLat, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftBottomLat))
                     marker.mapView = nmapFView
                 } else {
                     marker.position = NMGLatLng(lat: getYResult, lng: leftBottomLng)
                     marker.mapView = nmapFView
                 }
+                
+                
+                
+                
+                
             } else if testTargetLat < leftTopLat && leftBottomLat < testTargetLat {
                 marker.position = NMGLatLng(lat: getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLng), lng: leftTopLng)
                 marker.mapView = nmapFView
@@ -188,18 +200,20 @@ extension MapView: NMFMapViewCameraDelegate {
                     marker.position = NMGLatLng(lat: getYResult, lng: leftTopLng)
                     marker.mapView = nmapFView
                 } else {
-                    marker.position = NMGLatLng(lat: leftTopLat, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLat))
+                    marker.position = NMGLatLng(lat: leftTopLat - 0.005, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLat))
                     marker.mapView = nmapFView
                 }
             }
         } else {
-            
-            
-            
-            
-            
             if testTargetLat < rightBottomLat {
+                
+                
+                
+                
+                
                 let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: rightBottomLng)
+                
+                
                 if getYResult < rightBottomLat {
                     marker.position = NMGLatLng(lat: rightBottomLat, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: rightBottomLat) )
                     marker.mapView = nmapFView
@@ -207,6 +221,14 @@ extension MapView: NMFMapViewCameraDelegate {
                     marker.position = NMGLatLng(lat: getYResult, lng: rightBottomLng)
                     marker.mapView = nmapFView
                 }
+                
+                
+                
+                
+                
+                
+                
+                
             } else if testTargetLat < rightTopLat && rightBottomLat < testTargetLat {
                 marker.position = NMGLatLng(lat: getYPosition(x1: centerLng, x2: testTargetLng, y1: centerLat, y2: testTargetLat, key: rightBottomLng), lng: rightBottomLng)
                 marker.mapView = nmapFView
@@ -215,7 +237,7 @@ extension MapView: NMFMapViewCameraDelegate {
                 if getYResult < rightTopLat {
                     marker.position = NMGLatLng(lat: getYResult, lng: rightTopLng)
                     marker.mapView = nmapFView
-                }else {
+                } else {
                     marker.position = NMGLatLng(lat: rightTopLng, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLng, key: rightTopLat))
                     marker.mapView = nmapFView
                 }
@@ -245,7 +267,7 @@ extension MapView: NMFMapViewCameraDelegate {
         if leftTopLng < testTargetLng && testTargetLng < rightTopLng && leftBottomLat < testTargetLat && testTargetLat < leftTopLat {
             marker.position = NMGLatLng(lat: testTargetLat, lng: testTargetLng)
             marker.mapView = nmapFView
-        } else if testTargetLng < leftBottomLng {
+        } else if testTargetLng < nmapFView.cameraPosition.target.lng {
             if testTargetLat < leftBottomLat {
                 let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftBottomLng)
                 if getYResult < leftBottomLat {
@@ -264,7 +286,8 @@ extension MapView: NMFMapViewCameraDelegate {
                     marker.position = NMGLatLng(lat: getYResult, lng: leftTopLng)
                     marker.mapView = nmapFView
                 } else {
-                    marker.position = NMGLatLng(lat: leftTopLat, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLat))
+//                    marker.position = NMGLatLng(lat: leftTopLat, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLat))
+                    marker.position = NMGLatLng(lat: leftTopLat - 0.005, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLat))
                     marker.mapView = nmapFView
                 }
             }
@@ -325,7 +348,7 @@ extension MapView: NMFMapViewCameraDelegate {
             marker.position = NMGLatLng(lat: testTargetLat, lng: testTargetLng)
             marker.mapView = nmapFView
         }
-        else if testTargetLng < leftBottomLng {
+        else if testTargetLng < nmapFView.cameraPosition.target.lng {
             if testTargetLat < leftBottomLat {
                 let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftBottomLng)
                 if getYResult < leftBottomLat {
@@ -344,7 +367,8 @@ extension MapView: NMFMapViewCameraDelegate {
                     marker.position = NMGLatLng(lat: getYResult, lng: leftTopLng)
                     marker.mapView = nmapFView
                 } else {
-                    marker.position = NMGLatLng(lat: leftTopLat, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLat))
+//                    marker.position = NMGLatLng(lat: leftTopLat, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLat))
+                    marker.position = NMGLatLng(lat: leftTopLat - 0.005, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLat))
                     marker.mapView = nmapFView
                 }
             }
