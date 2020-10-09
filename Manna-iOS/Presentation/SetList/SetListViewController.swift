@@ -114,9 +114,8 @@ class SetListViewController: UIViewController {
     }
     
     func testFunc(x1: Double, x2: Double, y1: Double, y2: Double, key: Double) -> Double {
-        var aValue = (y2-y1) / (x2-x1)
         
-        var result = aValue * key + (y1 - ((y2-y1)/(x2-x1) * x1))
+        var result = (y2-y1) / (x2-x1) * key + (y1 - ((y2-y1)/(x2-x1) * x1))
         
         return result
     }
@@ -176,9 +175,8 @@ extension SetListViewController: NMFMapViewCameraDelegate {
                     marker.mapView = nmapFView
                 }
             }else if testTargetLat < leftTopLat && leftBottomLat < testTargetLat {
-                
-                print(-(getY)(x1: testTargetLat, x2: testTargetLng, y1: centerLat, y2: centerLng))
-                marker.position = NMGLatLng(lat: getY(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat), lng: rightBottomLng)
+                //왼쪽에 있으며
+                marker.position = NMGLatLng(lat: testFunc(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLng), lng: leftTopLng)
                 marker.mapView = nmapFView
             }
             
@@ -271,8 +269,7 @@ extension SetListViewController: NMFMapViewCameraDelegate {
                 }
             }else if testTargetLat < leftTopLat && leftBottomLat < testTargetLat {
                 
-                print(-(getY)(x1: testTargetLat, x2: testTargetLng, y1: centerLat, y2: centerLng))
-                marker.position = NMGLatLng(lat: getY(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat), lng: rightBottomLng)
+                marker.position = NMGLatLng(lat: testFunc(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLng), lng: leftTopLng)
                 marker.mapView = nmapFView
             }
             
@@ -364,9 +361,7 @@ extension SetListViewController: NMFMapViewCameraDelegate {
                     marker.mapView = nmapFView
                 }
             }else if testTargetLat < leftTopLat && leftBottomLat < testTargetLat {
-                
-                print(-(getY)(x1: testTargetLat, x2: testTargetLng, y1: centerLat, y2: centerLng))
-                marker.position = NMGLatLng(lat: getY(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat), lng: rightBottomLng)
+                marker.position = NMGLatLng(lat: testFunc(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLng), lng: leftTopLng)
                 marker.mapView = nmapFView
             }
             
