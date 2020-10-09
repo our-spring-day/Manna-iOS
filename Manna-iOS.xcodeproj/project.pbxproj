@@ -36,6 +36,7 @@
 		CC384C0C24852AD0005F34AE /* FriendListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C0B24852AD0005F34AE /* FriendListViewModel.swift */; };
 		CC384C0E24852ADB005F34AE /* FriendListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C0D24852ADB005F34AE /* FriendListModel.swift */; };
 		CC384C1124862613005F34AE /* FriendListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC384C1024862613005F34AE /* FriendListCell.swift */; };
+		CC3D1A0D25301FB800E8E824 /* SetListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3D1A0C25301FB800E8E824 /* SetListViewController.swift */; };
 		CC63EC1E24DC03890029D8B1 /* DuringMeetingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63EC1D24DC03890029D8B1 /* DuringMeetingCollectionView.swift */; };
 		CC63EC2024DC04A70029D8B1 /* DurringMeetingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC63EC1F24DC04A70029D8B1 /* DurringMeetingViewModel.swift */; };
 		CC6E7D5C2487AB070050D774 /* AddUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */; };
@@ -49,7 +50,7 @@
 		CC705A0B2477D28800462251 /* FriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A0A2477D28800462251 /* FriendListViewController.swift */; };
 		CC705A0D2477D2BA00462251 /* MannaListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A0C2477D2BA00462251 /* MannaListViewController.swift */; };
 		CC705A0F2477D2D200462251 /* NotiListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A0E2477D2D200462251 /* NotiListViewController.swift */; };
-		CC705A112477D2E000462251 /* SetListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A102477D2E000462251 /* SetListViewController.swift */; };
+		CC705A112477D2E000462251 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC705A102477D2E000462251 /* MapView.swift */; };
 		CC8DB2F024CEE09B0003B3D2 /* TempViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8DB2EF24CEE09B0003B3D2 /* TempViewController.swift */; };
 		CC986DD124A5DB95004450B7 /* AddUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC986DD024A5DB95004450B7 /* AddUserViewModel.swift */; };
 		CCAC1F2D24B2FD28007C21ED /* UserListTestStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAC1F2C24B2FD28007C21ED /* UserListTestStruct.swift */; };
@@ -95,6 +96,7 @@
 		CC384C0B24852AD0005F34AE /* FriendListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewModel.swift; sourceTree = "<group>"; };
 		CC384C0D24852ADB005F34AE /* FriendListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListModel.swift; sourceTree = "<group>"; };
 		CC384C1024862613005F34AE /* FriendListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListCell.swift; sourceTree = "<group>"; };
+		CC3D1A0C25301FB800E8E824 /* SetListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetListViewController.swift; sourceTree = "<group>"; };
 		CC63EC1D24DC03890029D8B1 /* DuringMeetingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuringMeetingCollectionView.swift; sourceTree = "<group>"; };
 		CC63EC1F24DC04A70029D8B1 /* DurringMeetingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurringMeetingViewModel.swift; sourceTree = "<group>"; };
 		CC6E7D5B2487AB070050D774 /* AddUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserViewController.swift; sourceTree = "<group>"; };
@@ -110,7 +112,7 @@
 		CC705A0A2477D28800462251 /* FriendListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewController.swift; sourceTree = "<group>"; };
 		CC705A0C2477D2BA00462251 /* MannaListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MannaListViewController.swift; sourceTree = "<group>"; };
 		CC705A0E2477D2D200462251 /* NotiListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiListViewController.swift; sourceTree = "<group>"; };
-		CC705A102477D2E000462251 /* SetListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetListViewController.swift; sourceTree = "<group>"; };
+		CC705A102477D2E000462251 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		CC8DB2EF24CEE09B0003B3D2 /* TempViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempViewController.swift; sourceTree = "<group>"; };
 		CC986DD024A5DB95004450B7 /* AddUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserViewModel.swift; sourceTree = "<group>"; };
 		CCAC1F2C24B2FD28007C21ED /* UserListTestStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListTestStruct.swift; sourceTree = "<group>"; };
@@ -331,7 +333,8 @@
 		CC705A072477D1E600462251 /* SetList */ = {
 			isa = PBXGroup;
 			children = (
-				CC705A102477D2E000462251 /* SetListViewController.swift */,
+				CC3D1A0C25301FB800E8E824 /* SetListViewController.swift */,
+				CC705A102477D2E000462251 /* MapView.swift */,
 				CC63EC1F24DC04A70029D8B1 /* DurringMeetingViewModel.swift */,
 				CCD5C9972521BA9000160646 /* DurringMeetingModel.swift */,
 				CC0BFAAB24DAAD2900A9D437 /* BottomSheetViewController.swift */,
@@ -521,7 +524,7 @@
 				CC986DD124A5DB95004450B7 /* AddUserViewModel.swift in Sources */,
 				CC705A0D2477D2BA00462251 /* MannaListViewController.swift in Sources */,
 				CC384C0C24852AD0005F34AE /* FriendListViewModel.swift in Sources */,
-				CC705A112477D2E000462251 /* SetListViewController.swift in Sources */,
+				CC705A112477D2E000462251 /* MapView.swift in Sources */,
 				CC384C0E24852ADB005F34AE /* FriendListModel.swift in Sources */,
 				A595A8A824DC823000EAFAA5 /* UINavigation-Ext.swift in Sources */,
 				A55B0F1B24D5B7D300211AEA /* PeopleAddManna.swift in Sources */,
@@ -559,6 +562,7 @@
 				CC63EC2024DC04A70029D8B1 /* DurringMeetingViewModel.swift in Sources */,
 				CC7059EF2477B81100462251 /* SceneDelegate.swift in Sources */,
 				A5EB4A1224BCB75F0084EBE5 /* SelectPlaceViewController.swift in Sources */,
+				CC3D1A0D25301FB800E8E824 /* SetListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
