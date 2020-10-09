@@ -113,19 +113,22 @@ class MapView: UIViewController {
         return ((y2 - y1) / (x2 - x1) * ((x2 * y1 - x1 * y2) / (x2 - x1))) + ((x2 * y1 - x1 * y2) / (x2 - x1))
     }
     
-    func testFunc(x1: Double, x2: Double, y1: Double, y2: Double, key: Double) -> Double {
-        
+    func testGetYFunc(x1: Double, x2: Double, y1: Double, y2: Double, key: Double) -> Double {
+        //x값을 넣어 y를 알아냄
         var result = (y2-y1) / (x2-x1) * key + (y1 - ((y2-y1)/(x2-x1) * x1))
-        
+        return result
+    }
+    func testGetXFunc(x1: Double, x2: Double, y1: Double, y2: Double, key: Double) -> Double {
+        //y값을 넣어 x를 알아냄
+        var result = ((y1 - ((y2-y1)/(x2-x1) * x1)) - key) / (y2-y1) / (x2-x1)
         return result
     }
 }
 
 extension MapView: CLLocationManagerDelegate {
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        //        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        //제 위치에용
         locationOverlay.location = NMGLatLng(lat: locValue.latitude, lng: locValue.longitude)
     }
 }
@@ -166,9 +169,9 @@ extension MapView: NMFMapViewCameraDelegate {
                 //1
                 //좌표가 카메라보다 왼쪽에 있고 밑에 있을 때
                 //첫번째 후보 좌표
-                let getYResult = getY(x1: testTargetLat, x2: testTargetLng, y1: centerLat, y2: centerLng)
+                let getYResult = testGetYFunc(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftBottomLng)
                 if getYResult < leftBottomLat {
-                    marker.position = NMGLatLng(lat: leftBottomLat, lng: getX(x1: testTargetLat, x2: testTargetLng, y1: centerLat, y2: centerLng))
+                    marker.position = NMGLatLng(lat: leftBottomLat, lng: testGetXFunc(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftBottomLat))
                     marker.mapView = nmapFView
                 } else {
                     marker.position = NMGLatLng(lat: getYResult, lng: leftBottomLng)
@@ -176,7 +179,7 @@ extension MapView: NMFMapViewCameraDelegate {
                 }
             }else if testTargetLat < leftTopLat && leftBottomLat < testTargetLat {
                 //끝 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                marker.position = NMGLatLng(lat: testFunc(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLng), lng: leftTopLng)
+                marker.position = NMGLatLng(lat: testGetYFunc(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLng), lng: leftTopLng)
                 marker.mapView = nmapFView
             }
             
@@ -206,7 +209,7 @@ extension MapView: NMFMapViewCameraDelegate {
                 }
             }else if testTargetLat < rightTopLat && rightBottomLat < testTargetLat {
                 //끝 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                marker.position = NMGLatLng(lat: testFunc(x1: centerLng, x2: testTargetLng, y1: centerLat, y2: testTargetLat, key: rightBottomLng), lng: rightBottomLng)
+                marker.position = NMGLatLng(lat: testGetYFunc(x1: centerLng, x2: testTargetLng, y1: centerLat, y2: testTargetLat, key: rightBottomLng), lng: rightBottomLng)
                 marker.mapView = nmapFView
             }
             
@@ -259,9 +262,9 @@ extension MapView: NMFMapViewCameraDelegate {
                 //1
                 //좌표가 카메라보다 왼쪽에 있고 밑에 있을 때
                 //첫번째 후보 좌표
-                let getYResult = getY(x1: testTargetLat, x2: testTargetLng, y1: centerLat, y2: centerLng)
+                let getYResult = testGetYFunc(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftBottomLng)
                 if getYResult < leftBottomLat {
-                    marker.position = NMGLatLng(lat: leftBottomLat, lng: getX(x1: testTargetLat, x2: testTargetLng, y1: centerLat, y2: centerLng))
+                    marker.position = NMGLatLng(lat: leftBottomLat, lng: testGetXFunc(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftBottomLat))
                     marker.mapView = nmapFView
                 } else {
                     marker.position = NMGLatLng(lat: getYResult, lng: leftBottomLng)
@@ -269,7 +272,7 @@ extension MapView: NMFMapViewCameraDelegate {
                 }
             }else if testTargetLat < leftTopLat && leftBottomLat < testTargetLat {
                 
-                marker.position = NMGLatLng(lat: testFunc(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLng), lng: leftTopLng)
+                marker.position = NMGLatLng(lat: testGetYFunc(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLng), lng: leftTopLng)
                 marker.mapView = nmapFView
             }
             
@@ -299,7 +302,7 @@ extension MapView: NMFMapViewCameraDelegate {
                 }
             }else if testTargetLat < rightTopLat && rightBottomLat < testTargetLat {
                 
-                marker.position = NMGLatLng(lat: testFunc(x1: centerLng, x2: testTargetLng, y1: centerLat, y2: testTargetLat, key: rightBottomLng), lng: rightBottomLng)
+                marker.position = NMGLatLng(lat: testGetYFunc(x1: centerLng, x2: testTargetLng, y1: centerLat, y2: testTargetLat, key: rightBottomLng), lng: rightBottomLng)
                 marker.mapView = nmapFView
             }
             
@@ -352,9 +355,9 @@ extension MapView: NMFMapViewCameraDelegate {
                 //1
                 //좌표가 카메라보다 왼쪽에 있고 밑에 있을 때
                 //첫번째 후보 좌표
-                let getYResult = getY(x1: testTargetLat, x2: testTargetLng, y1: centerLat, y2: centerLng)
+                let getYResult = testGetYFunc(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftBottomLng)
                 if getYResult < leftBottomLat {
-                    marker.position = NMGLatLng(lat: leftBottomLat, lng: getX(x1: testTargetLat, x2: testTargetLng, y1: centerLat, y2: centerLng))
+                    marker.position = NMGLatLng(lat: leftBottomLat, lng: testGetXFunc(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftBottomLat))
                     marker.mapView = nmapFView
                 } else {
                     marker.position = NMGLatLng(lat: getYResult, lng: leftBottomLng)
@@ -362,7 +365,7 @@ extension MapView: NMFMapViewCameraDelegate {
                 }
             }else if testTargetLat < leftTopLat && leftBottomLat < testTargetLat {
                 //
-                marker.position = NMGLatLng(lat: testFunc(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLng), lng: leftTopLng)
+                marker.position = NMGLatLng(lat: testGetYFunc(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLng), lng: leftTopLng)
                 marker.mapView = nmapFView
             }
             
@@ -392,7 +395,7 @@ extension MapView: NMFMapViewCameraDelegate {
                 }
             }else if testTargetLat < rightTopLat && rightBottomLat < testTargetLat {
                 
-                marker.position = NMGLatLng(lat: testFunc(x1: centerLng, x2: testTargetLng, y1: centerLat, y2: testTargetLat, key: rightBottomLng), lng: rightBottomLng)
+                marker.position = NMGLatLng(lat: testGetYFunc(x1: centerLng, x2: testTargetLng, y1: centerLat, y2: testTargetLat, key: rightBottomLng), lng: rightBottomLng)
                 marker.mapView = nmapFView
             }
             
