@@ -34,21 +34,23 @@ class MapView: UIViewController {
     var centerLat: Double = 0
     var centerLng: Double = 0
     
+    var southWest = NMGLatLng()
+    var northEast = NMGLatLng()
     //왼쪽 위
-    var leftTopLng: Double = 0
-    var leftTopLat: Double = 0
+//    var leftTopLng: Double = 0
+//    var leftTopLat: Double = 0
     
     //왼쪽 밑
-    var leftBottomLng: Double = 0
-    var leftBottomLat: Double = 0
+//    var leftBottomLng: Double = 0
+//    var leftBottomLat: Double = 0
     
     //오른쪽 위
-    var rightTopLng: Double = 0
-    var rightTopLat: Double = 0
+//    var rightTopLng: Double = 0
+//    var rightTopLat: Double = 0
     
     //오른쪽 밑
-    var rightBottomLng: Double = 0
-    var rightBottomLat: Double = 0
+//    var rightBottomLng: Double = 0
+//    var rightBottomLat: Double = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,9 +153,10 @@ extension MapView: NMFMapViewCameraDelegate {
         centerLng = nmapFView.cameraPosition.target.lng
         
         //왼쪽 위
-        leftTopLng = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lng
-        leftTopLat = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).northEast.lat
-        
+//        leftTopLng = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lng
+//        leftTopLat = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).northEast.lat
+        southWest = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest
+        northEast = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).northEast
         //왼쪽 밑
         leftBottomLng = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lng
         leftBottomLat = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lat
@@ -163,16 +166,18 @@ extension MapView: NMFMapViewCameraDelegate {
         rightTopLat = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).northEast.lat
         
         //오른쪽 밑
-        rightBottomLng = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).northEast.lng
-        rightBottomLat = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lat
+//        rightBottomLng = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).northEast.lng
+//        rightBottomLat = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest.lat
         
         if leftTopLng < testTargetLng && testTargetLng < rightTopLng && leftBottomLat < testTargetLat && testTargetLat < leftTopLat {
             marker.position = NMGLatLng(lat: testTargetLat, lng: testTargetLng)
             marker.mapView = nmapFView
         }
         
-        
-        else if testTargetLng < nmapFView.cameraPosition.target.lng {
+        //중앙한번 쓰고
+        else if testTargetLng < centerLng {
+            
+            //왼쪽 밑  lat, lng
             if testTargetLat < leftBottomLat {
                 let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftBottomLng)
                 if getYResult < leftBottomLat {
@@ -187,14 +192,11 @@ extension MapView: NMFMapViewCameraDelegate {
                 marker.mapView = nmapFView
             } else {
                 let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLng)
+                
                 if getYResult < leftTopLat {
                     marker.position = NMGLatLng(lat: getYResult, lng: leftTopLng)
                     marker.mapView = nmapFView
                 } else {
-//                    print("이거마커height을 머시기한거 ",nmapFView.projection.latlng(from: CGPoint.init(x:0 , y: view.frame marker.height)).lat)
-//                    print(leftTopLat)
-//                    marker.position = NMGLatLng(lat: leftTopLat - (nmapFView.projection.latlng(from: CGPoint.init(x: marker.height, y: 200)).lat), lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLat))
-//                    nmapFView.projection.latlng(from: CGPoint(x: 0, y: view.bounds.maxY)).lat
                     marker.position = NMGLatLng(lat: nmapFView.projection.latlng(from: CGPoint(x: 0, y: view.bounds.minY + marker.height)).lat, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: leftTopLat))
                     marker.mapView = nmapFView
                 }
@@ -219,7 +221,8 @@ extension MapView: NMFMapViewCameraDelegate {
                 
                 
                 
-                let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLng, key: rightTopLng)
+                let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: rightTopLng)
+                
                 if getYResult < rightTopLat {
                     marker.position = NMGLatLng(lat: getYResult, lng: rightTopLng)
                     marker.mapView = nmapFView
@@ -297,11 +300,12 @@ extension MapView: NMFMapViewCameraDelegate {
             
             
             else {
-                let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLng, key: rightTopLng)
+                let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: rightTopLng)
+                
                 if getYResult < rightTopLat {
                     marker.position = NMGLatLng(lat: getYResult, lng: rightTopLng)
                     marker.mapView = nmapFView
-                }else {
+                } else {
                     marker.position = NMGLatLng(lat: nmapFView.projection.latlng(from: CGPoint(x: 0, y: view.bounds.minY + marker.height)).lat, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: rightTopLat))
                     marker.mapView = nmapFView
                 }
@@ -370,11 +374,12 @@ extension MapView: NMFMapViewCameraDelegate {
                 marker.mapView = nmapFView
             }
             else {
-                let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLng, key: rightTopLng)
+                let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: rightTopLng)
+                
                 if getYResult < rightTopLat {
                     marker.position = NMGLatLng(lat: getYResult, lng: rightTopLng)
                     marker.mapView = nmapFView
-                }else {
+                } else {
                     marker.position = NMGLatLng(lat: nmapFView.projection.latlng(from: CGPoint(x: 0, y: view.bounds.minY + marker.height)).lat, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: rightTopLat))
                     marker.mapView = nmapFView
                 }
