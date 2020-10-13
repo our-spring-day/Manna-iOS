@@ -29,11 +29,15 @@ class MapView: UIViewController {
     var testTargetLat = 37.478566
     var testTargetLng = 126.864476
     
+    
     var centerLat: Double = 0
     var centerLng: Double = 0
     
     var southWest = NMGLatLng()
     var northEast = NMGLatLng()
+    
+    var latValue: Double = 0
+    var lngValue: Double = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,6 +106,7 @@ class MapView: UIViewController {
                 cameraUpdate.animation = .easeOut
                 self.nmapFView.moveCamera(cameraUpdate)
             }).disposed(by: disposeBag)
+        
     }
     
     func getXPosition(x1: Double, x2: Double, y1: Double, y2: Double, key: Double) -> Double {
@@ -115,17 +120,15 @@ class MapView: UIViewController {
     func dynamicMarkerLocation(marker: NMFMarker) {
         centerLat = nmapFView.cameraPosition.target.lat
         centerLng = nmapFView.cameraPosition.target.lng
+        
         southWest = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest
         northEast = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).northEast
-        
         //화면 안에 마커가 찍힐 좌표가 있나?
         if southWest.lng < testTargetLng && testTargetLng < northEast.lng && southWest.lat < testTargetLat && testTargetLat < northEast.lat {
             marker.position = NMGLatLng(lat: testTargetLat, lng: testTargetLng)
             marker.mapView = nmapFView
         }
-        //화면 중앙보다 왼쪽에 있나?
         else if testTargetLng < centerLng {
-            //화면 바닥보다 밑에 있나?
             if testTargetLat < southWest.lat {
                 let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: southWest.lng)
                 if getYResult < southWest.lat {
@@ -135,6 +138,8 @@ class MapView: UIViewController {
                     marker.position = NMGLatLng(lat: getYResult, lng: southWest.lng)
                     marker.mapView = nmapFView
                 }
+                
+                
             } else if testTargetLat < northEast.lat && southWest.lat < testTargetLat {
                 //화면 바닥보다 밑도아니고 화면 천장보다 위도 아닌 곳에 있는가?
                 marker.position = NMGLatLng(lat: getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: southWest.lng), lng: southWest.lng)
@@ -152,7 +157,6 @@ class MapView: UIViewController {
             }
         } else {
             //찍힐 좌표가 화면 가운데 기준으로 오른쪽에 있는 상태
-            
             //화면 바닥보다 밑에 있나?
             if testTargetLat < southWest.lat {
                 let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: northEast.lng)
@@ -189,7 +193,6 @@ extension MapView: CLLocationManagerDelegate {
 }
 
 extension MapView: NMFMapViewCameraDelegate {
-    
     //같은 코드가 세 함수에 총 세번 써져있습니다.
     //카메라를 움직이는 모든 순간에 호출을 해줘야하는데 방법이 더 있었으면 좋겠네요
     func mapView(_ mapView: NMFMapView, cameraWillChangeByReason reason: Int, animated: Bool) {
