@@ -136,17 +136,15 @@ class MapView: UIViewController {
             marker.position = NMGLatLng(lat: testTargetLat, lng: testTargetLng)
             marker.mapView = nmapFView
         } else {
-            if testTargetLat < getY(x1: southWest.lng, x2: northEast.lng, y1: southWest.lat, y2: northEast.lat, key: testTargetLng) {
+            if testTargetLat < getY(x1: southWest.lng, x2: northEast.lng, y1: southWest.lat, y2: northEast.lat, key: testTargetLng)  {
                 if testTargetLat < getY(x1: southWest.lng, x2: northEast.lng, y1: northEast.lat, y2: southWest.lat, key: testTargetLng) {
                     //밑
-
                     marker.position = NMGLatLng(lat: southWest.lat, lng: result(yPosition: southWest.lat))
                     marker.mapView = nmapFView
                 } else {
                     //오른
                     marker.position = NMGLatLng(lat: result(xPosition: northEast.lng), lng: northEast.lng)
                     marker.mapView = nmapFView
-                    
                 }
             } else {
                 if testTargetLat < getY(x1: southWest.lng, x2: northEast.lng, y1: northEast.lat, y2: southWest.lat, key: testTargetLng) {
