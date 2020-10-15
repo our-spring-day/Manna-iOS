@@ -116,73 +116,112 @@ class MapView: UIViewController {
     func getYPosition(x1: Double, x2: Double, y1: Double, y2: Double, key: Double) -> Double {
         return (y2-y1) / (x2-x1) * key + (y1 - ((y2-y1)/(x2-x1) * x1))
     }
-    
+    //    func firstCheck(southWestLng: Double, southWestLat: Double, northEastLng: Double, northEastLat: Double) -> Double {
+    //
+    //        return 0
+    //    }
     func dynamicMarkerLocation(marker: NMFMarker) {
         centerLat = nmapFView.cameraPosition.target.lat
         centerLng = nmapFView.cameraPosition.target.lng
         
         southWest = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest
         northEast = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).northEast
-        //화면 안에 마커가 찍힐 좌표가 있나?
+        
         if southWest.lng < testTargetLng && testTargetLng < northEast.lng && southWest.lat < testTargetLat && testTargetLat < northEast.lat {
             marker.position = NMGLatLng(lat: testTargetLat, lng: testTargetLng)
             marker.mapView = nmapFView
-        }
-        else if testTargetLng < centerLng {
-            if testTargetLat < southWest.lat {
-                let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: southWest.lng)
-                if getYResult < southWest.lat {
-                    marker.position = NMGLatLng(lat: southWest.lat, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: southWest.lat))
+        }else {
+            if testTargetLat < getYPosition(x1: southWest.lng, x2: northEast.lng, y1: southWest.lat, y2: northEast.lat, key: testTargetLng) {
+                if testTargetLat < getYPosition(x1: southWest.lng, x2: northEast.lng, y1: northEast.lat, y2: southWest.lat, key: testTargetLng) {
+                    //밑
+                    marker.position = NMGLatLng(lat: southWest.lat, lng: getXPosition(x1: centerLng, x2: testTargetLng, y1: centerLat, y2: testTargetLat, key: southWest.lat))
                     marker.mapView = nmapFView
-                } else {
-                    marker.position = NMGLatLng(lat: getYResult, lng: southWest.lng)
-                    marker.mapView = nmapFView
-                }
-                
-                
-            } else if testTargetLat < northEast.lat && southWest.lat < testTargetLat {
-                //화면 바닥보다 밑도아니고 화면 천장보다 위도 아닌 곳에 있는가?
-                marker.position = NMGLatLng(lat: getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: southWest.lng), lng: southWest.lng)
-                marker.mapView = nmapFView
-            } else {
-                let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: southWest.lng)
-                
-                if getYResult < northEast.lat {
-                    marker.position = NMGLatLng(lat: getYResult, lng: southWest.lng)
-                    marker.mapView = nmapFView
-                } else {
-                    marker.position = NMGLatLng(lat: nmapFView.projection.latlng(from: CGPoint(x: 0, y: view.bounds.minY + marker.height)).lat, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: northEast.lat))
+                }else {
+                    //오른
+                    marker.position = NMGLatLng(lat: getYPosition(x1: centerLng, x2: testTargetLng, y1: centerLat, y2: testTargetLat, key: northEast.lng), lng: northEast.lng)
                     marker.mapView = nmapFView
                 }
-            }
-        } else {
-            //찍힐 좌표가 화면 가운데 기준으로 오른쪽에 있는 상태
-            //화면 바닥보다 밑에 있나?
-            if testTargetLat < southWest.lat {
-                let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: northEast.lng)
-                if getYResult < southWest.lat {
-                    marker.position = NMGLatLng(lat: southWest.lat, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: southWest.lat) )
+            }else {
+                if testTargetLat < getYPosition(x1: southWest.lng, x2: northEast.lng, y1: northEast.lat, y2: southWest.lat, key: testTargetLng) {
+                    //왼
+                    marker.position = NMGLatLng(lat: getYPosition(x1: centerLng, x2: testTargetLng, y1: centerLat, y2: testTargetLat, key: southWest.lng), lng: southWest.lng)
                     marker.mapView = nmapFView
-                } else {
-                    marker.position = NMGLatLng(lat: getYResult, lng: northEast.lng)
-                    marker.mapView = nmapFView
-                }
-            } else if testTargetLat < northEast.lat && southWest.lat < testTargetLat {
-                //화면 바닥보다 밑도아니고 화면 천장보다 위도 아닌 곳에 있는가?
-                marker.position = NMGLatLng(lat: getYPosition(x1: centerLng, x2: testTargetLng, y1: centerLat, y2: testTargetLat, key: northEast.lng), lng: northEast.lng)
-                marker.mapView = nmapFView
-            } else {
-                let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: northEast.lng)
-                if getYResult < northEast.lat {
-                    marker.position = NMGLatLng(lat: getYResult, lng: northEast.lng)
-                    marker.mapView = nmapFView
-                } else {
-                    marker.position = NMGLatLng(lat: nmapFView.projection.latlng(from: CGPoint(x: 0, y: view.bounds.minY + marker.height)).lat, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: northEast.lat))
+                }else {
+                    //위
+                    marker.position = NMGLatLng(lat: nmapFView.projection.latlng(from: CGPoint(x: 0, y: view.bounds.minY + marker.height)).lat, lng: getXPosition(x1: centerLng, x2: testTargetLng, y1: centerLat, y2: testTargetLat, key: northEast.lat))
                     marker.mapView = nmapFView
                 }
             }
         }
+        
+        
     }
+    //    func dynamicMarkerLocation(marker: NMFMarker) {
+    //        centerLat = nmapFView.cameraPosition.target.lat
+    //        centerLng = nmapFView.cameraPosition.target.lng
+    //
+    //        southWest = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).southWest
+    //        northEast = nmapFView.projection.latlngBounds(fromViewBounds: self.view.frame).northEast
+    //        //화면 안에 마커가 찍힐 좌표가 있나?
+    //        if southWest.lng < testTargetLng && testTargetLng < northEast.lng && southWest.lat < testTargetLat && testTargetLat < northEast.lat {
+    //            marker.position = NMGLatLng(lat: testTargetLat, lng: testTargetLng)
+    //            marker.mapView = nmapFView
+    //        }
+    //        else if testTargetLng < centerLng {
+    //            if testTargetLat < southWest.lat {
+    //                let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: southWest.lng)
+    //                if getYResult < southWest.lat {
+    //                    marker.position = NMGLatLng(lat: southWest.lat, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: southWest.lat))
+    //                    marker.mapView = nmapFView
+    //                } else {
+    //                    marker.position = NMGLatLng(lat: getYResult, lng: southWest.lng)
+    //                    marker.mapView = nmapFView
+    //                }
+    //
+    //
+    //            } else if testTargetLat < northEast.lat && southWest.lat < testTargetLat {
+    //                //화면 바닥보다 밑도아니고 화면 천장보다 위도 아닌 곳에 있는가?
+    //                marker.position = NMGLatLng(lat: getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: southWest.lng), lng: southWest.lng)
+    //                marker.mapView = nmapFView
+    //            } else {
+    //                let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: southWest.lng)
+    //
+    //                if getYResult < northEast.lat {
+    //                    marker.position = NMGLatLng(lat: getYResult, lng: southWest.lng)
+    //                    marker.mapView = nmapFView
+    //                } else {
+    //                    marker.position = NMGLatLng(lat: nmapFView.projection.latlng(from: CGPoint(x: 0, y: view.bounds.minY + marker.height)).lat, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: northEast.lat))
+    //                    marker.mapView = nmapFView
+    //                }
+    //            }
+    //        } else {
+    //            //찍힐 좌표가 화면 가운데 기준으로 오른쪽에 있는 상태
+    //            //화면 바닥보다 밑에 있나?
+    //            if testTargetLat < southWest.lat {
+    //                let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: northEast.lng)
+    //                if getYResult < southWest.lat {
+    //                    marker.position = NMGLatLng(lat: southWest.lat, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: southWest.lat) )
+    //                    marker.mapView = nmapFView
+    //                } else {
+    //                    marker.position = NMGLatLng(lat: getYResult, lng: northEast.lng)
+    //                    marker.mapView = nmapFView
+    //                }
+    //            } else if testTargetLat < northEast.lat && southWest.lat < testTargetLat {
+    //                //화면 바닥보다 밑도아니고 화면 천장보다 위도 아닌 곳에 있는가?
+    //                marker.position = NMGLatLng(lat: getYPosition(x1: centerLng, x2: testTargetLng, y1: centerLat, y2: testTargetLat, key: northEast.lng), lng: northEast.lng)
+    //                marker.mapView = nmapFView
+    //            } else {
+    //                let getYResult = getYPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: northEast.lng)
+    //                if getYResult < northEast.lat {
+    //                    marker.position = NMGLatLng(lat: getYResult, lng: northEast.lng)
+    //                    marker.mapView = nmapFView
+    //                } else {
+    //                    marker.position = NMGLatLng(lat: nmapFView.projection.latlng(from: CGPoint(x: 0, y: view.bounds.minY + marker.height)).lat, lng: getXPosition(x1: testTargetLng, x2: centerLng, y1: testTargetLat, y2: centerLat, key: northEast.lat))
+    //                    marker.mapView = nmapFView
+    //                }
+    //            }
+    //        }
+    //    }
 }
 
 extension MapView: CLLocationManagerDelegate {

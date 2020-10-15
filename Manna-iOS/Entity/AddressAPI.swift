@@ -15,6 +15,7 @@ protocol AddressFetchable {
 }
 private let key2AddressURL = "https://dapi.kakao.com/v2/local/search/keyword.json"
 private let coord2AddressURL = "https://dapi.kakao.com/v2/local/geo/coord2address.json"
+
 class AddressAPI: AddressFetchable {
     static private let headers: HTTPHeaders = [
         "Authorization": "KakaoAK ec74a28d28177a706155cb8af1fb7ec8"
