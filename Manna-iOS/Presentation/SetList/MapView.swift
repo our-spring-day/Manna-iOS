@@ -119,6 +119,187 @@ class MapView: UIViewController {
         return (y2-y1) / (x2-x1) * key + (y1 - ((y2-y1)/(x2-x1) * x1))
     }
     
+    func testAEquation(x1: Double, x2: Double, y1: Double, y2: Double, lng: Double, lat: Double) -> Bool {
+        var inclination = (y2-y1) / (x2-x1)
+        var constant = (y1 - ((y2-y1)/(x2-x1) * x1))
+        
+        print("이거왜 안탐",nmapFView.cameraPosition.heading)
+        
+        if nmapFView.cameraPosition.heading > 240 && nmapFView.cameraPosition.heading < 360 {
+            if lat < ((y2-y1) / (x2-x1) * lng + (y1 - ((y2-y1)/(x2-x1) * x1))) {
+                if inclination > 0 {
+                    
+                    return false
+                } else {
+                    return true
+                }
+            } else {
+                if inclination > 0 {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        }
+        
+        if nmapFView.cameraPosition.heading > 180 && nmapFView.cameraPosition.heading < 240 {
+            if lat < ((y2-y1) / (x2-x1) * lng + (y1 - ((y2-y1)/(x2-x1) * x1))) {
+                if inclination > 0 {
+                    
+                    return false
+                } else {
+                    return true
+                }
+            } else {
+                if inclination > 0 {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        }
+        
+        if nmapFView.cameraPosition.heading > 180 && nmapFView.cameraPosition.heading < 240 {
+            if lat < ((y2-y1) / (x2-x1) * lng + (y1 - ((y2-y1)/(x2-x1) * x1))) {
+                if inclination > 0 {
+                    
+                    return false
+                } else {
+                    return true
+                }
+            } else {
+                if inclination > 0 {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        }
+        
+        if nmapFView.cameraPosition.heading >= 60 && nmapFView.cameraPosition.heading < 120 {
+            if lat < ((y2-y1) / (x2-x1) * lng + (y1 - ((y2-y1)/(x2-x1) * x1))) {
+                if inclination > 0 {
+                    return true
+                } else {
+                    return true
+                }
+            } else {
+                if inclination > 0 {
+                    return false
+                } else {
+                    return false
+                }
+            }
+        }
+        
+        if nmapFView.cameraPosition.heading >= 120 && nmapFView.cameraPosition.heading < 180 {
+            if lat < ((y2-y1) / (x2-x1) * lng + (y1 - ((y2-y1)/(x2-x1) * x1))) {
+                if inclination > 0 {
+                    return true
+                } else {
+                    return true
+                }
+            } else {
+                if inclination > 0 {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        }
+        
+        if lat < ((y2-y1) / (x2-x1) * lng + (y1 - ((y2-y1)/(x2-x1) * x1))) {
+            if inclination > 0 {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            if inclination > 0 {
+                return false
+            } else {
+                return true
+            }
+        }
+    }
+    
+    func testBEquation(x1: Double, x2: Double, y1: Double, y2: Double, lng: Double, lat: Double) -> Bool {
+        var inclination = (y2-y1) / (x2-x1)
+        var constant = (y1 - ((y2-y1)/(x2-x1) * x1))
+        print(nmapFView.cameraPosition.heading)
+        
+        if nmapFView.cameraPosition.heading > 240 && nmapFView.cameraPosition.heading < 360 {
+            if lat < ((y2-y1) / (x2-x1) * lng + (y1 - ((y2-y1)/(x2-x1) * x1))) {
+                if inclination > 0 {
+                    
+                    return false
+                } else {
+                    return true
+                }
+            } else {
+                if inclination > 0 {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        }
+        
+        if nmapFView.cameraPosition.heading > 180 && nmapFView.cameraPosition.heading < 240 {
+            if lat < ((y2-y1) / (x2-x1) * lng + (y1 - ((y2-y1)/(x2-x1) * x1))) {
+                if inclination < 0 {
+                    print("1")
+                    return false
+                } else {
+                    print("2")
+                    return true
+                }
+            } else {
+                if inclination < 0 {
+                    print("3")
+                    return true
+                } else {
+                    print("4")
+                    return false
+                }
+            }
+        }
+        
+        if nmapFView.cameraPosition.heading >= 120 && nmapFView.cameraPosition.heading < 180 {
+            if lat < ((y2-y1) / (x2-x1) * lng + (y1 - ((y2-y1)/(x2-x1) * x1))) {
+                if inclination > 0 {
+                    return false
+                } else {
+                    return false
+                }
+            } else {
+                if inclination > 0 {
+                    return true
+                } else {
+                    return true
+                }
+            }
+        }
+        
+        if lat < ((y2-y1) / (x2-x1) * lng + (y1 - ((y2-y1)/(x2-x1) * x1))) {
+            if inclination < 0 {
+                print("1")
+                return true
+            } else {
+                print("2")
+                return false
+            }
+        } else {
+            if inclination < 0 {
+                print("3")
+                return false
+            } else {
+                print("4")
+                return true
+            }
+        }
+    }
+    
     func getLinearEquation(x1: Double, x2: Double, y1: Double, y2: Double)  -> [Double] {
         let inclination = ((y2-y1) / (x2-x1))
         let constant = (y1 - ((y2-y1)/(x2-x1) * x1))
@@ -135,8 +316,10 @@ class MapView: UIViewController {
                        frameLat2: Double) -> [Double] {
         //a1,b1
         var first = getLinearEquation(x1: centerLng, x2: targetLng, y1: centerLat, y2: targetLat)
+//        print("first",first)
         //a2,b2
         var second = getLinearEquation(x1: frameLng1, x2: frameLng2, y1: frameLat1, y2: frameLat2)
+//        print("second", second)
         
         if second[0].isInfinite {
             //x = b 일때 분기
@@ -198,8 +381,11 @@ class MapView: UIViewController {
             marker.position = NMGLatLng(lat: testTargetLat, lng: testTargetLng)
             marker.mapView = nmapFView
         } else {
-            if testTargetLat < getY(x1: southWest.lng, x2: northEast.lng, y1: southWest.lat, y2: northEast.lat, key: testTargetLng) {
-                if testTargetLat < getY(x1: northWest.lng, x2: southEast.lng, y1: northWest.lat, y2: southEast.lat, key: testTargetLng) {
+//            if testTargetLat < getY(x1: southWest.lng, x2: northEast.lng, y1: southWest.lat, y2: northEast.lat, key: testTargetLng) {
+            if testAEquation(x1: southWest.lng, x2: northEast.lng, y1: southWest.lat, y2: northEast.lat, lng: testTargetLng,lat: testTargetLat) {
+                
+//                if testTargetLat < getY(x1: northWest.lng, x2: southEast.lng, y1: northWest.lat, y2: southEast.lat, key: testTargetLng) {
+                if testBEquation(x1: northWest.lng, x2: southEast.lng, y1: northWest.lat, y2: southEast.lat, lng: testTargetLng, lat: testTargetLat) {
                     //밑
                     print("밑")
                     var newLatLng = getCrossPoint(centerLng: centerLng,
@@ -211,6 +397,7 @@ class MapView: UIViewController {
                                                  frameLng2: southEast.lng,
                                                  frameLat2: southEast.lat)
                     marker.position = NMGLatLng(lat: newLatLng[1], lng: newLatLng[0])
+                    print(newLatLng[1],newLatLng[0])
                     marker.mapView = nmapFView
                 } else {
                     //오른
@@ -224,10 +411,12 @@ class MapView: UIViewController {
                                                   frameLng2: southEast.lng,
                                                   frameLat2: southEast.lat)
                     marker.position = NMGLatLng(lat: newLatLng[1], lng: newLatLng[0])
+                    print(newLatLng[1],newLatLng[0])
                     marker.mapView = nmapFView
                 }
             } else {
-                if testTargetLat < getY(x1: northWest.lng, x2: southEast.lng, y1: northWest.lat, y2: southEast.lat, key: testTargetLng) {
+//                if testTargetLat < getY(x1: northWest.lng, x2: southEast.lng, y1: northWest.lat, y2: southEast.lat, key: testTargetLng) {
+                if testBEquation(x1: northWest.lng, x2: southEast.lng, y1: northWest.lat, y2: southEast.lat, lng: testTargetLng, lat: testTargetLat){
                     //왼
                     print("왼")
                     var newLatLng = getCrossPoint(centerLng: centerLng,
@@ -239,6 +428,7 @@ class MapView: UIViewController {
                                                   frameLng2: southWest.lng,
                                                   frameLat2: southWest.lat)
                     marker.position = NMGLatLng(lat: newLatLng[1], lng: newLatLng[0])
+                    print(newLatLng[1],newLatLng[0])
                     marker.mapView = nmapFView
                 } else {
                     //위
@@ -253,7 +443,7 @@ class MapView: UIViewController {
                                                   frameLat2: northEast.lat)
                     
 //                    nmapFView.projection.latlng(from: CGPoint(x: 0, y: view.bounds.minY + marker.height)).lat
-                    
+                    print(newLatLng[1],newLatLng[0])
                     
 //                    print("교차",(newLatLng[1] - nmapFView.projection.latlng(from: CGPoint(x: 0, y: marker.height)).lat))
 //                    print("센터",centerLat)
