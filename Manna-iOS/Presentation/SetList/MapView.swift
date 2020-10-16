@@ -194,13 +194,11 @@ class MapView: UIViewController {
         if nmapFView.projection.point(from: NMGLatLng(lat: testTargetLat, lng: testTargetLng)).x < view.frame.width &&
             0 < nmapFView.projection.point(from: NMGLatLng(lat: testTargetLat, lng: testTargetLng)).x &&
             nmapFView.projection.point(from: NMGLatLng(lat: testTargetLat, lng: testTargetLng)).y < view.frame.height &&
-            0 < nmapFView.projection.point(from: NMGLatLng(lat: testTargetLat, lng: testTargetLng)).y
-            {
+            0 < nmapFView.projection.point(from: NMGLatLng(lat: testTargetLat, lng: testTargetLng)).y {
             marker.position = NMGLatLng(lat: testTargetLat, lng: testTargetLng)
             marker.mapView = nmapFView
         } else {
             if testTargetLat < getY(x1: southWest.lng, x2: northEast.lng, y1: southWest.lat, y2: northEast.lat, key: testTargetLng) {
-                print("A보다 밑이야")
                 if testTargetLat < getY(x1: northWest.lng, x2: southEast.lng, y1: northWest.lat, y2: southEast.lat, key: testTargetLng) {
                     //밑
                     print("밑")
@@ -229,8 +227,6 @@ class MapView: UIViewController {
                     marker.mapView = nmapFView
                 }
             } else {
-                //A 보다 위야
-                print("A보다 위야")
                 if testTargetLat < getY(x1: northWest.lng, x2: southEast.lng, y1: northWest.lat, y2: southEast.lat, key: testTargetLng) {
                     //왼
                     print("왼")
@@ -255,7 +251,14 @@ class MapView: UIViewController {
                                                   frameLat1: northWest.lat,
                                                   frameLng2: northEast.lng,
                                                   frameLat2: northEast.lat)
-                    marker.position = NMGLatLng(lat: newLatLng[1], lng: newLatLng[0])
+                    
+//                    nmapFView.projection.latlng(from: CGPoint(x: 0, y: view.bounds.minY + marker.height)).lat
+                    
+                    
+//                    print("교차",(newLatLng[1] - nmapFView.projection.latlng(from: CGPoint(x: 0, y: marker.height)).lat))
+//                    print("센터",centerLat)
+//                    print("예상",nmapFView.projection.latlng(from: CGPoint(x: 0, y: marker.height)).lat)
+                    marker.position = NMGLatLng(lat: newLatLng[1] - (newLatLng[1] - nmapFView.projection.latlng(from: CGPoint(x: 0, y: marker.height)).lat), lng: newLatLng[0])
                     marker.mapView = nmapFView
                 }
             }
