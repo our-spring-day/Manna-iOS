@@ -38,13 +38,6 @@ class DurringMeetingCollectionView: UICollectionView {
         self.register(CheckedFriendCell.self, forCellWithReuseIdentifier: CheckedFriendCell.identifier)
     }
     
-    
-    
-    
-    
-    
-    
-    
     func layout() {
         self.snp.makeConstraints {
             $0.width.equalTo(400)

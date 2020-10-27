@@ -72,6 +72,9 @@ class NotiListViewController: UIViewController {
     
     func bind() {
         //친구목록을 뿌려주고 이때 체크플래그를 확인하고 맞는 이미지를 할당
+        
+        
+        
         inviteFriendsViewModel.outputs.friendList
             .bind(to: tableView.baseTableView.rx.items(cellIdentifier: FriendListCell.identifier, cellType: FriendListCell.self)) { (_: Int, element: User, cell: FriendListCell) in
                 cell.friendIdLabel.text = element.name
@@ -83,6 +86,10 @@ class NotiListViewController: UIViewController {
                 }
         }.disposed(by: disposeBag)
         
+        
+        
+        
+        
         //체크된 친구목록을 뿌려줌
         inviteFriendsViewModel.outputs.checkedFriendList
             .bind(to: self.collectionView.baseCollectionView.rx.items(cellIdentifier: CheckedFriendCell.identifier, cellType: CheckedFriendCell.self)) { (_: Int, element: User, cell: CheckedFriendCell) in
@@ -91,6 +98,9 @@ class NotiListViewController: UIViewController {
                     self.view.layoutIfNeeded()
                 }
         }.disposed(by: self.disposeBag)
+        
+        
+        
         
         //테이블 뷰에서 선택한 친구를 뷰모델에 바인딩
         tableView.baseTableView.rx.modelSelected(User.self)

@@ -24,11 +24,15 @@ extension BottomSheetViewController {
 class BottomSheetViewController: UIView {
     let disposeBag = DisposeBag()
     var collectionView: DurringMeetingCollectionView?
-    var standardY = CGFloat(0)
     var viewModel: DurringMeetingViewModel?
-    var startTextField = UITextField()
-    var arriveTextField = UITextField()
+    var backgroundView = UIImageView()
+    var standardY = CGFloat(0)
+    var expectArrivedTime = UILabel()
+    var arriveTextField = UILabel()
+    var remainingTimeLabel = UILabel()
+    var remmainingTime = UILabel()
     var doneButton = UIButton()
+    var bar = UIImageView()
     
     init(frame: CGRect, viewModel: DurringMeetingViewModel) {
         super.init(frame: frame)
@@ -89,55 +93,76 @@ class BottomSheetViewController: UIView {
         self.do {
             $0.layer.cornerRadius = 20
             $0.clipsToBounds = true
+        }
+        bar.do {
+            $0.image = #imageLiteral(resourceName: "bottomsheetbar")
+        }
+        backgroundView.do {
+            $0.image = #imageLiteral(resourceName: "bottomsheet")
             $0.addGestureRecognizer(gesture)
+            $0.isUserInteractionEnabled = true
+        }
+        remainingTimeLabel.do {
+            $0.text = "남은 시간"
+            $0.font = UIFont.boldSystemFont(ofSize: 16)
+            $0.textColor = .gray
+        }
+        remmainingTime.do {
+            $0.text = "50:12"
+            $0.font = UIFont.boldSystemFont(ofSize: 20)
+            $0.textColor = UIColor(named: "keyColor")
         }
         collectionView = DurringMeetingCollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         collectionView?.do {
-            $0.backgroundColor = .red
+            $0.backgroundColor = .white
         }
-        startTextField.do {
-            $0.placeholder = "출발지"
-        }
-        arriveTextField.do {
-            $0.placeholder = "도착지"
-        }
-        doneButton.do {
-            $0.setTitle("확인", for: .normal)
-            $0.backgroundColor = .blue
+        expectArrivedTime.do {
+            $0.text = "예상 도착 순위"
+            $0.font = UIFont.boldSystemFont(ofSize: 20)
         }
     }
     func layout() {
-        addSubview(collectionView!)
-        addSubview(startTextField)
-        addSubview(arriveTextField)
-        addSubview(doneButton)
+        addSubview(backgroundView)
+        [collectionView!, expectArrivedTime, bar, remainingTimeLabel, remmainingTime].forEach { backgroundView.addSubview($0) }
         
+        backgroundView.snp.makeConstraints {
+            $0.top.leading.trailing.bottom.equalToSuperview()
+        }
+        expectArrivedTime.snp.makeConstraints {
+            $0.top.leading.equalTo(self).offset(30)
+            $0.width.equalTo(200)
+            $0.height.equalTo(20)
+        }
         collectionView?.snp.makeConstraints {
-            $0.top.width.centerX.equalTo(self)
-        }
-        startTextField.snp.makeConstraints {
-            $0.top.equalTo(collectionView?.snp.bottom as! ConstraintRelatableTarget).offset(10)
+            $0.top.equalTo(expectArrivedTime.snp.bottom)
             $0.width.centerX.equalTo(self)
+            $0.leading.equalTo(self).offset(30)
         }
-        arriveTextField.snp.makeConstraints {
-            $0.top.equalTo(startTextField.snp.bottom as! ConstraintRelatableTarget).offset(10)
-            $0.width.centerX.equalTo(self)
+        remainingTimeLabel.snp.makeConstraints {
+            $0.trailing.equalTo(self).offset(-70)
+            $0.width.equalTo(70)
+            $0.centerY.equalTo(expectArrivedTime.snp.centerY)
+            $0.height.equalTo(20)
         }
-        doneButton.snp.makeConstraints {
-            $0.top.equalTo(arriveTextField.snp.bottom as! ConstraintRelatableTarget).offset(10)
-            $0.width.centerX.equalTo(self)
+        remmainingTime.snp.makeConstraints {
+            $0.centerY.equalTo(expectArrivedTime.snp.centerY)
+            $0.leading.equalTo(remainingTimeLabel.snp.trailing)
+            $0.width.equalTo(70)
+            $0.height.equalTo(20)
+        }
+        bar.snp.makeConstraints {
+            $0.top.equalTo(self.snp.top).offset(11.5)
+            $0.centerX.equalTo(self)
+            $0.width.equalTo(60)
+            $0.height.equalTo(2.94)
         }
     }
     func bind() {
         self.viewModel?.meetingInfo.asObservable()
             .bind(to: (collectionView?.rx.items(cellIdentifier: CheckedFriendCell.identifier,cellType: CheckedFriendCell.self))!) {(_: Int, element: TempPeopleStruct, cell: CheckedFriendCell) in
-                cell.profileImage.image = UIImage(named: "Image-2")
-            }
-        doneButton.rx.tap
-            .map { [self.startTextField.text, self.arriveTextField.text] }
-            .debug("???")
-            .subscribe(onNext: {
-                print($0)
-            }).disposed(by: disposeBag)
+                cell.profileImage.image = #imageLiteral(resourceName: "profile")
+                cell.XImage.isHidden = true
+            }.disposed(by: disposeBag)
     }
 }
+

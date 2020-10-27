@@ -38,6 +38,7 @@ class SetListViewController: UIViewController {
     
     @objc func goToMapView() {
         let mapView = MapView()
+        mapView.modalPresentationStyle = .fullScreen
         self.present(mapView, animated: true, completion: nil)
     }
 }

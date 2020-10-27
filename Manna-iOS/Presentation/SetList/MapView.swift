@@ -124,24 +124,22 @@ class MapView: UIViewController {
         var constant = (y1 - ((y2-y1)/(x2-x1) * x1))
         
         print("이거왜 안탐",nmapFView.cameraPosition.heading)
-        
-        if nmapFView.cameraPosition.heading > 240 && nmapFView.cameraPosition.heading < 360 {
-            if lat < ((y2-y1) / (x2-x1) * lng + (y1 - ((y2-y1)/(x2-x1) * x1))) {
-                if inclination > 0 {
-                    
-                    return false
-                } else {
-                    return true
-                }
-            } else {
-                if inclination > 0 {
-                    return true
-                } else {
-                    return false
-                }
-            }
-        }
-        
+//        if nmapFView.cameraPosition.heading > 240 && nmapFView.cameraPosition.heading < 360 {
+//            if lat < ((y2-y1) / (x2-x1) * lng + (y1 - ((y2-y1)/(x2-x1) * x1))) {
+//                if inclination > 0 {
+//
+//                    return true
+//                } else {
+//                    return false
+//                }
+//            } else {
+//                if inclination > 0 {
+//                    return false
+//                } else {
+//                    return true
+//                }
+//            }
+//        }
         if nmapFView.cameraPosition.heading > 180 && nmapFView.cameraPosition.heading < 240 {
             if lat < ((y2-y1) / (x2-x1) * lng + (y1 - ((y2-y1)/(x2-x1) * x1))) {
                 if inclination > 0 {
